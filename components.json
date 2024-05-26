@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "default",
+  "rsc": false,
+  "tailwind": {
+    "config": "wmc-utils/tailwind.config.js",
+    "css": "wmc-utils/global.css",
+    "baseColor": "neutral",
+    "cssVariables": true
+  },
+  "aliases": {
+    "components": "@writeme/wmc",
+    "utils": "@writeme/wmc-utils"
+  }
+}
