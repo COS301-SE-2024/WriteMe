@@ -74,16 +74,20 @@
 ### Story Creation
 
 <ol className="srs-bullets">
-  <li>The user must be able to create their own stories:
+  <li>Users must be able to create their own stories:
     <ol className='srs-bullets'>
-      <li>Users should be able to publish their story</li>
-      <li>Users should be able to add a title to their story</li>
-      <li>Text area for users to write the main content of the story</li>
+      <li>Users must be able to publish their story</li>
+      <li>Users must be able to save their story to a draft</li>
       <li>Users must be able to edit their stories</li>
       <li>Genre selection</li>
-      <li>Cover image</li>
     </ol>
-  
+  </li>
+  <li>Metadata:
+    <ol className='srs-bullets'>
+      <li>Users must be able to add a title to their story</li>
+      <li>Editor for users to write the main content of their story</li>
+      <li>Able to select a cover image</li>
+    </ol>
   </li>
 </ol>
 
