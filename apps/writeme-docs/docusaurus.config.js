@@ -24,13 +24,13 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/COS301-SE-2024/WriteMe/tree/feat/docs-edits/apps/writeme-docs/docs',
+          editUrl: 'https://github.com/COS301-SE-2024/WriteMe/tree/feat/docs-edits/apps/writeme-docs/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            'https://github.com/COS301-SE-2024/WriteMe/tree/feat/docs-edits/apps/writeme-docs/blog',
+            'https://github.com/COS301-SE-2024/WriteMe/tree/feat/docs-edits/apps/writeme-docs/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
