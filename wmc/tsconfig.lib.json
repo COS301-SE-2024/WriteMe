@@ -6,7 +6,8 @@
       "node",
       "@nx/react/typings/cssmodule.d.ts",
       "@nx/react/typings/image.d.ts",
-      "vite/client"
+      "next",
+      "@nx/next/typings/image.d.ts"
     ]
   },
   "exclude": [
@@ -20,7 +21,9 @@
     "src/**/*.spec.jsx",
     "src/**/*.test.jsx",
     "**/*.stories.ts",
-    "**/*.stories.js"
+    "**/*.stories.js",
+    "**/*.stories.jsx",
+    "**/*.stories.tsx"
   ],
   "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"]
 }

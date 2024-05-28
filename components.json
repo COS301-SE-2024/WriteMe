@@ -3,13 +3,13 @@
   "style": "default",
   "rsc": false,
   "tailwind": {
-    "config": "wmc-utils/tailwind.config.js",
-    "css": "wmc-utils/global.css",
+    "config": "apps/writeme/tailwind.config.js",
+    "css": "apps/writeme/app/global.css",
     "baseColor": "neutral",
     "cssVariables": true
   },
   "aliases": {
-    "components": "@writeme/wmc",
-    "utils": "@writeme/wmc-utils"
+    "components": "@writeme/wmc/lib",
+    "utils": "@writeme/wmc/utils"
   }
 }

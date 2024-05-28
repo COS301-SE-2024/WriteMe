@@ -49,3 +49,5 @@ out
 .cache-loader/
 
 storybook-static
+
+# webstorm pnpm linker
