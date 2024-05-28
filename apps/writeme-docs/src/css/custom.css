@@ -28,3 +28,16 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+.srs-bullets > li {
+  counter-increment: srs-item;
+}
+
+.srs-bullets li::marker {
+  content: 'R' counters(srs-item, '.') ': ';
+}
+
+.srs-bullets ol {
+  counter-reset: srs-item;
+  margin-top: 0.75rem;
+}
