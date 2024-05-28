@@ -8,22 +8,24 @@
       <li>Using a sign up form. The form should gather the following:
         <ol className="srs-bullets">
           <li>Email address. Does not require email authentication.</li>
-          <li>Birthday</li>
+          <li>Date of birth</li>
           <li>Password</li>
+          <li>Username</li>
         </ol>
        </li>
       <li>Using existing platforms:
         <ol className="srs-bullets">
           <li>Google</li>
-          <li>Facebook</li>
+          <li>Apple?</li>
+          <li>Github?</li>
         </ol>
       </li>
       <li> After signing up, the system must obtain the following from the user:
         <ol className="srs-bullets">
           <li>Gender</li>
+          <li>Name and Surname?</li>
           <li>Language</li>
-          <li>Location</li>
-          <li>Interests based in predefined categories</li>
+          <li>Interests based in predefined categories?</li>
         </ol>
       </li>
     </ol>
@@ -44,7 +46,8 @@
       <li>Using existing platforms
         <ol className="srs-bullets">
           <li>Using Google</li>
-          <li>Using Facebook</li>
+          <li>Using Apple?</li>
+          <li>Using Github?</li>
         </ol>
       </li>
       <li>The user must be able to select “forgot password’
@@ -60,13 +63,13 @@
 ### Authorization
 
 <ol className="srs-bullets">
-  <li>The system must provide an "Explore page" for users that are not signed up. The page allows the user to view posts</li>
   <li>The system must provide functionality that is specific to users that are singed up:
     <ol className="srs-bullets">
-      <li>Access to the board system</li>
-      <li>Access to the recommendation system. The access is implicit (i.e. the user doesn't directly interact with the system)</li>
       <li>Access to account management</li>
-      <li>Access to the social interaction system</li>
+      <li>Access to reading other stories</li>
+      <li>Access to writing stories</li>
+      <li>Access to the recommendation system. The access is implicit (i.e. the user doesn't directly interact with the system)</li>
+      <li>Access to the social interaction system(following?)(liking?)</li>
     </ol>
   </li>
 </ol>
