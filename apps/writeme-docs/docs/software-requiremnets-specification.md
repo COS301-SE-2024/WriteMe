@@ -91,15 +91,13 @@
   </li>
 </ol>
 
-
-
-
 ### Viewing Stories
+
 <ol className="srs-bullets">
   <li>Users must be able to view other stories:
     <ol className='srs-bullets'>
-      <li>Stories can be displayed in as thumbnails with the cover image, title and author</li>
-      <li>Stories can be displayed in as lists with more detailed information such as a short description, genre or publication date</li>
+      <li>Stories can be displayed as thumbnails with the cover image, title and author</li>
+      <li>Stories can be displayed as lists with more detailed information such as a short description, genre or publication date</li>
     </ol>
   </li>
   <li>Story filters
