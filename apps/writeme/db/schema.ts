@@ -9,7 +9,7 @@ import postgres from 'postgres';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import type { AdapterAccountType } from 'next-auth/adapters';
 
-const pool = postgres('postgres://username:password@host:port/database', {
+export const connection = postgres('postgres://username:password@localhost:5432/database', {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
@@ -17,7 +17,7 @@ const pool = postgres('postgres://username:password@host:port/database', {
   max: 1
 });
 
-export const db = drizzle(pool);
+export const db = drizzle(connection);
 
 export const users = pgTable('user', {
   id: text('id')
@@ -74,4 +74,11 @@ export const verificationTokens = pgTable(
   })
 );
 
-export const stories = pgTable('story', {});
+export const stories = pgTable('story', {
+  id: serial('id').primaryKey(),
+  userId: text('user_id').references(() => users.id).notNull(),
+  title: varchar('title', { length: 255 }).notNull(),
+  content: text('content').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
