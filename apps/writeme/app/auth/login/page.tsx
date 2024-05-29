@@ -61,6 +61,9 @@ export default function LoginForm() {
             <Button variant="outline" className="w-full">
               Login with Google
             </Button>
+            <Button variant="outline" className="w-full">
+              Login with GitHub
+            </Button>
           </div>
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}

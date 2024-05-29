@@ -1,7 +1,0 @@
-{
-	"dependencies": {
-		"@blocknote/core": "^0.13.4",
-		"@blocknote/react": "^0.13.4",
-		"@blocknote/mantine": "^0.13.4"
-	}
-}
