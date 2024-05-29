@@ -104,7 +104,7 @@
   </li>
 </ol>
 
-### Explore Page*
+### Explore Page\*
 
 <ol className="srs-bullets">
   <li>Users must be able to view other stories:
@@ -129,8 +129,6 @@
   </li>
 </ol>
 
-
-
 ## Use Case Diagrams
 
 ### Authentication System
@@ -141,6 +139,6 @@
 
 ![Story Creation System](./images/StoryCreationUseCase.jpg)
 
-<!-- ### View Story System
+### View Story System
 
-![View Story System](./images/ViewStoryUseCase.jpg) -->
+![View Story System](./images/ViewStoryUseCase.jpg)
