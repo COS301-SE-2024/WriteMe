@@ -4,6 +4,5 @@
   "sourceRoot": "apps/writeme",
   "projectType": "application",
   "tags": [],
-  "// targets": "to see all targets run: nx show project writeme --web",
   "targets": {}
 }
