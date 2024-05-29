@@ -97,9 +97,9 @@
   <li>Users must be able to view a single story
     <ol className='srs-bullets'>
       <li>Able to view a story on click</li>
-      <li>Able to like a post</li>
-      <li>Able to share a post</li>
-      <li>Able to comment on a post</li>
+      <li>Able to like a story</li>
+      <li>Able to share a story</li>
+      <li>Able to comment on a story</li>
     </ol>
   </li>
 </ol>
