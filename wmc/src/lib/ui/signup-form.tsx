@@ -9,20 +9,76 @@ import {
 } from "@tabler/icons-react";
 
 import {useRouter, useSearchParams} from 'next/navigation';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { CreateUserInput, createUserSchema} from '../../../../apps/writeme/db/user-schema';
+import { signIn } from 'next-auth/react';
+import { useToast } from '@writeme/wmc/lib/ui/use-toast';
 
 
 export function SignupFormDemo() {
+  
   const router = useRouter();
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || '/myworks';
+  const { toast } = useToast();
 
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form submitted");
+  const methods = useForm<CreateUserInput>({
+    resolver: zodResolver(createUserSchema),
+  });
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = methods;
+
+  const onSubmitHandler: SubmitHandler<CreateUserInput> = async (values) => {
+    try {
+      setSubmitting(true);
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        body: JSON.stringify(values),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+
+        if (Array.isArray(errorData.errors) && errorData.errors.length > 0) {
+          errorData.errors.forEach((error: any) => {
+            toast({
+              title: error.message,
+              variant: 'destructive'
+            })
+          });
+
+          return;
+        }
+
+        toast({
+          title: errorData.message,
+          variant: 'destructive'
+        })
+        return;
+      }
+
+      signIn('credentials', { callbackUrl: '/myworks' });
+    } catch (error: any) {
+      toast({
+        title: error.message,
+        variant: 'destructive'
+      })
+    } finally {
+      setSubmitting(false);
+    }
   };
+
   return (
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
@@ -32,20 +88,20 @@ export function SignupFormDemo() {
         Sign up to WriteMe to begin your journey today.
       </p>
 
-      <form className="my-8" onSubmit={handleSubmit}>
+      <form className="my-8" onSubmit={handleSubmit(onSubmitHandler)}>
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
-            <Label htmlFor="fullname">Full Name</Label>
-            <Input id="fullname" placeholder="Name" type="text" />
+            <Label htmlFor="name">Full Name</Label>
+            <Input id="name" placeholder="Name" type="text" {...register('name')}/>
           </LabelInputContainer>
         </div>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="email@example.com" type="email" />
+          <Input id="email" placeholder="email@example.com" type="email" {...register("email")}/>
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
+          <Input id="password" placeholder="••••••••" type="password" {...register("password")} />
         </LabelInputContainer>
         <LabelInputContainer className="mb-8">
           <Label htmlFor="confirm-password">Confirm Password</Label>
@@ -53,6 +109,7 @@ export function SignupFormDemo() {
             id="confirm-password"
             placeholder="••••••••"
             type="password"
+            {...register("passwordConfirm")}
           />
         </LabelInputContainer>
 
@@ -70,6 +127,9 @@ export function SignupFormDemo() {
           <button
             className=" relative group/btn flex space-x-2 items-center justify-center px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             type="submit"
+            onClick={() => signIn('github', {
+              callbackUrl
+            })}
           >
             <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">
@@ -80,6 +140,9 @@ export function SignupFormDemo() {
           <button
             className=" relative group/btn text-center flex space-x-2 items-center justify-center px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             type="submit"
+            onClick={() => {
+              signIn('google', {callbackUrl})
+            }}
           >
             <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">

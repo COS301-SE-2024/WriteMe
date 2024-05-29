@@ -8,19 +8,9 @@ import {
   varchar,
   serial
 } from 'drizzle-orm/pg-core';
-import postgres from 'postgres';
-import { drizzle } from 'drizzle-orm/postgres-js';
+
 import type { AdapterAccountType } from 'next-auth/adapters';
 
-export const connection = postgres('postgres://username:password@localhost:5432/database', {
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  max: 1
-});
-
-export const db = drizzle(connection);
 
 // @ts-ignore
 export const users = pgTable('user', {
@@ -104,7 +94,8 @@ export const comments = pgTable('comments', {
 // @ts-ignore
 export const likes = pgTable('likes', {
   id: serial('id').primaryKey(),
-  storyId: text('essay_id').references(() => stories.id).notNull(),
+  storyId: text('story_id').references(() => stories.id).notNull(),
   userId: text('user_id').references(() => users.id).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
+

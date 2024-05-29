@@ -4,7 +4,8 @@ import google from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import { db } from "./db/schema";
+import { db } from "./db/db"
+import { isNotNull } from "drizzle-orm";
 
 // @ts-ignore
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -14,7 +15,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     signIn: "/auth/login",
   },
   providers: [
-    github({ allowDangerousEmailAccountLinking: true }),
+    github({ 
+      allowDangerousEmailAccountLinking: true,
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET
+    }),
     google({ allowDangerousEmailAccountLinking: true }),
     CredentialsProvider({
       name: "Sign in",
@@ -28,18 +33,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
+        
         if (!credentials?.email || !credentials.password) {
           return null;
         }
 
         const user = await db.query.users.findFirst({
-          where: (users, { eq }) => eq(users.email, String(credentials.email)),
+          where: (users, { eq }) => eq(users.email, String(credentials.email) && isNotNull(users.password)),
         });
 
         if (
           !user ||
           !(await bcrypt.compare(String(credentials.password), user.password!))
         ) {
+          
           return null;
         }
 
@@ -56,13 +63,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      const paths = ["/profile", "/client-side", "/api/session"];
+      const paths = ["/myworks", "/client-side", "/api/session"];
       const isProtected = paths.some((path) =>
         nextUrl.pathname.startsWith(path)
       );
 
       if (isProtected && !isLoggedIn) {
-        const redirectUrl = new URL("/login", nextUrl.origin);
+        const redirectUrl = new URL("/auth/login", nextUrl.origin);
         redirectUrl.searchParams.append("callbackUrl", nextUrl.href);
         return Response.redirect(redirectUrl);
       }
