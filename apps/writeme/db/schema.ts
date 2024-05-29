@@ -1,9 +1,12 @@
+//
 import {
   timestamp,
   pgTable,
   text,
   primaryKey,
-  integer
+  integer,
+  varchar,
+  serial
 } from 'drizzle-orm/pg-core';
 import postgres from 'postgres';
 import { drizzle } from 'drizzle-orm/postgres-js';
@@ -19,6 +22,7 @@ export const connection = postgres('postgres://username:password@localhost:5432/
 
 export const db = drizzle(connection);
 
+// @ts-ignore
 export const users = pgTable('user', {
   id: text('id')
     .primaryKey()
@@ -27,9 +31,9 @@ export const users = pgTable('user', {
   email: text('email').notNull(),
   emailVerified: timestamp('emailVerified', { mode: 'date' }),
   image: text('image')
-
 });
 
+// @ts-ignore
 export const accounts = pgTable(
   'account',
   {
@@ -54,6 +58,7 @@ export const accounts = pgTable(
   })
 );
 
+// @ts-ignore
 export const sessions = pgTable('session', {
   sessionToken: text('sessionToken').primaryKey(),
   userId: text('userId')
@@ -62,6 +67,7 @@ export const sessions = pgTable('session', {
   expires: timestamp('expires', { mode: 'date' }).notNull()
 });
 
+// @ts-ignore
 export const verificationTokens = pgTable(
   'verificationToken',
   {
@@ -74,11 +80,30 @@ export const verificationTokens = pgTable(
   })
 );
 
+// @ts-ignore
 export const stories = pgTable('story', {
-  id: serial('id').primaryKey(),
+  id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   userId: text('user_id').references(() => users.id).notNull(),
   title: varchar('title', { length: 255 }).notNull(),
   content: text('content').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
+// @ts-ignore
+export const comments = pgTable('comments', {
+  id: serial('id').primaryKey(),
+  storyId: text('story_id').references(() => stories.id).notNull(),
+  userId: text('user_id').references(() => users.id).notNull(),
+  content: text('content').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+// Likes table
+// @ts-ignore
+export const likes = pgTable('likes', {
+  id: serial('id').primaryKey(),
+  storyId: text('essay_id').references(() => stories.id).notNull(),
+  userId: text('user_id').references(() => users.id).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
 });
