@@ -51,3 +51,5 @@ apps/writeme/.env.local
 .cache-loader/
 
 storybook-static
+
+# webstorm pnpm linker
