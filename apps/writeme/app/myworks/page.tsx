@@ -16,10 +16,9 @@ export interface MyworksProps {}
 export default function Myworks(props: MyworksProps) {
   return (
     <div className={styles['container']}>
-      <div className='grid grid-cols-1 gap-4'>
-        <h1 className='font-bold text-[40px]'>My Stories</h1>
+      <h1 className='font-bold text-[40px]'>My Stories</h1>
+      <div className='grid grid-cols-1 gap-4 justify-items-center'>
         <Card className='w-1/2'>
-          <Trash2 className='cursor-pointer float-right p-5' size={70}/>
           <CardHeader>
             <div className='flex'>
               <div className='relative aspect-[3/4] h-40'>
@@ -41,6 +40,7 @@ export default function Myworks(props: MyworksProps) {
               </div>
             </div>
           </CardHeader>
+          {/* <Trash2 className='cursor-pointer p-5' size={70}/> */}
         </Card>
       </div>
     </div>
