@@ -129,6 +129,67 @@
   </li>
 </ol>
 
+## Architectural Requirements
+### Quality Requirements
+
+<ol className="srs-bullets">
+  <li>Security
+    <ol className='srs-bullets'>
+      <li>Users can only access an account by entering the correct email and password</li>
+      <li>Passwords will be stored, salt added and hashed</li>
+      <li>Users cannot create an account until they have given a strong password</li>
+    </ol>
+  </li>
+  <li>Compatibility
+    <ol className='srs-bullets'>
+      <li>The app will be able to function across a variety of devices, web browsers and operating systems</li>
+    </ol>
+  </li>
+  <li>Reliability
+    <ol className='srs-bullets'>
+      <li>Testing and Performance
+        <ol className='src-bullets'>
+          <li>Thorough testing procedures using unit tests, integration tests and system tests to identify bugs before deployment.</li>
+          <li>Use of automated testing tools such as Google lighthouse to test the systems performance and functionality.</li>
+          <li>The app must peform consistenly at all times.</li>
+          <li>The app must implement robust error handling mechanisms.</li>
+        </ol>
+      </li>
+      <li>Data Accuracy and Consistency
+        <ol className='src-bullets'>
+          <li>Implement data validation mechanisms to ensure that user input is accurate and consistent.</li>
+          <li>Enforce data validation rules and constraints at the application level to prevent invalid or incomplete data from entering the system.</li>
+          <li>Use transaction management techniques to maintain data integrity and consistency, such as atomicity, consistency, isolation, and durability (ACID) properties in database operations.</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li>Efficiency
+    <ol className='srs-bullets'>
+      <li>The app will need to be fast and responsive</li>
+      <li>The app will not have unneccesary overhead that can cause delays</li>
+      <li>The app will need to have minimal load times and retrieval processes</li>
+    </ol>
+  </li>
+  <li>Usability
+    <ol className='srs-bullets'>
+      <li>Clear and Intuitive Interface
+        <ol className='srs-bullets'>
+          <li>Simplify the interface by removing unnecessary clutter and organising information logically and intuitively.</li>
+          <li>Use consistent design patterns and terminology throughout the platform to reduce cognitive load and improve user comprehension.</li>
+          <li>Provide clear visual cues, such as buttons, icons, and labels, to guide users through the interface and indicate interactive elements.</li>
+        </ol>
+      </li>
+      <li>User-Friendly Navigation
+        <ol className='srs-bullets'>
+          <li>Design an intuitive navigation structure that allows users to easily find and access the platform's features and functionalities.</li>
+          <li>Use hierarchical menu structures, breadcrumbs, and navigation bars to provide clear pathways for users to navigate between different sections of the platform.</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+</ol>
+
 ## Use Case Diagrams
 
 ### Authentication System
