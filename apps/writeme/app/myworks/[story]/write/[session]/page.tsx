@@ -1,16 +1,14 @@
-"use client";
-import "@blocknote/core/fonts/inter.css";
-import { useCreateBlockNote } from "@blocknote/react";
-import { BlockNoteView } from "@blocknote/mantine";
-import "@blocknote/mantine/style.css";
 /* eslint-disable-next-line */
 export interface MyworksProps {}
 
+import dynamic from "next/dynamic";
+
+const Editor = dynamic(() => import("@writeme/wmc/lib/ui/editor"), { ssr: false });
+
 export default function Myworks(props: MyworksProps) {
-  const editor = useCreateBlockNote();
   return (
     <div >
-        <BlockNoteView editor={editor} />
+      <Editor></Editor>
     </div>
   );
 }
