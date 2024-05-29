@@ -91,6 +91,46 @@
   </li>
 </ol>
 
+### Viewing stories
+
+<ol className="srs-bullets">
+  <li>Users must be able to view a single story
+    <ol className='srs-bullets'>
+      <li>Able to view a story on click</li>
+      <li>Able to like a post</li>
+      <li>Able to share a post</li>
+      <li>Able to comment on a post</li>
+    </ol>
+  </li>
+</ol>
+
+### Explore Page*
+
+<ol className="srs-bullets">
+  <li>Users must be able to view other stories:
+    <ol className='srs-bullets'>
+      <li>Stories can be displayed as thumbnails with the cover image, title and author</li>
+      <li>Stories can be displayed as lists with more detailed information such as a short description, genre or publication date</li>
+    </ol>
+  </li>
+  <li>Story filters
+    <ol className='srs-bullets'>
+      <li>Allow users to filter stories by genre</li>
+      <li>Allow users to filter stories by popularity</li>
+      <li>Allow users to filter stories by most recently published</li>
+    </ol>
+  </li>
+  <li>Search functionality
+    <ol className='srs-bullets'>
+      <li>Allow users to search stories by title</li>
+      <li>Allow users to search stories by author</li>
+      <li>Allow users to search stories with keywords</li>
+    </ol>
+  </li>
+</ol>
+
+
+
 ## Use Case Diagrams
 
 ### Authentication System
