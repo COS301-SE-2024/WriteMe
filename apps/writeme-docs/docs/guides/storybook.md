@@ -57,4 +57,4 @@ export const DefaultNavBar = {
 
 - Assuming you have the storybook server running locally, you should now see you component's story and and sub variants.
 
-![storybook example](../assets/storybook/storybook%20example.webp)
+

@@ -34,10 +34,10 @@ issues should be opened for 3 reasons.
 2. You need to create a "feature" branch off of `dev`, in which you work on your issue.
 
     - In VS Code:
-    ![switch to dev](../assets/contribution/branching1.webp)
+    
     - Now sync remote changes to dev, to our local dev branch
 
-    ![sync remote changes](../assets/contribution/branching2.webp)
+    
 
     - Since we now have an up-to-date local dev branch, create a feature branch off of it. (Click `dev` and refer to "3." for the first image).
 
@@ -47,7 +47,7 @@ issues should be opened for 3 reasons.
 
 4. Once you would like to "save you progress" or have completed a task. Select appropriate changed files and commit your code.
 Commit messages should follow [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)
-![commit example](../assets/contribution/commit%20eg.webp)
+
 
 5. Once commit you can choose to push or publish to Github.
 
@@ -55,12 +55,12 @@ Commit messages should follow [conventional commits](https://www.conventionalcom
     This is very helpful when switching between computers or for pair programming.
     :::
 
-    ![push branch](../assets/contribution/push%20branch.webp)
+
 
 6. Once you have completed your feature and think your code is ready for production. Push any remaining commits to your branch. And then go find you branch on GitHub, to **open a pull request**.
 
     - Find and open you branch on GitHub
-    ![find branch](../assets/contribution/pr%201.webp)
+
 
     - Contribute -> Open Pull Request
     ![open pr](../assets/contribution/pr%202.webp)

@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'WriteMe Docs',
   tagline: 'Building Writing Communities',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://writeme-docs.pages.dev/',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -55,9 +55,9 @@ const config = {
             position: 'left',
             label: 'Tutorial',
           },
-          { to: '/blog', label: 'Blog', position: 'left' },
+          { to: 'docs/guides/github-setup', label: 'Guides', position: 'left' },
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/COS301-SE-2024/WriteMe/',
             label: 'GitHub',
             position: 'right',
           },
