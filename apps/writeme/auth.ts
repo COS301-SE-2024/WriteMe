@@ -21,7 +21,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET
     }),
-    google({ allowDangerousEmailAccountLinking: true }),
+    google({ 
+      allowDangerousEmailAccountLinking: true,
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET 
+    }),
     CredentialsProvider({
       name: "Sign in",
       id: "credentials",
