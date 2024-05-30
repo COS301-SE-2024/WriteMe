@@ -1,29 +1,31 @@
+"use client";
+
 import { Button } from "@writeme/wmc/lib/ui/button";
 import WriteMeLogo from "../assets/WriteMe.png";
 import BooksImage from "../assets/Books.png";
 import Image from "next/image";
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function Index() {
-  /*
-   * Replace the elements below with your own.
-   *
-   * Note: The corresponding styles are in the ./index.css file.
-   */
+  const router = useRouter();
+
   return (
     <div>
       <nav className="p-4 flex justify-between items-center">
         {/* WriteMe logo */}
         <div className="flex items-center">
           <div style={{ width: "10rem"}}>
-            <img src={WriteMeLogo.src} alt="WriteMe Logo"/>
+            <Image src={WriteMeLogo} alt="WriteMe Logo"/>
           </div>
         </div>
-        
+
         <div className="flex items-center">
+
           <ul className="flex space-x-8">
-            <li><a href="#explore" className="text-black hover:underline mx-5">Explore</a></li>
+            <li><Link href="/stories" className="text-black hover:underline mx-5">Explore</Link></li>
           </ul>
-          <Button variant="default" size="default">Sign Up</Button>
+          <Button variant="default" size="default" onClick={() => router.push("/auth/signup")}>Sign Up</Button>
         </div>
       </nav>
 
@@ -42,7 +44,7 @@ export default function Index() {
             </div>
 
             <div className="flex justify-center mr-10"> {/* Added justify-end to move the button to the right */}
-              <Button className="my-10" variant="default" size="lg">Join Today!</Button>
+              <Button onClick={() => router.push("/auth/signup")} className="my-10" variant="default" size="lg">Join Today!</Button>
             </div>
           </div>
         </div>

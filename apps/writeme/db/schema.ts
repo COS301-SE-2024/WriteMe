@@ -6,7 +6,9 @@ import {
   primaryKey,
   integer,
   varchar,
-  serial
+  serial,
+  boolean,
+  json
 } from 'drizzle-orm/pg-core';
 
 import type { AdapterAccountType } from 'next-auth/adapters';
@@ -77,6 +79,11 @@ export const stories = pgTable('story', {
   userId: text('user_id').references(() => users.id).notNull(),
   title: varchar('title', { length: 255 }).notNull(),
   content: text('content').notNull(),
+  description: text("description"),
+  brief: text("brief"),
+  cover: text("cover_image"),
+  blocks: json("blocks"),
+  published: boolean('published').default(false).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
