@@ -1,47 +1,107 @@
 "use client";
-import React from "react";
+import React, { useState } from 'react';
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { cn } from "@writeme/wmc/utils";
 import {
   IconBrandGithub,
   IconBrandGoogle,
-  IconBrandOnlyfans,
 } from "@tabler/icons-react";
 
+import {useRouter, useSearchParams} from 'next/navigation';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { CreateUserInput, createUserSchema} from '../../../../apps/writeme/db/user-schema';
+import { signIn } from 'next-auth/react';
+import { useToast } from '@writeme/wmc/lib/ui/use-toast';
+
+
 export function SignupFormDemo() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form submitted");
+  
+  const router = useRouter();
+  const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || '/myworks';
+  const { toast } = useToast();
+
+
+  const methods = useForm<CreateUserInput>({
+    resolver: zodResolver(createUserSchema),
+  });
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = methods;
+
+  const onSubmitHandler: SubmitHandler<CreateUserInput> = async (values) => {
+    try {
+      setSubmitting(true);
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        body: JSON.stringify(values),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+
+        if (Array.isArray(errorData.errors) && errorData.errors.length > 0) {
+          errorData.errors.forEach((error: any) => {
+            toast({
+              title: error.message,
+              variant: 'destructive'
+            })
+          });
+
+          return;
+        }
+
+        toast({
+          title: errorData.message,
+          variant: 'destructive'
+        })
+        return;
+      }
+
+      signIn('credentials', { callbackUrl: '/myworks' });
+    } catch (error: any) {
+      toast({
+        title: error.message,
+        variant: 'destructive'
+      })
+    } finally {
+      setSubmitting(false);
+    }
   };
+
   return (
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
-        Welcome to Aceternity
+        Welcome to WriteMe
       </h2>
       <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
-        Login to aceternity if you can because we don&apos;t have a login flow
-        yet
+        Sign up to WriteMe to begin your journey today.
       </p>
 
-      <form className="my-8" onSubmit={handleSubmit}>
+      <form className="my-8" onSubmit={handleSubmit(onSubmitHandler)}>
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
-            <Label htmlFor="firstname">First name</Label>
-            <Input id="firstname" placeholder="Name" type="text" />
-          </LabelInputContainer>
-          <LabelInputContainer>
-            <Label htmlFor="lastname">Last name</Label>
-            <Input id="lastname" placeholder="Surname" type="text" />
+            <Label htmlFor="name">Full Name</Label>
+            <Input id="name" placeholder="Name" type="text" {...register('name')}/>
           </LabelInputContainer>
         </div>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="email@example.com" type="email" />
+          <Input id="email" placeholder="email@example.com" type="email" {...register("email")}/>
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
+          <Input id="password" placeholder="••••••••" type="password" {...register("password")} />
         </LabelInputContainer>
         <LabelInputContainer className="mb-8">
           <Label htmlFor="confirm-password">Confirm Password</Label>
@@ -49,6 +109,7 @@ export function SignupFormDemo() {
             id="confirm-password"
             placeholder="••••••••"
             type="password"
+            {...register("passwordConfirm")}
           />
         </LabelInputContainer>
 
@@ -64,8 +125,11 @@ export function SignupFormDemo() {
 
         <div className="flex flex-col space-y-4">
           <button
-            className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+            className=" relative group/btn flex space-x-2 items-center justify-center px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             type="submit"
+            onClick={() => signIn('github', {
+              callbackUrl
+            })}
           >
             <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">
@@ -74,8 +138,11 @@ export function SignupFormDemo() {
             <BottomGradient />
           </button>
           <button
-            className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+            className=" relative group/btn text-center flex space-x-2 items-center justify-center px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             type="submit"
+            onClick={() => {
+              signIn('google', {callbackUrl})
+            }}
           >
             <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">

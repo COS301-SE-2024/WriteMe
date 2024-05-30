@@ -43,7 +43,8 @@ Thumbs.db
 # Next.js
 .next
 out
-.env.local
+apps/writeme/.env.local
+
 
 # Generated Docusaurus files
 .docusaurus/
