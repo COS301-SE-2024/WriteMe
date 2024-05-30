@@ -2,7 +2,8 @@ import { hash } from 'bcryptjs';
 import { NextResponse } from 'next/server';
 import { createUserSchema } from '../../../db/user-schema';
 import { ZodError } from 'zod';
-import { users, db } from '../../../db/schema';
+import { users } from '../../../db/schema';
+import { db } from '../../../db/db';
 
 type NewUser = typeof users.$inferInsert;
 const insertUser = async (user: NewUser) => {

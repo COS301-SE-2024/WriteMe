@@ -22,6 +22,20 @@
       "when": 1717009105124,
       "tag": "0002_workable_lily_hollister",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1717017451777,
+      "tag": "0003_steady_cassandra_nova",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1717021323959,
+      "tag": "0004_classy_franklin_richards",
+      "breakpoints": true
     }
   ]
 }
