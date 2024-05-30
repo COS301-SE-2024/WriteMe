@@ -14,8 +14,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {
     signIn: "/auth/login",
   },
+  trustHost: true,
   providers: [
-    github({ 
+    github({
       allowDangerousEmailAccountLinking: true,
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET
@@ -33,7 +34,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        
+
         if (!credentials?.email || !credentials.password) {
           return null;
         }
@@ -46,7 +47,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           !user ||
           !(await bcrypt.compare(String(credentials.password), user.password!))
         ) {
-          
+
           return null;
         }
 

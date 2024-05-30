@@ -124,12 +124,12 @@ const NewStoryForm = () => {
           control={form.control}
           render={({field})=> (
             <FormItem>
-              <FormLabel>Title</FormLabel>
+              <FormLabel>Description</FormLabel>
               <FormControl>
                 <Textarea placeholder="A slightly longer description of your story, to give the reader a feel for it." {...field}></Textarea>
               </FormControl>
               <FormDescription>
-                This is the title of your story.
+                A longer description of your story.
               </FormDescription>
               <FormMessage></FormMessage>
             </FormItem>

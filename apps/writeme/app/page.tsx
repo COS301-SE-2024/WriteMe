@@ -23,7 +23,7 @@ export default function Index() {
         <div className="flex items-center">
 
           <ul className="flex space-x-8">
-            <li><Link href="/explore" className="text-black hover:underline mx-5">Explore</Link></li>
+            <li><Link href="/stories" className="text-black hover:underline mx-5">Explore</Link></li>
           </ul>
           <Button variant="default" size="default" onClick={() => router.push("/auth/signup")}>Sign Up</Button>
         </div>

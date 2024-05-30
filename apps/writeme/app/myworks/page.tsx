@@ -17,6 +17,7 @@ import { BentoGrid } from '@writeme/wmc/lib/ui/bento-grid';
 import * as dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { cn } from '@writeme/wmc/utils';
+import Link from 'next/link';
 
 async function getMyStories(){
   const session = await auth();
@@ -61,6 +62,8 @@ export default async function Myworks(props: MyworksProps) {
                     <CardDescription><MessageCircle className='cursor-pointer' size={20}/></CardDescription><p className='text-[15px] pr-2'>2</p>
                     <CardDescription><Share2 className='cursor-pointer' size={20}/></CardDescription>
                   </div>
+
+                  <Link className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 p-2" href={`/myworks/${story.id}/write/${story.id}`}>Write!</Link>
                 </div>
               </div>
             </CardHeader>

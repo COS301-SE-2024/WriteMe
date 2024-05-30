@@ -11,6 +11,7 @@ const insertUser = async (user: NewUser) => {
   return result[0];
 };
 
+
 export async function POST(req: Request) {
   try {
     const { name, email, password } = createUserSchema.parse(await req.json());

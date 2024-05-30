@@ -9,10 +9,12 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@writeme/w
 import { db } from '../../../../../db/db';
 import { stories } from '../../../../../db/schema';
 import { eq } from 'drizzle-orm';
+import Link from 'next/link';
+import EditorController from './editor-controller';
 
 const Editor = dynamic(() => import("@writeme/wmc/lib/ui/editor"), { ssr: false });
 
-export const Highlight = ({
+const Highlight = ({
                             children,
                             className,
                           }: {
@@ -34,39 +36,65 @@ export const Highlight = ({
 const CARDS = [
   {
     id: 0,
-    name: "Manu Arora",
-    designation: "Senior Software Engineer",
+    name: "",
+    designation: "",
     content: (
       <p>
-        These cards are amazing, <Highlight>I want to use them</Highlight> in my
-        project. Framer motion is a godsend ngl tbh fam 🙏
+        <Highlight>Thorin is a towering dwarf</Highlight> with a broad, sturdy frame, braided black hair, and a thick beard adorned with metal beads. He wears heavy, ornate armor that shows signs of frequent use.
       </p>
     ),
   },
   {
     id: 1,
-    name: "Elon Musk",
-    designation: "Senior Shitposter",
+    name: "",
+    designation: "",
     content: (
       <p>
-        I dont like this Twitter thing,{" "}
-        <Highlight>deleting it right away</Highlight> because yolo. Instead, I
-        would like to call it <Highlight>X.com</Highlight> so that it can easily
-        be confused with adult sites.
+        <Highlight> Elysia is a graceful</Highlight>, ethereal human with long, flowing blonde hair and bright blue eyes. She often wears light, flowing dresses that allow for easy movement.
       </p>
     ),
   },
   {
     id: 2,
-    name: "Tyler Durden",
-    designation: "Manager Project Mayhem",
+    name: "",
+    designation: "",
     content: (
       <p>
-        The first rule of
-        <Highlight>Fight Club</Highlight> is that you do not talk about fight
-        club. The second rule of
-        <Highlight>Fight club</Highlight> is that you DO NOT TALK about fight
-        club.
+        A traveling bard with a mysterious past, <Highlight> Elysia </Highlight>captivates audiences with her enchanting voice and magical melodies. She seeks to spread joy and uncover lost stories.
+      </p>
+    ),
+  },
+];
+
+
+const CHARACTERS = [
+  {
+    id: 0,
+    name: "Lirael Dawnstar",
+    designation: "Elven",
+    content: (
+      <p>
+        Raised in the secluded forests of Elaria, Lirael is a skilled healer and a guardian of ancient knowledge. She is well-versed in herbalism and ancient magic, often sought after for her wisdom.
+      </p>
+    ),
+  },
+  {
+    id: 1,
+    name: "Gregor Thorne",
+    designation: "Mercenary",
+    content: (
+      <p>
+        A former soldier turned mercenary, Gregor has seen countless battles. He now works as a freelance protector, offering his services to those in need of a <Highlight>skilled warrior</Highlight>.
+      </p>
+    ),
+  },
+  {
+    id: 2,
+    name: "Mira Solara",
+    designation: "Pick pocket",
+    content: (
+      <p>
+        Mira grew up in a bustling trade town, where she learned the art of thievery and espionage. Now, she travels the world as a <Highlight> spy for hire</Highlight>, gathering information and artifacts.
       </p>
     ),
   },
@@ -97,7 +125,10 @@ export default async function Write(props: WriteProps) {
     <div className="h-screen">
       <nav className="h-16 flex p-2 items-center justify-between ">
         <div className="flex items-center gap-4">
-          <Button variant='secondary' ><ArrowLeft></ArrowLeft></Button>
+          <Link href="/myworks">
+            <Button variant='secondary' ><ArrowLeft></ArrowLeft></Button>
+
+          </Link>
           <h2>{story.title}</h2>
         </div>
 
@@ -114,7 +145,7 @@ export default async function Write(props: WriteProps) {
         <ResizablePanel defaultSize={75}>
           <div className="grow p-8 flex justify-center">
             <div className="w-[90ch]">
-              <Editor></Editor>
+              <EditorController initialBlocks={story.blocks}></EditorController>
             </div>
           </div>
         </ResizablePanel>
@@ -125,7 +156,7 @@ export default async function Write(props: WriteProps) {
               <div className="flex flex-col gap-4">
                 <h3>Characters</h3>
                 <Separator orientation='horizontal' className='mb-4'></Separator>
-                <CardStack items={CARDS}></CardStack>
+                <CardStack items={CHARACTERS}></CardStack>
               </div>
               {/*<Separator orientation="horizontal"></Separator>*/}
 

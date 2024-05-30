@@ -27,6 +27,7 @@ export async function POST(req: Request) {
     const { brief, title, description } = createStorySchema.parse(await req.json());
 
 
+    // @ts-ignore
     const story = await insertStory({
       userId: session.user.id,
       content: '',
