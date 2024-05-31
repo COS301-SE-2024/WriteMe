@@ -9,7 +9,7 @@ const LocalNavbar = () => {
   const router = useRouter();
 
   return (
-    <div className="h-16 flex p-4 items-center justify-between">
+    <div className="border-b h-16 flex p-2 items-center justify-between">
       <p className="text-4xl font-bold">My Works</p>
       <Button role="link" onClick={() => router.push('/myworks/new')}>New Story</Button>
     </div>

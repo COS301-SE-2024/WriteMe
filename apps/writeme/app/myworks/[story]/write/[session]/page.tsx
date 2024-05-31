@@ -11,6 +11,7 @@ import { stories } from '../../../../../db/schema';
 import { eq } from 'drizzle-orm';
 import Link from 'next/link';
 import EditorController from './editor-controller';
+import LocalNavbar from './local-navbar';
 
 const Editor = dynamic(() => import("@writeme/wmc/lib/ui/editor"), { ssr: false });
 
@@ -123,23 +124,7 @@ export default async function Write(props: WriteProps) {
 
   return (
     <div className="h-screen">
-      <nav className="h-16 flex p-2 items-center justify-between ">
-        <div className="flex items-center gap-4">
-          <Link href="/myworks">
-            <Button variant='secondary' ><ArrowLeft></ArrowLeft></Button>
-
-          </Link>
-          <h2>{story.title}</h2>
-        </div>
-
-        <div className="flex gap-2">
-          <Button variant='default'> Preview </Button>
-          <Button variant='default'> Save </Button>
-          <Button variant='default'> Publish </Button>
-        </div>
-
-
-      </nav>
+      <LocalNavbar title={story.title} />
 
       <ResizablePanelGroup direction='horizontal'>
         <ResizablePanel defaultSize={75}>
