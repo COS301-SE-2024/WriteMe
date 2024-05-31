@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Profile from '../../../assets/profile.jpg';
 import { Button } from '@writeme/wmc/lib/ui/button';
 import { IconUser, IconMail } from '@tabler/icons-react';
-import LocalNavbar from './local-navbar';
+import LocalNavbar from '@writeme/wmc/lib/ui/local-navbar';
 
 /* eslint-disable-next-line */
 export interface UserProps {}
@@ -15,7 +15,7 @@ export default function User(props: UserProps) {
 
       {/* User Profile Section */}
       <div className="flex flex-col items-start p-10">
-        <div className="relative w-80 h-80 mb-1"> 
+        <div className="relative w-80 h-80 mb-1">
           <Image src={Profile} alt="User Profile Image" layout="fill" objectFit="contain" />
         </div>
         <h1 className="text-3xl font-bold mx-12">Username</h1>

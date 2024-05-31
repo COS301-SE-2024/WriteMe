@@ -6,7 +6,7 @@ import BooksImage from "../assets/Books.png";
 import Image from "next/image";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import LocalNavbar from "./local-navbar";
+import LocalNavbar from "@writeme/wmc/lib/ui/local-navbar";
 
 export default function Index() {
   const router = useRouter();

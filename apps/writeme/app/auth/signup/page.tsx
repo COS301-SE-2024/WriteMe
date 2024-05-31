@@ -1,5 +1,5 @@
 import {SignupFormDemo} from '@writeme/wmc/lib/ui/signup-form';
-import LocalNavbar from './local-navbar';
+import LocalNavbar from '@writeme/wmc/lib/ui/local-navbar';
 // import WriteMeLogo from "../assets/WriteMe.png";
 
 /* eslint-disable-next-line */

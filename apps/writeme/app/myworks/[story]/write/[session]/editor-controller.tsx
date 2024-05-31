@@ -16,9 +16,10 @@ const EditorController = ({initialBlocks}:EditorControllerProps) => {
   const [blocks, setBlocks] = useState(initialBlocks);
 
 
+
   return (
     <div>
-      <Editor initialBlocks={blocks} setBlocks={setBlocks}></Editor>
+      <Editor initialBlocks={blocks} setBlocks={setBlocks} ></Editor>
     </div>
   );
 };

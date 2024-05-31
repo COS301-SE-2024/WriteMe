@@ -123,10 +123,10 @@ export default async function Write(props: WriteProps) {
 
 
   return (
-    <div className="h-screen">
+    <div className="min-h-screen">
       <LocalNavbar title={story.title} />
 
-      <div className='z-1'>
+      <div className='z-1 relative'>
         <ResizablePanelGroup direction='horizontal'>
           <ResizablePanel defaultSize={75}>
             <div className="grow p-8 flex justify-center">
@@ -137,7 +137,7 @@ export default async function Write(props: WriteProps) {
           </ResizablePanel>
           <ResizableHandle withHandle></ResizableHandle>
           <ResizablePanel defaultSize={25}>
-            <div className="px-4">
+            <div className="px-4 top-0 sticky">
               <div className="flex-col flex gap-10">
                 <div className="flex flex-col gap-4">
                   <h3>Characters</h3>
