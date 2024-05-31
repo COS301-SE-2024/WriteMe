@@ -152,8 +152,8 @@
     <ol className='srs-bullets'>
       <li>Testing and Performance
         <ol className='src-bullets'>
-          <li>Thorough testing procedures using unit tests, integration tests and system tests to identify bugs before deployment.</li>
-          <li>Use of automated testing tools such as Google lighthouse to test the systems performance and functionality.</li>
+          <li>Thorough testing procedures using unit tests, integration tests and system tests to identify bugs before deployment using Playwright and vTest with atleast 90% coverage</li>
+          <li>Use of automated testing tools such as Google Lighthouse to test the systems performance and functionality.</li>
           <li>The app must peform consistenly at all times.</li>
           <li>The app must implement robust error handling mechanisms.</li>
         </ol>
@@ -252,3 +252,32 @@
 └── wmc-utils # utilities for components library
     └── src
 ```
+
+## User Stories
+
+#### As a New User I would like to:
+
+<ul className='newUserStories'>
+  <li>Sign up with Google so it is faster and easier to sign up</li>
+  <li>Sign up with GitHub so it is faster and easier to sign up</li>
+  <li>Sign up with an email and password so I can use all of WriteMe's features</li>
+</ul>
+
+#### As an Existing User I would like to:
+
+<ul className='existingUserStories'>
+  <li>Sign in with Google so it is faster and easier to sign in</li>
+  <li>Sign in with GitHub so it is faster and easier to sign in</li>
+  <li>Sign in with an email and password so I can use all of WriteMe's features</li>
+  <li>Select a story genre so I can create a story with this genre</li>
+  <li>Publish my story so others can view and interact with it</li>
+  <li>Save my story as a draft so I can carry on with it at another time without losing any of my story</li>
+  <li>Edit my story so I can make any changes I think of at a later stage</li>
+  <li>Add a title to my story so it is clear what the story is about</li>
+  <li>Write my story in a helpful and easy to use editor so that my experience is fast, simple and enjoyable</li>
+  <li>Add a cover image for my story so I can identify my different stories and associate them with cover images</li>
+  <li>View a story so I can read other peoples stories and get inspiration for some of my own stories</li>
+  <li>Like a story so I can show my appreciation for a good story</li>
+  <li>Comment on a story so I can share my thoughts and receive feedback from others</li>
+  <li>Share a story so I can show others the story</li>
+</ul>

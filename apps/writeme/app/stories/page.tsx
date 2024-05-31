@@ -9,25 +9,18 @@ import * as dayjs from 'dayjs';
 import { BookOpenText, Heart, MessageCircle, Share2 } from 'lucide-react';
 import Link from 'next/link';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { getPublishedStories } from '../../services/stories';
+
+export const dynamic = 'force dynamic';
 import LocalNavbar from '@writeme/wmc/lib/ui/local-navbar';
 
 /* eslint-disable-next-line */
 export interface StoriesProps {}
 
-async function getStories(){
 
-  // const result = db.query.stories.findMany({
-  //   // where: (stories, {eq}) => eq(stories.userId, session.user.id)
-  // }
-
-  const result = db.query.stories.findMany()
-
-
-  return result;
-}
 
 export default async function Stories(props: StoriesProps) {
-  const stories = await getStories();
+  const stories = await getPublishedStories();
   dayjs.extend(relativeTime)
   return (
     <div>

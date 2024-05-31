@@ -47,14 +47,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           where: (users, { eq, and }) => and(eq(users.email, String(credentials.email)), isNotNull(users.password)),
         });
 
-        // console.log(user)
-        // const hashed = await bcrypt.compare(String(credentials.password), user.password!);
-        // console.log(hashed);
-
         if (
           !user ||
           !(await bcrypt.compare(String(credentials.password), user.password))
         ) {
+
           return null;
         }
 

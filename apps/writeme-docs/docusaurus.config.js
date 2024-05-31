@@ -8,11 +8,11 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'WriteMe Docs',
   tagline: 'Building Writing Communities',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://writeme-docs.pages.dev/',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/pen.svg',
   organizationName: 'COS301-SE-2024', // Usually your GitHub org/user name.
   projectName: 'WriteMe', // Usually your repo name.
 
@@ -43,10 +43,10 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'WriteMe Documentation',
+        title: 'Documentation',
         logo: {
           alt: 'WriteMe Logo',
-          src: 'img/logo.svg',
+          src: 'img/WriteMe.svg',
         },
         items: [
           {
@@ -55,9 +55,9 @@ const config = {
             position: 'left',
             label: 'Tutorial',
           },
-          { to: '/blog', label: 'Blog', position: 'left' },
+          { to: 'docs/guides/github-setup', label: 'Guides', position: 'left' },
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/COS301-SE-2024/WriteMe/',
             label: 'GitHub',
             position: 'right',
           },

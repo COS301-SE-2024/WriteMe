@@ -9,7 +9,6 @@ import { useRouter } from 'next/navigation';
 import LocalNavbar from "@writeme/wmc/lib/ui/local-navbar";
 
 export default function Index() {
-  const router = useRouter();
 
   return (
     <div>
@@ -30,12 +29,12 @@ export default function Index() {
             </div>
 
             <div className="flex justify-center mr-10"> {/* Added justify-end to move the button to the right */}
-              <Button onClick={() => router.push("/auth/signup")} className="my-10" variant="default" size="lg">Join Today!</Button>
+              <Link href="/auth/signup">Join Now</Link>
             </div>
           </div>
         </div>
         <div className="relative aspect-[4/3] w-full">
-          <Image src={BooksImage} alt="Books" layout="fill" objectFit="contain" ></Image>
+          <Image src={BooksImage} alt="Books" layout="fill" objectFit="contain"  ></Image>
         </div>
       </div>
     </div>
