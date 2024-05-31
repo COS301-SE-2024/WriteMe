@@ -252,3 +252,14 @@
 └── wmc-utils # utilities for components library
     └── src
 ```
+
+## User Stories
+
+#### As a New User I would like to:
+
+<ul className='User Stroies'>
+  <li>Sign up with Google so it is faster and easier to sign up</li>
+  <li>Sign up with GitHub so it is faster and easier to sign up</li>
+  <li>Sign up with an email and password so I can use all of WriteMe's features</li>
+  <li></li>
+</ul>
