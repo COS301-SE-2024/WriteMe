@@ -6,7 +6,6 @@ import { Separator } from '@writeme/wmc/lib/ui/separator';
 import WriteMeLogo from "../../assets/WriteMe.png";
 import Image from "next/image";
 import Link from 'next/link';
-// import { IconUser } from '@tabler/icons-react';
 import Profile from '../../assets/profile.jpg';
 
 const LocalNavbar = () => {
@@ -18,8 +17,8 @@ const LocalNavbar = () => {
         <Image src={WriteMeLogo} alt="WriteMe Logo"/>
       </div>
       <ul className='flex space-x-8'>
-        <li><Link href='/myworks' className="text-black hover:text-purple-200 relative after:content-[''] after:block after:w-full after:h-1 after:bg-[#a2a8f0] after:mt-1 after:rounded-full">My Stories</Link></li>
-        <li><Link href='/stories' className='text-black hover:text-purple-200'>Explore</Link></li>
+        <li><Link href='/myworks' className='text-black hover:text-purple-200'>My Stories</Link></li>
+        <li><Link href='/stories' className="text-black hover:text-purple-200 relative after:content-[''] after:block after:w-full after:h-1 after:bg-[#a2a8f0] after:mt-1 after:rounded-full">Explore</Link></li>
       </ul>
 
       <div className='flex'>

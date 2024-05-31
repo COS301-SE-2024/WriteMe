@@ -9,6 +9,7 @@ import * as dayjs from 'dayjs';
 import { Heart, MessageCircle, Share2 } from 'lucide-react';
 import Link from 'next/link';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import LocalNavbar from './local-navbar';
 
 /* eslint-disable-next-line */
 export interface StoriesProps {}
@@ -30,6 +31,7 @@ export default async function Stories(props: StoriesProps) {
   dayjs.extend(relativeTime)
   return (
     <div>
+      <LocalNavbar />
       <h1 className="font-bold text-6xl text-center">Explore!</h1>
 
       <BentoGrid className="max-w-6xl mx-auto md:auto-rows-[20rem]">

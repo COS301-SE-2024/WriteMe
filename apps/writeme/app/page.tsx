@@ -6,28 +6,14 @@ import BooksImage from "../assets/Books.png";
 import Image from "next/image";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import LocalNavbar from "./local-navbar";
 
 export default function Index() {
   const router = useRouter();
 
   return (
     <div>
-      <nav className="p-4 flex justify-between items-center">
-        {/* WriteMe logo */}
-        <div className="flex items-center">
-          <div style={{ width: "10rem"}}>
-            <Image src={WriteMeLogo} alt="WriteMe Logo"/>
-          </div>
-        </div>
-
-        <div className="flex items-center">
-
-          <ul className="flex space-x-8">
-            <li><Link href="/stories" className="text-black hover:underline mx-5">Explore</Link></li>
-          </ul>
-          <Button variant="default" size="default" onClick={() => router.push("/auth/signup")}>Sign Up</Button>
-        </div>
-      </nav>
+      <LocalNavbar />
 
       <div className="mx-12 py-6 flex justify-between items-center">
         <div>

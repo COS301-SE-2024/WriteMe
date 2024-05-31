@@ -10,7 +10,7 @@ export interface UserProps {}
 export default function User(props: UserProps) {
   return (
     <div className="flex flex-col h-screen">
-      <nav className="w-full flex justify-between items-center p-4">
+      <nav className="w-full flex justify-between items-center p-3">
         <div className="relative w-60 h-20 -mx-10">
           <Image src={WriteMeLogo} alt="WriteMe Logo" layout="fill" objectFit="contain" />
         </div>
