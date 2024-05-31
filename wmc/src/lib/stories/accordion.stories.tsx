@@ -12,19 +12,32 @@ export default meta;
 type Story = StoryObj<typeof Accordion>;
 
 export const Primary: Story = {
+  argTypes:{
+    title: {
+      control: 'text'
+    },
+    content: {
+      control: 'text'
+    },
+    type: {
+      options: ['single', 'multiple'],
+      control: 'radio'
+    }
+  },
+
   args: {
     title: 'This is some useful information',
     type: 'single',
     content: "this is the more detailed content of the Accordion"
   },
 
-  render: () => {
+  render: ({title, type, content}) => {
     return (
-      <Accordion type="single" collapsible className="w-full">
+      <Accordion type={type} collapsible className="w-full">
         <AccordionItem value="item-1">
-          <AccordionTrigger>Is it accessible?</AccordionTrigger>
+          <AccordionTrigger>{title}</AccordionTrigger>
           <AccordionContent>
-            Yes. It adheres to the WAI-ARIA design pattern.
+            {content}
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-2">

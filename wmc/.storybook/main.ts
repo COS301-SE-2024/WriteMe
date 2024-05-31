@@ -8,7 +8,7 @@ import { URL, fileURLToPath} from 'node:url';
 
 const config: StorybookConfig = {
   stories: ['../src/lib/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
-  addons: ['@storybook/addon-essentials', '@storybook/addon-interactions'],
+  addons: ['@storybook/addon-essentials', '@storybook/addon-interactions', '@storybook/addon-themes'],
   core: {
     builder: '@storybook/builder-vite'
   },

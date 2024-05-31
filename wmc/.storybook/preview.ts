@@ -1,6 +1,7 @@
 import "../../apps/writeme/app/global.css";
 
 import { Preview } from '@storybook/react';
+import { withThemeByClassName } from '@storybook/addon-themes';
 
 const preview: Preview = {
   // ...
@@ -13,3 +14,14 @@ const preview: Preview = {
 };
 
 export default preview;
+
+
+export const decorators = [
+  withThemeByClassName({
+    themes: {
+      light: 'light',
+      dark: 'dark',
+    },
+    defaultTheme: 'light',
+  }),
+];

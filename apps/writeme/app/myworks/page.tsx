@@ -18,15 +18,9 @@ import * as dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { cn } from '@writeme/wmc/utils';
 import Link from 'next/link';
+import { getMyStories } from '../../services/stories';
 
-async function getMyStories(){
-  const session = await auth();
 
-  const result = db.query.stories.findMany({
-    where: (stories, {eq}) => eq(stories.userId, session.user.id)
-  })
-  return result;
-}
 
 export interface MyworksProps {}
 
