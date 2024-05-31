@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Profile from '../../../assets/profile.jpg';
 import { Button } from '@writeme/wmc/lib/ui/button';
 import { IconUser, IconMail } from '@tabler/icons-react';
+import LocalNavbar from './local-navbar';
 
 /* eslint-disable-next-line */
 export interface UserProps {}
@@ -10,28 +11,7 @@ export interface UserProps {}
 export default function User(props: UserProps) {
   return (
     <div className="flex flex-col h-screen">
-      <nav className="w-full flex justify-between items-center p-3">
-        <div className="relative w-60 h-20 -mx-10">
-          <Image src={WriteMeLogo} alt="WriteMe Logo" layout="fill" objectFit="contain" />
-        </div>
-
-        <ul className="flex space-x-8">
-          <li>
-          <a href="#overview" className="text-black hover:text-purple-200 relative after:content-[''] after:block after:w-full after:h-1 after:bg-[#a2a8f0] after:mt-1 after:rounded-full">
-              Overview
-            </a>
-          </li>
-          <li>
-            <a href="#stories" className="text-black hover:text-purple-200">
-              Stories
-            </a>
-          </li>
-        </ul>
-
-        <div className="relative w-12 h-12 mx-4">
-          <Image src={Profile} alt="Profile Image" layout="fill" objectFit="contain" />
-        </div>
-      </nav>
+      <LocalNavbar />
 
       {/* User Profile Section */}
       <div className="flex flex-col items-start p-10">
