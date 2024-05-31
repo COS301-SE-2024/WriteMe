@@ -3,12 +3,13 @@
 import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Input, Label } from '@writeme/wmc';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginUserSchema, LoginUserInput } from '../../../db/user-schema';
 import { signIn } from 'next-auth/react';
 import { useToast } from '@writeme/wmc/lib/ui/use-toast';
+import { IconBrandGithub, IconBrandGoogle } from '@tabler/icons-react';
 
 export default function LoginForm() {
   const router = useRouter();
@@ -86,7 +87,7 @@ export default function LoginForm() {
                   {...register('email')}
                   id="email"
                   type="email"
-                  placeholder="m@example.com"
+                  placeholder="hi@dynasty-devs.com"
                   required
                 />
               </div>
@@ -100,17 +101,19 @@ export default function LoginForm() {
                   {/*  Forgot your password?*/}
                   {/*</Link>*/}
                 </div>
-                <Input id="password" type="password" required  {...register("password")}/>
+                <Input id="password" type="password" required placeholder="••••••••" {...register("password")}/>
               </div>
               <Button type="submit" className="w-full">
                 Login
               </Button>
             </form>
-            <Button variant="outline" className="w-full" onClick={() => signIn('google', { callbackUrl })}>
-              Login with Google
-            </Button>
-            <Button variant="outline" className="w-full" onClick={() => signIn('github', { callbackUrl })}>
+            <Button variant="outline" className="w-full flex gap-1" onClick={() => signIn('github', { callbackUrl })}>
+              <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
               Login with GitHub
+            </Button>
+            <Button variant="outline" className="w-full flex gap-1" onClick={() => signIn('google', { callbackUrl })}>
+              <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
+              Login with Google
             </Button>
           </div>
           <div className="mt-4 text-center text-sm">
