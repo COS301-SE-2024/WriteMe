@@ -11,6 +11,7 @@ import { stories } from '../../../../../db/schema';
 import { eq } from 'drizzle-orm';
 import Link from 'next/link';
 import EditorController from './editor-controller';
+import LocalNavbar from './local-navbar';
 
 const Editor = dynamic(() => import("@writeme/wmc/lib/ui/editor"), { ssr: false });
 
@@ -122,53 +123,39 @@ export default async function Write(props: WriteProps) {
 
 
   return (
-    <div className="h-screen">
-      <nav className="h-16 flex p-2 items-center justify-between ">
-        <div className="flex items-center gap-4">
-          <Link href="/myworks">
-            <Button variant='secondary' ><ArrowLeft></ArrowLeft></Button>
+    <div className="min-h-screen">
+      <LocalNavbar title={story.title} />
 
-          </Link>
-          <h2>{story.title}</h2>
-        </div>
-
-        <div className="flex gap-2">
-          <Button variant='default'> Preview </Button>
-          <Button variant='default'> Save </Button>
-          <Button variant='default'> Publish </Button>
-        </div>
-
-
-      </nav>
-
-      <ResizablePanelGroup direction='horizontal'>
-        <ResizablePanel defaultSize={75}>
-          <div className="grow p-8 flex justify-center">
-            <div className="w-[90ch]">
-              <EditorController initialBlocks={story.blocks}></EditorController>
-            </div>
-          </div>
-        </ResizablePanel>
-        <ResizableHandle withHandle></ResizableHandle>
-        <ResizablePanel defaultSize={25}>
-          <div className="px-4">
-            <div className="flex-col flex gap-10">
-              <div className="flex flex-col gap-4">
-                <h3>Characters</h3>
-                <Separator orientation='horizontal' className='mb-4'></Separator>
-                <CardStack items={CHARACTERS}></CardStack>
-              </div>
-              {/*<Separator orientation="horizontal"></Separator>*/}
-
-              <div className="flex flex-col gap-4">
-                <h3>Suggestions</h3>
-                <Separator orientation="horizontal" className="mb-4"></Separator>
-                <CardStack items={CARDS}></CardStack>
+      <div className='z-1 relative'>
+        <ResizablePanelGroup direction='horizontal'>
+          <ResizablePanel defaultSize={75}>
+            <div className="grow p-8 flex justify-center">
+              <div className="w-[90ch]">
+                <EditorController initialBlocks={story.blocks}></EditorController>
               </div>
             </div>
-          </div>
-        </ResizablePanel>
-      </ResizablePanelGroup>
+          </ResizablePanel>
+          <ResizableHandle withHandle></ResizableHandle>
+          <ResizablePanel defaultSize={25}>
+            <div className="px-4 top-0 sticky">
+              <div className="flex-col flex gap-10">
+                <div className="flex flex-col gap-4">
+                  <h3>Characters</h3>
+                  <Separator orientation='horizontal' className='mb-4'></Separator>
+                  <CardStack items={CHARACTERS}></CardStack>
+                </div>
+                {/*<Separator orientation="horizontal"></Separator>*/}
+
+                <div className="flex flex-col gap-4">
+                  <h3>Suggestions</h3>
+                  <Separator orientation="horizontal" className="mb-4"></Separator>
+                  <CardStack items={CARDS}></CardStack>
+                </div>
+              </div>
+            </div>
+          </ResizablePanel>
+        </ResizablePanelGroup>
+      </div>
 
 
     </div>

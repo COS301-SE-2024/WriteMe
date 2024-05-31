@@ -23,7 +23,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
     google({
       allowDangerousEmailAccountLinking: true,
-
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET
     }),
     CredentialsProvider({
       name: "Sign in",
@@ -43,12 +44,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         }
 
         const user = await db.query.users.findFirst({
-          where: (users, { eq }) => eq(users.email, String(credentials.email) && isNotNull(users.password)),
+          where: (users, { eq, and }) => and(eq(users.email, String(credentials.email)), isNotNull(users.password)),
         });
 
         if (
           !user ||
-          !(await bcrypt.compare(String(credentials.password), user.password!))
+          !(await bcrypt.compare(String(credentials.password), user.password))
         ) {
 
           return null;
@@ -58,8 +59,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           id: user.id,
           email: user.email,
           name: user.name,
-          randomKey: "Hey cool",
-        //   todo: add other keys
+          randomKey: "Hey cool"
         };
       },
     }),
@@ -67,7 +67,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      const paths = ["/myworks", "/client-side", "/api/session"];
+      const paths = ["/other", "/client-side", "/api/session"];
       const isProtected = paths.some((path) =>
         nextUrl.pathname.startsWith(path)
       );

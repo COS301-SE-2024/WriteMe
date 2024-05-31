@@ -17,7 +17,7 @@ import { useToast } from '@writeme/wmc/lib/ui/use-toast';
 
 
 export function SignupFormDemo() {
-  
+
   const router = useRouter();
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -68,7 +68,7 @@ export function SignupFormDemo() {
         return;
       }
 
-      signIn('credentials', { callbackUrl: '/myworks' });
+      signIn(undefined, { callbackUrl: '/myworks' });
     } catch (error: any) {
       toast({
         title: error.message,
@@ -80,7 +80,7 @@ export function SignupFormDemo() {
   };
 
   return (
-    <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
+    <div className="mt-5 max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
         Welcome to WriteMe
       </h2>
@@ -88,7 +88,7 @@ export function SignupFormDemo() {
         Sign up to WriteMe to begin your journey today.
       </p>
 
-      <form className="my-8" onSubmit={handleSubmit(onSubmitHandler)}>
+      <form className="my-6" onSubmit={handleSubmit(onSubmitHandler)}>
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
             <Label htmlFor="name">Full Name</Label>
