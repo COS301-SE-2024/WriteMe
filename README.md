@@ -35,17 +35,22 @@
 We are Dynasty Devs and our project is WriteMe.
 WriteMe is an innovative platform revolutionizing collaborative writing. Our application integrates Natural Language Processing to offer writers tools for enhancing narrative structures, character development, and emotional impact. Think of it as a GitHub for writers where users can share and create their stories with community support and enjoy reading stories all in one convenient place. By using AI and creating a vibrant and social writing community, WriteMe transforms the solitary act of writing into a collaborative and expressive experience which can unlock further creative expression and brilliance.
 
+<p align = "center">Click here to visit the website: <a href="">
+
 ## Demo Video
 
 Here is a link to our Demo Video:
 
-## SRS Documents
+## Documents
 
-Here is a link to our SRS Documentation:
+Here is a link to our Documentation:
 
-## Github Project Board
+## Project Management
 
-Here is a link to our Github Project Board:
+<div><a href="https://github.com/orgs/COS301-SE-2024/projects/56">📅 Pronto Project Board </a></div>
+<br>
+
+<img src="apps/writeme-docs/static/img/bar.png" alt="Alt text" title="bar">
 
 ## Our Team
 
@@ -85,3 +90,7 @@ Roles: Designer, Frontend Engineer
 
 [![image](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white 'LinkedIn Profile')](https://www.linkedin.com/in/yashvitha-kanaparthy-b9329b303/)
 [![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white 'Github Profile')](https://github.com/YashvithaK)
+
+<br><br>
+<img src="apps/writeme-docs/static/img/bar.png" alt="Alt text" title="bar">
+
