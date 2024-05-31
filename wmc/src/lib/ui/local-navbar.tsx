@@ -5,8 +5,9 @@ import { Button, buttonVariants } from '@writeme/wmc';
 import { ModeToggle } from '@writeme/wmc/lib/ui/theme-switcher';
 import Link from 'next/link';
 import { cn } from '@writeme/wmc/utils';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { Avatar, AvatarFallback, AvatarImage } from '@writeme/wmc/lib/ui/avatar';
+import { Popover, PopoverContent, PopoverTrigger } from '@writeme/wmc/lib/ui/popover';
 
 
 const LocalNavbar = () => {
@@ -52,13 +53,19 @@ const LocalNavbar = () => {
 
         <ModeToggle></ModeToggle>
         { session?.user ? (
-          <Link href={`/user/${session.user.id}`}>
-
-          <Avatar>
-            <AvatarImage src={session.user.image} />
-            <AvatarFallback>{session.user.name.at(0)}</AvatarFallback>
-          </Avatar>
-          </Link>
+            <Popover>
+              <PopoverTrigger><Avatar>
+                <AvatarImage src={session.user.image} />
+                <AvatarFallback>{session.user.name.at(0)}</AvatarFallback>
+              </Avatar></PopoverTrigger>
+              <PopoverContent>
+                <div>
+                  <Link className={cn(buttonVariants({variant: 'ghost'}), 'block fit-content')} href="/myworks">My Stories</Link>
+                  <Link className={cn(buttonVariants({variant: 'ghost'}), 'block')} href={`/user/${session.user.id}`}>My Profile</Link>
+                  <Button variant='ghost' onClick={() => signOut({callbackUrl: '/'})} >Sign Out</Button>
+                </div>
+              </PopoverContent>
+            </Popover>
 
         ): <Link className={buttonVariants({ variant: 'default' })} href="/auth/login">Login</Link>}
       </div>
