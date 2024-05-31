@@ -23,8 +23,8 @@ export default function User(props: UserProps) {
         <Button className='mx-12 mb-3'>Edit profile</Button>
         <div className='flex mx-12 mb-3'>
           <IconUser />
-          <a className='font-bold mx-2'>1 </a>
-          <a className='text-gray-500'>follower .</a>
+          <a className='font-bold mx-2'>3 </a>
+          <a className='text-gray-500'>followers</a>
           <a className='font-bold mx-2'>2 </a>
           <a className='text-gray-500'>following</a>
         </div>
