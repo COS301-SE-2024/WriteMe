@@ -20,7 +20,7 @@ export default function Index() {
           <ul className="flex space-x-8">
             <li><Link href="/stories" className="text-black hover:underline mx-5">Explore</Link></li>
           </ul>
-          <Link href="/auth/signup">Sign Up</Link>
+          <Link data-testid='sign_up_button' href="/auth/signup">Sign Up</Link>
         </div>
       </nav>
 
@@ -39,7 +39,7 @@ export default function Index() {
             </div>
 
             <div className="flex justify-center mr-10"> {/* Added justify-end to move the button to the right */}
-              <Link href="/auth/signup">Join Now</Link>
+              <Link data-testid='join_now_link' href="/auth/signup">Join Now</Link>
             </div>
           </div>
         </div>
