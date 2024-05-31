@@ -126,34 +126,36 @@ export default async function Write(props: WriteProps) {
     <div className="h-screen">
       <LocalNavbar title={story.title} />
 
-      <ResizablePanelGroup direction='horizontal'>
-        <ResizablePanel defaultSize={75}>
-          <div className="grow p-8 flex justify-center">
-            <div className="w-[90ch]">
-              <EditorController initialBlocks={story.blocks}></EditorController>
-            </div>
-          </div>
-        </ResizablePanel>
-        <ResizableHandle withHandle></ResizableHandle>
-        <ResizablePanel defaultSize={25}>
-          <div className="px-4">
-            <div className="flex-col flex gap-10">
-              <div className="flex flex-col gap-4">
-                <h3>Characters</h3>
-                <Separator orientation='horizontal' className='mb-4'></Separator>
-                <CardStack items={CHARACTERS}></CardStack>
+      <div className='z-1'>
+        <ResizablePanelGroup direction='horizontal'>
+          <ResizablePanel defaultSize={75}>
+            <div className="grow p-8 flex justify-center">
+              <div className="w-[90ch]">
+                <EditorController initialBlocks={story.blocks}></EditorController>
               </div>
-              {/*<Separator orientation="horizontal"></Separator>*/}
+            </div>
+          </ResizablePanel>
+          <ResizableHandle withHandle></ResizableHandle>
+          <ResizablePanel defaultSize={25}>
+            <div className="px-4">
+              <div className="flex-col flex gap-10">
+                <div className="flex flex-col gap-4">
+                  <h3>Characters</h3>
+                  <Separator orientation='horizontal' className='mb-4'></Separator>
+                  <CardStack items={CHARACTERS}></CardStack>
+                </div>
+                {/*<Separator orientation="horizontal"></Separator>*/}
 
-              <div className="flex flex-col gap-4">
-                <h3>Suggestions</h3>
-                <Separator orientation="horizontal" className="mb-4"></Separator>
-                <CardStack items={CARDS}></CardStack>
+                <div className="flex flex-col gap-4">
+                  <h3>Suggestions</h3>
+                  <Separator orientation="horizontal" className="mb-4"></Separator>
+                  <CardStack items={CARDS}></CardStack>
+                </div>
               </div>
             </div>
-          </div>
-        </ResizablePanel>
-      </ResizablePanelGroup>
+          </ResizablePanel>
+        </ResizablePanelGroup>
+      </div>
 
 
     </div>
