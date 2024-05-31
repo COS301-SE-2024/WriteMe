@@ -32,10 +32,10 @@ nx g @nx/next:component <ComponentName> --project=wmc
 - select the **css** styling option
 - select the **derived** path
 
-![selections](../assets/nx/generate%20selection.webp)
+
 
 - now inside the `wmc` folder you should see your new component.
-![generation result](../assets/nx/generate%20result.webp)
+
 
 - `<Component>.spec.tsx` - is the test file for that component
 - `<Component>.tsx` - is the component itself
@@ -52,7 +52,7 @@ Nx console (vs code plugin) should not be used for generation as it's a bit bugg
 running tests locally should ensure that you don't fail the CI tests on Github
 :::
 
-![nx console plugin](../assets/nx/nx%20console.webp)
+
 
 The most important **tasks** for local dev are:
 

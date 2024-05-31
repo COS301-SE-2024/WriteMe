@@ -116,6 +116,9 @@ dependencies:
   '@testing-library/react':
     specifier: ^15.0.7
     version: 15.0.7(@types/react@18.3.1)(react-dom@18.3.1)(react@18.3.1)
+  '@types/bcryptjs':
+    specifier: ^2.4.6
+    version: 2.4.6
   bcryptjs:
     specifier: ^2.4.3
     version: 2.4.3
@@ -131,6 +134,9 @@ dependencies:
   date-fns:
     specifier: ^3.6.0
     version: 3.6.0
+  dayjs:
+    specifier: ^1.11.11
+    version: 1.11.11
   drizzle-orm:
     specifier: ^0.30.10
     version: 0.30.10(@types/pg@8.11.6)(@types/react@18.3.1)(pg@8.11.5)(postgres@3.4.4)(react@18.3.1)
@@ -9171,6 +9177,10 @@ packages:
       '@babel/types': 7.24.5
     dev: true
 
+  /@types/bcryptjs@2.4.6:
+    resolution: {integrity: sha512-9xlo6R2qDs5uixm0bcIqCeMCE6HiQsIyel9KQySStiyqNl2tnj2mP3DX1Nf56MD6KMenNNlBBsy3LJ7gUEQPXQ==}
+    dev: false
+
   /@types/body-parser@1.19.5:
     resolution: {integrity: sha512-fB3Zu92ucau0iQ0JMCFQE7b/dv8Ot07NI3KaZIkIUNXq82k4eBAqUaneXfleGY9JWskeS9y+u0nXMyspcuQrCg==}
     dependencies:
@@ -12460,6 +12470,10 @@ packages:
 
   /date-fns@3.6.0:
     resolution: {integrity: sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==}
+    dev: false
+
+  /dayjs@1.11.11:
+    resolution: {integrity: sha512-okzr3f11N6WuqYtZSvm+F776mB41wRZMhKP+hc34YdW+KmtYYK9iqvHSwo2k9FEH3fhGXvOPV6yz2IcSrfRUDg==}
     dev: false
 
   /de-indent@1.0.2:

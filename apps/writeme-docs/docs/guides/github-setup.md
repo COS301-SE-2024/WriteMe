@@ -37,12 +37,12 @@ sudo mkdir -p -m 755 /etc/apt/keyrings && wget -qO- https://cli.github.com/packa
 - navigate to <https://github.com/settings/tokens>
 - click on **generate new token (classic)**
 
-![generate new token -> Generate new token (classic)](../assets/github%20generate%20token.jpg)
+
 
 - add name, expiry date (till at least after mini project)
 - select the following permissions
 
-![select minimum permissions](../assets/token%20minimum%20permissions.png)
+
 
 - click generate, but **don't close the page**
 
