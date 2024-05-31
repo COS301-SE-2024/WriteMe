@@ -13,9 +13,9 @@ const LocalNavbar = () => {
   return (
     <div className="bg-white sticky top-0 z-100 border-b h-16 flex p-3 items-center justify-between">
       <div className="flex items-center">
-          <div style={{ width: "10rem"}}>
-            <Image src={WriteMeLogo} alt="WriteMe Logo"/>
-          </div>
+        <Link href="/" style={{ width: "10rem"}}>
+          <Image src={WriteMeLogo} alt="WriteMe Logo"/>
+        </Link>
         </div>
 
         {/* <div className="flex items-center">

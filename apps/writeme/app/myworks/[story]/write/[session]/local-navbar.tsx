@@ -14,7 +14,7 @@ const LocalNavbar = (props: LocalNavbarProps) => {
   // const router = useRouter();
 
   return (
-    <div className="bg-white sticky top-0 z-100 border-b h-16 flex p-2 items-center justify-between">
+    <div className="bg-white sticky top-0 z-50 border-b h-16 flex p-2 items-center justify-between">
       <div className="flex items-center gap-4">
           <Link href="/myworks">
             <Button variant='secondary'><ArrowLeft></ArrowLeft></Button>

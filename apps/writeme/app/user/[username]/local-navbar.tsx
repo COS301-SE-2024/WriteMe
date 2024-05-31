@@ -12,10 +12,10 @@ const LocalNavbar = () => {
   const router = useRouter();
 
   return (
-    <div className="bg-white sticky top-0 z-100 border-b h-16 flex p-2 items-center justify-between">
-      <div style={{ width: "10rem"}}>
+    <div className="bg-white sticky top-0 z-50 border-b h-16 flex p-2 items-center justify-between">
+      <Link href="/" style={{ width: "10rem"}}>
         <Image src={WriteMeLogo} alt="WriteMe Logo"/>
-      </div>
+      </Link>
 
       <ul className="flex space-x-8">
         <li>

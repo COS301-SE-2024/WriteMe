@@ -17,7 +17,7 @@ import { useToast } from '@writeme/wmc/lib/ui/use-toast';
 
 
 export function SignupFormDemo() {
-  
+
   const router = useRouter();
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -68,7 +68,7 @@ export function SignupFormDemo() {
         return;
       }
 
-      signIn('credentials', { callbackUrl: '/myworks' });
+      signIn(undefined, { callbackUrl: '/myworks' });
     } catch (error: any) {
       toast({
         title: error.message,
