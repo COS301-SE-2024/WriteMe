@@ -11,7 +11,7 @@ export default function Index() {
         {/* WriteMe logo */}
         <div className="flex items-center">
           <div style={{ width: "10rem"}}>
-            <Image src={WriteMeLogo} fill alt="WriteMe Logo"/>
+            <Image src={WriteMeLogo} alt="WriteMe Logo"/>
           </div>
         </div>
 
