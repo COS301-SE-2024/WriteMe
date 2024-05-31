@@ -1,14 +1,9 @@
-"use client";
-
-import { Button } from "@writeme/wmc/lib/ui/button";
 import WriteMeLogo from "../assets/WriteMe.png";
 import BooksImage from "../assets/Books.png";
 import Image from "next/image";
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 export default function Index() {
-  const router = useRouter();
 
   return (
     <div>
@@ -16,7 +11,7 @@ export default function Index() {
         {/* WriteMe logo */}
         <div className="flex items-center">
           <div style={{ width: "10rem"}}>
-            <Image src={WriteMeLogo} alt="WriteMe Logo"/>
+            <Image src={WriteMeLogo} fill alt="WriteMe Logo"/>
           </div>
         </div>
 
@@ -25,7 +20,7 @@ export default function Index() {
           <ul className="flex space-x-8">
             <li><Link href="/stories" className="text-black hover:underline mx-5">Explore</Link></li>
           </ul>
-          <Button variant="default" size="default" onClick={() => router.push("/auth/signup")}>Sign Up</Button>
+          <Link href="/auth/signup">Sign Up</Link>
         </div>
       </nav>
 
@@ -44,12 +39,12 @@ export default function Index() {
             </div>
 
             <div className="flex justify-center mr-10"> {/* Added justify-end to move the button to the right */}
-              <Button onClick={() => router.push("/auth/signup")} className="my-10" variant="default" size="lg">Join Today!</Button>
+              <Link href="/auth/signup">Join Now</Link>
             </div>
           </div>
         </div>
         <div className="relative aspect-[4/3] w-full">
-          <Image src={BooksImage} alt="Books" layout="fill" objectFit="contain" ></Image>
+          <Image src={BooksImage} alt="Books" layout="fill" objectFit="contain"  ></Image>
         </div>
       </div>
     </div>

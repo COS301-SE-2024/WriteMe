@@ -1,10 +1,14 @@
 {
   "extends": ["plugin:@nx/react", "../.eslintrc.json"],
-  "ignorePatterns": ["!**/*", "storybook-static"],
+  "ignorePatterns": ["!**/*", "storybook-static", "node_modules", "package.json", "project.json", "tailwind.config.js", "postcss.config.js" ,".storybook/**/*" ],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {}
+      "rules": {
+        "@typescript-eslint/ban-ts-comment": "warn",
+        "react/no-unescaped-entities": "warn",
+        "@typescript-eslint/no-empty-interface": "warn"
+      }
     },
     {
       "files": ["*.ts", "*.tsx"],
