@@ -19,10 +19,20 @@ Here is a link to our Github Project Board:
 
 ### Khyal Kara
 
+Roles: Project Manager, DevOps
+
 ### Costa Ellinas
+
+Roles: Business Analyst, Architect
 
 ### Matthew Pretorius
 
+Roles: Integration Enginner, Testing Engineer
+
 ### Lucas Blanc
 
+Roles: Integration Engineer, Frontend Engineer, Business Analyst
+
 ### Yashvita Kanaparthy
+
+Roles: Designer, Frontend Engineer
