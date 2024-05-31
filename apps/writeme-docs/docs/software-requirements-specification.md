@@ -152,8 +152,8 @@
     <ol className='srs-bullets'>
       <li>Testing and Performance
         <ol className='src-bullets'>
-          <li>Thorough testing procedures using unit tests, integration tests and system tests to identify bugs before deployment.</li>
-          <li>Use of automated testing tools such as Google lighthouse to test the systems performance and functionality.</li>
+          <li>Thorough testing procedures using unit tests, integration tests and system tests to identify bugs before deployment using Playwright and vTest with atleast 90% coverage</li>
+          <li>Use of automated testing tools such as Google Lighthouse to test the systems performance and functionality.</li>
           <li>The app must peform consistenly at all times.</li>
           <li>The app must implement robust error handling mechanisms.</li>
         </ol>
