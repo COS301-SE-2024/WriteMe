@@ -22,8 +22,7 @@ Here is a link to our Github Project Board:
 Roles: Project Manager, DevOps
 
 [![image](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white 'LinkedIn Profile')](https://www.linkedin.com/in/khyal-kara-009005302/)
-
-[![image](./apps/writeme-docs/docs/images/GitHub.png 'Github Profile')](https://github.com/KhyalKara/)
+[![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white 'Github Profile')](https://github.com/KhyalKara/)
 
 ### Costa Ellinas
 
@@ -32,29 +31,25 @@ Roles: Business Analyst, Architect
 I am a final year BSc Computer Science student at University Of Pretoria and am planning on doing my honors in computer science next year at UP
 
 [![image](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white 'LinkedIn Profile')](https://www.linkedin.com/in/costa-ellinas-b65390302)
-
-[![image](./apps/writeme-docs/docs/images/GitHub.png 'Github Profile')](https://github.com/CostaEllinas)
+[![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white 'Github Profile')](https://github.com/CostaEllinas)
 
 ### Matthew Pretorius
 
 Roles: Integration Enginner, Testing Engineer
 
 [![image](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white 'LinkedIn Profile')](https://www.linkedin.com/in/matthew-pretorius-a48384203/)
-
-[![image](./apps/writeme-docs/docs/images/GitHub.png 'Github Profile')](https://github.com/MattPret12)
+[![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white 'Github Profile')](https://github.com/MattPret12)
 
 ### Lucas Blanc
 
 Roles: Integration Engineer, Frontend Engineer, Business Analyst
 
 [![image](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white 'LinkedIn Profile')](https://www.linkedin.com/in/lucas-blanc-1238542ba/)
-
-[![image](./apps/writeme-docs/docs/images/GitHub.png 'Github Profile')](https://github.com/Lucasbl02)
+[![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white 'Github Profile')](https://github.com/Lucasbl02)
 
 ### Yashvita Kanaparthy
 
 Roles: Designer, Frontend Engineer
 
 [![image](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white 'LinkedIn Profile')](https://www.linkedin.com/in/yashvitha-kanaparthy-b9329b303/)
-
-[![image](./apps/writeme-docs/docs/images/GitHub.png 'Github Profile')](https://github.com/YashvithaK)
+[![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white 'Github Profile')](https://github.com/YashvithaK)
