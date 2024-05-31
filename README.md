@@ -35,53 +35,32 @@
 We are Dynasty Devs and our project is WriteMe.
 WriteMe is an innovative platform revolutionizing collaborative writing. Our application integrates Natural Language Processing to offer writers tools for enhancing narrative structures, character development, and emotional impact. Think of it as a GitHub for writers where users can share and create their stories with community support and enjoy reading stories all in one convenient place. By using AI and creating a vibrant and social writing community, WriteMe transforms the solitary act of writing into a collaborative and expressive experience which can unlock further creative expression and brilliance.
 
+<p align = "center">Click here to visit the website: <a href="">
+
 ## Demo Video
 
 Here is a link to our Demo Video:
 
-## SRS Documents
+## Documents
 
-Here is a link to our SRS Documentation:
+Here is a link to our Documentation:
 
-## Github Project Board
+## Project Management
 
-Here is a link to our Github Project Board:
+<div><a href="https://github.com/orgs/COS301-SE-2024/projects/56">📅 Pronto Project Board </a></div>
+<br>
+
+<img src="apps/writeme-docs/static/img/bar.png" alt="Alt text" title="bar">
 
 ## Our Team
 
-### Khyal Kara
+| Name and Surname             | Github Profiles                                                                                           | LinkedIn Profile                                 | Roles                  | Bio                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Profile Image                                                                |
+| :--------------------------- | --------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | :--------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Khyal Kara            | <a href="https://github.com/KhyalKara/"> <img src="https://skillicons.dev/icons?i=github&theme=light"/></a>                            | [LinkedIn](https://www.linkedin.com/in/khyal-kara-009005302/)                                                    | Project Manager, DevOps        | I love this degree!                                                                                                                       | <img src="apps/writeme-docs/static/img/Khyal.png"  width="100">                      |
+| Costa Ellinas            | <a href="https://github.com/CostaEllinas"><img src="https://skillicons.dev/icons?i=github&theme=light"/></a>                             | [LinkedIn](https://www.linkedin.com/in/costa-ellinas-b65390302)                                                    | Business Analyst, Architect       | I am a final year BSc Computer Science student at University Of Pretoria and am planning on doing my honors in computer science next year at UP                                                                                                                                                                                                                                                                                                                                                                                                                                     | <img src="apps/writeme-docs/static/img/Costa.png" width="100">                       |
+| Matthew Pretorius                | <a href="https://github.com/MattPret12"><img src="https://skillicons.dev/icons?i=github&theme=light"/></a>                             | [LinkedIn](https://www.linkedin.com/in/matthew-pretorius-a48384203/)                                                        | Integration Enginner, Testing Engineer | I love this degree!                        | <img src="apps/writeme-docs/static/img/Matthew.png" width="100">                       |
+| Yashvitha Kanaparthy         | <a href="https://github.com/YashvithaK"><img src="https://skillicons.dev/icons?i=github&theme=light"/></a>                             | [LinkedIn](https://www.linkedin.com/in/yashvitha-kanaparthy-501657174/)                                     | Designer, Frontend Engineer            | I'm a passionate UI engineer deeply immersed in the world of creative design and user experience. With a strong background in Computer Science, currently in my third year of study, I excel in designing user-friendly digital interfaces that skillfully merge aesthetics with functionality. With a keen eye for detail and a commitment to innovation, I'm dedicated to creating captivating experiences that resonate with users across diverse platforms. | <img src="apps/writeme-docs/static/img/Yashvitha.png" width="200">                       |
+| Lucas Blanc | <a href="https://github.com/Lucasbl02"><img src="https://skillicons.dev/icons?i=github&theme=light"/></a>                             | [LinkedIn](https://www.linkedin.com/in/lucas-blanc-1238542ba/)                             | Integration Engineer, Frontend Engineer, Business Analyst   | I love this degree!                                                                                                                                                                                                                                                                                                                                                                                                                                   | <img src="apps/writeme-docs/static/img/Lucas.png" width="200">                       |
 
-Roles: Project Manager, DevOps
-
-[![image](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white 'LinkedIn Profile')](https://www.linkedin.com/in/khyal-kara-009005302/)
-[![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white 'Github Profile')](https://github.com/KhyalKara/)
-
-### Costa Ellinas
-
-Roles: Business Analyst, Architect
-
-I am a final year BSc Computer Science student at University Of Pretoria and am planning on doing my honors in computer science next year at UP
-
-[![image](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white 'LinkedIn Profile')](https://www.linkedin.com/in/costa-ellinas-b65390302)
-[![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white 'Github Profile')](https://github.com/CostaEllinas)
-
-### Matthew Pretorius
-
-Roles: Integration Enginner, Testing Engineer
-
-[![image](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white 'LinkedIn Profile')](https://www.linkedin.com/in/matthew-pretorius-a48384203/)
-[![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white 'Github Profile')](https://github.com/MattPret12)
-
-### Lucas Blanc
-
-Roles: Integration Engineer, Frontend Engineer, Business Analyst
-
-[![image](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white 'LinkedIn Profile')](https://www.linkedin.com/in/lucas-blanc-1238542ba/)
-[![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white 'Github Profile')](https://github.com/Lucasbl02)
-
-### Yashvita Kanaparthy
-
-Roles: Designer, Frontend Engineer
-
-[![image](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white 'LinkedIn Profile')](https://www.linkedin.com/in/yashvitha-kanaparthy-b9329b303/)
-[![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white 'Github Profile')](https://github.com/YashvithaK)
+<br><br>
+<img src="apps/writeme-docs/static/img/bar.png" alt="Alt text" title="bar">
