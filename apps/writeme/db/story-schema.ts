@@ -1,4 +1,4 @@
-import { TypeOf, object, string, boolean ,z } from 'zod';
+import { TypeOf, object, string, boolean, z, array } from 'zod';
 import type {Block} from '@blocknote/core'
 
 
@@ -16,6 +16,6 @@ export const updateStorySchema = object({
   description: string({required_error: "description is required"}).max(10000, "Description is too long, maximum of 10000 characters"),
   content: string({required_error: "content is required"}),
   cover: string({required_error: "cover needs to be present"}).url("cover should be a url to an image resource"),
-  blocks: string({required_error: "blocks need to be present"}),
+  blocks: array(z.any(), {}),
   published: boolean({required_error: "published needs to be present"}),
 })

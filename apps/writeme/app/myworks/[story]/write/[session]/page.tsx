@@ -12,6 +12,8 @@ import { eq } from 'drizzle-orm';
 import Link from 'next/link';
 import EditorController from './editor-controller';
 import LocalNavbar from './local-navbar';
+import { EditorContext } from './editor-context';
+import EditorLoader from './editor-loader';
 
 const Editor = dynamic(() => import("@writeme/wmc/lib/ui/editor"), { ssr: false });
 
@@ -124,7 +126,9 @@ export default async function Write(props: WriteProps) {
 
   return (
     <div className="min-h-screen">
-      <LocalNavbar title={story.title} />
+      <EditorLoader inputStory={story}>
+
+      <LocalNavbar />
 
       <div className='z-1 relative'>
         <ResizablePanelGroup direction='horizontal'>
@@ -157,6 +161,7 @@ export default async function Write(props: WriteProps) {
         </ResizablePanelGroup>
       </div>
 
+      </EditorLoader>
 
     </div>
   );
