@@ -35,7 +35,8 @@ export async function POST(req: Request) {
       brief: brief,
       title: title,
       description: description,
-      blocks: {}
+      blocks: [],
+      cover: 'https://www.writersdigest.com/.image/t_share/MTcxMDY0NzcxMzIzNTY5NDEz/image-placeholder-title.jpg'
     });
 
 
@@ -87,6 +88,8 @@ export async function PUT(req: Request){
         status: 'fail', message: "You are not logged in",
       }), { status : 401})
     }
+
+    // console.log(await req.json());
 
     const input = updateStorySchema.parse(await req.json());
 

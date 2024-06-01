@@ -33,7 +33,9 @@ export default function Editor({initialBlocks, setBlocks}:EditorProps) {
   // Creates a new editor instance.
   // const editor = useCreateBlockNote({ });
   const editor = useMemo(() => {
-    if (initialBlocks.length === 0) {
+    console.log(initialBlocks);
+    console.log(initialBlocks.length)
+    if (initialBlocks.length === 0 || initialBlocks.length == undefined) {
       return BlockNoteEditor.create();
     }
     return BlockNoteEditor.create({ initialContent: initialBlocks });
