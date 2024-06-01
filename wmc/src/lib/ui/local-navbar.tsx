@@ -12,6 +12,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@writeme/wmc/lib/ui/pop
 
 const LocalNavbar = () => {
   const pathname = usePathname();
+
   const { data: session} = useSession();
 
   return (
@@ -70,7 +71,7 @@ const LocalNavbar = () => {
               </PopoverContent>
             </Popover>
 
-        ): <Link className={buttonVariants({ variant: 'default' })} href="/auth/login">Login</Link>}
+        ): <Link className={buttonVariants({ variant: 'default' })} data-testid="sign_up_button" href="/auth/login">Login</Link>}
       </div>
     </div>
   );
