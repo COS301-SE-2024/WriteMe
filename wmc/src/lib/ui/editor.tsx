@@ -13,6 +13,7 @@ import { Tabs } from '@writeme/wmc/lib/ui/tabs';
 import { DropdownMenu } from '@writeme/wmc/lib/ui/dropdown-menu';
 import { Form } from '@writeme/wmc/lib/ui/form';
 import { useState } from 'react';
+import { useTheme } from 'next-themes';
 
 // Our <Editor> component we can reuse later
 
@@ -24,6 +25,7 @@ export interface EditorProps {
 
 export default function Editor({initialBlocks, setBlocks}:EditorProps) {
   const blocks = useState({});
+  const theme = useTheme();
 
 
   // Creates a new editor instance.
@@ -39,7 +41,7 @@ export default function Editor({initialBlocks, setBlocks}:EditorProps) {
   // Renders the editor instance using a React component.
   return <BlockNoteView
     editor={editor}
-    theme={'light'}
+    theme={theme.theme as any}
     onChange={() => {
       // Saves the document JSON to state.
       console.log(editor)
