@@ -321,6 +321,13 @@ The Client-Server architecture for our project splits the application into two m
   <li>Sign up with an email and password so I can use all of WriteMe's features</li>
 </ul>
 
+#### As a Guest I would like to:
+
+<ul className='guestStories'>
+  <li>View all of the published stories</li>
+  <li>Read any of the published stories</li>
+</ul>
+
 #### As an Existing User I would like to:
 
 <ul className='existingUserStories'>
@@ -337,7 +344,7 @@ The Client-Server architecture for our project splits the application into two m
   <li>View a story so I can read other peoples stories and get inspiration for some of my own stories</li>
   <li>Like a story so I can show my appreciation for a good story</li>
   <li>Comment on a story so I can share my thoughts and receive feedback from others</li>
-  <li>Share a story so I can show others the story</li>
+  <li>Share a story on WhatsApp so I can show others the story</li>
 </ul>
 
 ## Constraints
