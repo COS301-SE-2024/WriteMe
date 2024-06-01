@@ -1,5 +1,5 @@
-import LocalNavbar from './local-navbar';
 import NewStoryForm from './new-story-form';
+import LocalNavbar from '@writeme/wmc/lib/ui/local-navbar';
 
 
 export interface NewStoryProps {}

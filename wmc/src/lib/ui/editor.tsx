@@ -12,8 +12,9 @@ import { Toggle } from '@writeme/wmc/lib/ui/toggle';
 import { Tabs } from '@writeme/wmc/lib/ui/tabs';
 import { DropdownMenu } from '@writeme/wmc/lib/ui/dropdown-menu';
 import { Form } from '@writeme/wmc/lib/ui/form';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTheme } from 'next-themes';
+import { BlockNoteEditor } from '@blocknote/core';
 
 // Our <Editor> component we can reuse later
 
@@ -24,17 +25,19 @@ export interface EditorProps {
 }
 
 export default function Editor({initialBlocks, setBlocks}:EditorProps) {
-  const blocks = useState({});
+  console.log(initialBlocks);
+  // const [blocks, setBlocks] = useState(initialBlocks);
   const theme = useTheme();
 
 
   // Creates a new editor instance.
-  const editor = useCreateBlockNote(
-    {
-      initialContent: initialBlocks
-    },
-  );
-
+  // const editor = useCreateBlockNote({ });
+  const editor = useMemo(() => {
+    if (initialBlocks.length === 0) {
+      return BlockNoteEditor.create();
+    }
+    return BlockNoteEditor.create({ initialContent: initialBlocks });
+  }, []);
 
 
 
@@ -44,8 +47,8 @@ export default function Editor({initialBlocks, setBlocks}:EditorProps) {
     theme={theme.theme as any}
     onChange={() => {
       // Saves the document JSON to state.
-      console.log(editor)
-      // setBlocks(editor.document);
+      // console.log(editor.document)
+      setBlocks(editor.document);
     }}
 
     shadCNComponents={{
