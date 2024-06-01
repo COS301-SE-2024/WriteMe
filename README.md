@@ -64,3 +64,4 @@ Here is a link to our Documentation:
 
 <br><br>
 <img src="apps/writeme-docs/static/img/bar.png" alt="Alt text" title="bar">
+
