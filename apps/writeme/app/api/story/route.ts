@@ -35,7 +35,8 @@ export async function POST(req: Request) {
       brief: brief,
       title: title,
       description: description,
-      blocks: {}
+      blocks: [],
+      cover: 'https://www.writersdigest.com/.image/t_share/MTcxMDY0NzcxMzIzNTY5NDEz/image-placeholder-title.jpg'
     });
 
 
@@ -72,61 +73,60 @@ type UpdadtedStory = any;
 
 
 const updateStory = async (story: UpdadtedStory) => {
-  const result = await db.update(stories).set({blocks: story.blocks, title: story.title, description: story.description, brief: story.brief, content: story.content}).where(eq(stories.id, story.id)).returning({updatedId: users.id});
+  const result = await db.update(stories).set({blocks: story.blocks, title: story.title, description: story.description, brief: story.brief, content: story.content, published: story.published}).where(eq(stories.id, story.id)).returning({updatedId: stories.id});
 
   return result[0];
 };
 
 
-// export async function PUT(req: Request){
-//   try {
-//     const session = await auth();
-//
-//     if (!session?.user){
-//       return new NextResponse(JSON.stringify({
-//         status: 'fail', message: "You are not logged in",
-//       }), { status : 401})
-//     }
-//
-//     const { id, brief, title, description , content,blocks,published,cover} = updateStorySchema.parse(await req.json());
-//
-//     // : ensure user owns story
-//
-//     // @ts-ignore
-//     const story = await insertStory({
-//       userId: session.user.id,
-//       content: '',
-//       brief: brief,
-//       title: title,
-//       description: description,
-//       blocks: {}
-//     });
-//
-//
-//     return NextResponse.json({
-//       story: {
-//         id: story.id,
-//       },
-//     });
-//   } catch (error: any) {
-//     console.log(error);
-//     if (error instanceof ZodError) {
-//       return NextResponse.json(
-//         {
-//           status: 'error',
-//           message: 'Validation failed',
-//           errors: error.errors,
-//         },
-//         { status: 400 }
-//       );
-//     }
-//
-//     return NextResponse.json(
-//       {
-//         status: 'error',
-//         message: error.message || 'Internal Server Error',
-//       },
-//       { status: 500 }
-//     );
-//   }
-// }
+export async function PUT(req: Request){
+  try {
+    const session = await auth();
+
+    if (!session?.user){
+      return new NextResponse(JSON.stringify({
+        status: 'fail', message: "You are not logged in",
+      }), { status : 401})
+    }
+
+    // console.log(await req.json());
+
+    const input = updateStorySchema.parse(await req.json());
+
+    // : ensure user owns story
+    // console.log(input);
+    // @ts-ignore
+    const story = await updateStory({
+      ...input,
+      userId: session.user.id,
+    });
+    // console.log(story);
+
+
+    return NextResponse.json({
+      story: {
+        id: story.id,
+      },
+    });
+  } catch (error: any) {
+    console.log(error);
+    if (error instanceof ZodError) {
+      return NextResponse.json(
+        {
+          status: 'error',
+          message: 'Validation failed',
+          errors: error.errors,
+        },
+        { status: 400 }
+      );
+    }
+
+    return NextResponse.json(
+      {
+        status: 'error',
+        message: error.message || 'Internal Server Error',
+      },
+      { status: 500 }
+    );
+  }
+}
