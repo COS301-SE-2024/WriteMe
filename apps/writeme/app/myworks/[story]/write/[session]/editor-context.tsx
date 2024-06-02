@@ -2,7 +2,7 @@
 
 import { createContext } from 'react';
 
-export const EditorContext = createContext<>({
+export const EditorContext = createContext({
   story: {},
   setStory: () => {},
   blocks: [],
