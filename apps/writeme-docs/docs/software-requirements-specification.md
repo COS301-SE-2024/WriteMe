@@ -1,5 +1,11 @@
 # Software Requirements Specification
 
+## Introduction
+
+WriteMe is an innovative platform designed to revolutionize the way people create, share, and consume stories. Our vision is to become the leading platform for writers and readers, providing tools and features that enhance the storytelling experience and make it accessible to everyone. WriteMe aims to enhance user experience through an intuitive and seamless interface, foster creativity by offering helpful tools and suggestions, build a vibrant community for sharing and feedback, ensure security with robust measures to protect user data, and expand accessibility across various devices and operating systems.
+
+The rise of digital content consumption has created a demand for platforms that not only allow users to consume content but also to create and share their own. WriteMe addresses this need by offering a dedicated space for writers to craft stories and for readers to discover new and diverse content. The project scope includes developing a web-based platform with features such as user registration and authentication with multiple login options, a secure story creation and editing interface, simple publishing processes, community features for exploring and engaging with stories, and customization options like dark mode. Comprehensive testing and performance optimization ensure a fast and reliable user experience. WriteMe is poised to meet the growing demand for high-quality, user-generated content in a secure and accessible manner
+
 ## Functional Requirements
 
 ### Authentication
@@ -9,16 +15,16 @@
     <ol className="srs-bullets">
       <li>Using a sign up form. The form should gather the following:
         <ol className="srs-bullets">
-          <li>Email address. Does not require email authentication.</li>
+          <li><strong>Email address. Does not require email authentication.</strong></li>
           <li>Date of birth</li>
-          <li>Password</li>
+          <li><strong>Password</strong></li>
           <li>Username</li>
         </ol>
        </li>
       <li>Using existing platforms:
         <ol className="srs-bullets">
-          <li>Google</li>
-          <li>Github</li>
+          <li><strong>Google</strong></li>
+          <li><strong>Github</strong></li>
         </ol>
       </li>
       <li> After signing up, the system must obtain the following from the user:
@@ -34,7 +40,7 @@
     <ol className="srs-bullets">
       <li>Using their email and password
         <ol className="srs-bullets">
-          <li>The user credentials must be validated</li>
+          <li><strong>The user credentials must be validated</strong></li>
           <li>Must allow user to recover their password using their email or username
             <ol className="srs-bullets">
               <li>The account must be verified (i.e. ensure it exists)</li>
@@ -45,8 +51,8 @@
       </li>
       <li>Using existing platforms
         <ol className="srs-bullets">
-          <li>Using Google</li>
-          <li>Using Github</li>
+          <li><strong>Using Google</strong></li>
+          <li><strong>Using Github</strong></li>
         </ol>
       </li>
       <li>The user must be able to select “forgot password’
@@ -64,9 +70,9 @@
 <ol className="srs-bullets">
   <li>The system must provide functionality that is specific to users that are singed up:
     <ol className="srs-bullets">
-      <li>Access to account management</li>
-      <li>Access to reading other stories</li>
-      <li>Access to writing stories</li>
+      <li><strong>Access to account management</strong></li>
+      <li><strong>Access to reading other stories</strong></li>
+      <li><strong>Access to writing stories</strong></li>
       <li>Access to the recommendation system. The access is implicit (i.e. the user doesn't directly interact with the system)</li>
       <li>Access to the social interaction system*</li>
     </ol>
@@ -78,16 +84,16 @@
 <ol className="srs-bullets">
   <li>Users must be able to create their own stories:
     <ol className='srs-bullets'>
-      <li>Users must be able to publish their story</li>
-      <li>Users must be able to save their story to a draft</li>
-      <li>Users must be able to edit their stories</li>
+      <li><strong>Users must be able to publish their story</strong></li>
+      <li><strong>Users must be able to save their story to a draft</strong></li>
+      <li><strong>Users must be able to edit their stories</strong></li>
       <li>Genre selection</li>
     </ol>
   </li>
   <li>Metadata:
     <ol className='srs-bullets'>
-      <li>Users must be able to add a title to their story</li>
-      <li>Editor for users to write the main content of their story</li>
+      <li><strong>Users must be able to add a title to their story</strong></li>
+      <li><strong>Editor for users to write the main content of their story</strong></li>
       <li>Able to select a cover image</li>
     </ol>
   </li>
@@ -98,7 +104,7 @@
 <ol className="srs-bullets">
   <li>Users must be able to view a single story
     <ol className='srs-bullets'>
-      <li>Able to view a story on click</li>
+      <li><strong>Able to view a story on click</strong></li>
       <li>Able to like a story</li>
       <li>Able to share a story</li>
       <li>Able to comment on a story</li>
@@ -215,22 +221,74 @@ The Client-Server architecture for our project splits the application into two m
 
 ## Technology Requirements
 
-### Tech Stack
+### Mono Repository Management
 
-- Mono Repository Management ([nx](https://nx.dev/))![Nx](https://img.shields.io/badge/nx-143055?style=for-the-badge&logo=nx&logoColor=white)
-- Framework ([nextjs](https://nextjs.org/)) ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
-- Unit / Integration Testing ([jest](https://jestjs.io/)) ![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
-- End-to-End / Integration Testing ([playwright](https://www.playwrite.dev/)) ![playwright](https://img.shields.io/badge/Playwright-45ba4b?style=for-the-badge&logo=Playwright&logoColor=white)
-- Linting ([eslint](https://eslint.org/))![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
-- Documentation: Inline ([jsdoc](https://jsdoc.app/))
-- Documentation: Wiki ([markdown](https://www.markdownguide.org/))
-- Documentation: Design and Wireframes ([figma](https://www.figma.com/))![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
-- Documentation: Components ([Storybook](https://storybook.js.org/))
-- Deployment: AWS ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white) & Cloudflare Pages ![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=for-the-badge&logo=Cloudflare&logoColor=white)
-- Misc: Package Manager ([pnpm](https://pnpm.io/))
-- Misc: Local Development WSL
-- Misc: Local Development Docker ([docker](https://www.docker.com/))![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
-- Misc: Commit Standards ([Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/))
+- **nx:** ![Nx](https://img.shields.io/badge/nx-143055?style=for-the-badge&logo=nx&logoColor=white)
+  - **Advantage:** Provides efficient code sharing and dependency management across multiple projects, ensuring streamlined development and maintenance.
+
+### Framework
+
+- **Next.js:** ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+  - **Advantage:** Offers server-side rendering and static site generation, improving performance and SEO for the application.
+
+### Unit / Integration Testing
+
+- **Jest:** ![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
+  - **Advantage:** Delivers fast and reliable testing with a comprehensive feature set, ensuring high code quality and coverage.
+
+### End-to-End / Integration Testing
+
+- **Playwright:** ![playwright](https://img.shields.io/badge/Playwright-45ba4b?style=for-the-badge&logo=Playwright&logoColor=white)
+  - **Advantage:** Provides cross-browser testing capabilities, ensuring compatibility and functionality across different web browsers.
+
+### Linting
+
+- **ESLint:** ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
+  - **Advantage:** Helps maintain code quality and consistency by identifying and fixing potential issues and enforcing coding standards.
+
+### Documentation: Inline
+
+- **JSDoc:** [jsdoc](https://jsdoc.app/)
+  - **Advantage:** Enhances code readability and maintainability by providing inline documentation for developers.
+
+### Documentation: Wiki
+
+- **Markdown:** [markdown](https://www.markdownguide.org/)
+  - **Advantage:** Allows for easy creation and editing of documentation, making it accessible and collaborative.
+
+### Documentation: Design and Wireframes
+
+- **Figma:** ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
+  - **Advantage:** Enables collaborative design and prototyping, ensuring clear communication and visual consistency.
+
+### Documentation: Components
+
+- **Storybook:** [Storybook](https://storybook.js.org/)
+  - **Advantage:** Facilitates the development and testing of UI components in isolation, improving component reusability and reliability.
+
+### Deployment
+
+- **AWS:** ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+  - **Advantage:** Offers scalable and reliable cloud infrastructure with a wide range of services to support application deployment and management.
+- **Cloudflare Pages:** ![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=for-the-badge&logo=Cloudflare&logoColor=white)
+  - **Advantage:** Provides fast and secure web hosting with built-in CDN and DDoS protection, enhancing site performance and security.
+
+### Package Manager
+
+- **pnpm:** [pnpm](https://pnpm.io/)
+  - **Advantage:** Ensures faster and more efficient package installation and management, reducing disk space usage.
+
+### Local Development
+
+- **WSL:**
+  - **Advantage:** Allows seamless integration of Linux-based development environments on Windows, enhancing productivity and compatibility.
+- **Docker:** ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+  - **Advantage:** Provides consistent development and testing environments through containerization, ensuring smooth deployment across different systems.
+
+### Commit Standards
+
+- **Conventional Commits:** [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+  - **Advantage:** Promotes structured and meaningful commit messages, facilitating better versioning and project history tracking.
 
 ## Project Structure
 
@@ -269,6 +327,13 @@ The Client-Server architecture for our project splits the application into two m
   <li>Sign up with an email and password so I can use all of WriteMe's features</li>
 </ul>
 
+#### As a Guest I would like to:
+
+<ul className='guestStories'>
+  <li>View all of the published stories</li>
+  <li>Read any of the published stories</li>
+</ul>
+
 #### As an Existing User I would like to:
 
 <ul className='existingUserStories'>
@@ -285,8 +350,51 @@ The Client-Server architecture for our project splits the application into two m
   <li>View a story so I can read other peoples stories and get inspiration for some of my own stories</li>
   <li>Like a story so I can show my appreciation for a good story</li>
   <li>Comment on a story so I can share my thoughts and receive feedback from others</li>
-  <li>Share a story so I can show others the story</li>
+  <li>Share a story on WhatsApp so I can show others the story</li>
 </ul>
+
+## Constraints
+
+<ol>
+    <li>Technical Constraints:
+        <ul>
+            <li>Scalability: Ensuring the system can handle a growing number of users and data without compromising performance.</li>
+            <li>Integration of AI: Implementing sophisticated NLP algorithms and AI-driven suggestions requires significant computational resources and expertise.</li>
+            <li>Cross-Device Compatibility: Developing a PWA that functions seamlessly across various devices (phones, tablets, laptops) can be challenging.</li>
+        </ul>
+    </li>
+    <li>Resource Constraints:
+        <ul>
+            <li>Development Time: Limited time frame to develop, test, and deploy the application.</li>
+            <li>Budget: Financial limitations may affect the choice of technologies, cloud services, and AI tools.</li>
+            <li>Human Resources: Availability of skilled developers proficient in frontend, backend, AI, and cloud technologies.</li>
+        </ul>
+    </li>
+    <li>Security Constraints:
+        <ul>
+            <li>Data Protection: Ensuring user data, including personal information and creative content, is securely stored and transmitted.</li>
+            <li>Compliance: Adhering to data privacy regulations such as GDPR.</li>
+        </ul>
+    </li>
+    <li>Operational Constraints:
+        <ul>
+            <li>Continuous Deployment: Managing frequent updates and maintaining system stability during CI/CD processes.</li>
+            <li>Server Maintenance: Ensuring reliable server performance and uptime, especially during high traffic periods.</li>
+        </ul>
+    </li>
+    <li>User Constraints:
+        <ul>
+            <li>User Adoption: Encouraging writers to adopt and consistently use the platform.</li>
+            <li>Learning Curve: Ensuring the platform is intuitive and easy to use for writers of varying technical proficiency.</li>
+        </ul>
+    </li>
+    <li>Market Constraints:
+        <ul>
+            <li>Competition: Differentiating WriteMe from existing writing and collaboration tools.</li>
+            <li>Market Penetration: Effectively reaching and engaging the target audience of writers and creative professionals.</li>
+        </ul>
+    </li>
+</ol>
 
 ## Service Contracts
 
@@ -419,3 +527,8 @@ This endpoint allows an authenticated user to create a new story.
   }
 }
 ```
+
+
+## Class Diagram
+
+![Class Diagram](/img/class-diagram.png)
