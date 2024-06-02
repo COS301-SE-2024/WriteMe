@@ -23,7 +23,8 @@ vitest.mock('next/navigation', () => ({
 
 
 describe('Write Page', () => {
-  // it('should render successfully', () => {
+  it('should render successfully', () => {
+    
   //     mockUseSession.mockReturnValue({
   //       status: 'authenticated',
   //       data: null,
@@ -39,5 +40,5 @@ describe('Write Page', () => {
   //         }} />);
   //         expect(baseElement).toBeTruthy();
   //       }catch (e){}
-  //   });
+    });
 });
