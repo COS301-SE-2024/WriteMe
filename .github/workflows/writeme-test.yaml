@@ -1,19 +1,16 @@
-# Deploys Documents to Cloudflare
-name: Documentation Cloudflare Deployment
+name: Test WriteMe App
 on:
   push:
     branches:
-      - main
+      - dev
     paths:
-      - "apps/writeme-docs/**"
+      - "apps/writeme/**"
 jobs:
-  deploy:
+  main:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       actions: read
-      deployments: write
-    name: Deploy to Cloudflare Pages
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -40,13 +37,9 @@ jobs:
             ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install
-      - name: Build Step
-        run: pnpm exec nx run writeme-docs:build
-      - name: Publish
-        uses: cloudflare/pages-action@1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_TOKEN }} # secret on github repo
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT }} # secret on github repo
-          projectName: writeme-docs
-          directory: dist/apps/writeme-docs/ # e.g. 'dist'
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Run Linting
+      #   run: pnpm exec nx run writeme:lint
+      - name: Run Unit Test
+        run: pnpm exec nx run writeme:test
+      # - name: Run E2E Tests
+      #   run: pnpm exec nx run writeme-e2e:e2e-ci

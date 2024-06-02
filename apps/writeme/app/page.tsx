@@ -1,11 +1,6 @@
-"use client";
-
-import { Button } from "@writeme/wmc/lib/ui/button";
-import WriteMeLogo from "../assets/WriteMe.png";
 import BooksImage from "../assets/Books.png";
 import Image from "next/image";
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import LocalNavbar from "@writeme/wmc/lib/ui/local-navbar";
 
 export default function Index() {
@@ -29,7 +24,7 @@ export default function Index() {
             </div>
 
             <div className="flex justify-center mr-10"> {/* Added justify-end to move the button to the right */}
-              <Link href="/auth/signup">Join Now</Link>
+              <Link data-testid='join_now_link' href="/auth/signup">Join Now</Link>
             </div>
           </div>
         </div>

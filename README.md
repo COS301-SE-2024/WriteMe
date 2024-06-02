@@ -4,7 +4,7 @@
 
 <div align="center">
   <h3>Dynasty Devs - Capstone Project</h3>
-  <p>Partnered with EPI-USE</p>
+  <p>Partnered with EPI-USE LABS</p>
 </div>
 
 <img src="apps/writeme-docs/static/img/bar.png" alt="Alt text" title="bar">
@@ -47,7 +47,7 @@ Here is a link to our Documentation:
 
 ## Project Management
 
-<div><a href="https://github.com/orgs/COS301-SE-2024/projects/56">📅 Pronto Project Board </a></div>
+<div><a href="https://github.com/orgs/COS301-SE-2024/projects/56">📅 WriteMe Project Board </a></div>
 <br>
 
 <img src="apps/writeme-docs/static/img/bar.png" alt="Alt text" title="bar">

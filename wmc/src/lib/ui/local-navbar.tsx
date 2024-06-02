@@ -12,6 +12,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@writeme/wmc/lib/ui/pop
 
 const LocalNavbar = () => {
   const pathname = usePathname();
+
   const { data: session} = useSession();
 
   return (
@@ -37,10 +38,13 @@ const LocalNavbar = () => {
         </Link>
       </div>
 
-      {pathname == '/myworks' || pathname == '/stories' ? (<div className="flex gap-2 items-center">
+      {pathname == '/myworks' || pathname.startsWith('/stories') || pathname == "/myworks/new" ? (<div className="flex gap-2 items-center">
         {session ? (<Link href="/myworks"
                        className={cn(buttonVariants({ variant: 'link' }), pathname == '/myworks' ? 'underline' : '')}>My
           Stories</Link>) : <></>}
+        {session ? (<Link href="/myworks/new"
+                          className={cn(buttonVariants({ variant: 'link' }), pathname == '/myworks/new' ? 'underline' : '')}>
+          New Story</Link>) : <></>}
 
         <Link href="/stories"
               className={cn(buttonVariants({ variant: 'link' }), pathname == '/stories' ? 'underline' : '')}>Explore</Link>
@@ -48,7 +52,7 @@ const LocalNavbar = () => {
 
 
       <div className="flex items-center gap-4">
-        { pathname == "/" ? <Link href="/stories" className="text-black hover:underline">Explore</Link> : <></>}
+        { pathname == "/" ? <Link href="/stories" className={buttonVariants({ variant: 'link' })}>Explore</Link> : <></>}
 
 
         <ModeToggle></ModeToggle>
@@ -67,7 +71,7 @@ const LocalNavbar = () => {
               </PopoverContent>
             </Popover>
 
-        ): <Link className={buttonVariants({ variant: 'default' })} href="/auth/login">Login</Link>}
+        ): <Link className={buttonVariants({ variant: 'default' })} data-testid="sign_up_button" href="/auth/login">Login</Link>}
       </div>
     </div>
   );
