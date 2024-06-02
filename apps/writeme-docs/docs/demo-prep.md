@@ -4,7 +4,7 @@
 
 ### The Problem We Were Given:
 
-**Matt** People who enjoy reading and writing stories often have a difficult time finding a place to read ,write and publish stories in one single space. Most of the time people have to use multiple websites or pay for stories ,download them and then share them. But not anymore because this is where WriteMe comes in.
+**Matt** People who enjoy reading and writing stories often have a difficult time finding a place to read ,write and publish stories in one single space. Most of the time people have to use multiple websites or pay for stories ,download them and then share them. But not anymore because this is where WriteMe comes in. We want to make a writing app tailored for writers and readers at heart that uses the modern abundance of NLP tools to give writers suggestions as to how to better improve their work. Suggestions ranging from common error corrections to story progression, character development and sentence construction. We also want to take advantage of the technilogical advances in todays society mainly the use of AI to help make our users experience even easier and better.
 
 ### Run Through:
 
