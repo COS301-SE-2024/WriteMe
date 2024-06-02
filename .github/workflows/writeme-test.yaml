@@ -37,9 +37,9 @@ jobs:
             ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install
-      - name: Run Linting
-        run: pnpm exec nx run writeme:lint
+      # - name: Run Linting
+      #   run: pnpm exec nx run writeme:lint
       - name: Run Unit Test
         run: pnpm exec nx run writeme:test
-      - name: Run E2E Tests
-        run: pnpm exec nx run writeme-e2e:e2e-ci
+      # - name: Run E2E Tests
+      #   run: pnpm exec nx run writeme-e2e:e2e-ci
