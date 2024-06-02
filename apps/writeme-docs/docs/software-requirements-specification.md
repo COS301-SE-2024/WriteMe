@@ -1,5 +1,11 @@
 # Software Requirements Specification
 
+## Introduction
+
+WriteMe is an innovative platform designed to revolutionize the way people create, share, and consume stories. Our vision is to become the leading platform for writers and readers, providing tools and features that enhance the storytelling experience and make it accessible to everyone. WriteMe aims to enhance user experience through an intuitive and seamless interface, foster creativity by offering helpful tools and suggestions, build a vibrant community for sharing and feedback, ensure security with robust measures to protect user data, and expand accessibility across various devices and operating systems.
+
+The rise of digital content consumption has created a demand for platforms that not only allow users to consume content but also to create and share their own. WriteMe addresses this need by offering a dedicated space for writers to craft stories and for readers to discover new and diverse content. The project scope includes developing a web-based platform with features such as user registration and authentication with multiple login options, a secure story creation and editing interface, simple publishing processes, community features for exploring and engaging with stories, and customization options like dark mode. Comprehensive testing and performance optimization ensure a fast and reliable user experience. WriteMe is poised to meet the growing demand for high-quality, user-generated content in a secure and accessible manner
+
 ## Functional Requirements
 
 ### Authentication
@@ -389,6 +395,138 @@ The Client-Server architecture for our project splits the application into two m
         </ul>
     </li>
 </ol>
+
+## Service Contracts
+
+### POST /register (Create User):
+
+**Description:**
+
+This endpoint allows the creation of a new user account.
+
+**Request:**
+
+- **Method:** `POST`
+- **Path:** `/register`
+- **Body:** 
+```json
+{
+"name": "string",
+"email": "string",
+"password": "string",
+}
+```
+**Response:**
+
+- **Success (200 OK):**
+```json
+  {
+    "user": {
+      "name": "string",
+      "email": "string",
+    }
+  }
+```
+
+- **Bad Request (400 Bad Request):**
+```json
+{
+  "status": "error",
+  "message": "Validation failed",
+  "errors": []
+}
+```
+
+- **Conflict (409 Conflict): Email already exists**
+```json
+{
+  "status": "fail",
+  "message": "user with that email already exists"
+}
+```
+
+- **Internal Server Error (500 Internal Server Error):**
+```json
+{
+  "status": "error",
+  "message": "'Internal Server Error'"
+}
+```
+
+### PUT /story (Update Story):
+
+**Description:**
+
+This endpoint allows an authenticated user to update a story they own.
+
+**Request:**
+
+- **Method:** `PUT`
+- **Path:** `/story`
+- **Headers:**
+  - `Authorization`: Bearer token containing user's session information
+  - `Content-Type`: application/json
+- **Body:** 
+```json
+{
+  "story": {
+    "id": "string"
+  },
+  "content": "string", 
+  "brief": "string", 
+  "tite": "string", 
+  "description": "string", 
+  "blocks": [],
+  "published": true,
+}
+```
+**Response:**
+- **Headers:**
+  - `Content-Type`: application/json
+- **Body:**
+```json
+{
+  "story": {
+    "id": "string"
+  }
+}
+```
+
+### POST /story (Create Story):
+
+**Description:**
+
+This endpoint allows an authenticated user to create a new story.
+
+**Request:**
+
+- **Method:** `POST`
+- **Path:** `/story`
+- **Headers:**
+  - `Authorization`: Bearer token containing user's session information
+  - `Content-Type`: application/json
+- **Body:** 
+```json
+{
+"userId": "string", 
+"content": "string", 
+"brief": "string", 
+"tite": "string", 
+"description": "string", 
+"blocks": []
+}
+```
+**Response:**
+- **Headers:**
+  - `Content-Type`: application/json
+- **Body:**
+```json
+{
+  "story": {
+    "id": "string"
+  }
+}
+```
 
 
 ## Class Diagram

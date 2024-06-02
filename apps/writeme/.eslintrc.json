@@ -19,6 +19,8 @@
       "rules": {
         "@next/next/no-html-link-for-pages": ["error", "apps/writeme/pages"],
         "@typescript-eslint/ban-ts-comment": "warn",
+        "@typescript-eslint/no-empty-function": "warn",
+        "@typescript-eslint/no-extra-semi": "warn",
         "react/no-unescaped-entities": "warn",
         "@typescript-eslint/no-empty-interface": "warn"
       }
