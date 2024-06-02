@@ -4,9 +4,6 @@
   "sourceRoot": "wmc/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "add-component": {
-      "executor": "@nx-extend/shadcn-ui:add"
-    }
-  }
+  "// targets": "to see all targets run: nx show project wmc --web",
+  "targets": {}
 }

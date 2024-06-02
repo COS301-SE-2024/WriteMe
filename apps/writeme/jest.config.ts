@@ -1,5 +1,14 @@
 /* eslint-disable */
-export default {
+
+import type { Config } from 'jest';
+import nextJest from 'next/jest';
+
+const createJestConfig = nextJest({
+  dir: __dirname,
+})
+
+
+const config: Config = {
   displayName: 'writeme',
   preset: '../../jest.preset.js',
   transform: {
@@ -8,4 +17,11 @@ export default {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/apps/writeme',
+  coverageProvider: 'v8',
+  testEnvironment: 'jsdom'
 };
+
+
+
+export default createJestConfig(config)
+

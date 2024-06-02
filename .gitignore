@@ -43,9 +43,13 @@ Thumbs.db
 # Next.js
 .next
 out
+apps/writeme/.env.local
+
 
 # Generated Docusaurus files
 .docusaurus/
 .cache-loader/
 
 storybook-static
+
+# webstorm pnpm linker

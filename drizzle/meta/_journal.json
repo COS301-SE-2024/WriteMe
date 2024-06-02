@@ -1,0 +1,48 @@
+{
+  "version": "6",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1716975999967,
+      "tag": "0000_sloppy_angel",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1716989449259,
+      "tag": "0001_past_nemesis",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1717009105124,
+      "tag": "0002_workable_lily_hollister",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1717017451777,
+      "tag": "0003_steady_cassandra_nova",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1717021323959,
+      "tag": "0004_classy_franklin_richards",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1717046735046,
+      "tag": "0005_acoustic_boomerang",
+      "breakpoints": true
+    }
+  ]
+}

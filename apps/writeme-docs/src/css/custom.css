@@ -6,13 +6,13 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-color-primary: #a9b3f1;
+  --ifm-color-primary-dark: #858dbe;
+  --ifm-color-primary-darker: #61678b;
+  --ifm-color-primary-darkest: #2b2e3e;
+  --ifm-color-primary-light: #b2b8ff;
+  --ifm-color-primary-lighter: #b2b2ff;
+  --ifm-color-primary-lightest: #b7b2ff;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
@@ -27,4 +27,17 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+.srs-bullets > li {
+  counter-increment: srs-item;
+}
+
+.srs-bullets li::marker {
+  content: 'R' counters(srs-item, '.') ': ';
+}
+
+.srs-bullets ol {
+  counter-reset: srs-item;
+  margin-top: 0.75rem;
 }

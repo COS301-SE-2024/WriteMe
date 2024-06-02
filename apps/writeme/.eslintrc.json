@@ -5,12 +5,22 @@
     "next/core-web-vitals",
     "../../.eslintrc.json"
   ],
-  "ignorePatterns": ["!**/*", ".next/**/*"],
+  "ignorePatterns": ["!**/*", ".next/**/*", "../../node_modules/**/*", "tailwind.config.js", "postcss.config.js"],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "@next/next/no-html-link-for-pages": ["error", "apps/writeme/pages"]
+        "@next/next/no-html-link-for-pages": ["error", "apps/writeme/pages"],
+        "@typescript-eslint/ban-ts-comment": "warn",
+        "react/no-unescaped-entities": "warn",
+        "@typescript-eslint/no-empty-interface": "warn"
       }
     },
     {

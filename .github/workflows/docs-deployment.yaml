@@ -1,0 +1,52 @@
+# Deploys Documents to Cloudflare
+name: Documentation Cloudflare Deployment
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "apps/writeme-docs/**"
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      deployments: write
+    name: Deploy to Cloudflare Pages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node Install
+        uses:  actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+      - name: PNPM Install
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+          run_install: false
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build Step
+        run: pnpm exec nx run writeme-docs:build
+      - name: Publish
+        uses: cloudflare/pages-action@1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_TOKEN }} # secret on github repo
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT }} # secret on github repo
+          projectName: writeme-docs
+          directory: dist/apps/writeme-docs/ # e.g. 'dist'
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
