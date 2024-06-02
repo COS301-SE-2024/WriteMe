@@ -287,3 +287,135 @@ The Client-Server architecture for our project splits the application into two m
   <li>Comment on a story so I can share my thoughts and receive feedback from others</li>
   <li>Share a story so I can show others the story</li>
 </ul>
+
+## Service Contracts
+
+### POST /register (Create User):
+
+**Description:**
+
+This endpoint allows the creation of a new user account.
+
+**Request:**
+
+- **Method:** `POST`
+- **Path:** `/register`
+- **Body:** 
+```json
+{
+"name": "string",
+"email": "string",
+"password": "string",
+}
+```
+**Response:**
+
+- **Success (200 OK):**
+```json
+  {
+    "user": {
+      "name": "string",
+      "email": "string",
+    }
+  }
+```
+
+- **Bad Request (400 Bad Request):**
+```json
+{
+  "status": "error",
+  "message": "Validation failed",
+  "errors": []
+}
+```
+
+- **Conflict (409 Conflict): Email already exists**
+```json
+{
+  "status": "fail",
+  "message": "user with that email already exists"
+}
+```
+
+- **Internal Server Error (500 Internal Server Error):**
+```json
+{
+  "status": "error",
+  "message": "'Internal Server Error'"
+}
+```
+
+### PUT /story (Update Story):
+
+**Description:**
+
+This endpoint allows an authenticated user to update a story they own.
+
+**Request:**
+
+- **Method:** `PUT`
+- **Path:** `/story`
+- **Headers:**
+  - `Authorization`: Bearer token containing user's session information
+  - `Content-Type`: application/json
+- **Body:** 
+```json
+{
+  "story": {
+    "id": "string"
+  },
+  "content": "string", 
+  "brief": "string", 
+  "tite": "string", 
+  "description": "string", 
+  "blocks": [],
+  "published": true,
+}
+```
+**Response:**
+- **Headers:**
+  - `Content-Type`: application/json
+- **Body:**
+```json
+{
+  "story": {
+    "id": "string"
+  }
+}
+```
+
+### POST /story (Create Story):
+
+**Description:**
+
+This endpoint allows an authenticated user to create a new story.
+
+**Request:**
+
+- **Method:** `POST`
+- **Path:** `/story`
+- **Headers:**
+  - `Authorization`: Bearer token containing user's session information
+  - `Content-Type`: application/json
+- **Body:** 
+```json
+{
+"userId": "string", 
+"content": "string", 
+"brief": "string", 
+"tite": "string", 
+"description": "string", 
+"blocks": []
+}
+```
+**Response:**
+- **Headers:**
+  - `Content-Type`: application/json
+- **Body:**
+```json
+{
+  "story": {
+    "id": "string"
+  }
+}
+```
