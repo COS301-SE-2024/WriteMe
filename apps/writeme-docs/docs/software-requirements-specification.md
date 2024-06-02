@@ -1,5 +1,11 @@
 # Software Requirements Specification
 
+## Introduction
+
+WriteMe is an innovative platform designed to revolutionize the way people create, share, and consume stories. Our vision is to become the leading platform for writers and readers, providing tools and features that enhance the storytelling experience and make it accessible to everyone. WriteMe aims to enhance user experience through an intuitive and seamless interface, foster creativity by offering helpful tools and suggestions, build a vibrant community for sharing and feedback, ensure security with robust measures to protect user data, and expand accessibility across various devices and operating systems.
+
+The rise of digital content consumption has created a demand for platforms that not only allow users to consume content but also to create and share their own. WriteMe addresses this need by offering a dedicated space for writers to craft stories and for readers to discover new and diverse content. The project scope includes developing a web-based platform with features such as user registration and authentication with multiple login options, a secure story creation and editing interface, simple publishing processes, community features for exploring and engaging with stories, and customization options like dark mode. Comprehensive testing and performance optimization ensure a fast and reliable user experience. WriteMe is poised to meet the growing demand for high-quality, user-generated content in a secure and accessible manner
+
 ## Functional Requirements
 
 ### Authentication
@@ -9,16 +15,16 @@
     <ol className="srs-bullets">
       <li>Using a sign up form. The form should gather the following:
         <ol className="srs-bullets">
-          <li>Email address. Does not require email authentication.</li>
+          <li><strong>Email address. Does not require email authentication.</strong></li>
           <li>Date of birth</li>
-          <li>Password</li>
+          <li><strong>Password</strong></li>
           <li>Username</li>
         </ol>
        </li>
       <li>Using existing platforms:
         <ol className="srs-bullets">
-          <li>Google</li>
-          <li>Github</li>
+          <li><strong>Google</strong></li>
+          <li><strong>Github</strong></li>
         </ol>
       </li>
       <li> After signing up, the system must obtain the following from the user:
@@ -34,7 +40,7 @@
     <ol className="srs-bullets">
       <li>Using their email and password
         <ol className="srs-bullets">
-          <li>The user credentials must be validated</li>
+          <li><strong>The user credentials must be validated</strong></li>
           <li>Must allow user to recover their password using their email or username
             <ol className="srs-bullets">
               <li>The account must be verified (i.e. ensure it exists)</li>
@@ -45,8 +51,8 @@
       </li>
       <li>Using existing platforms
         <ol className="srs-bullets">
-          <li>Using Google</li>
-          <li>Using Github</li>
+          <li><strong>Using Google</strong></li>
+          <li><strong>Using Github</strong></li>
         </ol>
       </li>
       <li>The user must be able to select “forgot password’
@@ -64,9 +70,9 @@
 <ol className="srs-bullets">
   <li>The system must provide functionality that is specific to users that are singed up:
     <ol className="srs-bullets">
-      <li>Access to account management</li>
-      <li>Access to reading other stories</li>
-      <li>Access to writing stories</li>
+      <li><strong>Access to account management</strong></li>
+      <li><strong>Access to reading other stories</strong></li>
+      <li><strong>Access to writing stories</strong></li>
       <li>Access to the recommendation system. The access is implicit (i.e. the user doesn't directly interact with the system)</li>
       <li>Access to the social interaction system*</li>
     </ol>
@@ -78,16 +84,16 @@
 <ol className="srs-bullets">
   <li>Users must be able to create their own stories:
     <ol className='srs-bullets'>
-      <li>Users must be able to publish their story</li>
-      <li>Users must be able to save their story to a draft</li>
-      <li>Users must be able to edit their stories</li>
+      <li><strong>Users must be able to publish their story</strong></li>
+      <li><strong>Users must be able to save their story to a draft</strong></li>
+      <li><strong>Users must be able to edit their stories</strong></li>
       <li>Genre selection</li>
     </ol>
   </li>
   <li>Metadata:
     <ol className='srs-bullets'>
-      <li>Users must be able to add a title to their story</li>
-      <li>Editor for users to write the main content of their story</li>
+      <li><strong>Users must be able to add a title to their story</strong></li>
+      <li><strong>Editor for users to write the main content of their story</strong></li>
       <li>Able to select a cover image</li>
     </ol>
   </li>
@@ -98,7 +104,7 @@
 <ol className="srs-bullets">
   <li>Users must be able to view a single story
     <ol className='srs-bullets'>
-      <li>Able to view a story on click</li>
+      <li><strong>Able to view a story on click</strong></li>
       <li>Able to like a story</li>
       <li>Able to share a story</li>
       <li>Able to comment on a story</li>
@@ -389,3 +395,140 @@ The Client-Server architecture for our project splits the application into two m
         </ul>
     </li>
 </ol>
+
+## Service Contracts
+
+### POST /register (Create User):
+
+**Description:**
+
+This endpoint allows the creation of a new user account.
+
+**Request:**
+
+- **Method:** `POST`
+- **Path:** `/register`
+- **Body:** 
+```json
+{
+"name": "string",
+"email": "string",
+"password": "string",
+}
+```
+**Response:**
+
+- **Success (200 OK):**
+```json
+  {
+    "user": {
+      "name": "string",
+      "email": "string",
+    }
+  }
+```
+
+- **Bad Request (400 Bad Request):**
+```json
+{
+  "status": "error",
+  "message": "Validation failed",
+  "errors": []
+}
+```
+
+- **Conflict (409 Conflict): Email already exists**
+```json
+{
+  "status": "fail",
+  "message": "user with that email already exists"
+}
+```
+
+- **Internal Server Error (500 Internal Server Error):**
+```json
+{
+  "status": "error",
+  "message": "'Internal Server Error'"
+}
+```
+
+### PUT /story (Update Story):
+
+**Description:**
+
+This endpoint allows an authenticated user to update a story they own.
+
+**Request:**
+
+- **Method:** `PUT`
+- **Path:** `/story`
+- **Headers:**
+  - `Authorization`: Bearer token containing user's session information
+  - `Content-Type`: application/json
+- **Body:** 
+```json
+{
+  "story": {
+    "id": "string"
+  },
+  "content": "string", 
+  "brief": "string", 
+  "tite": "string", 
+  "description": "string", 
+  "blocks": [],
+  "published": true,
+}
+```
+**Response:**
+- **Headers:**
+  - `Content-Type`: application/json
+- **Body:**
+```json
+{
+  "story": {
+    "id": "string"
+  }
+}
+```
+
+### POST /story (Create Story):
+
+**Description:**
+
+This endpoint allows an authenticated user to create a new story.
+
+**Request:**
+
+- **Method:** `POST`
+- **Path:** `/story`
+- **Headers:**
+  - `Authorization`: Bearer token containing user's session information
+  - `Content-Type`: application/json
+- **Body:** 
+```json
+{
+"userId": "string", 
+"content": "string", 
+"brief": "string", 
+"tite": "string", 
+"description": "string", 
+"blocks": []
+}
+```
+**Response:**
+- **Headers:**
+  - `Content-Type`: application/json
+- **Body:**
+```json
+{
+  "story": {
+    "id": "string"
+  }
+}
+```
+
+
+## Class Diagram
+
+![Class Diagram](/img/class-diagram.png)

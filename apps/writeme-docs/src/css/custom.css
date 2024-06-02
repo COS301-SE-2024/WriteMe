@@ -41,3 +41,10 @@
   counter-reset: srs-item;
   margin-top: 0.75rem;
 }
+
+.svg-background {
+  background-image: url('../pages/slides/img/BG.svg');
+  background-size: auto;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
