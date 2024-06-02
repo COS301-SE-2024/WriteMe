@@ -15,6 +15,7 @@ import { Bookmark } from 'lucide-react';
 import { Share } from 'lucide-react';
 import { Download } from 'lucide-react';
 import { ArrowUpRight } from 'lucide-react';
+import LocalNavbar from './local-navbar';
 
 
 export interface MyworksProps {}
@@ -22,14 +23,7 @@ export interface MyworksProps {}
 export default function Write(props: MyworksProps) {
   return (
     <div className="flex flex-col">
-      <nav className="w-full flex justify-between items-center p-4">
-        <div className="relative w-60 h-20 -mx-10">
-          <Image src={WriteMeLogo} alt="WriteMe Logo" layout="fill" objectFit="contain" />
-        </div>
-        <div className="relative w-12 h-12 mx-4">
-          <Image src={Profile} alt="Profile Image" layout="fill" objectFit="contain" />
-        </div>
-      </nav>
+      <LocalNavbar />
 
       <div className='flex justify-center'>
         <div className="w-4/3 ">

@@ -1,24 +1,18 @@
 "use client";
 
 
-import React, { createContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import Editor from '@writeme/wmc/lib/ui/editor';
+import { EditorContext } from './editor-context';
 
 
-const EditorContext = createContext({});
 
-
-export interface EditorControllerProps {
-  initialBlocks: any
-
-}
-const EditorController = ({initialBlocks}:EditorControllerProps) => {
-  const [blocks, setBlocks] = useState(initialBlocks);
-
+const EditorController = () => {
+  const { story, setStory, blocks, setBlocks } = useContext(EditorContext);
 
   return (
     <div>
-      <Editor initialBlocks={blocks} setBlocks={setBlocks}></Editor>
+      <Editor initialBlocks={blocks} setBlocks={setBlocks} ></Editor>
     </div>
   );
 };

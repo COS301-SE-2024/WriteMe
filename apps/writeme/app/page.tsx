@@ -1,28 +1,13 @@
-import WriteMeLogo from "../assets/WriteMe.png";
 import BooksImage from "../assets/Books.png";
 import Image from "next/image";
 import Link from 'next/link';
+import LocalNavbar from "@writeme/wmc/lib/ui/local-navbar";
 
 export default function Index() {
 
   return (
     <div>
-      <nav className="p-4 flex justify-between items-center">
-        {/* WriteMe logo */}
-        <div className="flex items-center">
-          <div style={{ width: "10rem"}}>
-            <Image src={WriteMeLogo} fill alt="WriteMe Logo"/>
-          </div>
-        </div>
-
-        <div className="flex items-center">
-
-          <ul className="flex space-x-8">
-            <li><Link href="/stories" className="text-black hover:underline mx-5">Explore</Link></li>
-          </ul>
-          <Link href="/auth/signup">Sign Up</Link>
-        </div>
-      </nav>
+      <LocalNavbar />
 
       <div className="mx-12 py-6 flex justify-between items-center">
         <div>
@@ -39,7 +24,7 @@ export default function Index() {
             </div>
 
             <div className="flex justify-center mr-10"> {/* Added justify-end to move the button to the right */}
-              <Link href="/auth/signup">Join Now</Link>
+              <Link data-testid='join_now_link' href="/auth/signup">Join Now</Link>
             </div>
           </div>
         </div>

@@ -12,7 +12,7 @@ const config = {
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/pen.svg',
   organizationName: 'COS301-SE-2024', // Usually your GitHub org/user name.
   projectName: 'WriteMe', // Usually your repo name.
 
@@ -43,10 +43,10 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'WriteMe Documentation',
+        title: 'Documentation',
         logo: {
           alt: 'WriteMe Logo',
-          src: 'img/logo.svg',
+          src: 'img/WriteMe.svg',
         },
         items: [
           {
