@@ -43,6 +43,7 @@ Here is a link to our Demo Video: [Google Drive](https://drive.google.com/file/d
 
 ## Documentation
 <div><a href="https://docs.writeme.co.za/docs/software-requirements-specification">🧾 SRS Document</a></div>
+<div><a href="https://writeme-docs.pages.dev/">🧾 SRS Document (Cloudflare Domain)</a></div>
 <div><a href="https://docs.writeme.co.za/docs/guides/branching-strategy">🧾 Branching Strategy</a></div>
 <div><a href="https://docs.writeme.co.za/docs/guides/testing">🧾 Testing</a></div>
 <div><a href="https://storybook.writeme.co.za/?path=/story/stories-accordion--primary">🧾 Storybook</a></div>
