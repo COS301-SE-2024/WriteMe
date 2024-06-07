@@ -1,60 +1,40 @@
 import React from "react"
-import {Button} from "./button"
-import { Input } from "./input"
-import { Label } from "./label"
+import { Button, buttonVariants } from '@writeme/wmc';
+import Link from "next/link";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "./popover"
+import { Share } from 'lucide-react';
+import { IconBrandWhatsapp } from "@tabler/icons-react";
+//pinterest, reddit, copy to clipboard, email (mailto:), facebook messenger(clicktochat), instagram?
 
-export function PopoverDemo() {
+export interface ShareProps{
+  link:string,
+  message?:string
+}
+
+export function ShareStory({link, message}: ShareProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline">Open popover</Button>
+        <Button variant="ghost" size="icon">
+          <Share className="h-4 w-4"/>
+        </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80">
         <div className="grid gap-4">
           <div className="space-y-2">
-            <h4 className="font-medium leading-none">Dimensions</h4>
-            <p className="text-sm text-muted-foreground">
-              Set the dimensions for the layer.
+            <h4 className="font-medium leading-none text-center">Share</h4>
+            <p className="text-sm text-muted-foreground text-center">
+              Share the link 
             </p>
           </div>
-          <div className="grid gap-2">
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="width">Width</Label>
-              <Input
-                id="width"
-                defaultValue="100%"
-                className="col-span-2 h-8"
-              />
-            </div>
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="maxWidth">Max. width</Label>
-              <Input
-                id="maxWidth"
-                defaultValue="300px"
-                className="col-span-2 h-8"
-              />
-            </div>
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="height">Height</Label>
-              <Input
-                id="height"
-                defaultValue="25px"
-                className="col-span-2 h-8"
-              />
-            </div>
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="maxHeight">Max. height</Label>
-              <Input
-                id="maxHeight"
-                defaultValue="none"
-                className="col-span-2 h-8"
-              />
-            </div>
+          <div>
+            <Link target="_blank" href={`https://wa.me/send?text=${message}...${link}`} className={buttonVariants({variant:"ghost", size:"icon"})}>
+              <IconBrandWhatsapp className="h-10 w-10"></IconBrandWhatsapp>
+            </Link>
           </div>
         </div>
       </PopoverContent>
