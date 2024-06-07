@@ -4,7 +4,6 @@ import { users } from '../db/schema';
 import { and, eq } from 'drizzle-orm';
 
 export async function getUser(id: string) {
-  // const session = await auth()
 
   const result = db.query.users.findFirst({
     where: (users, {eq}) => eq(users.id, id)
