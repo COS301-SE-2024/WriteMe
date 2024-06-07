@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { updateStorySchema } from '../../../../../db/story-schema';
+import { updateStorySchema } from '../../../../db/story-schema';
 import { z } from 'zod';
 import {
   Form,
@@ -26,6 +26,8 @@ const EditStoryForm = () => {
       brief: "",
       title: "",
       description: "",
+      genre: "",
+      tags: "",
     }
   });
 
@@ -138,7 +140,43 @@ const EditStoryForm = () => {
         >
         </FormField>
 
-        <Button type="submit">Create Story</Button>
+        <FormField
+          control={form.control}
+          render={({field})=> (
+            <FormItem>
+              <FormLabel>Genre</FormLabel>
+              <FormControl>
+                <Input placeholder={"The genre of your story"} {...field}></Input>
+              </FormControl>
+              <FormDescription>
+                This is the genre of your story.
+              </FormDescription>
+              <FormMessage></FormMessage>
+            </FormItem>
+          )}
+          name="genre"
+        >
+        </FormField>
+
+        <FormField
+          control={form.control}
+          render={({field})=> (
+            <FormItem>
+              <FormLabel>Tags</FormLabel>
+              <FormControl>
+                <Input placeholder={"Tags"} {...field}></Input>
+              </FormControl>
+              <FormDescription>
+                These are the tags of your story.
+              </FormDescription>
+              <FormMessage></FormMessage>
+            </FormItem>
+          )}
+          name="tags"
+        >
+        </FormField>
+
+        <Button type="submit">Save Changes</Button>
       </form>
     </Form>
   );
