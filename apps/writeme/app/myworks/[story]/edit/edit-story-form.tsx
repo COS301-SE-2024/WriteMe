@@ -15,6 +15,7 @@ import {
 } from '@writeme/wmc/lib/ui/form';
 import { Button, Input } from '@writeme/wmc';
 import { Textarea } from '@writeme/wmc/lib/ui/textarea';
+import { FancyMultiSelect } from '@writeme/wmc/lib/ui/fancy-multi-select';
 import { signIn } from 'next-auth/react';
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
 import { useRouter } from 'next/navigation';
@@ -146,7 +147,7 @@ const EditStoryForm = () => {
             <FormItem>
               <FormLabel>Genre</FormLabel>
               <FormControl>
-                <Input placeholder={"The genre of your story"} {...field}></Input>
+                <FancyMultiSelect></FancyMultiSelect>
               </FormControl>
               <FormDescription>
                 This is the genre of your story.
@@ -164,7 +165,7 @@ const EditStoryForm = () => {
             <FormItem>
               <FormLabel>Tags</FormLabel>
               <FormControl>
-                <Input placeholder={"Tags"} {...field}></Input>
+                <FancyMultiSelect></FancyMultiSelect>
               </FormControl>
               <FormDescription>
                 These are the tags of your story.
