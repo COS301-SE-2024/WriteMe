@@ -4,11 +4,18 @@ import Profile from '../../../assets/profile.jpg';
 import { Button } from '@writeme/wmc/lib/ui/button';
 import { IconUser, IconMail } from '@tabler/icons-react';
 import LocalNavbar from '@writeme/wmc/lib/ui/local-navbar';
+import { getUser } from '../../../services/users';
 
 /* eslint-disable-next-line */
-export interface UserProps {}
+export interface UserProps {
+  params: {
+    username: string
+  }
+}
 
-export default function User(props: UserProps) {
+export default async function User(props: UserProps) {
+  const user = await getUser(props.params.username);
+
   return (
     <div className="flex flex-col h-screen">
       <LocalNavbar />
@@ -18,7 +25,7 @@ export default function User(props: UserProps) {
         <div className="relative w-80 h-80 mb-1">
           <Image src={Profile} alt="User Profile Image" layout="fill" objectFit="contain" />
         </div>
-        <h1 className="text-3xl font-bold mx-12">Username</h1>
+        <h1 className="text-3xl font-bold mx-12">{user?.name}</h1>
         <p className="text-lg text-gray-500 mx-12 mb-4">Short bio or description about the user.</p>
         <Button className='mx-12 mb-3'>Edit profile</Button>
         <div className='flex mx-12 mb-3'>
