@@ -35,7 +35,7 @@ export default async function User(props: UserProps) {
           <Image src={user ? user.image : Profile} alt="User Profile Image" layout="fill" objectFit="contain" className='rounded-full'/>
         </div>
         <h1 className="text-3xl font-bold mx-12">{user?.name}</h1>
-        <p className="text-lg text-gray-500 mx-12 mb-4">Short bio or description about the user.</p>
+        <p className="text-lg text-gray-500 mx-12 mb-4">{user?.bio}</p>
         <Button className='mx-12 mb-3'><Link href={`/user/${user?.id}/edit-profile`}>Edit profile</Link></Button>
         <div className='flex mx-12 mb-3'>
           <IconUser />

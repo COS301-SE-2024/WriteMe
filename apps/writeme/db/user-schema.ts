@@ -39,7 +39,8 @@ export const updateUserSchema = object({
   email: string({ required_error: 'Email is required' })
     .min(1, 'Email is required')
     .email('Invalid email'),
-  photo: string().optional()
+  // photo: string().optional()
+  bio: string().optional()
 })
 
 export type LoginUserInput = TypeOf<typeof loginUserSchema>;

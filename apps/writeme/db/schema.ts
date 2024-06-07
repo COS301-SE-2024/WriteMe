@@ -1,4 +1,5 @@
 //
+import { relations } from 'drizzle-orm';
 import {
   timestamp,
   pgTable,
@@ -23,8 +24,29 @@ export const users = pgTable('user', {
   email: text('email').notNull(),
   password: text('password'),
   emailVerified: timestamp('emailVerified', { mode: 'date' }),
-  image: text('image')
+  image: text('image'),
+  bio: varchar('bio', {
+    length: 256
+  }).default('').notNull(),
 });
+
+export const userFollowers = pgTable('user_followers', {
+  id: serial('id')
+    .primaryKey(),
+  followerId: text('follower_id').references(() => users.id, {
+    onDelete: 'cascade'
+  }).notNull(),
+  followedId: text('followed_id').references(() => users.id, {
+    onDelete: 'cascade'
+  }).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull()
+}) 
+
+// export const followersRelations = relations(userFollowers, ({ many }) => ({
+//   followers: one(users, {
+//     fields: [userFollowers.followerId],
+//   })
+// }))
 
 // @ts-ignore
 export const accounts = pgTable(

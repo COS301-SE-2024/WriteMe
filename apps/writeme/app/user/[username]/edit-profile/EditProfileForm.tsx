@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { updateUserSchema, UpdateUserInput } from '../../../../db/user-schema';
 import { useToast } from '@writeme/wmc/lib/ui/use-toast';
-import AutoForm, { AutoFormSubmit } from '../../../../../../wmc/src/lib/ui/auto-form'
+import AutoForm, { AutoFormSubmit } from '@writeme/wmc/lib/ui/auto-form'
 
 const EditProfileForm = () => {
   return (
