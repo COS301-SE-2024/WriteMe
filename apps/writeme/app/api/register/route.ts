@@ -28,6 +28,7 @@ export async function POST(req: Request) {
       user: {
         name: user.name,
         email: user.email,
+
       },
     });
   } catch (error: any) {
