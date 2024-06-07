@@ -332,6 +332,7 @@ The Client-Server architecture for our project splits the application into two m
 <ul className='guestStories'>
   <li>View all of the published stories</li>
   <li>Read any of the published stories</li>
+  <li>Select a username so I can view that user's account information and stories by that user</li>
 </ul>
 
 #### As an Existing User I would like to:
@@ -351,6 +352,14 @@ The Client-Server architecture for our project splits the application into two m
   <li>Like a story so I can show my appreciation for a good story</li>
   <li>Comment on a story so I can share my thoughts and receive feedback from others</li>
   <li>Share a story on WhatsApp so I can show others the story</li>
+  <li>Create a new chapter so I can have a multi-chapter story</li>
+  <li>Enter a new username so I can change my current username</li>
+  <li>The app to be a PWA that caches images and stories so I can read stories offline</li>
+  <li>Click a button that shares a story to Pinterest so I can share a story to Pinterest easily</li>
+  <li>Be able to comment on a chapter of a story so I can give an author feedback</li>
+  <li>A form so I can update a already created story's metadata</li>
+  <li>Share my editor in realtime so I can get help and feedback from other authors in realtime</li>
+  <li>Select a username so I can view that user's account information and stories by that user</li>
 </ul>
 
 ## Constraints
@@ -408,27 +417,31 @@ This endpoint allows the creation of a new user account.
 
 - **Method:** `POST`
 - **Path:** `/register`
-- **Body:** 
+- **Body:**
+
 ```json
 {
-"name": "string",
-"email": "string",
-"password": "string",
+  "name": "string",
+  "email": "string",
+  "password": "string"
 }
 ```
+
 **Response:**
 
 - **Success (200 OK):**
+
 ```json
-  {
-    "user": {
-      "name": "string",
-      "email": "string",
-    }
+{
+  "user": {
+    "name": "string",
+    "email": "string"
   }
+}
 ```
 
 - **Bad Request (400 Bad Request):**
+
 ```json
 {
   "status": "error",
@@ -438,6 +451,7 @@ This endpoint allows the creation of a new user account.
 ```
 
 - **Conflict (409 Conflict): Email already exists**
+
 ```json
 {
   "status": "fail",
@@ -446,6 +460,7 @@ This endpoint allows the creation of a new user account.
 ```
 
 - **Internal Server Error (500 Internal Server Error):**
+
 ```json
 {
   "status": "error",
@@ -466,24 +481,28 @@ This endpoint allows an authenticated user to update a story they own.
 - **Headers:**
   - `Authorization`: Bearer token containing user's session information
   - `Content-Type`: application/json
-- **Body:** 
+- **Body:**
+
 ```json
 {
   "story": {
     "id": "string"
   },
-  "content": "string", 
-  "brief": "string", 
-  "tite": "string", 
-  "description": "string", 
+  "content": "string",
+  "brief": "string",
+  "tite": "string",
+  "description": "string",
   "blocks": [],
-  "published": true,
+  "published": true
 }
 ```
+
 **Response:**
+
 - **Headers:**
   - `Content-Type`: application/json
 - **Body:**
+
 ```json
 {
   "story": {
@@ -505,21 +524,25 @@ This endpoint allows an authenticated user to create a new story.
 - **Headers:**
   - `Authorization`: Bearer token containing user's session information
   - `Content-Type`: application/json
-- **Body:** 
+- **Body:**
+
 ```json
 {
-"userId": "string", 
-"content": "string", 
-"brief": "string", 
-"tite": "string", 
-"description": "string", 
-"blocks": []
+  "userId": "string",
+  "content": "string",
+  "brief": "string",
+  "tite": "string",
+  "description": "string",
+  "blocks": []
 }
 ```
+
 **Response:**
+
 - **Headers:**
   - `Content-Type`: application/json
 - **Body:**
+
 ```json
 {
   "story": {
@@ -527,7 +550,6 @@ This endpoint allows an authenticated user to create a new story.
   }
 }
 ```
-
 
 ## Class Diagram
 
