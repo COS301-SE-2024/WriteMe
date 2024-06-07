@@ -58,12 +58,15 @@ export default async function Myworks(props: MyworksProps) {
                   {/*  <CardDescription><Share2 className='cursor-pointer' size={20}/></CardDescription>*/}
                   {/*</div>*/}
                   <div className="flex gap-1">
-
+                  
                   <Button asChild variant="default">
                     <Link href={`/myworks/${story.id}/write/${story.id}`}><div className="flex gap-1 items-center"><Pencil size='1rem' /> Write</div></Link>
                   </Button>
                   <Button asChild variant="default">
                     <Link href={`/stories/${story.id}`}><div className="flex gap-1 items-center"><BookOpenText size="1rem"/> Read</div></Link>
+                  </Button>
+                  <Button asChild variant="default">
+                    <Link href={`/myworks/${story.id}/edit`}><div className="flex gap-1 items-center"> ...</div></Link>
                   </Button>
                   </div>
                 </div>
