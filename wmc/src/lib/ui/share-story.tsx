@@ -13,13 +13,19 @@ import { IconBrandReddit } from "@tabler/icons-react";
 // import { IconBrandInstagram } from "@tabler/icons-react";
 import { IconMail } from "@tabler/icons-react";
 import { IconBrandMessenger } from "@tabler/icons-react";
-//copy to clipboard, facebook messenger(clicktochat)
+import { IconLink } from "@tabler/icons-react";
+//copy to clipboard
 
 export interface ShareProps{
   link:string,
   message?:string
-  // 
 }
+
+const handleCopyLink = ({link}: ShareProps) => {
+  navigator.clipboard.writeText(link)
+    .then(() => alert("Link copied to clipboard"))
+    .catch(error => console.error("Could not copy link: ", error));
+};
 
 export function ShareStory({link, message}: ShareProps) {
   return (
@@ -37,7 +43,7 @@ export function ShareStory({link, message}: ShareProps) {
               Share the link 
             </p>
           </div>
-          <div className="space-x-2">
+          <div className="space-x-2 flex justify-center items-center">
             <Link target="_blank" href={`https://wa.me/send?text=${message}...${link}`} className={buttonVariants({variant:"ghost", size:"icon"})}>
               <IconBrandWhatsapp className="h-10 w-10"></IconBrandWhatsapp>
             </Link>
@@ -58,8 +64,10 @@ export function ShareStory({link, message}: ShareProps) {
             <Link target="_blank" href={`https://m.me?link=${link}&message=${message}`} className={buttonVariants({variant:"ghost", size:"icon"})}>
               <IconBrandMessenger className="h-10 w-10"></IconBrandMessenger>
             </Link>
+            <Button variant="ghost" size="icon">
+              <IconLink className="h-10 w-10" onClick={() => handleCopyLink({link})} />
+            </Button>
           </div>
-          
         </div>
       </PopoverContent>
     </Popover>
