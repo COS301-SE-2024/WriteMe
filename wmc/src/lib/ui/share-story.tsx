@@ -8,11 +8,13 @@ import {
 } from "./popover"
 import { Share } from 'lucide-react';
 import { IconBrandWhatsapp } from "@tabler/icons-react";
-//pinterest, reddit, copy to clipboard, email (mailto:), facebook messenger(clicktochat), instagram?
+import { IconBrandPinterest } from "@tabler/icons-react";
+//reddit, copy to clipboard, email (mailto:), facebook messenger(clicktochat), instagram?
 
 export interface ShareProps{
   link:string,
   message?:string
+  // 
 }
 
 export function ShareStory({link, message}: ShareProps) {
@@ -31,11 +33,16 @@ export function ShareStory({link, message}: ShareProps) {
               Share the link 
             </p>
           </div>
-          <div>
+          <div className="space-x-2">
             <Link target="_blank" href={`https://wa.me/send?text=${message}...${link}`} className={buttonVariants({variant:"ghost", size:"icon"})}>
               <IconBrandWhatsapp className="h-10 w-10"></IconBrandWhatsapp>
             </Link>
+            {/* need to take look at this again */}
+            <Link target="_blank" href={`https://pinterest.com/pin/create/button/?url=${link}&description=${message}`} className={buttonVariants({variant:"ghost", size:"icon"})}>
+              <IconBrandPinterest className="h-10 w-10"></IconBrandPinterest>
+            </Link>
           </div>
+          
         </div>
       </PopoverContent>
     </Popover>
