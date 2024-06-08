@@ -42,7 +42,7 @@ export function ShareStory({link, message}: ShareProps) {
             <Link target="_blank" href={`https://pinterest.com/pin/create/button/?url=${link}&description=${message}`} className={buttonVariants({variant:"ghost", size:"icon"})}>
               <IconBrandPinterest className="h-10 w-10"></IconBrandPinterest>
             </Link>
-            <Link target="_blank" href={`https://www.reddit.com/submit?url=${link}&title=${message}`} className={buttonVariants({variant:"ghost", size:"icon"})}>
+            <Link target="_blank" href={`https://www.reddit.com/submit?title=${message}&text=${link}`} className={buttonVariants({variant:"ghost", size:"icon"})}>
               <IconBrandReddit className="h-10 w-10"></IconBrandReddit>
             </Link>
           </div>
