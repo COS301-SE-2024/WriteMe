@@ -41,7 +41,7 @@ export default async function User(props: UserProps) {
           <IconUser />
           <a className='font-bold mx-2'>3 </a>
           <a className='text-gray-500'>followers</a>
-          {/* user.followers === 1 ? "follower" : "followers" */}
+          {/* user.followers.length === 1 ? "follower" : "followers" */}
           <a className='font-bold mx-2'>2 </a>
           <a className='text-gray-500'>following</a>
         </div>
