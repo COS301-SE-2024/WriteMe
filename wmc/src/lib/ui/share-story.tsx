@@ -9,6 +9,7 @@ import {
 import { Share } from 'lucide-react';
 import { IconBrandWhatsapp } from "@tabler/icons-react";
 import { IconBrandPinterest } from "@tabler/icons-react";
+import { IconBrandReddit } from "@tabler/icons-react";
 //reddit, copy to clipboard, email (mailto:), facebook messenger(clicktochat), instagram?
 
 export interface ShareProps{
@@ -40,6 +41,9 @@ export function ShareStory({link, message}: ShareProps) {
             {/* need to take look at this again */}
             <Link target="_blank" href={`https://pinterest.com/pin/create/button/?url=${link}&description=${message}`} className={buttonVariants({variant:"ghost", size:"icon"})}>
               <IconBrandPinterest className="h-10 w-10"></IconBrandPinterest>
+            </Link>
+            <Link target="_blank" href={`https://www.reddit.com/submit?url=${link}&title=${message}`} className={buttonVariants({variant:"ghost", size:"icon"})}>
+              <IconBrandReddit className="h-10 w-10"></IconBrandReddit>
             </Link>
           </div>
           
