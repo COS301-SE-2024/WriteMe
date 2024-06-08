@@ -10,7 +10,9 @@ import { Share } from 'lucide-react';
 import { IconBrandWhatsapp } from "@tabler/icons-react";
 import { IconBrandPinterest } from "@tabler/icons-react";
 import { IconBrandReddit } from "@tabler/icons-react";
-//reddit, copy to clipboard, email (mailto:), facebook messenger(clicktochat), instagram?
+// import { IconBrandInstagram } from "@tabler/icons-react";
+import { IconMail } from "@tabler/icons-react";
+//copy to clipboard, facebook messenger(clicktochat)
 
 export interface ShareProps{
   link:string,
@@ -45,6 +47,13 @@ export function ShareStory({link, message}: ShareProps) {
             <Link target="_blank" href={`https://www.reddit.com/submit?title=${message}&text=${link}`} className={buttonVariants({variant:"ghost", size:"icon"})}>
               <IconBrandReddit className="h-10 w-10"></IconBrandReddit>
             </Link>
+            {/* <Link target="_blank" href={`https://www.instagram.com`} className={buttonVariants({ variant: "ghost", size: "icon" })} onClick={() => { navigator.clipboard.writeText(`message`); alert('Copied to clipboard!'); }}>
+              <IconBrandInstagram className="h-10 w-10"></IconBrandInstagram>
+            </Link> */}
+            <Link target="_blank" href={`mailto:?subject=${message}&body=${link}`} className={buttonVariants({variant:"ghost", size:"icon"})}>
+              <IconMail className="h-10 w-10"></IconMail>
+            </Link>
+            
           </div>
           
         </div>
