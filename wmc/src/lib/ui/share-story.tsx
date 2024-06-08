@@ -27,6 +27,11 @@ const handleCopyLink = ({link}: ShareProps) => {
     .catch(error => console.error("Could not copy link: ", error));
 };
 
+const handleMessengerShare = ({ link, message }: ShareProps) => {
+  const facebookDialogUrl = `https://www.facebook.com/dialog/send?app_id=274266067164&link=${encodeURIComponent(link)}&redirect_uri=${encodeURIComponent(link)}&display=popup&quote=${encodeURIComponent(message)}&description=Check%20this%20out`;
+  window.open(facebookDialogUrl, '_blank');
+};
+
 export function ShareStory({link, message}: ShareProps) {
   return (
     <Popover>
@@ -60,10 +65,9 @@ export function ShareStory({link, message}: ShareProps) {
             <Link target="_blank" href={`mailto:?subject=${message}&body=${link}`} className={buttonVariants({variant:"ghost", size:"icon"})}>
               <IconMail className="h-10 w-10"></IconMail>
             </Link>
-            {/* need to take a look at this again */}
-            <Link target="_blank" href={`https://m.me?link=${link}&message=${message}`} className={buttonVariants({variant:"ghost", size:"icon"})}>
-              <IconBrandMessenger className="h-10 w-10"></IconBrandMessenger>
-            </Link>
+            <button className={buttonVariants({ variant: "ghost", size: "icon" })} onClick={() => handleMessengerShare({ link, message })}>
+              <IconBrandMessenger className="h-10 w-10" />
+            </button>
             <Button variant="ghost" size="icon">
               <IconLink className="h-10 w-10" onClick={() => handleCopyLink({link})} />
             </Button>
