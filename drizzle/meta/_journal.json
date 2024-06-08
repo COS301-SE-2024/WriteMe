@@ -43,6 +43,13 @@
       "when": 1717046735046,
       "tag": "0005_acoustic_boomerang",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1717832694972,
+      "tag": "0006_gray_viper",
+      "breakpoints": true
     }
   ]
 }
