@@ -12,6 +12,7 @@ import { IconBrandPinterest } from "@tabler/icons-react";
 import { IconBrandReddit } from "@tabler/icons-react";
 // import { IconBrandInstagram } from "@tabler/icons-react";
 import { IconMail } from "@tabler/icons-react";
+import { IconBrandMessenger } from "@tabler/icons-react";
 //copy to clipboard, facebook messenger(clicktochat)
 
 export interface ShareProps{
@@ -53,7 +54,10 @@ export function ShareStory({link, message}: ShareProps) {
             <Link target="_blank" href={`mailto:?subject=${message}&body=${link}`} className={buttonVariants({variant:"ghost", size:"icon"})}>
               <IconMail className="h-10 w-10"></IconMail>
             </Link>
-            
+            {/* need to take a look at this again */}
+            <Link target="_blank" href={`https://m.me?link=${link}&message=${message}`} className={buttonVariants({variant:"ghost", size:"icon"})}>
+              <IconBrandMessenger className="h-10 w-10"></IconBrandMessenger>
+            </Link>
           </div>
           
         </div>
