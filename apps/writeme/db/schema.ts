@@ -1,4 +1,5 @@
 //
+import { relations } from 'drizzle-orm';
 import {
   timestamp,
   pgTable,
@@ -88,6 +89,11 @@ export const stories = pgTable('story', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
+export const storiesRelations = relations(stories, ({many}) => ({
+  tags: many(storyTags),
+  genres: many(storyGenres)
+}))
+
 // @ts-ignore
 export const comments = pgTable('comments', {
   id: serial('id').primaryKey(),
@@ -106,3 +112,41 @@ export const likes = pgTable('likes', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
+export const genres = pgTable('genres', {
+  id: serial('id').primaryKey(),
+  genre: text('genre').notNull(),
+});
+
+export const tags = pgTable('tags', {
+  id: serial('id').primaryKey(),
+  tag: text('tag').notNull(),
+});
+
+export const tagsRelations = relations(tags, ({many}) => ({
+  stories: many(storyTags),
+}))
+
+export const storyGenres = pgTable('story_genres', {
+  storyId: text('story_id').references(() => stories.id).notNull(),
+  genreId: serial('genre_id').references(() => genres.id).notNull(),
+},
+(t) => ({
+  pk: primaryKey({columns: [t.storyId, t.genreId]}),
+  pkWithCustomName: primaryKey({columns: [t.storyId, t.genreId], name: 'story_genre_pk'}),
+})
+);
+
+export const storyTags = pgTable('story_tags', {
+  storyId: text('story_id').references(() => stories.id).notNull(),
+  tagId: serial('tag_id').references(() => tags.id).notNull(),
+},
+(t) => ({
+  pk: primaryKey({columns: [t.storyId, t.tagId]}),
+  pkWithCustomName: primaryKey({columns: [t.storyId, t.tagId], name: 'story_tag_pk'}),
+})
+);
+
+export const storyTagsRelations = relations(storyTags, ({one}) => ({
+  stories: one(stories, {fields: [storyTags.storyId], references: [stories.id]}),
+  tags: one(tags, {fields: [storyTags.tagId], references: [tags.id]}),
+}))
