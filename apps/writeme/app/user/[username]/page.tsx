@@ -32,7 +32,7 @@ export default async function User(props: UserProps) {
       {/* User Profile Section */}
       <div className="flex flex-col items-start p-10">
         <div className="relative w-80 h-80 mb-1">
-          <Image src={user ? user.image : Profile} alt="User Profile Image" layout="fill" objectFit="contain" className='rounded-full'/>
+          <Image src={user.image ? user.image : Profile} alt="User Profile Image" layout="fill" objectFit="contain" className='rounded-full'/>
         </div>
         <h1 className="text-3xl font-bold mx-12">{user?.name}</h1>
         <p className="text-lg text-gray-500 mx-12 mb-4">{user?.bio}</p>

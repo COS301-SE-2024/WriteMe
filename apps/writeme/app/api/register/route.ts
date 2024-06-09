@@ -48,7 +48,7 @@ export async function POST(req: Request) {
       return NextResponse.json(
         {
           status: 'fail',
-          message: 'user with that email already exists',
+          message: 'User with that email already exists',
         },
         { status: 409 }
       );
@@ -105,6 +105,16 @@ export async function PUT(req: Request){
           errors: error.errors,
         },
         { status: 400 }
+      );
+    }
+
+    if (error.code === '23505') {
+      return NextResponse.json(
+        {
+          status: 'fail',
+          message: 'User with that email already exists',
+        },
+        { status: 409 }
       );
     }
 
