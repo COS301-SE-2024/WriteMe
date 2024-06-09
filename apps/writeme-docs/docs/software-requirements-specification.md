@@ -453,6 +453,62 @@ This endpoint allows the creation of a new user account.
 }
 ```
 
+### PUT /register (Update User):
+
+**Description:**
+
+This endpoint allows the user to update their profile.
+
+**Request:**
+
+- **Method:** `PUT`
+- **Path:** `/register`
+- **Body:** 
+```json
+{
+"name": "string",
+"email": "string",
+"bio": "string",
+"password": "string",
+}
+```
+**Response:**
+
+- **Success (200 OK):**
+```json
+  {
+    "user": {
+      "name": "string",
+      "email": "string",
+    }
+  }
+```
+
+- **Bad Request (400 Bad Request):**
+```json
+{
+  "status": "error",
+  "message": "Validation failed",
+  "errors": []
+}
+```
+
+- **Conflict (409 Conflict): Email already exists**
+```json
+{
+  "status": "fail",
+  "message": "user with that email already exists"
+}
+```
+
+- **Internal Server Error (500 Internal Server Error):**
+```json
+{
+  "status": "error",
+  "message": "'Internal Server Error'"
+}
+```
+
 ### PUT /story (Update Story):
 
 **Description:**
