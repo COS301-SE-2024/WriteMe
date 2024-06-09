@@ -149,6 +149,18 @@ The rise of digital content consumption has created a demand for platforms that 
         <li>Users can comment on Blocks</li>
         </ol>
       </li>
+      <li>Users can like differnet sections
+        <ol className='srs-bullets'>
+        <li>Users can like Entire Stories</li>
+        <li>Users can like Chapters</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+</ol>
+
+### Sharing
+
       <li>Users can share stories in different ways:
         <ol className='srs-bullets'>
         <li>Users can share via Whatsapp</li>
@@ -156,8 +168,17 @@ The rise of digital content consumption has created a demand for platforms that 
         <li>Users can share on Pinterest</li>
         </ol>
       </li>
-      <li>Users can like Stories</li>
-      
+
+### Account Management
+
+<ol className="srs-bullets">
+  <li>The system must provide functionality that is specific to users that have an existing account:
+    <ol className="srs-bullets">
+      <li>Users should be able to change their password</li>
+      <li>Users should be able to delete their account</li>
+      <li>Users should be able to change their email</li>
+      <li>Users should be able to update bio</li>
+      <li>Users should be able to update name</li>
     </ol>
   </li>
 </ol>
