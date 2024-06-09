@@ -40,6 +40,12 @@ export const updateUserSchema = object({
   email: string({ required_error: 'Email is required' })
     .min(1, 'Email is required')
     .email('Invalid email'),
+    // .refine(async (data) => {
+    //   const isUnique = await isEmailUnique(data);
+    //   return isUnique;
+    // }, {
+    //   message: 'Email is already taken',
+    // }),
   password: string({ required_error: 'Password is required' })
   .min(1, 'Password is required')
   .min(8, 'Password must be more than 8 characters')

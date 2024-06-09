@@ -8,7 +8,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { updateUserSchema, UpdateUserInput } from '../../../../db/user-schema';
 import AutoForm, { AutoFormSubmit } from '@writeme/wmc/lib/ui/auto-form'
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
-import { getUser } from 'apps/writeme/services/users';
 import { isEmailUnique } from 'apps/writeme/services/users';
 import { Trash2 } from 'lucide-react';
 
@@ -34,7 +33,6 @@ const EditProfileForm = (props: EditProfileProps) => {
 
   const onUpdateUser = async (name: string, email: string, bio: string, password: string) => {
     setError(false);
-    // e.preventDefault();
     // console.log(bio)
 
     const values = {
@@ -43,8 +41,6 @@ const EditProfileForm = (props: EditProfileProps) => {
       bio: bio,
       password: password
     }
-
-    // const result = isEmailUnique(email)
 
     try {
       setSubmitting(true);
