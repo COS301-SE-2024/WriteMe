@@ -137,6 +137,31 @@ The rise of digital content consumption has created a demand for platforms that 
   </li>
 </ol>
 
+### Social Interaction
+
+<ol className="srs-bullets">
+  <li>Users must be able to interact with published stories
+    <ol className='srs-bullets'>
+      <li> Users can comment on different features:
+        <ol className='srs-bullets'>
+        <li>Users can comment on Entire Stories</li>
+        <li>Users can comment on Chapters</li>
+        <li>Users can comment on Blocks</li>
+        </ol>
+      </li>
+      <li>Users can share stories in different ways:
+        <ol className='srs-bullets'>
+        <li>Users can share via Whatsapp</li>
+        <li>Users can share via Email </li>
+        <li>Users can share on Pinterest</li>
+        </ol>
+      </li>
+      <li>Users can like Stories</li>
+      
+    </ol>
+  </li>
+</ol>
+
 ## Architectural Requirements
 
 ### Quality Requirements
