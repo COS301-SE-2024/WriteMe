@@ -15,12 +15,17 @@ import {
 } from '@writeme/wmc/lib/ui/form';
 import { Button, Input } from '@writeme/wmc';
 import { Textarea } from '@writeme/wmc/lib/ui/textarea';
-import { FancyMultiSelect } from '@writeme/wmc/lib/ui/fancy-multi-select';
+import { FancyMultiSelect, type Framework } from '@writeme/wmc/lib/ui/fancy-multi-select';
 import { signIn } from 'next-auth/react';
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
 import { useRouter } from 'next/navigation';
 
-const EditStoryForm = () => {
+export interface EditStoryFormProps{
+  genreItems: Framework[],
+  tagItems: Framework[],
+}
+
+const EditStoryForm = ({genreItems, tagItems}: EditStoryFormProps) => {
   const form = useForm<z.infer<typeof updateStorySchema>>({
     resolver: zodResolver(updateStorySchema),
     defaultValues: {
@@ -147,7 +152,7 @@ const EditStoryForm = () => {
             <FormItem>
               <FormLabel>Genre</FormLabel>
               <FormControl>
-                <FancyMultiSelect></FancyMultiSelect>
+                <FancyMultiSelect items = {genreItems} placeholder='Select Genres'></FancyMultiSelect>
               </FormControl>
               <FormDescription>
                 This is the genre of your story.
@@ -165,7 +170,7 @@ const EditStoryForm = () => {
             <FormItem>
               <FormLabel>Tags</FormLabel>
               <FormControl>
-                <FancyMultiSelect></FancyMultiSelect>
+                <FancyMultiSelect items = {tagItems} placeholder='Select Tags'></FancyMultiSelect>
               </FormControl>
               <FormDescription>
                 These are the tags of your story.

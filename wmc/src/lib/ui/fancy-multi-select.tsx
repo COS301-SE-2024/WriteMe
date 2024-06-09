@@ -12,47 +12,17 @@ import {
 } from "./command";
 import { Command as CommandPrimitive } from "cmdk";
 
-type Framework = Record<"value" | "label", string>;
+export interface Framework {value: number, label: string}
 
-const FRAMEWORKS = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-  {
-    value: "wordpress",
-    label: "WordPress",
-  },
-  {
-    value: "express.js",
-    label: "Express.js",
-  },
-  {
-    value: "nest.js",
-    label: "Nest.js",
-  },
-] satisfies Framework[];
+export interface FancyMultiSelectProps{
+    items: Framework[],
+    placeholder: string,
+}
 
-export function FancyMultiSelect() {
+export function FancyMultiSelect({items, placeholder}: FancyMultiSelectProps) {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState<Framework[]>([FRAMEWORKS[1]]);
+  const [selected, setSelected] = React.useState<Framework[]>([]);
   const [inputValue, setInputValue] = React.useState("");
 
   const handleUnselect = React.useCallback((framework: Framework) => {
@@ -81,11 +51,9 @@ export function FancyMultiSelect() {
     []
   );
 
-  const selectables = FRAMEWORKS.filter(
+  const selectables = items.filter(
     (framework) => !selected.includes(framework)
   );
-
-  console.log(selectables, selected, inputValue);
 
   return (
     <Command
@@ -123,7 +91,7 @@ export function FancyMultiSelect() {
             onValueChange={setInputValue}
             onBlur={() => setOpen(false)}
             onFocus={() => setOpen(true)}
-            placeholder="Select frameworks..."
+            placeholder={placeholder}
             className="ml-2 flex-1 bg-transparent outline-none placeholder:text-muted-foreground"
           />
         </div>
