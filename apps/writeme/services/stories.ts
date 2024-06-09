@@ -21,6 +21,18 @@ export async function getStory(id: string){
   return result
 }
 
+export async function getStoryInfo(id: string){
+  const result = db.query.stories.findFirst({
+    where: (stories, {eq}) => eq(stories.id, id),
+    with: {
+      //genres: true,
+      tags: true
+    }
+  })
+
+  return result
+}
+
 
 export async function getPublishedStories(){
 

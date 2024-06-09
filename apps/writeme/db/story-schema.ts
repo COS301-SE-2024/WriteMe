@@ -18,6 +18,6 @@ export const updateStorySchema = object({
   cover: string({required_error: "cover needs to be present"}).url("cover should be a url to an image resource"),
   blocks: array(z.any(), {}),
   published: boolean({required_error: "published needs to be present"}),
-  genre: string({required_error: "a genre is required"}),
-  tags: string({required_error: "tags are required"}),
+  genre: array(z.any(), {}),
+  tags: array(z.any(), {}),
 })

@@ -21,19 +21,22 @@ import { toast } from '@writeme/wmc/lib/ui/use-toast';
 import { useRouter } from 'next/navigation';
 
 export interface EditStoryFormProps{
+  title: string,
+  brief: string,
+  description: string,
   genreItems: Framework[],
   tagItems: Framework[],
 }
 
-const EditStoryForm = ({genreItems, tagItems}: EditStoryFormProps) => {
+const EditStoryForm = ({title, brief, description, genreItems, tagItems}: EditStoryFormProps) => {
   const form = useForm<z.infer<typeof updateStorySchema>>({
     resolver: zodResolver(updateStorySchema),
     defaultValues: {
-      brief: "",
-      title: "",
-      description: "",
-      genre: "",
-      tags: "",
+      brief: brief,
+      title: title,
+      description: description,
+      genre: [],
+      tags: [],
     }
   });
 
@@ -46,7 +49,7 @@ const EditStoryForm = ({genreItems, tagItems}: EditStoryFormProps) => {
     try {
       // setSubmitting(true);
       const res = await fetch('/api/story', {
-        method: 'POST',
+        method: 'PUT',
         body: JSON.stringify(values),
         headers: {
           'Content-Type': 'application/json',
@@ -74,7 +77,7 @@ const EditStoryForm = ({genreItems, tagItems}: EditStoryFormProps) => {
         return;
       }else {
         const { story } = await res.json();
-        router.push(`/myworks/${story.id}/write/${story.id}`)
+        router.push(`/myworks/${story.id}`)
       }
 
     } catch (error: any) {
