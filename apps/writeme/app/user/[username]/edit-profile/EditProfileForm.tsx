@@ -9,20 +9,30 @@ import { updateUserSchema, UpdateUserInput } from '../../../../db/user-schema';
 import AutoForm, { AutoFormSubmit } from '@writeme/wmc/lib/ui/auto-form'
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
 import { getUser } from 'apps/writeme/services/users';
+import { isEmailUnique } from 'apps/writeme/services/users';
+import { Trash2 } from 'lucide-react';
 
-// export interface EditProfileProps {
-//   params: {
-//     username: string
-//   }
-// }
+export interface EditProfileProps {
+  user: {
+    id: string,
+    name: string,
+    bio: string,
+    email: string,
+    password: string
+  }
+}
 
-const EditProfileForm = () => {
+const EditProfileForm = (props: EditProfileProps) => {
+
   const router = useRouter()
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState(false)
 
-  // console.log(props.params.username)
-  const onUpdateUser = async (name: string, email: string, bio: string) => {
+  const handleDelete = async () => {
+
+  }
+
+  const onUpdateUser = async (name: string, email: string, bio: string, password: string) => {
     setError(false);
     // e.preventDefault();
     // console.log(bio)
@@ -30,8 +40,11 @@ const EditProfileForm = () => {
     const values = {
       name: name,
       email: email,
-      bio: bio
+      bio: bio,
+      password: password
     }
+
+    // const result = isEmailUnique(email)
 
     try {
       setSubmitting(true);
@@ -68,7 +81,7 @@ const EditProfileForm = () => {
         variant: "default"
       })
 
-      // router.push(`/user/${user?.id}`);
+      router.push(`/user/${props.user.id}`);
 
     } catch (error: any) {
       setError(true);
@@ -89,18 +102,41 @@ const EditProfileForm = () => {
       <CardContent>
           <AutoForm
             onSubmit={(data) => {
-              onUpdateUser(data.name, data.email, data.bio as string)
+              onUpdateUser(data.name, data.email, data.bio as string, data.password)
             }}
             formSchema={updateUserSchema}
             fieldConfig={{
+              name: {
+                inputProps: {
+                  defaultValue: props.user.name
+                }
+              },
+              email: {
+                inputProps: {
+                  defaultValue: props.user.email
+                }
+              },
               bio: {
                 inputProps: {
+                  defaultValue: props.user.bio,
                   placeholder: "Tell us a little bit about yourself",
+                }
+              },
+              password: {
+                inputProps: {
+                  type: "password",
+                  defaultValue: props.user.password,
                 }
               }
             }}
             >
-            <AutoFormSubmit>Update profile</AutoFormSubmit>
+              <div className='grid grid-cols-2 gap-14'>
+                <AutoFormSubmit>Update profile</AutoFormSubmit>
+                <Button variant="destructive">
+                  <Trash2 />
+                  Delete account
+                </Button>
+              </div>
           </AutoForm>
       </CardContent>
     </Card>

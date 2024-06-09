@@ -64,13 +64,10 @@ export async function POST(req: Request) {
   }
 }
 
-// updateUserSchema:
-// name: user.name, email: user.email, etc
-
 type UpdatedUser = any;
 
 const updateUser = async (user: UpdatedUser) => {
-  const result = await db.update(users).set({name: user.name, email: user.email, bio: user.bio}).where(eq(users.id, user.id)).returning({updatedId: users.id});
+  const result = await db.update(users).set({name: user.name, email: user.email, bio: user.bio, password: user.password}).where(eq(users.id, user.id)).returning({updatedId: users.id});
 
   return result[0];
 };
