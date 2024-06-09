@@ -32,14 +32,14 @@ export const loginUserSchema = object({
 });
 
 export const updateUserSchema = object({
-  // name: string({ required_error: 'Name is required' }).min(
-  //   1,
-  //   'Name is required'
-  // ),
-  // email: string({ required_error: 'Email is required' })
-  //   .min(1, 'Email is required')
-  //   .email('Invalid email'),
-  // photo: string().optional()
+  name: string({ required_error: 'Name is required' }).min(
+    1,
+    'Name is required'
+  ),
+  email: string({ required_error: 'Email is required' })
+    .min(1, 'Email is required')
+    .email('Invalid email'),
+  // photo: string().optional(),
   bio: string().optional()
 })
 

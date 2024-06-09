@@ -8,18 +8,28 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { updateUserSchema, UpdateUserInput } from '../../../../db/user-schema';
 import AutoForm, { AutoFormSubmit } from '@writeme/wmc/lib/ui/auto-form'
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
+import { getUser } from 'apps/writeme/services/users';
+
+// export interface EditProfileProps {
+//   params: {
+//     username: string
+//   }
+// }
 
 const EditProfileForm = () => {
   const router = useRouter()
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState(false)
 
-  const onUpdateUser = async (bio: string) => {
+  // console.log(props.params.username)
+  const onUpdateUser = async (name: string, email: string, bio: string) => {
     setError(false);
     // e.preventDefault();
     // console.log(bio)
 
     const values = {
+      name: name,
+      email: email,
       bio: bio
     }
 
@@ -79,9 +89,16 @@ const EditProfileForm = () => {
       <CardContent>
           <AutoForm
             onSubmit={(data) => {
-              onUpdateUser(data.bio as string)
+              onUpdateUser(data.name, data.email, data.bio as string)
             }}
             formSchema={updateUserSchema}
+            fieldConfig={{
+              bio: {
+                inputProps: {
+                  placeholder: "Tell us a little bit about yourself",
+                }
+              }
+            }}
             >
             <AutoFormSubmit>Update profile</AutoFormSubmit>
           </AutoForm>
