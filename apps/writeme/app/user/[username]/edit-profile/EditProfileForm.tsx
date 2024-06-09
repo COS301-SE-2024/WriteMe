@@ -101,6 +101,12 @@ const EditProfileForm = (props: EditProfileProps) => {
               onUpdateUser(data.name, data.email, data.bio as string, data.password)
             }}
             formSchema={updateUserSchema}
+            values={{
+              name: props.user.name,
+              email: props.user.email,
+              bio: props.user.bio,
+              password: props.user.password
+            }}
             fieldConfig={{
               name: {
                 inputProps: {
