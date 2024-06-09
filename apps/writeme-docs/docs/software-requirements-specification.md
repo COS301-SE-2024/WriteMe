@@ -144,15 +144,15 @@ The rise of digital content consumption has created a demand for platforms that 
     <ol className='srs-bullets'>
       <li> Users can comment on different features:
         <ol className='srs-bullets'>
-        <li>Users can comment on Entire Stories</li>
-        <li>Users can comment on Chapters</li>
-        <li>Users can comment on Blocks</li>
+          <li>Users can comment on Entire Stories</li>
+          <li>Users can comment on Chapters</li>
+          <li>Users can comment on Blocks</li>
         </ol>
       </li>
       <li>Users can like differnet sections
         <ol className='srs-bullets'>
-        <li>Users can like Entire Stories</li>
-        <li>Users can like Chapters</li>
+          <li>Users can like Entire Stories</li>
+          <li>Users can like Chapters</li>
         </ol>
       </li>
     </ol>
@@ -161,26 +161,39 @@ The rise of digital content consumption has created a demand for platforms that 
 
 ### Sharing
 
-      <li>Users can share stories in different ways:
-        <ol className='srs-bullets'>
+<ol className="srs-bullets">
+  <li>Users can share stories in different ways:
+      <ol className='srs-bullets'>
         <li>Users can share via Whatsapp</li>
         <li>Users can share via Email </li>
         <li>Users can share on Pinterest</li>
-        </ol>
-      </li>
+        <li>Users can share on Facebook</li>
+     </ol>
+    </li>
+    <li>Users can export stories to PDF</li>
+</ol>
 
 ### Account Management
 
 <ol className="srs-bullets">
   <li>The system must provide functionality that is specific to users that have an existing account:
-    <ol className="srs-bullets">
-      <li>Users should be able to change their password</li>
-      <li>Users should be able to delete their account</li>
-      <li>Users should be able to change their email</li>
-      <li>Users should be able to update bio</li>
-      <li>Users should be able to update name</li>
-    </ol>
-  </li>
+      <ol className='srs-bullets'>
+        <li>Users should be able to change their credentials
+          <ol className="srs-bullets">
+            <li>Users should be able to change their password</li>
+            <li>Users should be able to change their email</li>
+          </ol>
+        </li>
+        <li>Users should be able to update their infromation
+          <ol className="srs-bullets">
+            <li>Users should be able to update bio</li>
+            <li>Users should be able to update name</li>
+          </ol>
+        </li>
+        <li>Users should be able to delete their account</li>
+      </ol>
+    </li>
+
 </ol>
 
 ## Architectural Requirements
