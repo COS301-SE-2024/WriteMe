@@ -5,7 +5,8 @@ import { ZodError } from 'zod';
 import { users } from '../../../db/schema';
 import { db } from '../../../db/db';
 import { auth } from 'apps/writeme/auth';
-import { eq } from 'drizzle-orm';
+import { and, eq, not } from 'drizzle-orm';
+import { getUser } from 'apps/writeme/services/users';
 
 type NewUser = typeof users.$inferInsert;
 const insertUser = async (user: NewUser) => {
@@ -72,6 +73,15 @@ const updateUser = async (user: UpdatedUser) => {
   return result[0];
 };
 
+const isEmailUnique = async(email: string) => {
+
+  const result = db.query.users.findFirst({
+    where: (users, {eq}) => eq(users.email, email)
+  })
+
+  return result === null;
+}
+
 export async function PUT(req: Request){
   try {
     const session = await auth();
@@ -83,16 +93,37 @@ export async function PUT(req: Request){
     }
     
     const input = updateUserSchema.parse(await req.json());
+    
+    if (session.user.email !== input.email) {
+      const emailUnique = await isEmailUnique(input.email);
+      if (!emailUnique) {
+        return NextResponse.json(
+          {
+            status: 'fail',
+            message: 'User with that email already exists',
+          },
+          { status: 409 }
+        );
+      }
+    }
+
+    const user_ = await getUser(session.user.id!)
+    let userPassword = user_?.password
+    if (input.password && input.password.trim().length > 0) {
+      userPassword = await hash(input.password, 12);
+    }
 
     // @ts-ignore
     const user = await updateUser({
       ...input,
+      email: input.email.toLowerCase(),
+      password: userPassword,
       id: session.user.id,
     });
 
     return NextResponse.json({
       user: {
-        id: user.id,
+        id: user.updatedId,
       },
     });
   } catch (error: any) {
@@ -105,16 +136,6 @@ export async function PUT(req: Request){
           errors: error.errors,
         },
         { status: 400 }
-      );
-    }
-
-    if (error.code === '23505') {
-      return NextResponse.json(
-        {
-          status: 'fail',
-          message: 'User with that email already exists',
-        },
-        { status: 409 }
       );
     }
 
