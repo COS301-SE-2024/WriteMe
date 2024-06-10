@@ -99,19 +99,6 @@ The rise of digital content consumption has created a demand for platforms that 
   </li>
 </ol>
 
-### Viewing stories
-
-<ol className="srs-bullets">
-  <li>Users must be able to view a single story
-    <ol className='srs-bullets'>
-      <li><strong>Able to view a story on click</strong></li>
-      <li>Able to like a story</li>
-      <li>Able to share a story</li>
-      <li>Able to comment on a story</li>
-    </ol>
-  </li>
-</ol>
-
 ### Explore Page\*
 
 <ol className="srs-bullets">
