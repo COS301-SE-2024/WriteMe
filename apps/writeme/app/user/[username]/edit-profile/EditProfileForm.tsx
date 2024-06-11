@@ -8,7 +8,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { updateUserSchema, UpdateUserInput } from '../../../../db/user-schema';
 import AutoForm, { AutoFormSubmit } from '@writeme/wmc/lib/ui/auto-form'
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
-import { isEmailUnique } from 'apps/writeme/services/users';
 import { Trash2 } from 'lucide-react';
 
 export interface EditProfileProps {
@@ -17,7 +16,7 @@ export interface EditProfileProps {
     name: string,
     bio: string,
     email: string,
-    password: string
+    password: string,
   }
 }
 
@@ -78,6 +77,7 @@ const EditProfileForm = (props: EditProfileProps) => {
       })
 
       router.push(`/user/${props.user.id}`);
+      router.refresh()
 
     } catch (error: any) {
       setError(true);
@@ -98,38 +98,26 @@ const EditProfileForm = (props: EditProfileProps) => {
       <CardContent>
           <AutoForm
             onSubmit={(data) => {
-              onUpdateUser(data.name, data.email, data.bio as string, data.password)
+              onUpdateUser(data.name, data.email, data.bio as string, data.password!)
             }}
             formSchema={updateUserSchema}
             values={{
               name: props.user.name,
               email: props.user.email,
               bio: props.user.bio,
-              password: props.user.password
+              // password: props.user.password
             }}
             fieldConfig={{
-              name: {
-                inputProps: {
-                  defaultValue: props.user.name
-                }
-              },
-              email: {
-                inputProps: {
-                  defaultValue: props.user.email
-                }
-              },
               bio: {
                 inputProps: {
-                  defaultValue: props.user.bio,
                   placeholder: "Tell us a little bit about yourself",
                 }
               },
               password: {
                 inputProps: {
                   type: "password",
-                  defaultValue: props.user.password,
                 }
-              }
+              },
             }}
             >
               <div className='grid grid-cols-2 gap-14'>

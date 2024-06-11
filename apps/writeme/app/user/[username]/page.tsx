@@ -26,7 +26,7 @@ dayjs.extend(relativeTime);
 export default async function User(props: UserProps) {
   const user = await getUser(props.params.username);
   const stories = await getUserStories(props.params.username);
-  
+
   const session = await auth()
   if (session?.user){
     var drafts = await getMyDrafts();
@@ -37,7 +37,7 @@ export default async function User(props: UserProps) {
       <div className="flex flex-row w-full relative">
         <div className="flex flex-col items-start p-10 w-1/3 sticky top-0">
           <div className="relative w-80 h-80 mb-1">
-            <Image src={user ? user.image : Profile} alt="User Profile Image" layout="fill" objectFit="contain" className='rounded-full'/>
+            <Image src={user.image ? user.image : Profile} alt="User Profile Image" layout="fill" objectFit="contain" className='rounded-full'/>
           </div>
           <h1 className="text-3xl font-bold mx-12">{user?.name}</h1>
           <p className="text-lg text-gray-500 mx-12 mb-4">{user?.bio}</p>
@@ -123,8 +123,6 @@ export default async function User(props: UserProps) {
             ))}
           </BentoGrid></>:<></>}
         </div>
-
-
       </div>
     </div>
   );

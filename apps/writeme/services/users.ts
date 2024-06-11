@@ -11,12 +11,3 @@ export async function getUser(id: string) {
 
   return result
 }
-
-export async function isEmailUnique(email: string, id: string) {
-
-  const result = db.query.users.findFirst({
-    where: (users, {eq}) => and(eq(users.email, email), not(eq(users.id, id)))
-  })
-
-  return result === null;
-}

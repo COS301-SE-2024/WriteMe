@@ -30,6 +30,11 @@ export const users = pgTable('user', {
   }).default('').notNull(),
 });
 
+// export const userRelations = relations(users ,({many}) => ({
+//   following: many(userFollowers),
+//   followers: many(userFollowers)
+// }))
+
 export const userFollowers = pgTable('user_followers', {
   id: serial('id')
     .primaryKey(),
@@ -42,9 +47,14 @@ export const userFollowers = pgTable('user_followers', {
   createdAt: timestamp('created_at').defaultNow().notNull()
 }) 
 
-// export const followersRelations = relations(userFollowers, ({ many }) => ({
+// export const followersRelations = relations(userFollowers, ({ one }) => ({
 //   followers: one(users, {
 //     fields: [userFollowers.followerId],
+//     references: [users.id]
+//   }),
+//   following: one(users, {
+//     fields: [userFollowers.followedId],
+//     references: [users.id]
 //   })
 // }))
 
