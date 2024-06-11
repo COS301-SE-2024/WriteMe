@@ -124,7 +124,7 @@ export const tags = pgTable('tags', {
 
 export const tagsRelations = relations(tags, ({many}) => ({
   stories: many(storyTags),
-}))
+}));
 
 export const storyGenres = pgTable('story_genres', {
   storyId: text('story_id').references(() => stories.id).notNull(),
@@ -135,6 +135,15 @@ export const storyGenres = pgTable('story_genres', {
   pkWithCustomName: primaryKey({columns: [t.storyId, t.genreId], name: 'story_genre_pk'}),
 })
 );
+
+export const genreRelations = relations(genres, ({many}) => ({
+  stories: many(storyGenres),
+}));
+
+export const storyGenreRelations = relations(storyGenres, ({one}) => ({
+  stories: one(stories, {fields: [storyGenres.storyId], references: [stories.id]}),
+  genres: one(genres, {fields: [storyGenres.genreId], references: [genres.id]}),
+}));
 
 export const storyTags = pgTable('story_tags', {
   storyId: text('story_id').references(() => stories.id).notNull(),
@@ -149,4 +158,4 @@ export const storyTags = pgTable('story_tags', {
 export const storyTagsRelations = relations(storyTags, ({one}) => ({
   stories: one(stories, {fields: [storyTags.storyId], references: [stories.id]}),
   tags: one(tags, {fields: [storyTags.tagId], references: [tags.id]}),
-}))
+}));
