@@ -13,6 +13,23 @@ export async function getMyStories(){
   return result;
 }
 
+export async function getMyDrafts(){
+  const session = await auth();
+
+  const result = db.query.stories.findMany({
+    where: (stories, {eq}) => and(eq(stories.userId, session.user.id), eq(stories.published, false))
+  })
+  return result;
+}
+
+export async function getUserStories(userId: string){
+
+  const result = db.query.stories.findMany({
+    where: (stories, {eq}) => and(eq(stories.userId, userId), eq(stories.published, true))
+  })
+  return result;
+}
+
 export async function getStory(id: string){
   const result = db.query.stories.findFirst({
     where: (stories, {eq}) => and(eq(stories.id, id), eq(stories.published, true))
