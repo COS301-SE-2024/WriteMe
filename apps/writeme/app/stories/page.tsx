@@ -11,7 +11,7 @@ import Link from 'next/link';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { getPublishedStories } from '../../services/stories';
 
-export const dynamic = 'force dynamic';
+export const dynamic = 'force-dynamic';
 import LocalNavbar from '@writeme/wmc/lib/ui/local-navbar';
 
 /* eslint-disable-next-line */

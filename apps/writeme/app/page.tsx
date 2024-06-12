@@ -29,7 +29,7 @@ export default function Index() {
           </div>
         </div>
         <div className="relative aspect-[4/3] w-full">
-          <Image src={BooksImage} alt="Books" layout="fill" objectFit="contain"  ></Image>
+          <Image src={BooksImage} alt="Books" layout="fill" objectFit="contain" />
         </div>
       </div>
     </div>
