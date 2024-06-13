@@ -2,14 +2,14 @@ import BooksImage from "../assets/Books.png";
 import Image from "next/image";
 import Link from 'next/link';
 import LocalNavbar from "@writeme/wmc/lib/ui/local-navbar";
+import BooksAnimation from "../components/books-animation";
 
 export default function Index() {
 
   return (
-    <div>
+    <div className="h-screen">
       <LocalNavbar />
-
-      <div className="mx-12 py-6 flex justify-between items-center">
+      <div className="mx-12 pt-6 flex justify-between overflow-hidden h-full sm:flex-col lg:flex-row">
         <div>
           <div className="mb-10">
             <div className="mx-9 py-8">
@@ -28,9 +28,7 @@ export default function Index() {
             </div>
           </div>
         </div>
-        <div className="relative aspect-[4/3] w-full">
-          <Image src={BooksImage} alt="Books" layout="fill" objectFit="contain" />
-        </div>
+        <BooksAnimation></BooksAnimation>        
       </div>
     </div>
   );
