@@ -1,6 +1,6 @@
 import LocalNavbar from '@writeme/wmc/lib/ui/local-navbar';
 import React from 'react';
-import { getStory } from '../../../services/stories';
+import { getPublishedStory } from '../../../services/stories';
 
 /* eslint-disable-next-line */
 export interface StoryProps {
@@ -14,7 +14,7 @@ export interface StoryProps {
 
 export default async function Story(props: StoryProps) {
 
-  const story = await getStory(props.params.story);
+  const story = await getPublishedStory(props.params.story);
 
 
   return (
