@@ -32,6 +32,18 @@ export async function getUserStories(userId: string){
 
 export async function getStory(id: string){
   const result = db.query.stories.findFirst({
+    with: {
+      author: true,
+      chapters: true
+    },
+    where: (stories, {eq}) => eq(stories.id, id)
+  })
+
+  return result
+}
+
+export async function getPublishedStory(id: string){
+  const result = db.query.stories.findFirst({
     where: (stories, {eq}) => and(eq(stories.id, id), eq(stories.published, true))
   })
 

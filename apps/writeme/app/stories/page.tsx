@@ -33,9 +33,9 @@ export default async function Stories(props: StoriesProps) {
             <CardHeader>
               <div className='flex gap-2 justify-evenly'>
                 <div className='relative aspect-[3/4] h-40'>
-                  <Image
+                  <img
                     alt='Book Cover'
-                    src={BookCover}
+                    src={story.cover}
                     layout='fill'
                     objectFit='cover'
                   />
@@ -43,11 +43,11 @@ export default async function Stories(props: StoriesProps) {
                 <div className='pl-3 flex flex-col gap-2 justify-between'>
                   <CardTitle>{story.title}</CardTitle>
                   <CardDescription>{dayjs(story.createdAt).fromNow()}</CardDescription>
-                  {/*<div className='flex pt-5'>*/}
-                  {/*  <CardDescription><Heart className='cursor-pointer' size={20}/></CardDescription><p className='text-[15px] pr-2'>12</p>*/}
-                  {/*  <CardDescription><MessageCircle className='cursor-pointer' size={20}/></CardDescription><p className='text-[15px] pr-2'>2</p>*/}
-                  {/*  <CardDescription><Share2 className='cursor-pointer' size={20}/></CardDescription>*/}
-                  {/*</div>*/}
+                  <div className='flex pt-5'>
+                    <CardDescription><Heart className='cursor-pointer' size={20}/></CardDescription><p className='text-[15px] pr-2'>12</p>
+                    <CardDescription><MessageCircle className='cursor-pointer' size={20}/></CardDescription><p className='text-[15px] pr-2'>2</p>
+                    <CardDescription><Share2 className='cursor-pointer' size={20}/></CardDescription>
+                  </div>
 
                   <Button asChild variant="default">
                     <Link href={`/stories/${story.id}`}><div className="flex gap-1 items-center"><BookOpenText size="1rem"/> Read</div></Link>

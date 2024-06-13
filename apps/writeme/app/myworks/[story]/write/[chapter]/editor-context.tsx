@@ -3,8 +3,8 @@
 import { createContext } from 'react';
 
 export const EditorContext = createContext({
-  story: {},
-  setStory: () => {},
+  chapter: {},
+  setChapter: () => {},
   blocks: [],
   setBlocks: () => {}
 });

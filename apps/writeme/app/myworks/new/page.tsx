@@ -1,5 +1,7 @@
 import NewStoryForm from './new-story-form';
 import LocalNavbar from '@writeme/wmc/lib/ui/local-navbar';
+import { Card, CardContent, CardHeader } from '@writeme/wmc';
+import { Separator } from '@writeme/wmc/lib/ui/separator';
 
 
 export interface NewStoryProps {}
@@ -8,8 +10,17 @@ export default function NewStory(props: NewStoryProps) {
   return (
     <div className="">
       <LocalNavbar />
-      <h1 className="font-bold text-6xl text-center">Create a new story</h1>
-      <NewStoryForm />
+      <div className="flex items-center justify-center mt-4">
+      <Card className="w-[70ch]">
+        <CardHeader className="bg-muted/50 rounded-lg">
+          <h1 className="font-bold text-2xl text-center">Create a new story</h1>
+        </CardHeader>
+        <Separator></Separator>
+        <CardContent>
+          <NewStoryForm />
+        </CardContent>
+      </Card>
+      </div>
     </div>
   );
 }

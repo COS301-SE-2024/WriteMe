@@ -90,7 +90,7 @@ const NewStoryForm = () => {
             <FormItem>
               <FormLabel>Title *</FormLabel>
               <FormControl>
-                <Input placeholder={"A really good title"} {...field}></Input>
+                <Input id="onborda-new-story-title" placeholder={"A really good title"} {...field}></Input>
               </FormControl>
               <FormDescription>
                 This is the title of your story.
@@ -138,7 +138,7 @@ const NewStoryForm = () => {
         >
         </FormField>
 
-        <Button type="submit">Create Story</Button>
+        <Button id="onborda-new-story-create" type="submit">Create Story</Button>
       </form>
     </Form>
   );
