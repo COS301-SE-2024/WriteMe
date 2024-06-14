@@ -139,6 +139,7 @@ import { CommentsIcon } from '@storybook/icons';
 import ChaptersTableofContents from '../../../components/chapters-toc';
 // import Link from 'next/link';
 import { Link } from 'next-view-transitions';
+import CommentSection from '../../../components/comments-sections'
 
 export interface WritePageProps {
   params: {
@@ -222,6 +223,7 @@ export default async function Page(props: WritePageProps) {
             </Button>
           </div>
           <ChaptersTableofContents story={story}></ChaptersTableofContents>
+          <CommentSection></CommentSection>
         </div>
       </section>
 
