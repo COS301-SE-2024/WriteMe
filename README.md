@@ -14,6 +14,8 @@
 
 [![GitHub Repo Size in Bytes](https://img.shields.io/github/languages/code-size/COS301-SE-2024/WriteMe)](https://github.com/COS301-SE-2024/WriteMe)
 [![GitHub Commit Activity](https://img.shields.io/github/commit-activity/w/COS301-SE-2024/WriteMe)](https://github.com/COS301-SE-2024/WriteMe)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/COS301-SE-2024/WriteMe/docs-deployment.yaml)
+![GitHub milestone details](https://img.shields.io/github/milestones/progress-percent/COS301-SE-2024/WriteMe/3)
 
 [![Open Issues](https://img.shields.io/github/issues/COS301-SE-2024/WriteMe.svg?style=flat-square)](https://github.com/COS301-SE-2024/WriteMe/issues)
 [![Closed Issues](https://img.shields.io/github/issues-closed/COS301-SE-2024/WriteMe.svg?style=flat-square)](https://github.com/COS301-SE-2024/WriteMe/issues?q=is%3Aissue+is%3Aclosed)
