@@ -1,6 +1,11 @@
 import { array, boolean, object, string, z } from 'zod';
 
 
+export const exportChapterSchema = object({
+  id: string({required_error: "A chapter ID is required"})
+})
+
+
 export const createChapterSchema = object({
   storyId: string({required_error: "A story is required"}),
   title: string({required_error: "Title is Required"}).max(255, "Title is too long, a maximum of 255 characters are allowed").min(3, 'title should be at least 3 characters long.'),
