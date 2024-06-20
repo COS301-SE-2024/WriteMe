@@ -14,6 +14,8 @@ import * as dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { auth } from 'apps/writeme/auth';
 import { getMyDrafts, getUserStories } from 'apps/writeme/services/stories';
+import FollowButton from 'apps/writeme/components/follow-button';
+import { isFollowing } from '../../../services/users';
 
 export interface UserProps {
   params: {
@@ -31,6 +33,9 @@ export default async function User(props: UserProps) {
   if (session?.user){
     var drafts = await getMyDrafts();
   }
+
+  const following = await isFollowing(session?.user?.id as string, props.params.username)
+
   return (
     <div className="flex flex-col h-screen">
       <LocalNavbar />
@@ -41,7 +46,9 @@ export default async function User(props: UserProps) {
           </div>
           <h1 className="text-3xl font-bold mx-12">{user?.name}</h1>
           <p className="text-lg text-gray-500 mx-12 mb-4">{user?.bio}</p>
-          {session?.user?.id == props.params.username ? <Button className='mx-12 mb-3'><Link href={`/user/${user?.id}/edit-profile`}>Edit profile</Link></Button> : <></>}
+          {session?.user?.id == props.params.username ? <Button className='mx-12 mb-3'><Link href={`/user/${user?.id}/edit-profile`}>Edit profile</Link></Button> 
+          : 
+          <FollowButton userId={props.params.username} following={following} />}
           <div className='flex mx-12 mb-3'>
             <IconUser />
             <a className='font-bold mx-2'>3 </a>
