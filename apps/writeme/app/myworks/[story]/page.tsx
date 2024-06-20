@@ -209,10 +209,10 @@ export default async function Page(props: WritePageProps) {
             <Separator></Separator>
 
           </CardContent>
-          <CardFooter>
+          <CardFooter className="flex justify-around">
             {/* TODO: Like comments*/}
             <HeartIcon></HeartIcon>
-            <MessageCircle></MessageCircle>
+            <span className="flex gap-1"> <MessageCircle></MessageCircle> {story.comments.length} </span>
           </CardFooter>
 
         </Card>
@@ -223,7 +223,7 @@ export default async function Page(props: WritePageProps) {
             </Button>
           </div>
           <ChaptersTableofContents story={story}></ChaptersTableofContents>
-          <CommentSection></CommentSection>
+          <CommentSection storyId={story?.id as string} comments={story.comments}></CommentSection>
         </div>
       </section>
 
