@@ -8,7 +8,10 @@ export async function getMyStories(){
   const session = await auth();
 
   const result = db.query.stories.findMany({
-    where: (stories, {eq}) => eq(stories.userId, session.user.id)
+    where: (stories, {eq}) => eq(stories.userId, session.user.id), 
+    with: {
+      comments: true
+    }
   })
   return result;
 }
@@ -34,7 +37,22 @@ export async function getStory(id: string){
   const result = db.query.stories.findFirst({
     with: {
       author: true,
-      chapters: true
+      chapters: {
+        with: {
+          comments : {
+            with : {
+              author: true
+            }
+          }
+        }
+      }, 
+      comments: {
+        where: (comments, { isNull }) => isNull(comments.chapterId),
+        with: {
+          author: true
+        }
+
+      }
     },
     where: (stories, {eq}) => eq(stories.id, id)
   })
@@ -54,7 +72,10 @@ export async function getPublishedStory(id: string){
 export async function getPublishedStories(){
 
   const result = db.query.stories.findMany({
-    where: (stories, {eq}) => eq(stories.published, true)
+    where: (stories, {eq}) => eq(stories.published, true),
+    with : {
+      comments: true
+    },
   })
 
 
