@@ -210,7 +210,7 @@ export default async function Page(props: WritePageProps) {
           </CardContent>
           <CardFooter>
             {/* TODO: Like comments*/}
-            <HeartIcon></HeartIcon>
+            <span><HeartIcon></HeartIcon> {story.likes.length}</span>
             <MessageCircle></MessageCircle>
           </CardFooter>
 
