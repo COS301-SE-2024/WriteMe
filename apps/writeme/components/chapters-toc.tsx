@@ -93,7 +93,7 @@ export default function ChaptersTableofContents({story} : TOCProps) {
                 {c.published ? <Badge variant="default">Published</Badge> : <Badge variant="secondary">Draft</Badge>}
               </TableCell>
               <TableCell className="hidden md:table-cell">0</TableCell>
-              <TableCell className="hidden md:table-cell">25</TableCell>
+              <TableCell className="hidden md:table-cell">{c.comments.length}</TableCell>
               <TableCell className="hidden md:table-cell">
                 {dayjs(c.createdAt).format("MMM D, YYYY h:mm A")}
               </TableCell>
