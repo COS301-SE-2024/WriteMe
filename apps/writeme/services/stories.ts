@@ -59,6 +59,15 @@ export async function getPublishedStory(id: string) {
 export async function getPublishedStories() {
   const result = db.query.stories.findMany({
     where: (stories, { eq }) => eq(stories.published, true),
+    with: {
+      chapters: {
+        with: {
+          likes: true,
+        },
+      },
+      author: true,
+      likes: true,
+    },
   });
 
   return result;
