@@ -66,7 +66,7 @@ const NewStoryForm = () => {
         return;
       }else {
         const { story } = await res.json();
-        router.push(`/myworks/${story.id}/write/${story.id}`)
+        router.push(`/myworks/${story.id}`)
       }
 
     } catch (error: any) {

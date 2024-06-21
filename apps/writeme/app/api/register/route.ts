@@ -1,6 +1,6 @@
 import { hash } from 'bcryptjs';
 import { NextResponse } from 'next/server';
-import { createUserSchema, updateUserSchema } from '../../../db/user-schema';
+import { createUserSchema, updateUserSchema, updateUserSchemaOAuth } from '../../../db/user-schema';
 import { ZodError } from 'zod';
 import { users } from '../../../db/schema';
 import { db } from '../../../db/db';
@@ -85,47 +85,78 @@ const isEmailUnique = async(email: string) => {
 export async function PUT(req: Request){
   try {
     const session = await auth();
-
+    
     if (!session?.user){
       return new NextResponse(JSON.stringify({
         status: 'fail', message: "You are not logged in",
-      }), { status : 401})
-    }
-    
-    const input = updateUserSchema.parse(await req.json());
-    
-    if (session.user.email !== input.email) {
-      const emailUnique = await isEmailUnique(input.email);
-      if (!emailUnique) {
-        return NextResponse.json(
-          {
-            status: 'fail',
-            message: 'User with that email already exists',
-          },
-          { status: 409 }
-        );
-      }
-    }
-
+        }), { status : 401})
+        }
     const user_ = await getUser(session.user.id!)
-    let userPassword = user_?.password
-    if (input.password && input.password.trim().length > 0) {
-      userPassword = await hash(input.password, 12);
+    
+    if (user_?.password) {
+      const input = updateUserSchema.parse(await req.json());
+      
+      if (session.user.email !== input.email) {
+        const emailUnique = await isEmailUnique(input.email);
+        if (!emailUnique) {
+          return NextResponse.json(
+            {
+              status: 'fail',
+              message: 'User with that email already exists',
+            },
+            { status: 409 }
+          );
+        }
+      }
+  
+      let userPassword = user_?.password
+      if (input.password && input.password.trim().length > 0) {
+        userPassword = await hash(input.password, 12);
+      }
+  
+      // @ts-ignore
+      const user = await updateUser({
+        ...input,
+        email: input.email.toLowerCase(),
+        password: userPassword,
+        id: session.user.id,
+      });
+  
+      return NextResponse.json({
+        user: {
+          id: user.updatedId,
+        },
+      });
+    } else {
+      const input = updateUserSchemaOAuth.parse(await req.json());
+      
+      if (session.user.email !== input.email) {
+        const emailUnique = await isEmailUnique(input.email);
+        if (!emailUnique) {
+          return NextResponse.json(
+            {
+              status: 'fail',
+              message: 'User with that email already exists',
+            },
+            { status: 409 }
+          );
+        }
+      }
+
+      // @ts-ignore
+      const user = await updateUser({
+        ...input,
+        email: input.email.toLowerCase(),
+        password: null,
+        id: session.user.id,
+      });
+  
+      return NextResponse.json({
+        user: {
+          id: user.updatedId,
+        },
+      });
     }
-
-    // @ts-ignore
-    const user = await updateUser({
-      ...input,
-      email: input.email.toLowerCase(),
-      password: userPassword,
-      id: session.user.id,
-    });
-
-    return NextResponse.json({
-      user: {
-        id: user.updatedId,
-      },
-    });
   } catch (error: any) {
     console.log(error);
     if (error instanceof ZodError) {
