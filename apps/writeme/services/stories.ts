@@ -8,6 +8,9 @@ export async function getMyStories() {
 
   const result = db.query.stories.findMany({
     where: (stories, { eq }) => eq(stories.userId, session.user.id),
+    with: {
+      comments: true
+    }
   });
   return result;
 }
@@ -36,10 +39,22 @@ export async function getStory(id: string) {
       author: true,
       chapters: {
         with: {
-          likes: true,
-        },
+          comments : {
+            with : {
+              author: true
+            }
+          },
+          likes: true
+        }
       },
-      likes: true,
+      comments: {
+        where: (comments, { isNull }) => isNull(comments.chapterId),
+        with: {
+          author: true
+        }
+
+      },
+      likes: true
     },
     where: (stories, { eq }) => eq(stories.id, id),
   });
@@ -79,6 +94,7 @@ export async function getPublishedStories() {
       },
       author: true,
       likes: true,
+      comments: true
     },
   });
 

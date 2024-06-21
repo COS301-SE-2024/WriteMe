@@ -40,6 +40,7 @@ export const userRelations = relations(users ,({many}) => ({
     relationName: 'followers'
   }),
   stories: many(stories),
+  comments: many(comments),
 }))
 
 export const userFollowers = pgTable('user_followers', {
@@ -145,10 +146,12 @@ export const storiesRelations = relations(stories, ({ one, many }) => ({
   chapters: many(chapters),
   author: one(users, {
     fields: [stories.userId],
-    references: [users.id],
+    references: [users.id]
   }),
-  likes: many(likes),
-}));
+  comments: many(comments),
+  likes: many(likes)
+}))
+
 
 // @ts-ignore
 export const chapters = pgTable('chapter', {
@@ -171,23 +174,42 @@ export const chapters = pgTable('chapter', {
 export const chaptersRelations = relations(chapters, ({ one, many }) => ({
   story: one(stories, {
     fields: [chapters.storyId],
-    references: [stories.id],
+    references: [stories.id]
   }),
+  comments: many(comments),
   likes: many(likes),
-}));
+}))
+
 
 // @ts-ignore
 export const comments = pgTable('comments', {
   id: serial('id').primaryKey(),
   storyId: text('story_id')
-    .references(() => stories.id)
-    .notNull(),
+    .references(() => stories.id, {onDelete : 'cascade'}),
+  chapterId: text('chapter_id').references(() => chapters.id, {onDelete: 'cascade'}),
   userId: text('user_id')
     .references(() => users.id)
     .notNull(),
   content: text('content').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
+
+export const commentsRelations = relations(comments, ({one})=> {
+  return {
+    chapter: one(chapters, {
+      fields: [comments.chapterId],
+      references: [chapters.id]
+    }),
+    story: one(stories, {
+      fields: [comments.storyId],
+      references: [stories.id]
+    }),
+    author: one(users, {
+      fields: [comments.userId],
+      references: [users.id]
+    })
+  }
+})
 
 // Likes table
 // @ts-ignore
