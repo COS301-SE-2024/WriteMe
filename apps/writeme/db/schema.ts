@@ -131,8 +131,7 @@ export const storyGenres = pgTable('story_genres', {
   genreId: serial('genre_id').references(() => genres.id).notNull(),
 },
 (t) => ({
-  pk: primaryKey({columns: [t.storyId, t.genreId]}),
-  pkWithCustomName: primaryKey({columns: [t.storyId, t.genreId], name: 'story_genre_pk'}),
+  pk: primaryKey({columns: [t.storyId, t.genreId]})
 })
 );
 
@@ -150,8 +149,7 @@ export const storyTags = pgTable('story_tags', {
   tagId: serial('tag_id').references(() => tags.id).notNull(),
 },
 (t) => ({
-  pk: primaryKey({columns: [t.storyId, t.tagId]}),
-  pkWithCustomName: primaryKey({columns: [t.storyId, t.tagId], name: 'story_tag_pk'}),
+  pk: primaryKey({columns: [t.storyId, t.tagId]})
 })
 );
 
