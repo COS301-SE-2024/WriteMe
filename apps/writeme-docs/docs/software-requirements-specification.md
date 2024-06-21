@@ -131,15 +131,15 @@ The rise of digital content consumption has created a demand for platforms that 
     <ol className='srs-bullets'>
       <li> Users can comment on different features:
         <ol className='srs-bullets'>
-          <li>Users can comment on Entire Stories</li>
-          <li>Users can comment on Chapters</li>
+          <li><strong>Users can comment on Entire Stories</strong></li>
+          <li><strong>Users can comment on Chapters</strong></li>
           <li>Users can comment on Blocks</li>
         </ol>
       </li>
       <li>Users can like differnet sections
         <ol className='srs-bullets'>
-          <li>Users can like Entire Stories</li>
-          <li>Users can like Chapters</li>
+          <li><strong>Users can like Entire Stories</strong></li>
+          <li><strong>Users can like Chapters</strong></li>
         </ol>
       </li>
     </ol>
@@ -157,7 +157,7 @@ The rise of digital content consumption has created a demand for platforms that 
         <li>Users can share on Facebook</li>
      </ol>
     </li>
-    <li>Users can export stories to PDF</li>
+    <li><strong>Users can export stories to PDF</strong></li>
 </ol>
 
 ### Account Management
@@ -167,14 +167,14 @@ The rise of digital content consumption has created a demand for platforms that 
       <ol className='srs-bullets'>
         <li>Users should be able to change their credentials
           <ol className="srs-bullets">
-            <li>Users should be able to change their password</li>
-            <li>Users should be able to change their email</li>
+            <li><strong>Users should be able to change their password</strong></li>
+            <li><strong>Users should be able to change their email</strong></li>
           </ol>
         </li>
         <li>Users should be able to update their infromation
           <ol className="srs-bullets">
-            <li>Users should be able to update bio</li>
-            <li>Users should be able to update name</li>
+            <li><strong>Users should be able to update bio</strong></li>
+            <li><strong>Users should be able to update name</strong></li>
           </ol>
         </li>
         <li>Users should be able to delete their account</li>
