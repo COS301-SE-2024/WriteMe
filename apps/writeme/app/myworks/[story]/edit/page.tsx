@@ -17,7 +17,7 @@ export default async function NewStory(props: NewStoryProps) {
     <div className="">
       <LocalNavbar />
       <h1 className="font-bold text-6xl text-center">Edit Your Story</h1>
-      <EditStoryForm title={story?.title || ""} brief={story?.brief || ""} description={story?.description || ""} tagItems={tags} genreItems={genres}/>
+      <EditStoryForm id={story?.id || ""} title={story?.title || ""} brief={story?.brief || ""} description={story?.description || ""} tagItems={tags} genreItems={genres}/>
     </div>
   );
 }
