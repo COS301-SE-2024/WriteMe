@@ -42,6 +42,8 @@ const EditStoryForm = ({id, title, brief, description, genreItems, tagItems}: Ed
     }
   });
 
+  const { register } = form;
+
   const router = useRouter();
 
 
@@ -92,7 +94,6 @@ const EditStoryForm = ({id, title, brief, description, genreItems, tagItems}: Ed
     }
 
   }
-
 
   return (
     <Form {...form}>
@@ -153,11 +154,11 @@ const EditStoryForm = ({id, title, brief, description, genreItems, tagItems}: Ed
 
         <FormField
           control={form.control}
-          render={({field})=> (
+          render={({field: {value, onChange }, fieldState})=> (
             <FormItem>
               <FormLabel>Genre</FormLabel>
               <FormControl>
-                <FancyMultiSelect items = {genreItems} placeholder='Select Genres'></FancyMultiSelect>
+                <FancyMultiSelect selected={value as Framework[]} setSelected={(val) => onChange(val)}  {...register("genre")}  items={genreItems} placeholder='Select Genres'></FancyMultiSelect>
               </FormControl>
               <FormDescription>
                 This is the genre of your story.
@@ -171,11 +172,11 @@ const EditStoryForm = ({id, title, brief, description, genreItems, tagItems}: Ed
 
         <FormField
           control={form.control}
-          render={({field})=> (
+          render={({field : {value, onChange}})=> (
             <FormItem>
               <FormLabel>Tags</FormLabel>
               <FormControl>
-                <FancyMultiSelect items = {tagItems} placeholder='Select Tags'></FancyMultiSelect>
+                <FancyMultiSelect selected={value as Framework[]} setSelected={(val) => onChange(val)} {...register("tags")} items = {tagItems} placeholder='Select Tags'></FancyMultiSelect>
               </FormControl>
               <FormDescription>
                 These are the tags of your story.

@@ -17,12 +17,13 @@ export interface Framework {value: number, label: string}
 export interface FancyMultiSelectProps{
     items: Framework[],
     placeholder: string,
+    selected: Framework[],
+    setSelected: any
 }
 
-export function FancyMultiSelect({items, placeholder}: FancyMultiSelectProps) {
+export function FancyMultiSelect({items, placeholder, selected, setSelected}: FancyMultiSelectProps) {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState<Framework[]>([]);
   const [inputValue, setInputValue] = React.useState("");
 
   const handleUnselect = React.useCallback((framework: Framework) => {
