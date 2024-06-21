@@ -21,6 +21,7 @@ import { toast } from '@writeme/wmc/lib/ui/use-toast';
 import { useRouter } from 'next/navigation';
 
 export interface EditStoryFormProps{
+  id: string,
   title: string,
   brief: string,
   description: string,
@@ -28,10 +29,11 @@ export interface EditStoryFormProps{
   tagItems: Framework[],
 }
 
-const EditStoryForm = ({title, brief, description, genreItems, tagItems}: EditStoryFormProps) => {
+const EditStoryForm = ({id, title, brief, description, genreItems, tagItems}: EditStoryFormProps) => {
   const form = useForm<z.infer<typeof updateStorySchema>>({
     resolver: zodResolver(updateStorySchema),
     defaultValues: {
+      id: id,
       brief: brief,
       title: title,
       description: description,
@@ -77,7 +79,7 @@ const EditStoryForm = ({title, brief, description, genreItems, tagItems}: EditSt
         return;
       }else {
         const { story } = await res.json();
-        router.push(`/myworks/${story.id}`)
+        router.back();
       }
 
     } catch (error: any) {
@@ -184,7 +186,7 @@ const EditStoryForm = ({title, brief, description, genreItems, tagItems}: EditSt
           name="tags"
         >
         </FormField>
-
+        <FormMessage>{form.formState.isValid}</FormMessage>
         <Button type="submit">Save Changes</Button>
       </form>
     </Form>
