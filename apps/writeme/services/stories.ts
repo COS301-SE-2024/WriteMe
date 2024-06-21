@@ -1,6 +1,6 @@
 import { auth } from '../auth';
 import { db } from '../db/db';
-import { stories } from '../db/schema';
+import { stories, chapters } from '../db/schema';
 import { and } from 'drizzle-orm';
 
 export async function getMyStories() {
@@ -51,6 +51,18 @@ export async function getPublishedStory(id: string) {
   const result = db.query.stories.findFirst({
     where: (stories, { eq }) =>
       and(eq(stories.id, id), eq(stories.published, true)),
+    with : {
+      author: true,
+      likes: true,
+      // comments: true,
+      chapters: {
+        where: (chapters, {eq}) => eq(chapters.published, true),
+        with : {
+          likes: true,
+          // comments: true
+        }
+      }
+    }
   });
 
   return result;
