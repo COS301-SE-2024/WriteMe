@@ -1,5 +1,5 @@
 {
-  "id": "46f6d381-b6d3-4d7c-a2cd-cef9b3d54241",
+  "id": "d6c79e31-cc36-4190-9692-490402599456",
   "prevId": "b579e005-eb28-4d61-883b-b569885857af",
   "version": "6",
   "dialect": "postgresql",
@@ -460,12 +460,6 @@
       "name": "user_followers",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
         "follower_id": {
           "name": "follower_id",
           "type": "text",
@@ -515,7 +509,15 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {},
+      "compositePrimaryKeys": {
+        "user_followers_follower_id_followed_id_pk": {
+          "name": "user_followers_follower_id_followed_id_pk",
+          "columns": [
+            "follower_id",
+            "followed_id"
+          ]
+        }
+      },
       "uniqueConstraints": {}
     },
     "public.user": {

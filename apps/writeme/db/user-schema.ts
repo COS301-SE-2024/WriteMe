@@ -49,6 +49,11 @@ export const updateUserSchema = object({
 // photo: string().optional(),
 })
 
+export const followerUserSchema = object({
+  userId: string({ required_error: 'User ID required'})
+})
+
 export type LoginUserInput = TypeOf<typeof loginUserSchema>;
 export type CreateUserInput = TypeOf<typeof createUserSchema>;
 export type UpdateUserInput = TypeOf<typeof updateUserSchema>;
+export type FollowerUserSchema = TypeOf<typeof followerUserSchema>;
