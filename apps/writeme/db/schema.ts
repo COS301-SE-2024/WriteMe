@@ -1,5 +1,4 @@
 //
-import { relations } from 'drizzle-orm';
 import {
   timestamp,
   pgTable,
@@ -9,10 +8,12 @@ import {
   varchar,
   serial,
   boolean,
-  json
+  json,
+  jsonb
 } from 'drizzle-orm/pg-core';
 
 import type { AdapterAccountType } from 'next-auth/adapters';
+import { relations } from 'drizzle-orm';
 
 
 // @ts-ignore
@@ -30,14 +31,18 @@ export const users = pgTable('user', {
   }).default('').notNull(),
 });
 
-// export const userRelations = relations(users ,({many}) => ({
-//   following: many(userFollowers),
-//   followers: many(userFollowers)
-// }))
+export const userRelations = relations(users ,({many}) => ({
+  following: many(userFollowers, {
+    relationName: 'following',
+  }),
+  followers: many(userFollowers, {
+    relationName: 'followers'
+  }),
+  stories: many(stories),
+}))
 
 export const userFollowers = pgTable('user_followers', {
-  id: serial('id')
-    .primaryKey(),
+  
   followerId: text('follower_id').references(() => users.id, {
     onDelete: 'cascade'
   }).notNull(),
@@ -45,18 +50,26 @@ export const userFollowers = pgTable('user_followers', {
     onDelete: 'cascade'
   }).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull()
-}) 
+}, (t) => {
+  return {
+    pk: primaryKey({
+      columns: [t.followerId, t.followedId]
+    })
+  }
+})
 
-// export const followersRelations = relations(userFollowers, ({ one }) => ({
-//   followers: one(users, {
-//     fields: [userFollowers.followerId],
-//     references: [users.id]
-//   }),
-//   following: one(users, {
-//     fields: [userFollowers.followedId],
-//     references: [users.id]
-//   })
-// }))
+export const followersRelations = relations(userFollowers, ({ one }) => ({
+  followers: one(users, {
+    fields: [userFollowers.followedId], // references who is following you
+    references: [users.id],
+    relationName: 'followers'
+  }),
+  following: one(users, {
+    fields: [userFollowers.followerId], // references to who you are following
+    references: [users.id], 
+    relationName: 'following'
+  })
+}))
 
 // @ts-ignore
 export const accounts = pgTable(
@@ -119,6 +132,37 @@ export const stories = pgTable('story', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
+
+export const storiesRelations = relations(stories, ({one, many})=> ({
+  chapters: many(chapters),
+  author: one(users, {
+    fields: [stories.userId],
+    references: [users.id]
+  })
+}))
+
+
+// @ts-ignore
+export const chapters = pgTable("chapter", {
+  id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+  order: serial('order').notNull(),
+  title: text('title').notNull().default(''),
+  content: text('content').notNull().default(''),
+  cover: text('cover_image'),
+  blocks: jsonb('blocks'),
+  published: boolean('published').default(false).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+  storyId: text('story_id').references(() => stories.id).notNull()
+})
+
+export const chaptersRelations = relations(chapters,({one, many}) => ({
+  story: one(stories, {
+    fields: [chapters.storyId],
+    references: [stories.id]
+  })
+}))
+
 
 // @ts-ignore
 export const comments = pgTable('comments', {

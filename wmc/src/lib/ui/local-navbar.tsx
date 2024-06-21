@@ -8,12 +8,22 @@ import { cn } from '@writeme/wmc/utils';
 import { signOut, useSession } from 'next-auth/react';
 import { Avatar, AvatarFallback, AvatarImage } from '@writeme/wmc/lib/ui/avatar';
 import { Popover, PopoverContent, PopoverTrigger } from '@writeme/wmc/lib/ui/popover';
+import { useOnborda } from 'onborda';
+import { useEffect } from 'react';
 
 
 const LocalNavbar = () => {
   const pathname = usePathname();
 
   const { data: session} = useSession();
+
+
+  const { startOnborda } = useOnborda();
+
+  useEffect(() => {
+    startOnborda();
+
+  }, []);
 
   return (
     <div className="bg-background sticky top-0 z-50 border-b h-16 flex p-3 items-center justify-between">
@@ -42,7 +52,7 @@ const LocalNavbar = () => {
         {session ? (<Link href="/myworks"
                        className={cn(buttonVariants({ variant: 'link' }), pathname == '/myworks' ? 'underline' : '')}>My
           Stories</Link>) : <></>}
-        {session ? (<Link href="/myworks/new"
+        {session ? (<Link id="new-my-works" href="/myworks/new"
                           className={cn(buttonVariants({ variant: 'link' }), pathname == '/myworks/new' ? 'underline' : '')}>
           New Story</Link>) : <></>}
 
