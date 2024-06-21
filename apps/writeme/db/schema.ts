@@ -39,10 +39,10 @@ export const userRelations = relations(users ,({many}) => ({
     relationName: 'followers'
   }),
   stories: many(stories),
+  comments: many(comments),
 }))
 
 export const userFollowers = pgTable('user_followers', {
-  
   followerId: text('follower_id').references(() => users.id, {
     onDelete: 'cascade'
   }).notNull(),
@@ -66,7 +66,7 @@ export const followersRelations = relations(userFollowers, ({ one }) => ({
   }),
   following: one(users, {
     fields: [userFollowers.followerId], // references to who you are following
-    references: [users.id], 
+    references: [users.id],
     relationName: 'following'
   })
 }))
@@ -138,7 +138,8 @@ export const storiesRelations = relations(stories, ({one, many})=> ({
   author: one(users, {
     fields: [stories.userId],
     references: [users.id]
-  })
+  }),
+  comments: many(comments)
 }))
 
 
@@ -160,18 +161,37 @@ export const chaptersRelations = relations(chapters,({one, many}) => ({
   story: one(stories, {
     fields: [chapters.storyId],
     references: [stories.id]
-  })
+  }),
+  comments: many(comments)
 }))
 
 
 // @ts-ignore
 export const comments = pgTable('comments', {
   id: serial('id').primaryKey(),
-  storyId: text('story_id').references(() => stories.id).notNull(),
+  storyId: text('story_id').references(() => stories.id, {onDelete : 'cascade'}),
+  chapterId: text('chapter_id').references(() => chapters.id, {onDelete: 'cascade'}),
   userId: text('user_id').references(() => users.id).notNull(),
   content: text('content').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
+
+export const commentsRelations = relations(comments, ({one})=> {
+  return {
+    chapter: one(chapters, {
+      fields: [comments.chapterId],
+      references: [chapters.id]
+    }),
+    story: one(stories, {
+      fields: [comments.storyId],
+      references: [stories.id]
+    }),
+    author: one(users, {
+      fields: [comments.userId],
+      references: [users.id]
+    })
+  }
+})
 
 // Likes table
 // @ts-ignore

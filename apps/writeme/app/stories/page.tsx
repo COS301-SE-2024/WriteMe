@@ -45,7 +45,7 @@ export default async function Stories(props: StoriesProps) {
                   <CardDescription>{dayjs(story.createdAt).fromNow()}</CardDescription>
                   <div className='flex pt-5'>
                     <CardDescription><Heart className='cursor-pointer' size={20}/></CardDescription><p className='text-[15px] pr-2'>12</p>
-                    <CardDescription><MessageCircle className='cursor-pointer' size={20}/></CardDescription><p className='text-[15px] pr-2'>2</p>
+                    <CardDescription><MessageCircle className='cursor-pointer' size={20}/></CardDescription><p className='text-[15px] pr-2'>{story.comments.length}</p>
                     <CardDescription><Share2 className='cursor-pointer' size={20}/></CardDescription>
                   </div>
 
