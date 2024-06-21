@@ -59,6 +59,8 @@ export default async function Stories(props: StoriesProps) {
           </Card>
 
         )}
+
+        { stories.length === 0 ? <span className="text-center grow" >There are currently no published stories.</span> : <></>}
       </BentoGrid>
 
 

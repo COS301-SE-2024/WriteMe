@@ -69,12 +69,16 @@ export async function getPublishedStory(id: string) {
     with : {
       author: true,
       likes: true,
-      // comments: true,
+      comments: {
+        with: {
+          author: true
+        }
+      },
       chapters: {
         where: (chapters, {eq}) => eq(chapters.published, true),
         with : {
           likes: true,
-          // comments: true
+          comments: true
         }
       }
     }

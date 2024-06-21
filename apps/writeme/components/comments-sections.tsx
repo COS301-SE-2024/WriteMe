@@ -36,17 +36,20 @@ export interface CommentSectionProps {
   comments: any;
   storyId: string;
   chapterId?: string;
+  fill?: boolean;
 }
 
 export default function CommentSection({
   comments,
   storyId,
   chapterId,
+  fill = true
 }: CommentSectionProps) {
   dayjs.extend(relativeTime);
   const [input, setInput] = useState('');
   const router = useRouter();
   const { data: session, status } = useSession();
+
 
 
   const handleComment = async () => {
@@ -95,7 +98,7 @@ export default function CommentSection({
   };
 
   return (
-    <Card className="w-full">
+    <Card className={fill ? "w-full" : ""}>
       <CardHeader className="bg-muted/50">
         <CardTitle className="flex gap-2">
           <MessageSquare></MessageSquare> Comments
@@ -133,7 +136,7 @@ export default function CommentSection({
       <Separator></Separator>
       {/* TODO: wrap in session check */}
       <CardFooter className="flex justify-center items-center pt-6">
-        { status == "authenticated" ? 
+        { status == "authenticated" ?
         <div className="flex items-center gap-2 w-full justify-between">
           <Button variant="outline" size="icon">
             {/* <EmojiPicker></EmojiPicker> */}
