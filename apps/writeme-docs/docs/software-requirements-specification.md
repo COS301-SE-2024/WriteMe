@@ -265,6 +265,22 @@ The Client-Server architecture for our project splits the application into two m
 
 ![View Story System](./images/ViewStoryUseCase.jpg)
 
+### Account Management System
+
+![Account Management System](./images/AccountManagementUsecase.jpg)
+
+### Social Interactions System
+
+![Social Interactions System](./images/SocialInteractionsUsecase.jpg)
+
+### Offline System
+
+![Offline System](./images/OfflineUseCase.jpg)
+
+### Stories Management System
+
+![Stories Management System](./images/StoriesUseCase.jpg)
+
 ## Technology Requirements
 
 ### Mono Repository Management
