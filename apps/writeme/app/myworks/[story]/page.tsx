@@ -139,6 +139,7 @@ import { CommentsIcon } from '@storybook/icons';
 import ChaptersTableofContents from '../../../components/chapters-toc';
 // import Link from 'next/link';
 import { Link } from 'next-view-transitions';
+import CommentSection from '../../../components/comments-sections'
 
 export interface WritePageProps {
   params: {
@@ -178,7 +179,7 @@ export default async function Page(props: WritePageProps) {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <DropdownMenuItem>Edit</DropdownMenuItem>
+                  <DropdownMenuItem><Link href={`/myworks/${story.id}/edit`}>Edit</Link></DropdownMenuItem>
                   <DropdownMenuItem>Export</DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem >Delete</DropdownMenuItem>
@@ -203,15 +204,14 @@ export default async function Page(props: WritePageProps) {
             <p>{story.brief ? story.brief : 'No brief'}</p>
             <h3 className="font-bold">Description:</h3>
             <p>{story.description ? story.description : 'No description'}</p>
-            {}
 
             <Separator></Separator>
 
           </CardContent>
-          <CardFooter>
+          <CardFooter className="flex justify-around">
             {/* TODO: Like comments*/}
-            <HeartIcon></HeartIcon>
-            <MessageCircle></MessageCircle>
+            <span className="flex gap-1" ><HeartIcon></HeartIcon> {story.likes.length}</span>
+            <span className="flex gap-1"> <MessageCircle></MessageCircle> {story.comments.length} </span>
           </CardFooter>
 
         </Card>
@@ -222,6 +222,7 @@ export default async function Page(props: WritePageProps) {
             </Button>
           </div>
           <ChaptersTableofContents story={story}></ChaptersTableofContents>
+          <CommentSection storyId={story?.id as string} comments={story.comments}></CommentSection>
         </div>
       </section>
 

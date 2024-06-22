@@ -104,8 +104,8 @@ export default async function NewChapterFrom(props: NewChapterFormProps) {
       }}>
 
         <div className="flex justify-between">
-          <AutoFormSubmit></AutoFormSubmit>
           <Button variant="destructive" onClick={() => router.back()}>Cancel</Button>
+          <AutoFormSubmit></AutoFormSubmit>
         </div>
 
       </AutoForm>

@@ -13,6 +13,7 @@ import { getPublishedStories } from '../../services/stories';
 
 export const dynamic = 'force-dynamic';
 import LocalNavbar from '@writeme/wmc/lib/ui/local-navbar';
+import { ShareStory } from '@writeme/wmc/lib/ui/share-story';
 
 /* eslint-disable-next-line */
 export interface StoriesProps {}
@@ -43,10 +44,10 @@ export default async function Stories(props: StoriesProps) {
                 <div className='pl-3 flex flex-col gap-2 justify-between'>
                   <CardTitle>{story.title}</CardTitle>
                   <CardDescription>{dayjs(story.createdAt).fromNow()}</CardDescription>
-                  <div className='flex pt-5'>
-                    <CardDescription><Heart className='cursor-pointer' size={20}/></CardDescription><p className='text-[15px] pr-2'>12</p>
-                    <CardDescription><MessageCircle className='cursor-pointer' size={20}/></CardDescription><p className='text-[15px] pr-2'>2</p>
-                    <CardDescription><Share2 className='cursor-pointer' size={20}/></CardDescription>
+                  <div className='flex pt-5 items-center'>
+                    <CardDescription><Heart /></CardDescription><p className='text-[15px] pr-2'>{story.likes.length}</p>
+                    <CardDescription><MessageCircle /></CardDescription><p className='text-[15px] pr-2'>{story.comments.length}</p>
+                    <CardDescription><ShareStory link={`https://writeme.co.za./stories/${story.id}`} message={`Check out ${story.title}`}></ShareStory> </CardDescription>
                   </div>
 
                   <Button asChild variant="default">
@@ -59,6 +60,8 @@ export default async function Stories(props: StoriesProps) {
           </Card>
 
         )}
+
+        { stories.length === 0 ? <span className="text-center grow" >There are currently no published stories.</span> : <></>}
       </BentoGrid>
 
 
