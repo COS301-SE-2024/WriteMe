@@ -99,12 +99,12 @@ The rise of digital content consumption has created a demand for platforms that 
   </li>
 </ol>
 
-### Explore Page\*
+### Explore Page
 
 <ol className="srs-bullets">
   <li>Users must be able to view other stories:
     <ol className='srs-bullets'>
-      <li>Stories can be displayed as thumbnails with the cover image, title and author</li>
+      <li><strong>Stories can be displayed as thumbnails with the cover image, title and author</strong></li>
       <li>Stories can be displayed as lists with more detailed information such as a short description, genre or publication date</li>
     </ol>
   </li>
@@ -151,10 +151,10 @@ The rise of digital content consumption has created a demand for platforms that 
 <ol className="srs-bullets">
   <li>Users can share stories in different ways:
       <ol className='srs-bullets'>
-        <li>Users can share via Whatsapp</li>
-        <li>Users can share via Email </li>
-        <li>Users can share on Pinterest</li>
-        <li>Users can share on Facebook</li>
+        <li><strong>Users can share via Whatsapp</strong></li>
+        <li><strong>Users can share via Email</strong></li>
+        <li><strong>Users can share on Pinterest</strong></li>
+        <li><strong>Users can share on Facebook</strong></li>
      </ol>
     </li>
     <li><strong>Users can export stories to PDF</strong></li>
@@ -181,6 +181,24 @@ The rise of digital content consumption has created a demand for platforms that 
       </ol>
     </li>
 
+</ol>
+
+### Offline Support
+
+<ol className="srs-bullets">
+  <li>Users can edit content while offline:
+      <ol className='srs-bullets'>
+        <li><strong>Users can edit entire stories while offline</strong></li>
+        <li><strong>Users can edit specific chapters while offline</strong></li>
+     </ol>
+  </li>
+  <li>Users can export content to a PDF:
+    <ol className='srs-bullets'>
+      <li><strong>Users can export a Story to a PDF</strong></li>
+      <li><strong>Users can export a Chapter to a PDF</strong></li>
+    </ol>
+  </li>
+   
 </ol>
 
 ## Architectural Requirements
