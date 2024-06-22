@@ -10,6 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@writeme/wmc/lib/ui/avatar'
 import { Popover, PopoverContent, PopoverTrigger } from '@writeme/wmc/lib/ui/popover';
 import { useOnborda } from 'onborda';
 import { useEffect } from 'react';
+import { CircleHelp } from 'lucide-react';
 
 
 const LocalNavbar = () => {
@@ -19,11 +20,6 @@ const LocalNavbar = () => {
 
 
   const { startOnborda } = useOnborda();
-
-  useEffect(() => {
-    startOnborda();
-
-  }, []);
 
   return (
     <div className="bg-background sticky top-0 z-50 border-b h-16 flex p-3 items-center justify-between">
@@ -49,6 +45,7 @@ const LocalNavbar = () => {
       </div>
 
       {pathname == '/myworks' || pathname.startsWith('/stories') || pathname == "/myworks/new" ? (<div className="flex gap-2 items-center">
+        {session ? <Button onClick={() => startOnborda()}><CircleHelp /></Button> : <></>}
         {session ? (<Link href="/myworks"
                        className={cn(buttonVariants({ variant: 'link' }), pathname == '/myworks' ? 'underline' : '')}>My
           Stories</Link>) : <></>}

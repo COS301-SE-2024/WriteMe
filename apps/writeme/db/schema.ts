@@ -29,7 +29,8 @@ export const users = pgTable('user', {
     length: 256
   })
     .default('')
-    .notNull()
+    .notNull(),
+  onboarded: boolean("onboarded").default(false)
 });
 
 export const userRelations = relations(users, ({ many }) => ({
