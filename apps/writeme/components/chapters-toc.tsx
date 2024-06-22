@@ -49,7 +49,7 @@ export default function ChaptersTableofContents({story, viewer = false} : TOCPro
 
 
   return (
-    <Card>
+    <Card id="chapters-toc">
       <CardHeader>
         <CardTitle>Chapters</CardTitle>
         <CardDescription>
@@ -119,7 +119,7 @@ export default function ChaptersTableofContents({story, viewer = false} : TOCPro
                 </DropdownMenu>}
               </TableCell>
             </TableRow>)}
-            {story.chapters.length == 0 ? <TableRow><TableCell className="text-center" colSpan={7}><div className="flex flex-col"> <span>There are currently No Chapters</span> <Link href={`/myworks/${story.id}/write/new-chapter`} className={buttonVariants({variant: "link"})}>Create first chapter!</Link></div></TableCell></TableRow> : <></>}
+            {story.chapters.length == 0 ? <TableRow><TableCell className="text-center" colSpan={7}><div className="flex flex-col"> <span>There are currently No Chapters</span> <Link id="toc-create-chapter" href={`/myworks/${story.id}/write/new-chapter`} className={buttonVariants({variant: "link"})}>Create first chapter!</Link></div></TableCell></TableRow> : <></>}
 
           </TableBody>
         </Table>

@@ -75,7 +75,7 @@ export default async function NewChapterFrom(props: NewChapterFormProps) {
       <CardHeader className="bg-muted/50"><h1 className="font-bold text-2xl text-center">Create a new
         Chapter</h1></CardHeader>
       <Separator className="mb-4"></Separator>
-      <div className="p-8">
+      <div className="p-8" id="new-chapter-form">
 
       <AutoForm onSubmit={handleSubmit} formSchema={createChapterSchema}
         values={{
@@ -105,7 +105,7 @@ export default async function NewChapterFrom(props: NewChapterFormProps) {
 
         <div className="flex justify-between">
           <Button variant="destructive" onClick={() => router.back()}>Cancel</Button>
-          <AutoFormSubmit></AutoFormSubmit>
+          <AutoFormSubmit id="new-chapter-submit" ></AutoFormSubmit>
         </div>
 
       </AutoForm>
