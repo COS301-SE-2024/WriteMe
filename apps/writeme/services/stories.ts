@@ -94,7 +94,7 @@ export async function getStoryInfo(id: string){
     where: (stories, {eq}) => eq(stories.id, id),
     with: {
       //genres: true,
-      tags: true
+      // tags: true
     }
   })
 
