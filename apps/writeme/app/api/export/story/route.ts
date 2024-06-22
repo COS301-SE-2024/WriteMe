@@ -1,6 +1,4 @@
 import { generateHTML } from '@tiptap/html';
-import type { JSONContent} from '@tiptap/core'
-
 import { auth } from '../../../../auth';
 import { NextResponse } from 'next/server';
 import { exportChapterSchema } from '../../../../db/chapter-schema';
@@ -11,6 +9,7 @@ import Bold from '@tiptap/extension-bold'
 import StarterKit from '@tiptap/starter-kit'
 
 import { any } from 'zod';
+import { getPublishedStory } from '../../../../services/stories';
 
 const puppeteer = require("puppeteer")
 
@@ -26,14 +25,19 @@ export async function POST(req: Request){
 
     const input = exportChapterSchema.parse(await req.json());
 
-    const chapter = await getChapter(input.id);
+    const story = await getPublishedStory(input.id);
 
-    const content :JSONContent = {
+    let jsonContent = []
+
+    story.chapters.forEach((c) => jsonContent.push(...c.blocks))
+
+
+    const content = {
       "type": 'doc',
-      "content": <any>chapter.blocks,
+      "content": jsonContent
     }
 
-    // console.log(content)
+    console.log(content)
 
     const html = generateHTML( content , [
       StarterKit,

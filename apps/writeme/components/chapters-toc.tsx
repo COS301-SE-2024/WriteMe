@@ -36,6 +36,7 @@ import { Separator } from '@writeme/wmc/lib/ui/separator';
 import { useRouter } from 'next/navigation';
 import { ShareStory } from '@writeme/wmc/lib/ui/share-story';
 import LikeButton from './like-button';
+import ExportButton from './export-button';
 
 
 export interface TOCProps{
@@ -101,7 +102,7 @@ export default function ChaptersTableofContents({story, viewer = false} : TOCPro
                 {dayjs(c.createdAt).format("MMM D, YYYY h:mm A")}
               </TableCell>
               <TableCell>
-                {viewer ? <div className="flex gap-1 items-center"> <LikeButton storyId={c.storyId} chapterId={c.id}></LikeButton> <Bookmark></Bookmark> <ShareStory link={`https:/writeme.co.za/stories/${c.storyId}/${c.id}`} message={`check out ${c.title}`}></ShareStory> <Download></Download> </div> :
+                {viewer ? <div className="flex gap-1 items-center"> <LikeButton storyId={c.storyId} chapterId={c.id}></LikeButton> <Bookmark></Bookmark> <ShareStory link={`https:/writeme.co.za/stories/${c.storyId}/${c.id}`} message={`check out ${c.title}`}></ShareStory> <ExportButton storyId={c.storyId} chapterId={c.id}></ExportButton> </div> :
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button aria-haspopup="true" size="icon" variant="ghost">
