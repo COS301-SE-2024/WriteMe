@@ -5,14 +5,14 @@ import React, { useState, ReactNode } from 'react';
 import { EditorContext } from './editor-context';
 
 export interface EditorLoaderProps {
-  inputStory: any;
+  inputChapter: any;
   children?: ReactNode
 }
 
-const EditorLoader = ({inputStory, children} : EditorLoaderProps) => {
-  const [story, setStory] = useState(inputStory);
-  const [blocks, setBlocks ] = useState(inputStory?.blocks || [])
-  const value = {story, setStory, blocks, setBlocks};
+const EditorLoader = ({inputChapter, children} : EditorLoaderProps) => {
+  const [chapter, setChapter] = useState(inputChapter);
+  const [blocks, setBlocks ] = useState(inputChapter?.blocks || [])
+  const value = {chapter, setChapter, blocks, setBlocks};
 
   return (
     <>

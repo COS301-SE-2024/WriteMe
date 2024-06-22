@@ -1,5 +1,5 @@
 {
-  "id": "f8f4b213-eff4-4fee-a9d5-05ab0e61fb56",
+  "id": "b579e005-eb28-4d61-883b-b569885857af",
   "prevId": "142ab7f4-f812-41af-917f-e7e79f639c1a",
   "version": "6",
   "dialect": "postgresql",
@@ -102,6 +102,95 @@
       },
       "uniqueConstraints": {}
     },
+    "public.chapter": {
+      "name": "chapter",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "order": {
+          "name": "order",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "cover_image": {
+          "name": "cover_image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "blocks": {
+          "name": "blocks",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "published": {
+          "name": "published",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "story_id": {
+          "name": "story_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "chapter_story_id_story_id_fk": {
+          "name": "chapter_story_id_story_id_fk",
+          "tableFrom": "chapter",
+          "tableTo": "story",
+          "columnsFrom": [
+            "story_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "public.comments": {
       "name": "comments",
       "schema": "",
@@ -167,28 +256,6 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "public.genres": {
-      "name": "genres",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "genre": {
-          "name": "genre",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
@@ -386,156 +453,6 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "public.story_genres": {
-      "name": "story_genres",
-      "schema": "",
-      "columns": {
-        "story_id": {
-          "name": "story_id",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "genre_id": {
-          "name": "genre_id",
-          "type": "serial",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "story_genres_story_id_story_id_fk": {
-          "name": "story_genres_story_id_story_id_fk",
-          "tableFrom": "story_genres",
-          "tableTo": "story",
-          "columnsFrom": [
-            "story_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "story_genres_genre_id_genres_id_fk": {
-          "name": "story_genres_genre_id_genres_id_fk",
-          "tableFrom": "story_genres",
-          "tableTo": "genres",
-          "columnsFrom": [
-            "genre_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {
-        "story_genres_story_id_genre_id_pk": {
-          "name": "story_genres_story_id_genre_id_pk",
-          "columns": [
-            "story_id",
-            "genre_id"
-          ]
-        },
-        "story_genre_pk": {
-          "name": "story_genre_pk",
-          "columns": [
-            "story_id",
-            "genre_id"
-          ]
-        }
-      },
-      "uniqueConstraints": {}
-    },
-    "public.story_tags": {
-      "name": "story_tags",
-      "schema": "",
-      "columns": {
-        "story_id": {
-          "name": "story_id",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "tag_id": {
-          "name": "tag_id",
-          "type": "serial",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "story_tags_story_id_story_id_fk": {
-          "name": "story_tags_story_id_story_id_fk",
-          "tableFrom": "story_tags",
-          "tableTo": "story",
-          "columnsFrom": [
-            "story_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "story_tags_tag_id_tags_id_fk": {
-          "name": "story_tags_tag_id_tags_id_fk",
-          "tableFrom": "story_tags",
-          "tableTo": "tags",
-          "columnsFrom": [
-            "tag_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {
-        "story_tags_story_id_tag_id_pk": {
-          "name": "story_tags_story_id_tag_id_pk",
-          "columns": [
-            "story_id",
-            "tag_id"
-          ]
-        },
-        "story_tag_pk": {
-          "name": "story_tag_pk",
-          "columns": [
-            "story_id",
-            "tag_id"
-          ]
-        }
-      },
-      "uniqueConstraints": {}
-    },
-    "public.tags": {
-      "name": "tags",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "tag": {
-          "name": "tag",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
