@@ -23,6 +23,7 @@ import ChaptersTableofContents from '../../../components/chapters-toc';
 import CommentSection from '../../../components/comments-sections';
 import { ShareStory } from '@writeme/wmc/lib/ui/share-story';
 import LikeButton from '../../../components/like-button';
+import ExportButton from '../../../components/export-button';
 // import Link from 'next/link';
 
 
@@ -84,7 +85,7 @@ export default async function Story(props: StoryProps) {
               <LikeButton storyId={story.id} liked={story.liked}></LikeButton>
               <Bookmark></Bookmark>
               <ShareStory link={`https://writeme.co.za/stories/${story.id}`} message={`Check out ${story.title}`}></ShareStory>
-              <Download></Download>
+              <ExportButton storyId={story.id}></ExportButton>
             </div>
 
 

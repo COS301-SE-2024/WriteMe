@@ -98,7 +98,7 @@ export async function PUT(req: Request){
 
     // console.log(await req.json());
 
-    const input = editChapterSchema.parse(await req.json());
+    const input = updateChapterSchema.parse(await req.json());
 
     // : ensure user owns story
     // console.log(input);

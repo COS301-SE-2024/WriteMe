@@ -9,7 +9,7 @@ import { eq } from 'drizzle-orm';
 // should allow anyone to get comments
 export async function GET(req: NextRequest) {
     try {
-        
+
 
     }catch (e : any){
     }
@@ -29,9 +29,9 @@ export async function POST(req: NextRequest) {
             const {content, storyId, chapterId} = createCommentSchema.parse(await req.json());
 
             const comment = await db.insert(comments).values({
-                content : content, 
+                content : content,
                 storyId : storyId,
-                chapterId : chapterId, 
+                chapterId : chapterId,
                 userId: session.user.id
             }as any).returning({
                 id: comments.id,
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
             }, {status: 200})
         }
     }catch (e: any){
-        
+        console.log(e)
     }
 
 }
@@ -62,7 +62,7 @@ export async function PUT(req: NextRequest) {
             }), { status : 401})
         }else {
             const {id , content} = updateCommentSchema.parse(await req.json());
-            
+
             let comment = await db.query.comments.findFirst({
                 where: (comments, {eq}) => eq(comments.id, id),
                 with: {
@@ -81,7 +81,7 @@ export async function PUT(req: NextRequest) {
                 return new NextResponse(JSON.stringify({
                     status: 'success', ...updatedComment
                   }), { status : 200
-                    
+
                   })
 
             }else {
@@ -91,7 +91,7 @@ export async function PUT(req: NextRequest) {
             }
         }
     }catch (e: any){
-        
+
     }
 }
 
@@ -119,9 +119,9 @@ export async function DELETE(req: NextRequest) {
             if ( comment && comment.author.id == session.user.id as string ) {
                 await db.delete(comments).where(eq(comments.id, id))
                 return new NextResponse(JSON.stringify({
-                    status: 'success', 
+                    status: 'success',
                   }), { status : 200
-                    
+
                   })
 
             } else {
@@ -130,6 +130,6 @@ export async function DELETE(req: NextRequest) {
         }
 
     }catch (e: any){
-        
+
     }
 }

@@ -2,13 +2,20 @@
 
 import { useRouter } from 'next/navigation';
 import { Button } from '@writeme/wmc';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Download, Ellipsis } from 'lucide-react';
 import Link from 'next/link';
 import { useContext, useState } from 'react';
 import { EditorContext } from './editor-context';
 
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
 import { BlockNoteEditor } from '@blocknote/core';
+import { DropdownMenu } from '@radix-ui/react-dropdown-menu';
+import {
+  DropdownMenuContent, DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator, DropdownMenuShortcut,
+  DropdownMenuTrigger
+} from '@writeme/wmc/lib/ui/dropdown-menu';
 
 // interface LocalNavbarProps {
 //   title: string;
@@ -24,6 +31,53 @@ const LocalNavbar = () => {
   const [submitting, setSubmitting] = useState(false);
   const { chapter, setChapter, blocks, setBlocks } = useContext(EditorContext);
   const [error, setError] = useState(false);
+
+
+  const exportPdf = async ()=> {
+    const pdfWindow = window.open('about:blank');
+    try {
+      const res = await fetch('/api/export/chapter', {
+        method: 'POST',
+        body: JSON.stringify({ id: chapter.id }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+
+        if (Array.isArray(errorData.errors) && errorData.errors.length > 0) {
+          errorData.errors.forEach((error: any) => {
+            toast({
+              title: error.message,
+              variant: 'destructive'
+            })
+          });
+
+          return;
+        }
+
+        toast({
+          title: errorData.message,
+          variant: 'destructive'
+        })
+        return;
+      }
+      toast({
+        title: 'Exported Successfully',
+        variant: "default"
+      })
+
+      // @ts-ignore
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      pdfWindow.location.href = url; // and here, we finally forward the data to the new window
+      pdfWindow.focus();
+    }catch (e) {
+      pdfWindow.close();
+    }
+  }
 
   const onSave = async (e) => {
     setError(false);
@@ -158,6 +212,24 @@ const LocalNavbar = () => {
           </Link>
           <Button variant='default' onClick={(e) => onSave(e)}> Save </Button>
           <Button variant='default' onClick={(e) => onPublish(e)}> Publish </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant='outline' size='icon'>
+                <Ellipsis></Ellipsis>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>Other Options</DropdownMenuLabel>
+              <DropdownMenuSeparator></DropdownMenuSeparator>
+              <DropdownMenuItem onClick={() => exportPdf()} >
+                <Download className="mr-2 h-4 w-4"></Download>
+                <span>Export PDF</span>
+                <DropdownMenuShortcut>⌘E</DropdownMenuShortcut>
+              </DropdownMenuItem>
+
+            </DropdownMenuContent>
+          </DropdownMenu>
+
         </div>
     </div>
   );
