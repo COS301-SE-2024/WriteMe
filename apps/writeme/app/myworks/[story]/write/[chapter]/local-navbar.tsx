@@ -153,6 +153,9 @@ const LocalNavbar = () => {
         </div>
         <div className="flex gap-2">
           {/*<Button variant='default'> Preview </Button>*/}
+          <Link href={`/myworks/${chapter.storyId}/write/${chapter.id}/edit`}>
+            <Button variant='default'> Edit </Button>
+          </Link>
           <Button variant='default' onClick={(e) => onSave(e)}> Save </Button>
           <Button variant='default' onClick={(e) => onPublish(e)}> Publish </Button>
         </div>
