@@ -152,41 +152,41 @@ const EditStoryForm = ({id, title, brief, description, genreItems, tagItems}: Ed
         >
         </FormField>
 
-        <FormField
-          control={form.control}
-          render={({field: {value, onChange }, fieldState})=> (
-            <FormItem>
-              <FormLabel>Genre</FormLabel>
-              <FormControl>
-                <FancyMultiSelect selected={value as Framework[]} setSelected={(val) => onChange(val)}  {...register("genre")}  items={genreItems} placeholder='Select Genres'></FancyMultiSelect>
-              </FormControl>
-              <FormDescription>
-                This is the genre of your story.
-              </FormDescription>
-              <FormMessage></FormMessage>
-            </FormItem>
-          )}
-          name="genre"
-        >
-        </FormField>
+        {/*<FormField*/}
+        {/*  control={form.control}*/}
+        {/*  render={({field: {value, onChange }, fieldState})=> (*/}
+        {/*    <FormItem>*/}
+        {/*      <FormLabel>Genre</FormLabel>*/}
+        {/*      <FormControl>*/}
+        {/*        <FancyMultiSelect selected={value as Framework[]} setSelected={(val) => onChange(val)}  {...register("genre")}  items={genreItems} placeholder='Select Genres'></FancyMultiSelect>*/}
+        {/*      </FormControl>*/}
+        {/*      <FormDescription>*/}
+        {/*        This is the genre of your story.*/}
+        {/*      </FormDescription>*/}
+        {/*      <FormMessage></FormMessage>*/}
+        {/*    </FormItem>*/}
+        {/*  )}*/}
+        {/*  name="genre"*/}
+        {/*>*/}
+        {/*</FormField>*/}
 
-        <FormField
-          control={form.control}
-          render={({field : {value, onChange}})=> (
-            <FormItem>
-              <FormLabel>Tags</FormLabel>
-              <FormControl>
-                <FancyMultiSelect selected={value as Framework[]} setSelected={(val) => onChange(val)} {...register("tags")} items = {tagItems} placeholder='Select Tags'></FancyMultiSelect>
-              </FormControl>
-              <FormDescription>
-                These are the tags of your story.
-              </FormDescription>
-              <FormMessage></FormMessage>
-            </FormItem>
-          )}
-          name="tags"
-        >
-        </FormField>
+        {/*<FormField*/}
+        {/*  control={form.control}*/}
+        {/*  render={({field : {value, onChange}})=> (*/}
+        {/*    <FormItem>*/}
+        {/*      <FormLabel>Tags</FormLabel>*/}
+        {/*      <FormControl>*/}
+        {/*        <FancyMultiSelect selected={value as Framework[]} setSelected={(val) => onChange(val)} {...register("tags")} items = {tagItems} placeholder='Select Tags'></FancyMultiSelect>*/}
+        {/*      </FormControl>*/}
+        {/*      <FormDescription>*/}
+        {/*        These are the tags of your story.*/}
+        {/*      </FormDescription>*/}
+        {/*      <FormMessage></FormMessage>*/}
+        {/*    </FormItem>*/}
+        {/*  )}*/}
+        {/*  name="tags"*/}
+        {/*>*/}
+        {/*</FormField>*/}
         <FormMessage>{form.formState.isValid}</FormMessage>
         <Button type="submit">Save Changes</Button>
       </form>
