@@ -6,6 +6,7 @@ import { Link } from 'next-view-transitions';
 import { ArrowLeft } from 'lucide-react';
 import { ShareStory } from '@writeme/wmc/lib/ui/share-story';
 import CommentSection from '../../../../components/comments-sections';
+import LikeButton from '../../../../components/like-button';
 
 export interface ChapterProps {
   params: {
@@ -50,8 +51,9 @@ export default async function Chapter({params}: ChapterProps){
                 />
               </div>
             </CardContent>
-            <CardFooter>
+            <CardFooter className="flex justify-around">
               <ShareStory link={`https://writeme.co.za/stories/${chapter.storyId}/${chapter.id}`} message={`Check out ${chapter.title}`}></ShareStory>
+              <LikeButton storyId={chapter.storyId} chapterId={chapter.id}></LikeButton>
             </CardFooter>
           </Card>
         </div>

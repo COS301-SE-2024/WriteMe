@@ -1,7 +1,7 @@
 import { auth } from '../auth';
 import { db } from '../db/db';
 import { stories, chapters } from '../db/schema';
-import { and } from 'drizzle-orm';
+import { and, sql } from 'drizzle-orm';
 
 export async function getMyStories() {
   const session = await auth();
@@ -66,6 +66,9 @@ export async function getPublishedStory(id: string) {
   const result = db.query.stories.findFirst({
     where: (stories, { eq }) =>
       and(eq(stories.id, id), eq(stories.published, true)),
+    extras: {
+      liked: sql<boolean>`exists (select 1 from likes where story_id like '${stories.id}' and user_id like '${stories.userId}')`.as('liked')
+    },
     with : {
       author: true,
       likes: true,

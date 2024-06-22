@@ -22,6 +22,7 @@ import { Link } from 'next-view-transitions';
 import ChaptersTableofContents from '../../../components/chapters-toc';
 import CommentSection from '../../../components/comments-sections';
 import { ShareStory } from '@writeme/wmc/lib/ui/share-story';
+import LikeButton from '../../../components/like-button';
 // import Link from 'next/link';
 
 
@@ -34,7 +35,7 @@ export interface StoryProps {
 
 export default async function Story(props: StoryProps) {
   const story = await getPublishedStory(props.params.story);
-
+  console.log(story.liked)
   return (
     <div>
       <LocalNavbar></LocalNavbar>
@@ -80,6 +81,7 @@ export default async function Story(props: StoryProps) {
             {/*<Button>Start reading <ArrowUpRight></ArrowUpRight></Button>*/}
             <div
               className="flex justify-center items-center gap-4"> {/* Centering container for card footer */}
+              <LikeButton storyId={story.id} liked={story.liked}></LikeButton>
               <Bookmark></Bookmark>
               <ShareStory link={`https://writeme.co.za/stories/${story.id}`} message={`Check out ${story.title}`}></ShareStory>
               <Download></Download>

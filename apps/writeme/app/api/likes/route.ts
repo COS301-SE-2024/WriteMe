@@ -20,6 +20,8 @@ export async function POST(req: NextRequest) {
     } else {
       const { storyId, chapterId } = likeSchema.parse(await req.json());
 
+      console.log(storyId, chapterId)
+
       let like: any = undefined;
 
       if (chapterId) {
@@ -40,6 +42,8 @@ export async function POST(req: NextRequest) {
             ),
         });
       }
+
+      console.log(like)
 
       if (like) {
         if (chapterId) {
@@ -62,12 +66,21 @@ export async function POST(req: NextRequest) {
               )
             );
         }
+        return NextResponse.json({
+          message: "Like Removed"
+        })
       } else {
-        db.insert(likes).values({
+        let res = await db.insert(likes).values({
           storyId: storyId,
           chapterId: chapterId,
           userId: session.user.id,
         } as any);
+
+        console.log(res)
+
+        return NextResponse.json({
+          message: "Liked"
+        })
       }
     }
   } catch (e: any) {

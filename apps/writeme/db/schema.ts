@@ -216,6 +216,7 @@ export const commentsRelations = relations(comments, ({ one }) => {
 export const likes = pgTable(
   'likes',
   {
+    id: serial("id").primaryKey(),
     storyId: text('story_id')
       .references(() => stories.id)
       .notNull(),
@@ -224,12 +225,7 @@ export const likes = pgTable(
       .references(() => users.id)
       .notNull(),
     createdAt: timestamp('created_at').defaultNow().notNull()
-  },
-  (t) => ({
-    pk: primaryKey({
-      columns: [t.storyId, t.chapterId, t.userId]
-    })
-  })
+  }
 );
 
 export const likesRelations = relations(likes, ({ one }) => ({

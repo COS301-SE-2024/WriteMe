@@ -35,13 +35,13 @@ export function ShareStory({link, message}: ShareProps) {
     toast({
       title: "Copied Successfully"
     })
-  
+
   };
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="ghost" size="icon">
-          <Share className="h-4 w-4"/>
+          <Share/>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="PopoverContent">
@@ -49,7 +49,7 @@ export function ShareStory({link, message}: ShareProps) {
           <div className="">
             <h4 className="font-medium leading-none text-center">Share</h4>
             <p className="text-sm text-muted-foreground text-center">
-              Share the link 
+              Share the link
             </p>
           </div>
           <div className="flex justify-center items-center gap-2">
