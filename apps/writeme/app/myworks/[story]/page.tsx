@@ -204,14 +204,13 @@ export default async function Page(props: WritePageProps) {
             <p>{story.brief ? story.brief : 'No brief'}</p>
             <h3 className="font-bold">Description:</h3>
             <p>{story.description ? story.description : 'No description'}</p>
-            {}
 
             <Separator></Separator>
 
           </CardContent>
           <CardFooter className="flex justify-around">
             {/* TODO: Like comments*/}
-            <HeartIcon></HeartIcon>
+            <span className="flex gap-1" ><HeartIcon></HeartIcon> {story.likes.length}</span>
             <span className="flex gap-1"> <MessageCircle></MessageCircle> {story.comments.length} </span>
           </CardFooter>
 

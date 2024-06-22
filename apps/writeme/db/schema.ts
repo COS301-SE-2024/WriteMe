@@ -15,7 +15,6 @@ import {
 import type { AdapterAccountType } from 'next-auth/adapters';
 import { relations } from 'drizzle-orm';
 
-
 // @ts-ignore
 export const users = pgTable('user', {
   id: text('id')
@@ -28,35 +27,41 @@ export const users = pgTable('user', {
   image: text('image'),
   bio: varchar('bio', {
     length: 256
-  }).default('').notNull(),
+  })
+    .default('')
+    .notNull()
 });
 
-export const userRelations = relations(users ,({many}) => ({
+export const userRelations = relations(users, ({ many }) => ({
   following: many(userFollowers, {
-    relationName: 'following',
+    relationName: 'following'
   }),
   followers: many(userFollowers, {
     relationName: 'followers'
   }),
   stories: many(stories),
-  comments: many(comments),
-}))
+  comments: many(comments)
+}));
 
 export const userFollowers = pgTable('user_followers', {
-  followerId: text('follower_id').references(() => users.id, {
-    onDelete: 'cascade'
-  }).notNull(),
-  followedId: text('followed_id').references(() => users.id, {
-    onDelete: 'cascade'
-  }).notNull(),
+  followerId: text('follower_id')
+    .references(() => users.id, {
+      onDelete: 'cascade'
+    })
+    .notNull(),
+  followedId: text('followed_id')
+    .references(() => users.id, {
+      onDelete: 'cascade'
+    })
+    .notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull()
 }, (t) => {
   return {
     pk: primaryKey({
       columns: [t.followerId, t.followedId]
     })
-  }
-})
+  };
+});
 
 export const followersRelations = relations(userFollowers, ({ one }) => ({
   followers: one(users, {
@@ -69,7 +74,7 @@ export const followersRelations = relations(userFollowers, ({ one }) => ({
     references: [users.id],
     relationName: 'following'
   })
-}))
+}));
 
 // @ts-ignore
 export const accounts = pgTable(
@@ -120,32 +125,39 @@ export const verificationTokens = pgTable(
 
 // @ts-ignore
 export const stories = pgTable('story', {
-  id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
-  userId: text('user_id').references(() => users.id).notNull(),
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  userId: text('user_id')
+    .references(() => users.id)
+    .notNull(),
   title: varchar('title', { length: 255 }).notNull(),
   content: text('content').notNull(),
-  description: text("description"),
-  brief: text("brief"),
-  cover: text("cover_image"),
-  blocks: json("blocks"),
+  description: text('description'),
+  brief: text('brief'),
+  cover: text('cover_image'),
+  blocks: json('blocks'),
   published: boolean('published').default(false).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
-  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull()
 });
 
-export const storiesRelations = relations(stories, ({one, many})=> ({
+export const storiesRelations = relations(stories, ({ one, many }) => ({
   chapters: many(chapters),
   author: one(users, {
     fields: [stories.userId],
     references: [users.id]
   }),
-  comments: many(comments)
-}))
+  comments: many(comments),
+  likes: many(likes)
+}));
 
 
 // @ts-ignore
-export const chapters = pgTable("chapter", {
-  id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+export const chapters = pgTable('chapter', {
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
   order: serial('order').notNull(),
   title: text('title').notNull().default(''),
   content: text('content').notNull().default(''),
@@ -154,29 +166,35 @@ export const chapters = pgTable("chapter", {
   published: boolean('published').default(false).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
-  storyId: text('story_id').references(() => stories.id).notNull()
-})
+  storyId: text('story_id')
+    .references(() => stories.id)
+    .notNull()
+});
 
-export const chaptersRelations = relations(chapters,({one, many}) => ({
+export const chaptersRelations = relations(chapters, ({ one, many }) => ({
   story: one(stories, {
     fields: [chapters.storyId],
     references: [stories.id]
   }),
-  comments: many(comments)
-}))
+  comments: many(comments),
+  likes: many(likes)
+}));
 
 
 // @ts-ignore
 export const comments = pgTable('comments', {
   id: serial('id').primaryKey(),
-  storyId: text('story_id').references(() => stories.id, {onDelete : 'cascade'}),
-  chapterId: text('chapter_id').references(() => chapters.id, {onDelete: 'cascade'}),
-  userId: text('user_id').references(() => users.id).notNull(),
+  storyId: text('story_id')
+    .references(() => stories.id, { onDelete: 'cascade' }),
+  chapterId: text('chapter_id').references(() => chapters.id, { onDelete: 'cascade' }),
+  userId: text('user_id')
+    .references(() => users.id)
+    .notNull(),
   content: text('content').notNull(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull()
 });
 
-export const commentsRelations = relations(comments, ({one})=> {
+export const commentsRelations = relations(comments, ({ one }) => {
   return {
     chapter: one(chapters, {
       fields: [comments.chapterId],
@@ -190,15 +208,55 @@ export const commentsRelations = relations(comments, ({one})=> {
       fields: [comments.userId],
       references: [users.id]
     })
-  }
-})
+  };
+});
 
 // Likes table
 // @ts-ignore
-export const likes = pgTable('likes', {
-  id: serial('id').primaryKey(),
-  storyId: text('story_id').references(() => stories.id).notNull(),
-  userId: text('user_id').references(() => users.id).notNull(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-});
+export const likes = pgTable(
+  'likes',
+  {
+    id: serial("id").primaryKey(),
+    storyId: text('story_id')
+      .references(() => stories.id)
+      .notNull(),
+    chapterId: text('chapter_id').references(() => chapters.id),
+    userId: text('user_id')
+      .references(() => users.id)
+      .notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull()
+  }
+);
+
+export const likesRelations = relations(likes, ({ one }) => ({
+  chapter: one(chapters, {
+    fields: [likes.chapterId],
+    references: [chapters.id]
+  }),
+  story: one(stories, {
+    fields: [likes.storyId],
+    references: [stories.id]
+  })
+}));
+
+
+// types
+
+// export type Story = typeof stories.$inferSelect;
+// export type Chapter = typeof chapters.$inferSelect;
+// export type Like = typeof likes.$inferSelect;
+// export type Comment = typeof chapters.$inferSelect;
+//
+// export type ChapterWithLikesAndComments = Chapter & {
+//   likes: Like[],
+//   comments: Comment[]
+// }
+//
+//
+// export type StoryWithChaptersAndLikes = Story & {
+//   chapters: ChapterWithLikesAndComments[],
+//   likes: Like[]
+// }
+
+
 

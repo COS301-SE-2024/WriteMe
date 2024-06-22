@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image"
-import { MoreHorizontal, PenIcon } from 'lucide-react';
+import { Bookmark, Download, HeartIcon, MoreHorizontal, PenIcon, Share } from 'lucide-react';
 
 import { Badge } from "@writeme/wmc/lib/ui/badge"
 import { Button, buttonVariants } from '@writeme/wmc/lib/ui/button';
@@ -29,22 +29,21 @@ import {
   TableRow,
 } from "@writeme/wmc/lib/ui/table"
 
-import {stories, chapters} from "../db/schema"
+import { stories, chapters, likes, StoryWithChaptersAndLikes } from '../db/schema';
 import dayjs from 'dayjs';
 import Link from 'next/link';
 import { Separator } from '@writeme/wmc/lib/ui/separator';
 import { useRouter } from 'next/navigation';
-type Story = typeof stories.$inferSelect;
-type Chapter = typeof chapters.$inferSelect;
-type StoryWithChapters = Story & {
-  chapters: Chapter[]
-}
+import { ShareStory } from '@writeme/wmc/lib/ui/share-story';
+import LikeButton from './like-button';
+
 
 export interface TOCProps{
-  story: StoryWithChapters
+  story: StoryWithChaptersAndLikes,
+  viewer?: boolean
 }
 
-export default function ChaptersTableofContents({story} : TOCProps) {
+export default function ChaptersTableofContents({story, viewer = false} : TOCProps) {
   const router = useRouter();
 
 
@@ -87,17 +86,22 @@ export default function ChaptersTableofContents({story} : TOCProps) {
                 />
               </TableCell>
               <TableCell className="font-medium">
-                {c.title}
+                <Button asChild variant="link">
+                  <Link href={viewer ? `/stories/${story.id}/${c.id}` : `/myworks/${story.id}/write/${c.id}` }>
+                    {c.title}
+                  </Link>
+                </Button>
               </TableCell>
               <TableCell>
                 {c.published ? <Badge variant="default">Published</Badge> : <Badge variant="secondary">Draft</Badge>}
               </TableCell>
-              <TableCell className="hidden md:table-cell">0</TableCell>
+              <TableCell className="hidden md:table-cell">{c.likes.length}</TableCell>
               <TableCell className="hidden md:table-cell">{c.comments.length}</TableCell>
               <TableCell className="hidden md:table-cell">
                 {dayjs(c.createdAt).format("MMM D, YYYY h:mm A")}
               </TableCell>
               <TableCell>
+                {viewer ? <div className="flex gap-1 items-center"> <LikeButton storyId={c.storyId} chapterId={c.id}></LikeButton> <Bookmark></Bookmark> <ShareStory link={`https:/writeme.co.za/stories/${c.storyId}/${c.id}`} message={`check out ${c.title}`}></ShareStory> <Download></Download> </div> :
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button aria-haspopup="true" size="icon" variant="ghost">
@@ -108,10 +112,10 @@ export default function ChaptersTableofContents({story} : TOCProps) {
                   <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
                     <Separator></Separator>
-                    <DropdownMenuItem style={{cursor: 'pointer'}} onClick={() => router.push(`/myworks/${c.storyId}/write/${c.id}`)}>Edit</DropdownMenuItem>
+                    <DropdownMenuItem style={{cursor: 'pointer'}} onClick={() => router.push(`/myworks/${c.storyId}/write/${c.id}/edit`)}>Edit</DropdownMenuItem>
                     <DropdownMenuItem>Delete</DropdownMenuItem>
                   </DropdownMenuContent>
-                </DropdownMenu>
+                </DropdownMenu>}
               </TableCell>
             </TableRow>)}
             {story.chapters.length == 0 ? <TableRow><TableCell className="text-center" colSpan={7}><div className="flex flex-col"> <span>There are currently No Chapters</span> <Link href={`/myworks/${story.id}/write/new-chapter`} className={buttonVariants({variant: "link"})}>Create first chapter!</Link></div></TableCell></TableRow> : <></>}
