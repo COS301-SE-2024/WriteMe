@@ -1,7 +1,7 @@
 import { auth } from '../../../auth';
 import { NextResponse } from 'next/server';
 import { undefined, ZodError } from 'zod';
-import { createChapterSchema, updateChapterSchema } from '../../../db/chapter-schema';
+import { createChapterSchema, editChapterSchema, updateChapterSchema } from '../../../db/chapter-schema';
 import { chapters, stories } from '../../../db/schema';
 import { db } from '../../../db/db';
 import { eq } from 'drizzle-orm';
@@ -98,7 +98,7 @@ export async function PUT(req: Request){
 
     // console.log(await req.json());
 
-    const input = updateChapterSchema.parse(await req.json());
+    const input = editChapterSchema.parse(await req.json());
 
     // : ensure user owns story
     // console.log(input);
