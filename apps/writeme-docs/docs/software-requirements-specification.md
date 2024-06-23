@@ -605,7 +605,8 @@ This endpoint allows an authenticated user to update a story they own.
   "tite": "string",
   "description": "string",
   "blocks": [],
-  "published": true
+  "published": true,
+  "cover": "string"
 }
 ```
 
@@ -645,7 +646,8 @@ This endpoint allows an authenticated user to create a new story.
   "brief": "string",
   "tite": "string",
   "description": "string",
-  "blocks": []
+  "blocks": [],
+  "cover": "string"
 }
 ```
 
@@ -660,6 +662,68 @@ This endpoint allows an authenticated user to create a new story.
   "story": {
     "id": "string"
   }
+}
+```
+
+### POST /chapter (Create a chapter)
+
+**Description:**
+
+This endpoint allows an authenticated user to create a new chapter for their story.
+
+**Request:**
+
+- **Method:** `POST`
+- **Path:** `/chapter`
+- **Headers:**
+  - `Authorization`: Bearer token containing user's session information
+  - `Content-Type`: application/json
+- **Body:**
+
+```json
+{
+  "storyId": "string",
+  "content": "string",
+  "brief": "string",
+  "tite": "string",
+  "description": "string",
+  "blocks": [],
+  "cover": "string"
+}
+```
+
+**Response:**
+
+- **Success (200 OK)**
+
+```json
+{
+  "chapterId": "string"
+}
+```
+
+- **Unauthenticated (401 Unauthorised)**
+
+```json
+{
+    "status": "fail", 
+    "message": "You are not logged in"
+}
+```
+
+- **Validation Error (400 Bad Request)**
+```json
+{
+    "status": "error",
+    "message": "Validation failed",
+    "errors": []
+}
+```
+- **Internal Server Error (500 Internal Server Error)**
+```json
+{
+    "status": "error",
+    "message": "Internal Server Error"
 }
 ```
 
