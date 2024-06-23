@@ -21,7 +21,7 @@ import Link from 'next/link';
 import { Button, buttonVariants } from '@writeme/wmc';
 import { getMyStories } from '../../services/stories';
 
-
+export const dynamic = 'force-dynamic';
 
 export interface MyworksProps {}
 

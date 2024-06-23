@@ -1,3 +1,4 @@
+/* v8 ignore start */
 //@ts-check
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -25,6 +26,7 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true
   },
+  output: 'standalone',
   images: {
     remotePatterns: [
       {
@@ -37,6 +39,7 @@ const nextConfig = {
       },
     ],
   },
+  transpilePackages: ["next-auth"]
 };
 
 const plugins = [

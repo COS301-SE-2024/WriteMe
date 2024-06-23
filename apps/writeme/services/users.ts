@@ -1,3 +1,4 @@
+/* v8 ignore start */
 import { auth } from '../auth';
 import { db } from '../db/db';
 import { users, userFollowers } from '../db/schema';

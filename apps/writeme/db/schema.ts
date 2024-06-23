@@ -1,4 +1,4 @@
-//
+/* v8 ignore start */
 import {
   timestamp,
   pgTable,

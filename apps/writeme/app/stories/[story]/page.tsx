@@ -18,7 +18,8 @@ import { Download } from 'lucide-react';
 import { ArrowUpRight } from 'lucide-react';
 import { getPublishedStory, getStory } from '../../../services/stories';
 import { Avatar, AvatarFallback, AvatarImage } from '@writeme/wmc/lib/ui/avatar';
-import { Link } from 'next-view-transitions';
+// import { Link } from 'next-view-transitions';
+import Link from 'next/link'
 import ChaptersTableofContents from '../../../components/chapters-toc';
 import CommentSection from '../../../components/comments-sections';
 import { ShareStory } from '@writeme/wmc/lib/ui/share-story';
@@ -36,7 +37,7 @@ export interface StoryProps {
 
 export default async function Story(props: StoryProps) {
   const story = await getPublishedStory(props.params.story);
-  console.log(story.liked)
+  // console.log(story.liked)
   return (
     <div>
       <LocalNavbar></LocalNavbar>
@@ -83,7 +84,7 @@ export default async function Story(props: StoryProps) {
             <div
               className="flex justify-center items-center gap-4"> {/* Centering container for card footer */}
               <LikeButton storyId={story.id} liked={story.liked}></LikeButton>
-              <Bookmark></Bookmark>
+              {/*<Bookmark></Bookmark>*/}
               <ShareStory link={`https://writeme.co.za/stories/${story.id}`} message={`Check out ${story.title}`}></ShareStory>
               <ExportButton storyId={story.id}></ExportButton>
             </div>

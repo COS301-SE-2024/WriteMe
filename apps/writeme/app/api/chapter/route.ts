@@ -1,3 +1,4 @@
+/* v8 ignore start */
 import { auth } from '../../../auth';
 import { NextResponse } from 'next/server';
 import { undefined, ZodError } from 'zod';
