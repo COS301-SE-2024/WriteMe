@@ -727,7 +727,7 @@ This endpoint allows an authenticated user to create a new chapter for their sto
 }
 ```
 
-### POST /chapter (Update a chapter)
+### PUT /chapter (Update a chapter)
 
 **Description:**
 
@@ -735,7 +735,7 @@ This endpoint allows an authenticated user to create a new chapter for their sto
 
 **Request:**
 
-- **Method:** `POST`
+- **Method:** `PUT`
 - **Path:** `/chapter`
 - **Headers:**
   - `Authorization`: Bearer token containing user's session information
@@ -790,6 +790,46 @@ This endpoint allows an authenticated user to create a new chapter for their sto
     "message": "Internal Server Error"
 }
 ```
+
+### POST /likes (like/unlike a chapter/story):
+
+**Description:**
+
+This endpoint allows an authenticated user to like a chapter or story.
+
+**Request:**
+
+- **Method:** `POST`
+- **Path:** `/likes`
+- **Headers:**
+  - `Authorization`: Bearer token containing user's session information
+  - `Content-Type`: application/json
+- **Body:**
+
+```json
+{
+  "storyId": "string",
+  "chapterId": "string"
+}
+```
+
+**Response:**
+
+- **Success (200 OK)**
+
+```json
+{}
+```
+
+- **Unauthenticated (401 Unauthorised)**
+
+```json
+{
+    "status": "fail", 
+    "message": "You are not logged in"
+}
+```
+
 
 ## Class Diagram
 
