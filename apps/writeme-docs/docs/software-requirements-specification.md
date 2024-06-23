@@ -830,6 +830,53 @@ This endpoint allows an authenticated user to like a chapter or story.
 }
 ```
 
+### POST /follow (follow/unfollow a user):
+
+**Description:**
+
+This endpoint allows an authenticated user to follow another user.
+
+**Request:**
+
+- **Method:** `POST`
+- **Path:** `/follow`
+- **Headers:**
+  - `Authorization`: Bearer token containing user's session information
+  - `Content-Type`: application/json
+- **Body:**
+
+```json
+{
+  "userId": "string",
+  "followedUser": "string"
+}
+```
+
+**Response:**
+
+- **Success (200 OK)**
+
+```json
+{}
+```
+
+- **Unauthenticated (401 Unauthorised)**
+
+```json
+{
+    "status": "fail", 
+    "message": "You are not logged in"
+}
+```
+
+- **Internal Server Error (500 Internal Server Error)**
+```json
+{
+    "status": "error",
+    "message": "Internal Server Error"
+}
+```
+
 
 ## Class Diagram
 
