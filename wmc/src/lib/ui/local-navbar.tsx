@@ -8,12 +8,18 @@ import { cn } from '@writeme/wmc/utils';
 import { signOut, useSession } from 'next-auth/react';
 import { Avatar, AvatarFallback, AvatarImage } from '@writeme/wmc/lib/ui/avatar';
 import { Popover, PopoverContent, PopoverTrigger } from '@writeme/wmc/lib/ui/popover';
+import { useOnborda } from 'onborda';
+import { useEffect } from 'react';
+import { CircleHelp } from 'lucide-react';
 
 
 const LocalNavbar = () => {
   const pathname = usePathname();
 
   const { data: session} = useSession();
+
+
+  const { startOnborda } = useOnborda();
 
   return (
     <div className="bg-background sticky top-0 z-50 border-b h-16 flex p-3 items-center justify-between">
@@ -39,10 +45,11 @@ const LocalNavbar = () => {
       </div>
 
       {pathname == '/myworks' || pathname.startsWith('/stories') || pathname == "/myworks/new" ? (<div className="flex gap-2 items-center">
+        {session ? <Button onClick={() => startOnborda()}><CircleHelp /></Button> : <></>}
         {session ? (<Link href="/myworks"
                        className={cn(buttonVariants({ variant: 'link' }), pathname == '/myworks' ? 'underline' : '')}>My
           Stories</Link>) : <></>}
-        {session ? (<Link href="/myworks/new"
+        {session ? (<Link id="new-my-works" href="/myworks/new"
                           className={cn(buttonVariants({ variant: 'link' }), pathname == '/myworks/new' ? 'underline' : '')}>
           New Story</Link>) : <></>}
 
@@ -64,6 +71,7 @@ const LocalNavbar = () => {
               </Avatar></PopoverTrigger>
               <PopoverContent>
                 <div>
+                  <Link className={cn(buttonVariants({variant: 'ghost'}), 'block fit-content')} href="/stories">Explore</Link>
                   <Link className={cn(buttonVariants({variant: 'ghost'}), 'block fit-content')} href="/myworks">My Stories</Link>
                   <Link className={cn(buttonVariants({variant: 'ghost'}), 'block')} href={`/user/${session.user.id}`}>My Profile</Link>
                   <Button variant='ghost' onClick={() => signOut({callbackUrl: '/'})} >Sign Out</Button>

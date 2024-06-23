@@ -1,7 +1,18 @@
+/* v8 ignore start */
 //@ts-check
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { composePlugins, withNx } = require('@nx/next');
+
+const withPWA = require("@ducanh2912/next-pwa").default({
+  cacheOnFrontEndNav: true,
+  aggressiveFrontEndNavCaching: true,
+  reloadOnOnline: true,
+  dest: "public",
+  fallbacks: {
+    document: "/offline"
+  }
+})
 
 /**
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
@@ -15,6 +26,7 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true
   },
+  output: 'standalone',
   images: {
     remotePatterns: [
       {
@@ -27,10 +39,12 @@ const nextConfig = {
       },
     ],
   },
+  transpilePackages: ["next-auth"]
 };
 
 const plugins = [
   // Add more Next.js plugins to this list if needed.
+  withPWA,
   withNx,
 ];
 
