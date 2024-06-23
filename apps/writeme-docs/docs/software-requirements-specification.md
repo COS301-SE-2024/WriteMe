@@ -818,7 +818,9 @@ This endpoint allows an authenticated user to like a chapter or story.
 - **Success (200 OK)**
 
 ```json
-{}
+{
+  "liked": true
+}
 ```
 
 - **Unauthenticated (401 Unauthorised)**
@@ -857,8 +859,152 @@ This endpoint allows an authenticated user to follow another user.
 - **Success (200 OK)**
 
 ```json
-{}
+{
+  "followed": true
+}
 ```
+
+- **Unauthenticated (401 Unauthorised)**
+
+```json
+{
+    "status": "fail", 
+    "message": "You are not logged in"
+}
+```
+
+- **Internal Server Error (500 Internal Server Error)**
+```json
+{
+    "status": "error",
+    "message": "Internal Server Error"
+}
+```
+
+### POST /comments (comment on a story or chapter):
+
+**Description:**
+
+This endpoint allows an authenticated comment on a story or chapter.
+
+**Request:**
+
+- **Method:** `POST`
+- **Path:** `/comments`
+- **Headers:**
+  - `Authorization`: Bearer token containing user's session information
+  - `Content-Type`: application/json
+- **Body:**
+
+```json
+{
+  "userId": "string",
+  "storyId": "string",
+  "chapterId": "string",
+  "content": "string"
+}
+```
+
+**Response:**
+
+- **Success (200 OK)**
+
+```json
+{
+  "commentId": "string",
+  "content": "string"
+}
+```
+
+- **Unauthenticated (401 Unauthorised)**
+
+```json
+{
+    "status": "fail", 
+    "message": "You are not logged in"
+}
+```
+
+- **Internal Server Error (500 Internal Server Error)**
+```json
+{
+    "status": "error",
+    "message": "Internal Server Error"
+}
+```
+
+### POST /export/chapter (export chapter to pdf):
+
+**Description:**
+
+This endpoint allows an authenticated user to export a chapter to pdf.
+
+**Request:**
+
+- **Method:** `POST`
+- **Path:** `/export/chapter`
+- **Headers:**
+  - `Authorization`: Bearer token containing user's session information
+  - `Content-Type`: application/json
+- **Body:**
+
+```json
+{
+  "id": "string",
+}
+```
+
+**Response:**
+
+- **Success (200 OK)**
+
+- **Headers:**
+  - `Content-Type`: application/pdf
+
+- **Unauthenticated (401 Unauthorised)**
+
+```json
+{
+    "status": "fail", 
+    "message": "You are not logged in"
+}
+```
+
+- **Internal Server Error (500 Internal Server Error)**
+```json
+{
+    "status": "error",
+    "message": "Internal Server Error"
+}
+```
+
+### POST /export/story (export story to pdf):
+
+**Description:**
+
+This endpoint allows an authenticated user to export a story to pdf.
+
+**Request:**
+
+- **Method:** `POST`
+- **Path:** `/export/chapter`
+- **Headers:**
+  - `Authorization`: Bearer token containing user's session information
+  - `Content-Type`: application/json
+- **Body:**
+
+```json
+{
+  "id": "string",
+}
+```
+
+**Response:**
+
+- **Success (200 OK)**
+
+  - **Headers:**
+    - `Content-Type`: application/pdf
 
 - **Unauthenticated (401 Unauthorised)**
 
