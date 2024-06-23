@@ -26,12 +26,12 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
   /* Run your local dev server before starting the tests */
-  webServer: {
-    command: 'pnpm exec nx start writeme',
-    url: 'http://127.0.0.1:3000',
-    reuseExistingServer: !process.env.CI,
-    cwd: workspaceRoot,
-  },
+  // webServer: {
+  //   command: 'pnpm exec nx start writeme',
+  //   url: 'http://127.0.0.1:3000',
+  //   reuseExistingServer: !process.env.CI,
+  //   cwd: workspaceRoot,
+  // },
   projects: [
     {
       name: 'chromium',
