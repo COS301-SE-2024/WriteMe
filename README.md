@@ -39,10 +39,12 @@ WriteMe is an innovative platform revolutionizing collaborative writing. Our app
 
 ## Demo Video
 
-Here is a link to our Demo Video: [Google Drive](https://drive.google.com/file/d/14VCYFlI73uEyd8mLj_MsaBLnmQEUSglQ/view?usp=sharing) [YouTube](https://youtu.be/59M9FxcLfG0)
+Demo 1: [Google Drive](https://drive.google.com/file/d/14VCYFlI73uEyd8mLj_MsaBLnmQEUSglQ/view?usp=sharing) [YouTube](https://youtu.be/59M9FxcLfG0)
+Demo 2: 
 
 ## Documentation
 <div><a href="https://docs.writeme.co.za/docs/software-requirements-specification">🧾 SRS Document</a></div>
+<div><a href="https://docs.writeme.co.za/docs/User">🧾 User Manual</a></div>
 <div><a href="https://writeme-docs.pages.dev/">🧾 SRS Document (Cloudflare Domain)</a></div>
 <div><a href="https://docs.writeme.co.za/docs/guides/branching-strategy">🧾 Branching Strategy</a></div>
 <div><a href="https://docs.writeme.co.za/docs/guides/testing">🧾 Testing</a></div>
