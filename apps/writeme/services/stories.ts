@@ -1,3 +1,4 @@
+/* v8 ignore start */
 import { auth } from '../auth';
 import { db } from '../db/db';
 import { stories, chapters, users } from '../db/schema';

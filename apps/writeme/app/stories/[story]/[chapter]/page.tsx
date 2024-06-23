@@ -2,7 +2,8 @@ import { getPublishedChapter } from '../../../../services/chapters';
 import ChapterViewer from './chapter-viewer';
 import LocalNavbar from '@writeme/wmc/lib/ui/local-navbar';
 import { Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@writeme/wmc';
-import { Link } from 'next-view-transitions';
+// import { Link } from 'next-view-transitions';
+import Link from "next/link"
 import { ArrowLeft } from 'lucide-react';
 import { ShareStory } from '@writeme/wmc/lib/ui/share-story';
 import CommentSection from '../../../../components/comments-sections';

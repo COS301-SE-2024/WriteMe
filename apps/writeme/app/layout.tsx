@@ -3,7 +3,7 @@ import { Toaster } from '@writeme/wmc/lib/ui/toaster';
 import { Toaster as Sonner } from '@writeme/wmc/lib/ui/sonner';
 import { ThemeProvider } from '../components/theme-provider';
 import SessionWrapper from '../components/session-provider';
-import { ViewTransitions } from 'next-view-transitions';
+// import { ViewTransitions } from 'next-view-transitions';
 import { Onborda, OnbordaProvider, Step } from 'onborda';
 import { Book, HandIcon } from 'lucide-react';
 import { undefined } from 'zod';
@@ -153,7 +153,7 @@ export default function RootLayout({
     },
   ] satisfies Step[];
   return (
-    <ViewTransitions>
+    // <ViewTransitions>
       <html lang="en">
       <body>
       <ThemeProvider
@@ -173,6 +173,6 @@ export default function RootLayout({
       </ThemeProvider>
       </body>
       </html>
-    </ViewTransitions>
+    // </ViewTransitions>
   );
 }

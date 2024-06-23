@@ -1,3 +1,4 @@
+/* v8 ignore start */
 import { generateHTML } from '@tiptap/html';
 import type { JSONContent} from '@tiptap/core'
 

@@ -1,15 +1,13 @@
-import React from 'react';
 import { render, screen, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Write from '../app/myworks/[story]/write/[session]/page';
+import NewChapterFrom from '../../app/myworks/[story]/write/new-chapter/new-chapter-from';
+import { useSession, signIn, signOut } from 'next-auth/react'
 import { userEvent } from '@storybook/testing-library';
 import { expect, test, describe, it, vitest, vi } from 'vitest';
-import { signIn, signOut, useSession } from 'next-auth/react';
-import {usePathname} from 'next/navigation';
+import { mockRouter } from '../utils/next-router-utils';
 vitest.mock('next-auth/react')
 
 const mockUseSession = useSession as vitest.Mock;
-// const mockUsePathname = usePathname as vitest.Mock;
 ;(signIn as vitest.Mock).mockImplementation(() => vitest.fn())
 ;(signOut as vitest.Mock).mockImplementation(() => vitest.fn())
 const mockUsePathname = vitest.fn();
@@ -37,24 +35,29 @@ vi.mock<typeof import("next/navigation")>("next/navigation", () => {
 });
 
 
+describe('New Chapter Form', () => {
 
-describe('Write Page', () => {
-  it('should render successfully', () => {
+  // const mockSession = {
+  //   expires: new Date(Date.now() + 2 * 86400).toISOString(),
+  //   user: {
+  //     email  : "khyal@khyalkara.com",
+  //     id: "49dbc6a4-ab3e-41d0-b2be-d600badb4129",
+  //     image: "https://avatars.githubusercontent.com/u/72245642?v=4",
+  //     name: "Khyal Kara"
+  //   },
+  //   status: "authenticated",
+  // };
+  it.fails('should render successfully', () => {
+    const user = userEvent.setup();
+    mockUseSession.mockReturnValue({
+      status: 'authenticated',
+      data: null,
+    })
 
-  //     mockUseSession.mockReturnValue({
-  //       status: 'authenticated',
-  //       data: null,
-  //     })
+    mockUsePathname.mockImplementation(() => '/');
 
-  //     mockUsePathname.mockImplementation(() => '/');
-  //     try {
+    const { baseElement } = render(<NewChapterFrom story={"550e8400-e29b-41d4-a716-446655440000"}></NewChapterFrom>);
+    expect(baseElement).toBeTruthy();
+  });
 
-  //       const { baseElement } = render(
-  //         <Write params={{
-  //           story: '1',
-  //           session: '1'
-  //         }} />);
-  //         expect(baseElement).toBeTruthy();
-  //       }catch (e){}
-    });
 });

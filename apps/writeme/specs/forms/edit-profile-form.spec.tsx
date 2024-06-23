@@ -1,15 +1,13 @@
-import React from 'react';
 import { render, screen, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Write from '../app/myworks/[story]/write/[session]/page';
+import EditProfileForm from '../../app/user/[username]/edit-profile/EditProfileForm';
+import { useSession, signIn, signOut } from 'next-auth/react'
 import { userEvent } from '@storybook/testing-library';
 import { expect, test, describe, it, vitest, vi } from 'vitest';
-import { signIn, signOut, useSession } from 'next-auth/react';
-import {usePathname} from 'next/navigation';
+import { mockRouter } from '../utils/next-router-utils';
 vitest.mock('next-auth/react')
 
 const mockUseSession = useSession as vitest.Mock;
-// const mockUsePathname = usePathname as vitest.Mock;
 ;(signIn as vitest.Mock).mockImplementation(() => vitest.fn())
 ;(signOut as vitest.Mock).mockImplementation(() => vitest.fn())
 const mockUsePathname = vitest.fn();
@@ -37,24 +35,36 @@ vi.mock<typeof import("next/navigation")>("next/navigation", () => {
 });
 
 
+describe('Edit Profile Form', () => {
 
-describe('Write Page', () => {
+  // const mockSession = {
+  //   expires: new Date(Date.now() + 2 * 86400).toISOString(),
+  //   user: {
+  //     email  : "khyal@khyalkara.com",
+  //     id: "49dbc6a4-ab3e-41d0-b2be-d600badb4129",
+  //     image: "https://avatars.githubusercontent.com/u/72245642?v=4",
+  //     name: "Khyal Kara"
+  //   },
+  //   status: "authenticated",
+  // };
   it('should render successfully', () => {
+    mockUseSession.mockReturnValue({
+      status: 'authenticated',
+      data: null,
+    })
 
-  //     mockUseSession.mockReturnValue({
-  //       status: 'authenticated',
-  //       data: null,
-  //     })
+    mockUsePathname.mockImplementation(() => '/');
 
-  //     mockUsePathname.mockImplementation(() => '/');
-  //     try {
+    const user = {
+      id: "1",
+      name: "Test User",
+      bio: "Bio",
+      email: "me@gmail.com",
+      password: null
+    }
 
-  //       const { baseElement } = render(
-  //         <Write params={{
-  //           story: '1',
-  //           session: '1'
-  //         }} />);
-  //         expect(baseElement).toBeTruthy();
-  //       }catch (e){}
-    });
+    const { baseElement } = render(<EditProfileForm user={user} />);
+    expect(baseElement).toBeTruthy();
+  });
+
 });

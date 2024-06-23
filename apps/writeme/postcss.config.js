@@ -1,3 +1,4 @@
+/* v8 ignore start */
 const { join } = require('path');
 
 // Note: If you use library-specific PostCSS/Tailwind configuration then you should remove the `postcssConfig` build

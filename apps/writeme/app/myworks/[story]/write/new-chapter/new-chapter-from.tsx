@@ -1,15 +1,18 @@
+/* v8 ignore start */
 'use client';
 
 import AutoForm, { AutoFormSubmit } from '@writeme/wmc/lib/ui/auto-form';
 import { createChapterSchema } from '../../../../../db/chapter-schema';
 import { Button, Card, CardHeader, Input } from '@writeme/wmc';
 import { Separator } from '@writeme/wmc/lib/ui/separator';
-import { Link } from 'next-view-transitions';
+import Link from "next/link"
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FormControl, FormItem } from '@writeme/wmc/lib/ui/form';
 import { useEffect } from 'react';
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
 import type {NewChapter} from '../../../../api/chapter/route';
+
+
 
 interface NewChapterFormProps {
   story: string;

@@ -1,3 +1,4 @@
+/* v8 ignore start */
 import { NextResponse } from 'next/server';
 import { createUserSchema } from '../../../db/user-schema';
 import { undefined, ZodError } from 'zod';

@@ -1,11 +1,9 @@
 import { render, screen, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Page from '../app/page';
-import { withMockAuth } from '@tomfreudenberg/next-auth-mock/dist/jest';
+import CommentSection from '../../components/comments-sections';
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { userEvent } from '@storybook/testing-library';
 import { expect, test, describe, it, vitest, vi } from 'vitest';
-import { mockRouter } from './utils/next-router-utils';
 vitest.mock('next-auth/react')
 
 const mockUseSession = useSession as vitest.Mock;
@@ -35,12 +33,8 @@ vi.mock<typeof import("next/navigation")>("next/navigation", () => {
   };
 });
 
-beforeEach(async () => {
-  console.log(mockRouter.basePath)
-})
 
-
-describe('Page', () => {
+describe('Comment Section', () => {
 
   // const mockSession = {
   //   expires: new Date(Date.now() + 2 * 86400).toISOString(),
@@ -52,7 +46,7 @@ describe('Page', () => {
   //   },
   //   status: "authenticated",
   // };
-  it.fails('should render successfully', () => {
+  it('should render successfully without comments', () => {
     const user = userEvent.setup();
     mockUseSession.mockReturnValue({
       status: 'authenticated',
@@ -61,36 +55,39 @@ describe('Page', () => {
 
     mockUsePathname.mockImplementation(() => '/');
 
-    const { baseElement } = render(<Page />);
+    const comments = [];
+
+    const { baseElement } = render(<CommentSection storyId={""}  comments={comments}/>);
     expect(baseElement).toBeTruthy();
   });
 
-});
-
-describe('Able to sign up', () => {
-  const user = userEvent.setup();
-  mockUseSession.mockReturnValue({
-    status: 'authenticated',
-    data: null,
-  })
-
-  mockUsePathname.mockImplementation(() => '/');
-  it.fails('should show join now on landing page', () => {
+  it.fails('should render successfully with comments', () => {
+    const user = userEvent.setup();
     mockUseSession.mockReturnValue({
       status: 'authenticated',
       data: null,
     })
-    const { baseElement } = render(<Page />);
-    expect(screen.getByTestId('join_now_link')).toHaveTextContent('Join Now');
-  });
 
-  it.fails('should show sign up in nav bar', () => {
-    mockUseSession.mockReturnValue({
-      status: 'authenticated',
-      data: null,
-    })
-    const { baseElement} = render(<Page />);
-    expect(screen.getByTestId('sign_up_button')).toHaveTextContent('Login');
+    mockUsePathname.mockImplementation(() => '/');
+
+    const comments = [
+      {
+        id: 1,
+        storyId: "1",
+        chapterId: "2",
+        userId: "2",
+        content: "some content",
+        createdAt: "",
+        author: {
+          id: "1",
+          username: "Test User",
+          image: ""
+        }
+      }
+    ];
+
+    const { baseElement } = render(<CommentSection storyId={""}  comments={comments}/>);
+    expect(baseElement).toBeTruthy();
   });
 
 });

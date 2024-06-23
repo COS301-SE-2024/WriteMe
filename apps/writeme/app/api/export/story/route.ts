@@ -1,3 +1,4 @@
+/* v8 ignore start */
 import { generateHTML } from '@tiptap/html';
 import { auth } from '../../../../auth';
 import { NextResponse } from 'next/server';

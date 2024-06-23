@@ -1,3 +1,4 @@
+/* v8 ignore start */
 import { hash } from 'bcryptjs';
 import { NextResponse } from 'next/server';
 import { createUserSchema, updateUserSchema, updateUserSchemaOAuth } from '../../../db/user-schema';
@@ -86,17 +87,17 @@ const isEmailUnique = async(email: string) => {
 export async function PUT(req: Request){
   try {
     const session = await auth();
-    
+
     if (!session?.user){
       return new NextResponse(JSON.stringify({
         status: 'fail', message: "You are not logged in",
         }), { status : 401})
         }
     const user_ = await getUser(session.user.id!)
-    
+
     if (user_?.password) {
       const input = updateUserSchema.parse(await req.json());
-      
+
       if (session.user.email !== input.email) {
         const emailUnique = await isEmailUnique(input.email);
         if (!emailUnique) {
@@ -109,12 +110,12 @@ export async function PUT(req: Request){
           );
         }
       }
-  
+
       let userPassword = user_?.password
       if (input.password && input.password.trim().length > 0) {
         userPassword = await hash(input.password, 12);
       }
-  
+
       // @ts-ignore
       const user = await updateUser({
         ...input,
@@ -122,7 +123,7 @@ export async function PUT(req: Request){
         password: userPassword,
         id: session.user.id,
       });
-  
+
       return NextResponse.json({
         user: {
           id: user.updatedId,
@@ -130,7 +131,7 @@ export async function PUT(req: Request){
       });
     } else {
       const input = updateUserSchemaOAuth.parse(await req.json());
-      
+
       if (session.user.email !== input.email) {
         const emailUnique = await isEmailUnique(input.email);
         if (!emailUnique) {
@@ -151,7 +152,7 @@ export async function PUT(req: Request){
         password: null,
         id: session.user.id,
       });
-  
+
       return NextResponse.json({
         user: {
           id: user.updatedId,

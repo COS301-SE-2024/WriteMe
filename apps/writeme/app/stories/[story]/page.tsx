@@ -18,7 +18,8 @@ import { Download } from 'lucide-react';
 import { ArrowUpRight } from 'lucide-react';
 import { getPublishedStory, getStory } from '../../../services/stories';
 import { Avatar, AvatarFallback, AvatarImage } from '@writeme/wmc/lib/ui/avatar';
-import { Link } from 'next-view-transitions';
+// import { Link } from 'next-view-transitions';
+import Link from 'next/link'
 import ChaptersTableofContents from '../../../components/chapters-toc';
 import CommentSection from '../../../components/comments-sections';
 import { ShareStory } from '@writeme/wmc/lib/ui/share-story';

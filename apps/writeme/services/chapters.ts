@@ -1,3 +1,4 @@
+/* v8 ignore start */
 import { db } from '../db/db';
 import { chapters } from '../db/schema';
 

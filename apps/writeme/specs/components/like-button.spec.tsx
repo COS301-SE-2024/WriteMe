@@ -1,11 +1,10 @@
 import { render, screen, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Page from '../app/page';
-import { withMockAuth } from '@tomfreudenberg/next-auth-mock/dist/jest';
+import LikeButton from "../../components/like-button"
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { userEvent } from '@storybook/testing-library';
 import { expect, test, describe, it, vitest, vi } from 'vitest';
-import { mockRouter } from './utils/next-router-utils';
+import { mockRouter } from '../utils/next-router-utils';
 vitest.mock('next-auth/react')
 
 const mockUseSession = useSession as vitest.Mock;
@@ -35,12 +34,8 @@ vi.mock<typeof import("next/navigation")>("next/navigation", () => {
   };
 });
 
-beforeEach(async () => {
-  console.log(mockRouter.basePath)
-})
 
-
-describe('Page', () => {
+describe('Like Button', () => {
 
   // const mockSession = {
   //   expires: new Date(Date.now() + 2 * 86400).toISOString(),
@@ -52,7 +47,7 @@ describe('Page', () => {
   //   },
   //   status: "authenticated",
   // };
-  it.fails('should render successfully', () => {
+  it('should render successfully', () => {
     const user = userEvent.setup();
     mockUseSession.mockReturnValue({
       status: 'authenticated',
@@ -61,36 +56,34 @@ describe('Page', () => {
 
     mockUsePathname.mockImplementation(() => '/');
 
-    const { baseElement } = render(<Page />);
+    const { baseElement } = render(<LikeButton  storyId={""} liked={true}/>);
     expect(baseElement).toBeTruthy();
   });
 
-});
-
-describe('Able to sign up', () => {
-  const user = userEvent.setup();
-  mockUseSession.mockReturnValue({
-    status: 'authenticated',
-    data: null,
-  })
-
-  mockUsePathname.mockImplementation(() => '/');
-  it.fails('should show join now on landing page', () => {
+  it('should render successfully without like', () => {
+    const user = userEvent.setup();
     mockUseSession.mockReturnValue({
       status: 'authenticated',
       data: null,
     })
-    const { baseElement } = render(<Page />);
-    expect(screen.getByTestId('join_now_link')).toHaveTextContent('Join Now');
+
+    mockUsePathname.mockImplementation(() => '/');
+
+    const { baseElement } = render(<LikeButton  storyId={""} liked={false}/>);
+    expect(baseElement).toBeTruthy();
   });
 
-  it.fails('should show sign up in nav bar', () => {
+  it('should render successfully with chapter', () => {
+    const user = userEvent.setup();
     mockUseSession.mockReturnValue({
       status: 'authenticated',
       data: null,
     })
-    const { baseElement} = render(<Page />);
-    expect(screen.getByTestId('sign_up_button')).toHaveTextContent('Login');
+
+    mockUsePathname.mockImplementation(() => '/');
+
+    const { baseElement } = render(<LikeButton  storyId={""} liked={false} chapterId={""}/>);
+    expect(baseElement).toBeTruthy();
   });
 
 });

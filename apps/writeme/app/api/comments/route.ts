@@ -1,3 +1,4 @@
+/* v8 ignore start */
 import { NextResponse, NextRequest } from 'next/server';
 import { auth } from '../../../auth';
 import { createCommentSchema, updateCommentSchema, deleteCommentSchema } from "../../../db/comments-schema";

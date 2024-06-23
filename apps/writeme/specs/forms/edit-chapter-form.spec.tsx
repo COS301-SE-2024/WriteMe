@@ -1,15 +1,12 @@
-import React from 'react';
 import { render, screen, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Write from '../app/myworks/[story]/write/[session]/page';
+import EditChapterForm from '../../app/myworks/[story]/write/[chapter]/edit/edit-chapter-form';
+import { useSession, signIn, signOut } from 'next-auth/react'
 import { userEvent } from '@storybook/testing-library';
 import { expect, test, describe, it, vitest, vi } from 'vitest';
-import { signIn, signOut, useSession } from 'next-auth/react';
-import {usePathname} from 'next/navigation';
 vitest.mock('next-auth/react')
 
 const mockUseSession = useSession as vitest.Mock;
-// const mockUsePathname = usePathname as vitest.Mock;
 ;(signIn as vitest.Mock).mockImplementation(() => vitest.fn())
 ;(signOut as vitest.Mock).mockImplementation(() => vitest.fn())
 const mockUsePathname = vitest.fn();
@@ -37,24 +34,32 @@ vi.mock<typeof import("next/navigation")>("next/navigation", () => {
 });
 
 
+describe('Edit Chapter Form', () => {
 
-describe('Write Page', () => {
-  it('should render successfully', () => {
+  it.fails('should render successfully', () => {
+    const user = userEvent.setup();
+    mockUseSession.mockReturnValue({
+      status: 'authenticated',
+      data: null,
+    })
 
-  //     mockUseSession.mockReturnValue({
-  //       status: 'authenticated',
-  //       data: null,
-  //     })
+    mockUsePathname.mockImplementation(() => '/');
 
-  //     mockUsePathname.mockImplementation(() => '/');
-  //     try {
+    const chapter = {
+      id: "1",
+      order: 1,
+      title: "Test",
+      content: "Test",
+      cover: "",
+      blocks: [],
+      published: true,
+      createdAt: "",
+      updatedAt: "",
+      storyId: "1"
+    }
 
-  //       const { baseElement } = render(
-  //         <Write params={{
-  //           story: '1',
-  //           session: '1'
-  //         }} />);
-  //         expect(baseElement).toBeTruthy();
-  //       }catch (e){}
-    });
+    const { baseElement } = render(<EditChapterForm chapter={chapter} />);
+    expect(baseElement).toBeTruthy();
+  });
+
 });

@@ -1,11 +1,13 @@
 import { render, screen, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Page from '../app/page';
-import { withMockAuth } from '@tomfreudenberg/next-auth-mock/dist/jest';
+import { EditorContext } from '../../app/myworks/[story]/write/[chapter]/editor-context';
+import EditorController from '../../app/myworks/[story]/write/[chapter]/editor-controller';
+import EditorLoader from '../../app/myworks/[story]/write/[chapter]/editor-loader';
+import LocalNavbar from '../../app/myworks/[story]/write/[chapter]/local-navbar'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { userEvent } from '@storybook/testing-library';
 import { expect, test, describe, it, vitest, vi } from 'vitest';
-import { mockRouter } from './utils/next-router-utils';
+import { mockRouter } from '../utils/next-router-utils';
 vitest.mock('next-auth/react')
 
 const mockUseSession = useSession as vitest.Mock;
@@ -35,12 +37,8 @@ vi.mock<typeof import("next/navigation")>("next/navigation", () => {
   };
 });
 
-beforeEach(async () => {
-  console.log(mockRouter.basePath)
-})
 
-
-describe('Page', () => {
+describe('Editor', () => {
 
   // const mockSession = {
   //   expires: new Date(Date.now() + 2 * 86400).toISOString(),
@@ -61,36 +59,15 @@ describe('Page', () => {
 
     mockUsePathname.mockImplementation(() => '/');
 
-    const { baseElement } = render(<Page />);
+    const { baseElement } = render(<EditorContext >
+      <EditorLoader inputChapter={"1"}>
+        <EditorController>
+          <LocalNavbar>
+          </LocalNavbar>
+        </EditorController>
+      </EditorLoader>
+    </EditorContext>);
     expect(baseElement).toBeTruthy();
-  });
-
-});
-
-describe('Able to sign up', () => {
-  const user = userEvent.setup();
-  mockUseSession.mockReturnValue({
-    status: 'authenticated',
-    data: null,
-  })
-
-  mockUsePathname.mockImplementation(() => '/');
-  it.fails('should show join now on landing page', () => {
-    mockUseSession.mockReturnValue({
-      status: 'authenticated',
-      data: null,
-    })
-    const { baseElement } = render(<Page />);
-    expect(screen.getByTestId('join_now_link')).toHaveTextContent('Join Now');
-  });
-
-  it.fails('should show sign up in nav bar', () => {
-    mockUseSession.mockReturnValue({
-      status: 'authenticated',
-      data: null,
-    })
-    const { baseElement} = render(<Page />);
-    expect(screen.getByTestId('sign_up_button')).toHaveTextContent('Login');
   });
 
 });

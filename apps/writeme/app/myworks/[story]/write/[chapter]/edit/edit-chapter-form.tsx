@@ -6,7 +6,8 @@ import { EditChapterInput, editChapterSchema } from '../../../../../../db/chapte
 import { Button } from '@writeme/wmc';
 import { chapters } from '../../../../../../db/schema';
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
-import { Link } from 'next-view-transitions';
+// import { Link } from 'next-view-transitions';
+import Link from 'next/link';
 
 type Chapter = typeof chapters.$inferSelect;
 export interface EditChapterFormProps {

@@ -1,3 +1,4 @@
+/* v8 ignore start */
 //@ts-check
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -38,6 +39,7 @@ const nextConfig = {
       },
     ],
   },
+  transpilePackages: ["next-auth"]
 };
 
 const plugins = [

@@ -1,15 +1,13 @@
-import React from 'react';
 import { render, screen, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Write from '../app/myworks/[story]/write/[session]/page';
+import EditStoryForm from '../../app/myworks/[story]/edit/edit-story-form';
+import { useSession, signIn, signOut } from 'next-auth/react'
 import { userEvent } from '@storybook/testing-library';
 import { expect, test, describe, it, vitest, vi } from 'vitest';
-import { signIn, signOut, useSession } from 'next-auth/react';
-import {usePathname} from 'next/navigation';
+import { mockRouter } from '../utils/next-router-utils';
 vitest.mock('next-auth/react')
 
 const mockUseSession = useSession as vitest.Mock;
-// const mockUsePathname = usePathname as vitest.Mock;
 ;(signIn as vitest.Mock).mockImplementation(() => vitest.fn())
 ;(signOut as vitest.Mock).mockImplementation(() => vitest.fn())
 const mockUsePathname = vitest.fn();
@@ -37,24 +35,19 @@ vi.mock<typeof import("next/navigation")>("next/navigation", () => {
 });
 
 
+describe('Edit Story Form', () => {
 
-describe('Write Page', () => {
   it('should render successfully', () => {
+    const user = userEvent.setup();
+    mockUseSession.mockReturnValue({
+      status: 'authenticated',
+      data: null,
+    })
 
-  //     mockUseSession.mockReturnValue({
-  //       status: 'authenticated',
-  //       data: null,
-  //     })
+    mockUsePathname.mockImplementation(() => '/');
 
-  //     mockUsePathname.mockImplementation(() => '/');
-  //     try {
+    const { baseElement } = render(<EditStoryForm brief={"Current"} description={"Desc"} id={""} title={"Title"} genreItems={[]} tagItems={[]}/>);
+    expect(baseElement).toBeTruthy();
+  });
 
-  //       const { baseElement } = render(
-  //         <Write params={{
-  //           story: '1',
-  //           session: '1'
-  //         }} />);
-  //         expect(baseElement).toBeTruthy();
-  //       }catch (e){}
-    });
 });

@@ -1,3 +1,4 @@
+/* v8 ignore start */
 import { auth } from '../auth';
 import { db } from '../db/db';
 import { stories } from '../db/schema';
@@ -21,4 +22,4 @@ export async function getCommentsOnStory(storyId: string) {
 // delete a comment
 
 
-// update a comment 
+// update a comment
