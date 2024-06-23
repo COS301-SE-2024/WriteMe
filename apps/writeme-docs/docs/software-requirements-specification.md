@@ -727,6 +727,70 @@ This endpoint allows an authenticated user to create a new chapter for their sto
 }
 ```
 
+### POST /chapter (Update a chapter)
+
+**Description:**
+
+This endpoint allows an authenticated user to create a new chapter for their story.
+
+**Request:**
+
+- **Method:** `POST`
+- **Path:** `/chapter`
+- **Headers:**
+  - `Authorization`: Bearer token containing user's session information
+  - `Content-Type`: application/json
+- **Body:**
+
+```json
+{
+  "content": "string",
+  "brief": "string",
+  "tite": "string",
+  "description": "string",
+  "blocks": [],
+  "cover": "string",
+  "order": 0
+}
+```
+
+**Response:**
+
+- **Success (200 OK)**
+
+```json
+{
+  "story": {
+    "chapterId": "string"
+  }
+}
+```
+
+- **Unauthenticated (401 Unauthorised)**
+
+```json
+{
+    "status": "fail", 
+    "message": "You are not logged in"
+}
+```
+
+- **Validation Error (400 Bad Request)**
+```json
+{
+    "status": "error",
+    "message": "Validation failed",
+    "errors": []
+}
+```
+- **Internal Server Error (500 Internal Server Error)**
+```json
+{
+    "status": "error",
+    "message": "Internal Server Error"
+}
+```
+
 ## Class Diagram
 
 ![Class Diagram](/img/class-diagram.png)
