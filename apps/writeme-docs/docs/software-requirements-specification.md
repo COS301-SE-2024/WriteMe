@@ -188,8 +188,8 @@ The rise of digital content consumption has created a demand for platforms that 
 <ol className="srs-bullets">
   <li>Users can edit content while offline:
       <ol className='srs-bullets'>
-        <li><strong>Users can edit entire stories while offline</strong></li>
-        <li><strong>Users can edit specific chapters while offline</strong></li>
+        <li>Users can edit entire stories while offline</li>
+        <li>Users can edit specific chapters while offline</li>
      </ol>
   </li>
   <li>Users can export content to a PDF:
@@ -206,45 +206,19 @@ The rise of digital content consumption has created a demand for platforms that 
 ### Quality Requirements
 
 <ol className="srs-bullets">
-  <li>Security
-    <ol className='srs-bullets'>
-      <li>Users can only access an account by entering the correct email and password</li>
-      <li>Passwords will be stored, salt added and hashed</li>
-      <li>Users cannot create an account until they have given a strong password</li>
-    </ol>
-  </li>
-  <li>Compatibility
+  <li><strong>Compatibility</strong>
+    <br></br>
+    compatibility is important to the application, in order to allow the growth of the community by lowering the barrier to entry.
     <ol className='srs-bullets'>
       <li>The app will be able to function across a variety of devices, web browsers and operating systems</li>
+      <li>Should be easy to use on a variety of screen sizes.</li>
     </ol>
+    <br></br>
+    In order to achieve high compatibility the app should be tested on a wide variety of browsers ,using playwright, a variaty of screen sizes and operating systems should also be targeted using github actions.
   </li>
-  <li>Reliability
-    <ol className='srs-bullets'>
-      <li>Testing and Performance
-        <ol className='src-bullets'>
-          <li>Thorough testing procedures using unit tests, integration tests and system tests to identify bugs before deployment using Playwright and vTest with atleast 90% coverage</li>
-          <li>Use of automated testing tools such as Google Lighthouse to test the systems performance and functionality.</li>
-          <li>The app must peform consistenly at all times.</li>
-          <li>The app must implement robust error handling mechanisms.</li>
-        </ol>
-      </li>
-      <li>Data Accuracy and Consistency
-        <ol className='src-bullets'>
-          <li>Implement data validation mechanisms to ensure that user input is accurate and consistent.</li>
-          <li>Enforce data validation rules and constraints at the application level to prevent invalid or incomplete data from entering the system.</li>
-          <li>Use transaction management techniques to maintain data integrity and consistency, such as atomicity, consistency, isolation, and durability (ACID) properties in database operations.</li>
-        </ol>
-      </li>
-    </ol>
-  </li>
-  <li>Efficiency
-    <ol className='srs-bullets'>
-      <li>The app will need to be fast and responsive</li>
-      <li>The app will not have unneccesary overhead that can cause delays</li>
-      <li>The app will need to have minimal load times and retrieval processes</li>
-    </ol>
-  </li>
-  <li>Usability
+  <li><strong>Usability</strong>
+    <br></br>
+    Usability is particularly important to us, as our app should be simple to use in order to allow the user to focus on what they really want to do, reading and writing.
     <ol className='srs-bullets'>
       <li>Clear and Intuitive Interface
         <ol className='srs-bullets'>
@@ -259,6 +233,44 @@ The rise of digital content consumption has created a demand for platforms that 
           <li>Use hierarchical menu structures, breadcrumbs, and navigation bars to provide clear pathways for users to navigate between different sections of the platform.</li>
         </ol>
       </li>
+    </ol>
+    <br></br>
+    Usability will be tested through visual testing with storybook.
+  </li>
+  <li><strong>Reliability</strong>
+    <ol className='srs-bullets'>
+      <li>Testing and Performance
+        <ol className='src-bullets'>
+          <li>Thorough testing procedures using unit tests, integration tests and system tests to identify bugs before deployment using Playwright and vitest with atleast 90% coverage for critical components</li>
+          <li>Use of automated testing tools such as Google Lighthouse to test the systems performance and functionality.</li>
+          <li>The app must peform consistenly at all times.</li>
+          <li>The app must implement robust error handling mechanisms.</li>
+        </ol>
+      </li>
+      <li>Data Accuracy and Consistency
+        <ol className='src-bullets'>
+          <li>Implement data validation mechanisms to ensure that user input is accurate and consistent.</li>
+          <li>Enforce data validation rules and constraints at the application level to prevent invalid or incomplete data from entering the system.</li>
+          <li>Use transaction management techniques to maintain data integrity and consistency, such as atomicity, consistency, isolation, and durability (ACID) properties in database operations.</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li><strong>Efficiency</strong>
+    <br></br>
+    <ol className='srs-bullets'>
+      <li>The app will need to be fast and responsive</li>
+      <li>The app will not have unneccesary overhead that can cause delays</li>
+      <li>The app will need to have minimal load times and retrieval processes</li>
+    </ol>
+  </li>
+  <li><strong>Security</strong>
+    <br></br>
+    As users may write about sensitive topics, we should strive to ensure confidentiality.
+    <ol className='srs-bullets'>
+      <li>Users can only access an account by entering the correct email and password</li>
+      <li>Passwords will be stored, salt added and hashed</li>
+      <li>Users cannot create an account until they have given a strong password</li>
     </ol>
   </li>
 </ol>
