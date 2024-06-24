@@ -1,3 +1,4 @@
+/* v8 ignore start */
 const { createGlobPatternsForDependencies } = require('@nx/react/tailwind');
 const { join } = require('path');
 const { fontFamily } = require("tailwindcss/defaultTheme")
@@ -15,6 +16,7 @@ module.exports = {
       __dirname,
       '{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}'
     ),
+    join(__dirname, "../../node_modules/onborda/dist/**/*.{js,ts,jsx,tsx}"),
     ...createGlobPatternsForDependencies(__dirname),
   ],
   theme: {
@@ -61,6 +63,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
+        accent: ["var(--font-accent)", ...fontFamily.serif]
       },
       keyframes: {
         "accordion-down": {
@@ -78,6 +81,7 @@ module.exports = {
       },
       boxShadow: {
         input: `0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25,28,33,0.02), 0px 0px 0px 1px rgba(25,28,33,0.08)`,
+        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
       },
     },
   },

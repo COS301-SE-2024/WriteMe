@@ -1,35 +1,40 @@
-import BooksImage from "../assets/Books.png";
-import Image from "next/image";
+import BooksImage from '../assets/Books.png';
+import Image from 'next/image';
 import Link from 'next/link';
-import LocalNavbar from "@writeme/wmc/lib/ui/local-navbar";
+import LocalNavbar from '@writeme/wmc/lib/ui/local-navbar';
+import BooksAnimation from '../components/books-animation';
+import { Button } from '@writeme/wmc';
 
 export default function Index() {
 
   return (
-    <div>
+    <div className="h-screen">
       <LocalNavbar />
+      <div className="flex overflow-hidden h-full lg:flex-row">
+        <div className="min-w-[40ch] md:min-w-[70ch]">
+          <div className="flex flex-col justify-evenly h-full p-10">
+            <div className="flex flex-col gap-10">
+              <div className="">
+                <h1 className="flex flex-col text-8xl"><span className="font-bold">Welcome To</span><span
+                  className="font-accent"><span className="text-primary dark:text-indigo-500">Write</span>Me</span></h1>
+              </div>
 
-      <div className="mx-12 py-6 flex justify-between items-center">
-        <div>
-          <div className="mb-10">
-            <div className="mx-9 py-8">
-              <h1 className="text-8xl font-bold mx-10">Welcome To</h1>
-              <h1 className="text-8xl font-bold mx-10">WriteMe</h1>
+              <div className="text-lg text-gray-500">
+                <p >WriteMe provides you with an amazing</p>
+                <p>collaborative writing experience. Join</p>
+                <p>today to unlock your full creative potential!</p>
+              </div>
             </div>
 
-            <div className="mx-12 py-6">
-              <p className="text-lg text-gray-500 mx-10">WriteMe provides you with an amazing</p>
-              <p className="text-lg text-gray-500 mx-10">collaborative writing experience. Join</p>
-              <p className="text-lg text-gray-500 mx-10">today to unlock your full creative potential!</p>
-            </div>
-
-            <div className="flex justify-center mr-10"> {/* Added justify-end to move the button to the right */}
-              <Link data-testid='join_now_link' href="/auth/signup">Join Now</Link>
+            <div className="flex justify-start"> {/* Added justify-end to move the button to the right */}
+              <Button asChild variant="default" size="lg">
+                <Link data-testid="join_now_link" href="/auth/signup">Join Now</Link>
+              </Button>
             </div>
           </div>
         </div>
-        <div className="relative aspect-[4/3] w-full">
-          <Image src={BooksImage} alt="Books" layout="fill" objectFit="contain"  ></Image>
+        <div className="w-[66vw] ml-[15vw] md:-ml-[15vw] ">
+          <BooksAnimation></BooksAnimation>
         </div>
       </div>
     </div>

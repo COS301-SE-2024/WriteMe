@@ -7,7 +7,7 @@ test('has title', async ({ page }) => {
   expect(await page.locator('h1').first().innerText()).toContain('Welcome');
 });
 
-test('can click on sing up', async ({ page }) => { 
+test('can click on sign up', async ({ page }) => {
   await page.goto('/');
 
   let signUpButton = await page.getByTestId('sign_up_button')

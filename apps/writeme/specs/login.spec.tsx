@@ -82,19 +82,40 @@ import { render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation';
-import LoginForm from '../app/auth/login/page'; 
-vi.importActual('next/navigation');
+import LoginForm from '../app/auth/login/page';
+
+
+
+
 
 import { expect, test, describe, it, vitest } from 'vitest';
 
-const mockUseSession = useSession as vitest.Mock;
-const mockUsePathname = vitest.fn();
 
-vitest.mock('next/navigation', () => ({
-    usePathname() {
-      return mockUsePathname();
-    },
-  }));
+
+vi.mock<typeof import("next/navigation")>("next/navigation", () => {
+  const actual = vi.importActual("next/navigation");
+  const nextRouterMock = vi.importActual("next-router-mock");
+  const { useRouter } = nextRouterMock;
+  const usePathname = vi.fn().mockImplementation(() => {
+    const router = useRouter();
+    return router.asPath;
+  });
+
+  const useSearchParams = vi.fn().mockImplementation(() => {
+    const router = useRouter();
+    return new URLSearchParams(router.query);
+  });
+
+  return {
+    ...actual,
+    useRouter: vi.fn().mockImplementation(useRouter),
+    usePathname,
+    useSearchParams,
+  };
+});
+
+const mockUseSession = useSession as vitest.Mock;
+
 
 
 vi.mock('next-auth/react', () => ({
@@ -103,13 +124,7 @@ vi.mock('next-auth/react', () => ({
   signOut: vi.fn(),
 }));
 
-vi.mock('next/navigation', () => ({
-  useRouter: vi.fn(() => ({ 
-    push: vi.fn(),
-    replace: vi.fn(),
-  })),
-}));
- 
+
 describe('LoginForm', () => {
   it.fails('should render successfully', () => {
     mockUseSession.mockReturnValue({

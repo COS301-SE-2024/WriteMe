@@ -106,7 +106,7 @@ const CHARACTERS = [
 export interface WriteProps {
   params: {
     story: string,
-    session: string
+    chapter: string
   }
 }
 
@@ -118,30 +118,35 @@ async function getStory(id: string){
   return result;
 }
 
-
+async function getChapter(id: string){
+  const result = db.query.chapters.findFirst({
+    where: (chapters, {eq}) => eq(chapters.id, id),
+  })
+  return result;
+}
 
 export default async function Write(props: WriteProps) {
-  const story = await getStory(props.params.story);
-
+  // const story = await getStory(props.params.story);
+  const chapter = await getChapter(props.params.chapter)
 
   return (
     <div className="min-h-screen">
-      <EditorLoader inputStory={story}>
+      <EditorLoader inputChapter={chapter}>
 
       <LocalNavbar />
 
       <div className='z-1 relative'>
         <ResizablePanelGroup direction='horizontal'>
           <ResizablePanel defaultSize={75}>
-            <div className="grow p-8 flex justify-center">
+            <div className="grow p-8 flex justify-center" id="editor-main-panel">
               <div className="w-[90ch]">
-                <EditorController initialBlocks={story.blocks}></EditorController>
+                <EditorController initialBlocks={chapter.blocks}></EditorController>
               </div>
             </div>
           </ResizablePanel>
           <ResizableHandle withHandle></ResizableHandle>
           <ResizablePanel defaultSize={25}>
-            <div className="px-4 top-0 sticky">
+            <div className="px-4 top-0 sticky" id="editor-tools-panel">
               <div className="flex-col flex gap-10">
                 <div className="flex flex-col gap-4">
                   <h3>Characters</h3>

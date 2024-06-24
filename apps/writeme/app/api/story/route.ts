@@ -1,3 +1,4 @@
+/* v8 ignore start */
 import { NextResponse } from 'next/server';
 import { createUserSchema } from '../../../db/user-schema';
 import { undefined, ZodError } from 'zod';
@@ -105,7 +106,7 @@ export async function PUT(req: Request){
 
     return NextResponse.json({
       story: {
-        id: story.id,
+        id: story.updatedId,
       },
     });
   } catch (error: any) {

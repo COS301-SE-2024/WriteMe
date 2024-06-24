@@ -21,7 +21,7 @@ import Link from 'next/link';
 import { Button, buttonVariants } from '@writeme/wmc';
 import { getMyStories } from '../../services/stories';
 
-
+export const dynamic = 'force-dynamic';
 
 export interface MyworksProps {}
 
@@ -42,9 +42,9 @@ export default async function Myworks(props: MyworksProps) {
             <CardHeader>
               <div className='flex gap-2 justify-evenly'>
                 <div className='relative aspect-[3/4] h-40'>
-                  <Image
+                  <img
                     alt='Book Cover'
-                    src={BookCover}
+                    src={story.cover}
                     layout='fill'
                     objectFit='cover'
                   />
@@ -59,12 +59,15 @@ export default async function Myworks(props: MyworksProps) {
                   {/*</div>*/}
                   <div className="flex gap-1">
 
-                  <Button asChild variant="default">
-                    <Link href={`/myworks/${story.id}/write/${story.id}`}><div className="flex gap-1 items-center"><Pencil size='1rem' /> Write</div></Link>
-                  </Button>
-                  <Button asChild variant="default">
-                    <Link href={`/stories/${story.id}`}><div className="flex gap-1 items-center"><BookOpenText size="1rem"/> Read</div></Link>
-                  </Button>
+                  {/*<Button asChild variant="default">*/}
+                  {/*  <Link href={`/myworks/${story.id}/write/${story.id}`}><div className="flex gap-1 items-center"><Pencil size='1rem' /> Write</div></Link>*/}
+                  {/*</Button>*/}
+                  {/*<Button asChild variant="default">*/}
+                  {/*  <Link href={`/stories/${story.id}`}><div className="flex gap-1 items-center"><BookOpenText size="1rem"/> Read</div></Link>*/}
+                  {/*</Button>*/}
+                    <Button asChild variant="default">
+                      <Link href={`/myworks/${story.id}`}><div className="flex gap-1 items-center"><BookOpenText size="1rem"/> View</div></Link>
+                    </Button>
                   </div>
                 </div>
               </div>
