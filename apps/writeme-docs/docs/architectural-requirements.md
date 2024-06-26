@@ -71,7 +71,7 @@ Furthermore, the REST API plays a crucial role in implementing the user registra
 
 <ol className="srs-bullets">
   <li><strong>Performance</strong>
-  <br></br><strong>Justification: </strong>Ensuring high performance is critical for user satisfaction and engagement. Fast response times and efficient handling of requests maintain the application's usability and prevent frustration. This is particularly important for file uploads and database interactions, as delays in these areas can significantly impact the user experience.
+  <br></br>Crucial as it directly impacts user satisfaction and retention. A well-performing application ensures fast response times and minimal loading delays, which are essential for providing a seamless user experience. By optimizing backend processes and frontend interactions, the application can handle simultaneous user requests efficiently, maintaining high responsiveness under varying workloads.
     <ol className="srs-bullets">
         <li>
         The application should remain responsive when calling the API.
@@ -91,6 +91,7 @@ Furthermore, the REST API plays a crucial role in implementing the user registra
   </li>
     
   <li><strong>Usability</strong>
+  <br></br>A key to user adoption and engagement. An intuitive interface, clear navigation, and responsive design facilitate easy access to features and functionalities, reducing user frustration and enhancing productivity. By focusing on usability, the application ensures that users can intuitively navigate and utilize its capabilities without extensive training or assistance.
     <ol className='srs-bullets'>
       <li>Intuitive Interface
         <ol className='srs-bullets'>
@@ -119,6 +120,7 @@ Furthermore, the REST API plays a crucial role in implementing the user registra
   </li>
    
   <li><strong>Compatibility</strong>
+  <br></br>Compatibility across different platforms and devices expands the application's reach and usability. Supporting a wide range of operating systems, browsers, and device types ensures that users can access and interact with the application seamlessly regardless of their preferred technology. This broad compatibility enhances user convenience and accessibility, contributing to a positive user experience.
      <ol className='srs-bullets'>
       <li>The app should be able to work consistently across various operating systems and devices.
       <br></br><strong>Implementation: </strong>
@@ -132,6 +134,7 @@ Furthermore, the REST API plays a crucial role in implementing the user registra
   </li>
    
   <li><strong>Security</strong>
+  <br></br> Measures are critical to protect user data and maintain trust. Implementing robust authentication methods, data encryption, and access controls ensures that sensitive information remains secure from unauthorized access and cyber threats. By prioritizing security, the application safeguards user privacy, complies with regulatory requirements, and mitigates risks associated with data breaches or malicious activities.
     <ol className="srs-bullets">
         <li>
         The system will authenticate users using a hashed password protected login.
@@ -148,6 +151,7 @@ Furthermore, the REST API plays a crucial role in implementing the user registra
   </li>
    
   <li><strong>Reliability</strong>
+  <br></br> Ensures consistent availability and functionality of the application. Achieving high uptime and minimizing downtime through reliable hosting, proactive monitoring, and efficient error handling processes ensures uninterrupted service for users. By prioritizing reliability, the application builds user confidence, supports continuous operations, and minimizes disruptions that could impact user productivity or experience.
     <ol className="srs-bullets">
         <li>The system should be available and functional at all times once deployed, meaning an uptime greater than 99% should be achieved.<br></br><strong>Implementation: </strong>Since the system is hosted on AWS uptime can be assumed due to their management.
         </li>
@@ -173,7 +177,7 @@ Specific encryption standards are necessary to protect sensitive data from breac
 The system requires the use of AWS, therefore implementing budget constraints within AWS will ensure that the overall cost of infrastructure and services does not exceed the allocated budget.
 
 ### Reliability
-
+By leveraging AWS's robust infrastructure and services, the app can achieve high reliability, ensuring consistent availability and performance even in the face of potential failures and disruptions. Amazon S3 will be used to automatically back up user data and application data, ensuring that critical information is protected and can be recovered in case of data loss.
 
 ## 6 Architectural Diagram
 
