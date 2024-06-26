@@ -71,6 +71,7 @@ Furthermore, the REST API plays a crucial role in implementing the user registra
 
 <ol className="srs-bullets">
   <li><strong>Performance</strong>
+  <br></br><strong>Justification: </strong>Ensuring high performance is critical for user satisfaction and engagement. Fast response times and efficient handling of requests maintain the application's usability and prevent frustration. This is particularly important for file uploads and database interactions, as delays in these areas can significantly impact the user experience.
     <ol className="srs-bullets">
         <li>
         The application should remain responsive when calling the API.
@@ -154,6 +155,11 @@ Furthermore, the REST API plays a crucial role in implementing the user registra
         <br></br><strong>Implementation: </strong>
         GitHub Actions are used along with <a href="https://sst.dev/" target="_blank">sst</a> for AWS to migrate changes and redeploy without down time.
         </li>
+        <li>
+        Runtime errors should be caught earlier to avoid down time of service.
+        <br></br><strong>Implementation: </strong>
+        Error logging should take place, high amounts of errors should notify the developers, using AWS CloudWatch.
+        </li>
     </ol>
   </li>
 </ol>
@@ -161,8 +167,13 @@ Furthermore, the REST API plays a crucial role in implementing the user registra
 ## 5 Architectural Constraints
 
 ### Security
+Specific encryption standards are necessary to protect sensitive data from breaches and ensure that the app meets industry standards for data security.Thus, the use of standardized authentication protocols (e.g., OAuth) ensures secure user authentication and authorization, preventing unauthorized access and ensuring compliance with security best practices.
 
 ### Cost
+The system requires the use of AWS, therefore implementing budget constraints within AWS will ensure that the overall cost of infrastructure and services does not exceed the allocated budget.
+
+### Reliability
+
 
 ## 6 Architectural Diagram
 
@@ -170,60 +181,59 @@ Furthermore, the REST API plays a crucial role in implementing the user registra
 
 ## Technology Choices
 
+### Framework
+
+Next is a web application framework that is used to create full-stack applications.
+
+- **Next.js:** 
+  - **Advantage:** Offers server-side rendering and static site generation, improving performance and SEO for the application.
+
+#### Alternatives
+
+- Angular + SSR:
+
+- Astro
+
+### AWS S3 Buckets
+
+
+#### Alternatives
+
+- Google Cloud Platform
+
+
+
+### AWS Amplify
+
+### AWS Lambda
+
+### REST
+
+#### Alternatives
+
+- GraphQL
+
+
+
+### PostgresSQL
+
 ### Mono Repository Management
 
-- **nx:** ![Nx](https://img.shields.io/badge/nx-143055?style=for-the-badge&logo=nx&logoColor=white)
+- **nx:**
 
   - **Advantage:** Provides efficient code sharing and dependency management across multiple projects, ensuring streamlined development and maintenance.
 
-### Framework
 
-- **Next.js:** ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
-  - **Advantage:** Offers server-side rendering and static site generation, improving performance and SEO for the application.
 
-### Unit / Integration Testing
 
-- **Jest:** ![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
-  - **Advantage:** Delivers fast and reliable testing with a comprehensive feature set, ensuring high code quality and coverage.
+#### Alternatives
 
-### End-to-End / Integration Testing
+- turbo: 
 
-- **Playwright:** ![playwright](https://img.shields.io/badge/Playwright-45ba4b?style=for-the-badge&logo=Playwright&logoColor=white)
-  - **Advantage:** Provides cross-browser testing capabilities, ensuring compatibility and functionality across different web browsers.
-
-### Linting
-
-- **ESLint:** ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
-  - **Advantage:** Helps maintain code quality and consistency by identifying and fixing potential issues and enforcing coding standards.
-
-### Documentation: Inline
-
-- **JSDoc:** [jsdoc](https://jsdoc.app/)
-  - **Advantage:** Enhances code readability and maintainability by providing inline documentation for developers.
-
-### Documentation: Wiki
-
-- **Markdown:** [markdown](https://www.markdownguide.org/)
-  - **Advantage:** Allows for easy creation and editing of documentation, making it accessible and collaborative.
-
-### Documentation: Design and Wireframes
-
-- **Figma:** ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
-  - **Advantage:** Enables collaborative design and prototyping, ensuring clear communication and visual consistency.
-
-### Documentation: Components
-
-- **Storybook:** [Storybook](https://storybook.js.org/)
-  - **Advantage:** Facilitates the development and testing of UI components in isolation, improving component reusability and reliability.
-
-### Deployment
-
-- **AWS:** ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
-  - **Advantage:** Offers scalable and reliable cloud infrastructure with a wide range of services to support application deployment and management.
-- **Cloudflare Pages:** ![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=for-the-badge&logo=Cloudflare&logoColor=white)
-  - **Advantage:** Provides fast and secure web hosting with built-in CDN and DDoS protection, enhancing site performance and security.
 
 ### Package Manager
 
 - **pnpm:** [pnpm](https://pnpm.io/)
   - **Advantage:** Ensures faster and more efficient package installation and management, reducing disk space usage.
+
+#### Alternatives
