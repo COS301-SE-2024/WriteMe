@@ -47,9 +47,10 @@ Demo 2: [Google Drive](https://drive.google.com/file/d/1z1VcJblKExrX3pqxpPHeLQD5
 <div><a href="https://docs.writeme.co.za/docs/software-requirements-specification">🧾 SRS Document</a></div>
 <div><a href="https://writeme-docs.pages.dev/docs/software-requirements-specification">🧾 SRS Document (Backup if Blocked)</a></div>
 <div><a href="https://docs.writeme.co.za/docs/User">🧾 User Manual</a></div>
-<div><a href="https://writeme-docs.pages.dev/docs/User">🧾 User Manual (Backup if Blocked)</a></div>
+<div><a href="https://github.com/COS301-SE-2024/WriteMe/blob/dev/apps/writeme-docs/static/pdfs/User%20Manual.pdf">🧾 User Manual (Backup if Blocked)</a></div>
+<div><a href="https://docs.writeme.co.za/docs/architectural-requirements">🧾 Architectural Requirements</a></div>
+<div><a href="https://github.com/COS301-SE-2024/WriteMe/blob/dev/apps/writeme-docs/static/pdfs/Architectural_Requirements.pdf">🧾 Architectural Requirements (Backup if blocked)</a></div>
 <div><a href="https://docs.writeme.co.za/docs/coding-standards">🧾 Coding Standards</a></div>
-<div><a href="https://writeme-docs.pages.dev/docs/coding-standards">🧾 Coding Standards (Backup if Blocked)</a></div>
 <div><a href="https://docs.writeme.co.za/docs/guides/branching-strategy">🧾 Branching Strategy</a></div>
 <div><a href="https://docs.writeme.co.za/docs/guides/testing">🧾 Testing</a></div>
 <div><a href="https://storybook.writeme.co.za/?path=/story/stories-accordion--primary">🧾 Storybook</a></div>

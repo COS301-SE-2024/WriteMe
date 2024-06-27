@@ -74,6 +74,7 @@ const LocalNavbar = () => {
                   <Link className={cn(buttonVariants({variant: 'ghost'}), 'block fit-content')} href="/stories">Explore</Link>
                   <Link className={cn(buttonVariants({variant: 'ghost'}), 'block fit-content')} href="/myworks">My Stories</Link>
                   <Link className={cn(buttonVariants({variant: 'ghost'}), 'block')} href={`/user/${session.user.id}`}>My Profile</Link>
+                  <Link className={cn(buttonVariants({variant: 'ghost'}), 'block')} href={`/help`}>Help</Link>
                   <Button variant='ghost' onClick={() => signOut({callbackUrl: '/'})} >Sign Out</Button>
                 </div>
               </PopoverContent>
