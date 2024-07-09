@@ -26,6 +26,43 @@ export default function Help(){
                       No, it is only visible to you until published
                     </AccordionContent>
                     </AccordionItem>
+                    <AccordionItem value="item-3">
+                    <AccordionTrigger>When I create a story do I have to create a chapter?</AccordionTrigger>
+                    <AccordionContent>
+                      Yes, but you can have as many or as little chapters as you want
+                    </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-4">
+                    <AccordionTrigger>How do I find other people's work?</AccordionTrigger>
+                    <AccordionContent>
+                      Click the 'Explore' tab at the top of the page and you will be able to see work published to the public by other authors
+                    </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-5">
+                    <AccordionTrigger>How do I create a new story?</AccordionTrigger>
+                    <AccordionContent>
+                      Click the 'New Story' at the top of the page and you will be directed to a page where you can create a brand new story.
+                    </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-6">
+                    <AccordionTrigger>How do I publish a story?</AccordionTrigger>
+                    <AccordionContent>
+                      When you in the story editor, click the 'Publish' button in the top right of the screen
+                    </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-7">
+                    <AccordionTrigger>Can other people edit my stories?</AccordionTrigger>
+                    <AccordionContent>
+                      Other people can only edit your story if you are collaborating on a story with them.
+                    </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-8">
+                    <AccordionTrigger>How do I comment on a specific chapter?</AccordionTrigger>
+                    <AccordionContent>
+                      While you are reading a certain chapter. You will be able to leave comments on that specific chapter on the right hand side of the screen.
+                    </AccordionContent>
+                    </AccordionItem>
+                    
                 </Accordion>
 
                 <h2 className="text-2xl">
