@@ -75,6 +75,8 @@ export default function Help(){
                 </Accordion>
 
                 <br></br>
+                <br></br>
+                <br></br>
 
 
                 <h1 className="text-3xl font-bold">
@@ -168,7 +170,7 @@ export default function Help(){
                 </div>
 
                 <br></br>
-
+                <br></br>
                 <br></br>
 
                 <h1 className="text-3xl font-bold">User Manual</h1>
@@ -176,6 +178,8 @@ export default function Help(){
                 <p className="text-lg">
                     Please refer to the <Button variant={"link"}> <Link href={"https://docs.writeme.co.za/docs/User"} target="_blank">user manual</Link></Button> for in depth guides on how to use the platform.
                 </p>
+                <br></br>
+                <br></br>
             </div>
 
 
