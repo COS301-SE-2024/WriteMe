@@ -14,7 +14,7 @@ export async function getUser(id: string) {
 }
 
 export async function isFollowing(userId: string, followedId: string) {
-  const result = await db.query.userFollowers.findFirst({                     //current user                        //user we want to follow
+  const result = await db.query.userFollowers.findFirst({               //current user                        //user we want to follow
     where: (userFollowers, {eq, and}) => and(eq(userFollowers.followerId, userId), eq(userFollowers.followedId, followedId))
   })
 
@@ -27,4 +27,12 @@ export async function unfollowUser (userId: string, followedId: string) {
 
 export async function followUser (userId: string, followedId: string) {
   await db.insert(userFollowers).values({ followerId: userId, followedId: followedId });
+};
+
+export async function bookmarkStory (userId: string, storyId: string) {
+  
+};
+
+export async function unbookmarkStory (userId: string, storyId: string) {
+  
 };

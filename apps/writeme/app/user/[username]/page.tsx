@@ -28,6 +28,7 @@ dayjs.extend(relativeTime);
 export default async function User(props: UserProps) {
   const user = await getUser(props.params.username);
   const stories = await getUserStories(props.params.username);
+  // const bookmarks = await getUserBookmarks(props.params.bookmarks);
 
   const session = await auth()
   if (session?.user){
@@ -129,6 +130,10 @@ export default async function User(props: UserProps) {
               </Card>
             ))}
           </BentoGrid></>:<></>}
+          <h2 className="text-2xl font-bold mb-6">Bookmarks</h2>
+          <BentoGrid className="max-w-6xl mx-auto md:auto-rows-[20rem]">
+            
+          </BentoGrid>
         </div>
       </div>
     </div>

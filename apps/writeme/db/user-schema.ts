@@ -1,5 +1,4 @@
 import { TypeOf, object, string } from 'zod';
-import { getUser } from '../services/users';
 
 export const createUserSchema = object({
   name: string({ required_error: 'Name is required' }).min(
@@ -61,9 +60,12 @@ export const updateUserSchemaOAuth = object({
 // photo: string().optional(),
 })
 
-
 export const followerUserSchema = object({
-  userId: string({ required_error: 'User ID required'})
+  userId: string({ required_error: 'User ID required' })
+})
+
+export const bookmarkUserSchema = object({
+  storyId: string({ required_error: 'Story ID required' })
 })
 
 export type LoginUserInput = TypeOf<typeof loginUserSchema>;
