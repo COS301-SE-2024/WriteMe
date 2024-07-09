@@ -146,6 +146,25 @@ export default function Help(){
 
                 <br></br>
 
+                
+                <h2 className="test-2xl font-bold">Editing Your Profile</h2>
+
+                <p>You can navigate to this page by clicking on your profile on the top right corner and clickingon 'My Profile'.</p>
+
+                <Image alt=" profile_page" src={ProfilePage} width = {1000} height={500}></Image>
+
+                <p>1. Click on the **Edit Profile"** button to update your bio and other necessary information. </p>
+
+                <br></br>
+
+                <Image alt="edit_profile" src={EditProfile} width = {1000} height={500}></Image>
+
+                <p>1. Update your 'Name'.</p>
+                <p>2. Update your 'Email'.</p>
+                <p>3. Add/update your 'Bio'.</p>
+                <p>4. Once you are done you may click on the 'Update Profile' button.</p>
+                <p>5. If you wish to no longer have the account, you can click on the 'Delete Account' button.</p>
+
                 </div>
 
                 <br></br>
