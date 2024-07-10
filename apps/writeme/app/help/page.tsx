@@ -11,18 +11,22 @@ import CreateChapter2 from "../../../writeme-docs/docs/images/CreateChapter2.png
 import NewStory from "../../../writeme-docs/docs/images/NewStory.png";
 import ProfilePage from "../../../writeme-docs/docs/images/ProfilePage.png";
 import EditProfile from "../../../writeme-docs/docs/images/EditProfile.png";
+import BackButton from "apps/writeme/components/back-button";
 
 
 export default function Help(){
     return (
-        <>
+        <div className="relative">
             <LocalNavbar></LocalNavbar>
+            <div className="sticky top-16">
+                <BackButton></BackButton>
+            </div>
 
             <div className="flex flex-col items-center">
 
                 <h1 className="text-3xl font-bold">FAQs</h1>
 
-                <Accordion type="multiple">
+                <Accordion type="multiple" className="w-1/2">
                   <AccordionItem value="item-1">
                     <AccordionTrigger>When I create a chapter can everyone see it?</AccordionTrigger>
                     <AccordionContent>
@@ -84,7 +88,7 @@ export default function Help(){
                 </h1>
 
                 <br></br>
-                <div className="flex flex-col items-left pl-40">
+                <div className="flex flex-col items-left pl-40 text-lg">
 
                 <h2 className="test-2xl font-bold">Creating and Editing Stories</h2>
                 <br></br>
@@ -176,7 +180,7 @@ export default function Help(){
                 <h1 className="text-3xl font-bold">User Manual</h1>
 
                 <p className="text-lg">
-                    Please refer to the <Button variant={"link"}> <Link href={"https://docs.writeme.co.za/docs/User"} target="_blank">user manual</Link></Button> for in depth guides on how to use the platform.
+                    Please refer to the <Button variant={"link"}> <Link href={"https://docs.writeme.co.za/docs/User"} target="_blank">User Manual</Link></Button> for in depth guides on how to use the platform.
                 </p>
                 <br></br>
                 <br></br>
@@ -184,6 +188,6 @@ export default function Help(){
 
 
 
-        </>
+        </div>
     )
 }
