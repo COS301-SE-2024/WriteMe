@@ -41,7 +41,8 @@ export const userRelations = relations(users, ({ many }) => ({
     relationName: 'followers'
   }),
   stories: many(stories),
-  comments: many(comments)
+  comments: many(comments),
+  bookmarks: many(userBookmarks)
 }));
 
 export const userFollowers = pgTable('user_followers', {
@@ -182,6 +183,7 @@ export const storiesRelations = relations(stories, ({ one, many }) => ({
   }),
   comments: many(comments),
   likes: many(likes),
+  bookmarkedBy: many(userBookmarks)
   // tags: many(tags),
   // genres: many(genres)
 }));

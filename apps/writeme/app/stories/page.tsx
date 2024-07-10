@@ -6,14 +6,16 @@ import { cn } from '@writeme/wmc/utils';
 import Image from 'next/image';
 import BookCover from '../../assets/temp-cover2.jpg';
 import * as dayjs from 'dayjs';
-import { BookOpenText, Heart, MessageCircle, Share2 } from 'lucide-react';
+import { BookOpenText, Heart, MessageCircle } from 'lucide-react';
 import Link from 'next/link';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { getPublishedStories } from '../../services/stories';
-
 export const dynamic = 'force-dynamic';
 import LocalNavbar from '@writeme/wmc/lib/ui/local-navbar';
 import { ShareStory } from '@writeme/wmc/lib/ui/share-story';
+import BookmarkButton from 'apps/writeme/components/bookmark-button';
+import { isBookmarked } from 'apps/writeme/services/users';
+import { auth } from 'apps/writeme/auth';
 
 /* eslint-disable-next-line */
 export interface StoriesProps {}

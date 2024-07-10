@@ -3,20 +3,21 @@
 import { Button } from '@writeme/wmc'
 import React, { useState } from 'react'
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
+import { Bookmark } from 'lucide-react';
 
-export interface FollowButtonProps {  
-  userId: string,
-  following: boolean
+export interface BookmarkButtonProps {
+  storyId: string,
+  bookmarked: boolean
 }
 
-const FollowButton = (props: FollowButtonProps) => {
-  const [isFollowing, setIsFollowing] = useState(props.following)
+const BookmarkButton = (props: BookmarkButtonProps) => {
+  const [isBookmarked, setBookmarked] = useState(props.bookmarked)
 
-  const handleFollow = async (userId: string) => {
+  const handleBookmark = async (storyId: string) => {
     try {
-      const response = await fetch('/api/follow', {
+      const response = await fetch('/api/bookmark', {
         method: 'POST', 
-        body: JSON.stringify({ userId: userId }),
+        body: JSON.stringify({ storyId: storyId }),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -46,7 +47,7 @@ const FollowButton = (props: FollowButtonProps) => {
         title: result.message,
         variant: "default"
       })
-      setIsFollowing(!isFollowing)
+      setBookmarked(!isBookmarked)
     
     } catch (e: any) {
       toast({
@@ -58,11 +59,11 @@ const FollowButton = (props: FollowButtonProps) => {
 
   return (
     <>
-      <Button onClick={() => handleFollow(props.userId)} className='mx-12 mb-3' variant='default'>
-        {isFollowing ? 'Unfollow' : 'Follow'}
+      <Button onClick={() => handleBookmark(props.storyId)} variant='ghost' size='icon'>
+        <Bookmark fill={isBookmarked ? 'black' : 'transparent'} />
       </Button>
     </>
   )
 }
 
-export default FollowButton
+export default BookmarkButton
