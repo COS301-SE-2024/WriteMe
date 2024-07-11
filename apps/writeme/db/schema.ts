@@ -41,7 +41,8 @@ export const userRelations = relations(users, ({ many }) => ({
     relationName: 'followers'
   }),
   stories: many(stories),
-  comments: many(comments)
+  comments: many(comments),
+  bookmarks: many(userBookmarks)
 }));
 
 export const userFollowers = pgTable('user_followers', {
@@ -77,29 +78,60 @@ export const followersRelations = relations(userFollowers, ({ one }) => ({
   })
 }));
 
-// @ts-ignore
-export const accounts = pgTable(
-  'account',
-  {
-    userId: text('userId')
-      .notNull()
-      .references(() => users.id, { onDelete: 'cascade' }),
-    type: text('type').$type<AdapterAccountType>().notNull(),
-    provider: text('provider').notNull(),
-    providerAccountId: text('providerAccountId').notNull(),
-    refresh_token: text('refresh_token'),
-    access_token: text('access_token'),
-    expires_at: integer('expires_at'),
-    token_type: text('token_type'),
-    scope: text('scope'),
-    id_token: text('id_token'),
-    session_state: text('session_state')
-  },
-  (account) => ({
-    compoundKey: primaryKey({
-      columns: [account.provider, account.providerAccountId]
+export const userBookmarks = pgTable('user_bookmarks', {
+  userId: text('user_id')
+    .references(() => users.id, {
+      onDelete: 'cascade'
     })
+    .notNull(),
+  storyId: text('story_id')
+    .references(() => stories.id, {
+      onDelete: 'cascade'
+    })
+    .notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull()
+}, (t) => {
+  return {
+    pk: primaryKey({
+      columns: [t.userId, t.storyId]
+    })
+  }
+})
+
+export const userBookmarksRelations = relations(userBookmarks, ({ one }) => ({
+  user: one(users, {
+    fields: [userBookmarks.userId],
+    references: [users.id],
+    relationName: 'user'
+  }),
+  story: one(stories, {
+    fields: [userBookmarks.storyId],
+    references: [stories.id],
+    relationName: 'story'
   })
+}));
+
+// @ts-ignore
+export const accounts = pgTable('account', {
+  userId: text('userId')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  type: text('type').$type<AdapterAccountType>().notNull(),
+  provider: text('provider').notNull(),
+  providerAccountId: text('providerAccountId').notNull(),
+  refresh_token: text('refresh_token'),
+  access_token: text('access_token'),
+  expires_at: integer('expires_at'),
+  token_type: text('token_type'),
+  scope: text('scope'),
+  id_token: text('id_token'),
+  session_state: text('session_state')
+},
+(account) => ({
+  compoundKey: primaryKey({
+    columns: [account.provider, account.providerAccountId]
+  })
+})
 );
 
 // @ts-ignore
@@ -151,6 +183,7 @@ export const storiesRelations = relations(stories, ({ one, many }) => ({
   }),
   comments: many(comments),
   likes: many(likes),
+  bookmarkedBy: many(userBookmarks)
   // tags: many(tags),
   // genres: many(genres)
 }));

@@ -25,6 +25,9 @@ import CommentSection from '../../../components/comments-sections';
 import { ShareStory } from '@writeme/wmc/lib/ui/share-story';
 import LikeButton from '../../../components/like-button';
 import ExportButton from '../../../components/export-button';
+import BookmarkButton from 'apps/writeme/components/bookmark-button';
+import { isBookmarked } from 'apps/writeme/services/users';
+import { auth } from 'apps/writeme/auth';
 // import Link from 'next/link';
 
 
@@ -36,7 +39,11 @@ export interface StoryProps {
 }
 
 export default async function Story(props: StoryProps) {
+  const session = await auth()
+
   const story = await getPublishedStory(props.params.story);
+  const bookmarked = await isBookmarked(session?.user?.id as string, props.params.story)
+
   // console.log(story.liked)
   return (
     <div>
@@ -87,6 +94,7 @@ export default async function Story(props: StoryProps) {
               {/*<Bookmark></Bookmark>*/}
               <ShareStory link={`https://writeme.co.za/stories/${story.id}`} message={`Check out ${story.title}`}></ShareStory>
               <ExportButton storyId={story.id}></ExportButton>
+              <BookmarkButton storyId={story.id} bookmarked={bookmarked}></BookmarkButton>
             </div>
 
 
