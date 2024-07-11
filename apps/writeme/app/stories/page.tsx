@@ -17,6 +17,11 @@ import BookmarkButton from 'apps/writeme/components/bookmark-button';
 import { isBookmarked } from 'apps/writeme/services/users';
 import { auth } from 'apps/writeme/auth';
 
+export const metadata = {
+  title: 'Stories | WriteMe',
+  description: '',
+};
+
 /* eslint-disable-next-line */
 export interface StoriesProps {}
 
