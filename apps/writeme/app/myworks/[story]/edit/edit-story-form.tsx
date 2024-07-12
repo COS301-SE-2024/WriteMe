@@ -16,17 +16,19 @@ import {
 import { Button, Input } from '@writeme/wmc';
 import { Textarea } from '@writeme/wmc/lib/ui/textarea';
 import { FancyMultiSelect, type Framework } from '@writeme/wmc/lib/ui/fancy-multi-select';
+import { MultiSelector, MultiSelectorContent, MultiSelectorInput, MultiSelectorItem, MultiSelectorList, MultiSelectorTrigger} from '@writeme/wmc/lib/ui/multi-select';
 import { signIn } from 'next-auth/react';
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
 import { useRouter } from 'next/navigation';
+
+export interface Genre {id: string, genre: string}
 
 export interface EditStoryFormProps{
   id: string,
   title: string,
   brief: string,
   description: string,
-  genreItems: Framework[],
-  tagItems: Framework[],
+  genreItems: Genre[],
 }
 
 const EditStoryForm = ({id, title, brief, description, genreItems, tagItems}: EditStoryFormProps) => {
@@ -38,7 +40,6 @@ const EditStoryForm = ({id, title, brief, description, genreItems, tagItems}: Ed
       title: title,
       description: description,
       genre: [],
-      tags: [],
     }
   });
 
@@ -51,6 +52,7 @@ const EditStoryForm = ({id, title, brief, description, genreItems, tagItems}: Ed
 
   async function onSubmit(values: z.infer<typeof updateStorySchema>){
     try {
+      console.log(values);
       // setSubmitting(true);
       const res = await fetch('/api/story', {
         method: 'PUT',
@@ -152,41 +154,28 @@ const EditStoryForm = ({id, title, brief, description, genreItems, tagItems}: Ed
         >
         </FormField>
 
-        {/*<FormField*/}
-        {/*  control={form.control}*/}
-        {/*  render={({field: {value, onChange }, fieldState})=> (*/}
-        {/*    <FormItem>*/}
-        {/*      <FormLabel>Genre</FormLabel>*/}
-        {/*      <FormControl>*/}
-        {/*        <FancyMultiSelect selected={value as Framework[]} setSelected={(val) => onChange(val)}  {...register("genre")}  items={genreItems} placeholder='Select Genres'></FancyMultiSelect>*/}
-        {/*      </FormControl>*/}
-        {/*      <FormDescription>*/}
-        {/*        This is the genre of your story.*/}
-        {/*      </FormDescription>*/}
-        {/*      <FormMessage></FormMessage>*/}
-        {/*    </FormItem>*/}
-        {/*  )}*/}
-        {/*  name="genre"*/}
-        {/*>*/}
-        {/*</FormField>*/}
-
-        {/*<FormField*/}
-        {/*  control={form.control}*/}
-        {/*  render={({field : {value, onChange}})=> (*/}
-        {/*    <FormItem>*/}
-        {/*      <FormLabel>Tags</FormLabel>*/}
-        {/*      <FormControl>*/}
-        {/*        <FancyMultiSelect selected={value as Framework[]} setSelected={(val) => onChange(val)} {...register("tags")} items = {tagItems} placeholder='Select Tags'></FancyMultiSelect>*/}
-        {/*      </FormControl>*/}
-        {/*      <FormDescription>*/}
-        {/*        These are the tags of your story.*/}
-        {/*      </FormDescription>*/}
-        {/*      <FormMessage></FormMessage>*/}
-        {/*    </FormItem>*/}
-        {/*  )}*/}
-        {/*  name="tags"*/}
-        {/*>*/}
-        {/*</FormField>*/}
+        <FormField
+          control={form.control}
+          name="genre"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Genres</FormLabel>
+              <MultiSelector onValuesChange={field.onChange} values={field.value}>
+              <MultiSelectorTrigger>
+                <MultiSelectorInput placeholder="Select Genres" />
+              </MultiSelectorTrigger>
+              <MultiSelectorContent>
+                <MultiSelectorList>
+                  {genreItems.map(g => (
+                    <MultiSelectorItem value={g.id}>{g.genre}</MultiSelectorItem>
+                  ))}
+                  </MultiSelectorList>
+                </MultiSelectorContent>
+               </MultiSelector>
+            </FormItem>
+          )}
+        >
+        </FormField>
         <FormMessage>{form.formState.isValid}</FormMessage>
         <Button type="submit">Save Changes</Button>
       </form>

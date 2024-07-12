@@ -94,6 +94,8 @@ export async function PUT(req: Request){
 
     const input = updateStorySchema.parse(await req.json());
 
+    // input.genre?.forEach
+
     // : ensure user owns story
     // console.log(input);
     // @ts-ignore

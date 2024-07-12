@@ -183,9 +183,8 @@ export const storiesRelations = relations(stories, ({ one, many }) => ({
   }),
   comments: many(comments),
   likes: many(likes),
-  bookmarkedBy: many(userBookmarks)
-  // tags: many(tags),
-  // genres: many(genres)
+  bookmarkedBy: many(userBookmarks),
+  genres: many(storyGenres)
 }));
 
 
@@ -296,10 +295,10 @@ export const likesRelations = relations(likes, ({ one }) => ({
 
 
 
-// export const genres = pgTable('genres', {
-//   id: serial('id').primaryKey(),
-//   genre: text('genre').notNull(),
-// });
+export const genres = pgTable('genres', {
+  id: text('id').primaryKey(),
+  genre: text('genre').notNull(),
+});
 //
 // export const tags = pgTable('tags', {
 //   id: serial('id').primaryKey(),
@@ -310,23 +309,23 @@ export const likesRelations = relations(likes, ({ one }) => ({
 //   stories: many(storyTags),
 // }));
 
-// export const storyGenres = pgTable('story_genres', {
-//   storyId: text('story_id').references(() => stories.id).notNull(),
-//   genreId: serial('genre_id').references(() => genres.id).notNull(),
-// },
-// (t) => ({
-//   pk: primaryKey({columns: [t.storyId, t.genreId]})
-// })
-// );
+export const storyGenres = pgTable('story_genres', {
+  storyId: text('story_id').references(() => stories.id).notNull(),
+  genreId: text('genre_id').references(() => genres.id).notNull(),
+},
+(t) => ({
+  pk: primaryKey({columns: [t.storyId, t.genreId]})
+})
+);
 //
-// export const genreRelations = relations(genres, ({many}) => ({
-//   stories: many(storyGenres),
-// }));
+export const genreRelations = relations(genres, ({many}) => ({
+  stories: many(storyGenres),
+}));
 //
-// export const storyGenreRelations = relations(storyGenres, ({one}) => ({
-//   stories: one(stories, {fields: [storyGenres.storyId], references: [stories.id]}),
-//   genres: one(genres, {fields: [storyGenres.genreId], references: [genres.id]}),
-// }));
+export const storyGenreRelations = relations(storyGenres, ({one}) => ({
+  stories: one(stories, {fields: [storyGenres.storyId], references: [stories.id]}),
+  genres: one(genres, {fields: [storyGenres.genreId], references: [genres.id]}),
+}));
 //
 // export const storyTags = pgTable('story_tags', {
 //   storyId: text('story_id').references(() => stories.id).notNull(),
