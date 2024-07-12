@@ -3,15 +3,18 @@ import NewChapterFrom from './new-chapter-from';
 
 export interface NewChapterProps {
   params: {
-    story: string
-  }
+    story: string;
+  };
 }
-export default async function Page(props: NewChapterProps) {
+
+export default function Page(props: NewChapterProps) {
   return (
-    <div className="">
-      <LocalNavbar></LocalNavbar>
-      <div className="flex flex-col items-center justify-center gap-4 pt-4">
-        <NewChapterFrom story={props.params.story}></NewChapterFrom>
+    <div className="min-h-screen flex flex-col">
+      <LocalNavbar />
+      <div className="flex-grow flex items-center justify-center p-4">
+        <div className="w-full max-w-md sm:max-w-lg md:max-w-xl">
+          <NewChapterFrom story={props.params.story} />
+        </div>
       </div>
     </div>
   );
