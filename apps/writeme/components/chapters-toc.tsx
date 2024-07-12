@@ -44,12 +44,12 @@ export interface TOCProps{
   viewer?: boolean
 }
 
-export default function ChaptersTableofContents({story, viewer = false} : TOCProps) {
+export default function   ChaptersTableofContents({story, viewer = false} : TOCProps) {
   const router = useRouter();
 
 
   return (
-    <Card id="chapters-toc">
+    <Card className="w-full" id="chapters-toc">
       <CardHeader>
         <CardTitle>Chapters</CardTitle>
         <CardDescription>
