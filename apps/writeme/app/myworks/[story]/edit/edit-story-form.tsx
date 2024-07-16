@@ -29,9 +29,11 @@ export interface EditStoryFormProps{
   brief: string,
   description: string,
   genreItems: Genre[],
+  selectedGenres: any[],
 }
 
-const EditStoryForm = ({id, title, brief, description, genreItems, tagItems}: EditStoryFormProps) => {
+const EditStoryForm = ({id, title, brief, description, genreItems, selectedGenres}: EditStoryFormProps) => {
+  console.log(selectedGenres);
   const form = useForm<z.infer<typeof updateStorySchema>>({
     resolver: zodResolver(updateStorySchema),
     defaultValues: {
@@ -39,7 +41,7 @@ const EditStoryForm = ({id, title, brief, description, genreItems, tagItems}: Ed
       brief: brief,
       title: title,
       description: description,
-      genre: [],
+      genre: selectedGenres ? selectedGenres.map(g => g.genreId) : [],
     }
   });
 
