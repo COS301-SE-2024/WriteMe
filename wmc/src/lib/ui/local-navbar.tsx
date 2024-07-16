@@ -12,7 +12,7 @@ import { useOnborda } from 'onborda';
 import { useEffect } from 'react';
 import { CircleHelp } from 'lucide-react';
 import { Search } from 'lucide-react';
-import SearchModal from '@writeme/wmc/lib/ui/search-modal'
+import { SearchModal } from '@writeme/wmc/lib/ui/search-modal'
 
 
 
@@ -58,7 +58,7 @@ const LocalNavbar = () => {
 
         <Link href="/stories"
               className={cn(buttonVariants({ variant: 'link' }), pathname == '/stories' ? 'underline' : '')}>Explore</Link>
-        {session ? <Button onClick={SearchModal}><Search /></Button> : <></>}
+        {session ? <SearchModal /> : <></>}
       </div>) : undefined
       }
 
