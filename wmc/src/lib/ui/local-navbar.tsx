@@ -11,6 +11,8 @@ import { Popover, PopoverContent, PopoverTrigger } from '@writeme/wmc/lib/ui/pop
 import { useOnborda } from 'onborda';
 import { useEffect } from 'react';
 import { CircleHelp } from 'lucide-react';
+import { Search } from 'lucide-react';
+
 
 
 const LocalNavbar = () => {
@@ -55,11 +57,15 @@ const LocalNavbar = () => {
 
         <Link href="/stories"
               className={cn(buttonVariants({ variant: 'link' }), pathname == '/stories' ? 'underline' : '')}>Explore</Link>
-      </div>) : undefined}
+        {session ? <Button onClick={() => startOnborda()}><Search /></Button> : <></>}
+      </div>) : undefined
+      }
 
 
       <div className="flex items-center gap-4">
         { pathname == "/" ? <Link href="/stories" className={buttonVariants({ variant: 'link' })}>Explore</Link> : <></>}
+
+        
 
 
         <ModeToggle></ModeToggle>
