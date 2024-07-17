@@ -123,13 +123,14 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from '@writeme/wmc';
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem, DropdownMenuSeparator,
-  DropdownMenuTrigger
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from '@writeme/wmc/lib/ui/dropdown-menu';
 import { HeartIcon, MessageCircle, MoreVertical } from 'lucide-react';
 import dayjs from 'dayjs';
@@ -139,13 +140,24 @@ import { CommentsIcon } from '@storybook/icons';
 import ChaptersTableofContents from '../../../components/chapters-toc';
 import Link from 'next/link';
 // import { Link } from 'next-view-transitions';
-import CommentSection from '../../../components/comments-sections'
+import CommentSection from '../../../components/comments-sections';
 import { DeleteStoryDialog } from './delete-story-dialog';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogTitle,
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialogTrigger,
+} from '@writeme/wmc/lib/ui/alert-dialog';
 
 export interface WritePageProps {
   params: {
-    story: string
-  }
+    story: string;
+  };
 }
 
 export default async function Page(props: WritePageProps) {
@@ -169,23 +181,46 @@ export default async function Page(props: WritePageProps) {
                 {/*  <span className="sr-only">Copy Link</span>*/}
                 {/*</Button>*/}
               </CardTitle>
-              <CardDescription>Created: {dayjs(story.createdAt).format("MMM D, YYYY h:mm A")}</CardDescription>
+              <CardDescription>
+                Created: {dayjs(story.createdAt).format('MMM D, YYYY h:mm A')}
+              </CardDescription>
             </div>
             <div className="ml-auto flex items-center gap-1">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button size="icon" variant="outline" className="h-8 w-8">
-                    <MoreVertical className="h-3.5 w-3.5" />
-                    <span className="sr-only">More</span>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem><Link href={`/myworks/${story.id}/edit`}>Edit</Link></DropdownMenuItem>
-                  <DropdownMenuItem>Export</DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem > <DeleteStoryDialog></DeleteStoryDialog> </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <AlertDialog>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button size="icon" variant="outline" className="h-8 w-8">
+                      <MoreVertical className="h-3.5 w-3.5" />
+                      <span className="sr-only">More</span>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem>
+                      <Link href={`/myworks/${story.id}/edit`}>Edit</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>Export</DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                      <AlertDialogTrigger>Delete</AlertDialogTrigger>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>
+                        Are you absolutely sure?
+                      </AlertDialogTitle>
+                      <AlertDialogDescription>
+                        This action cannot be undone. This will permanently
+                        delete your story.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <DeleteStoryDialog id={story?.id}></DeleteStoryDialog>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </DropdownMenu>
+              </AlertDialog>
             </div>
           </CardHeader>
           <CardContent>
@@ -193,7 +228,7 @@ export default async function Page(props: WritePageProps) {
             <div className="relative aspect-[3/4] h-60 m-10">
               <img
                 style={{
-                  objectFit: 'contain'
+                  objectFit: 'contain',
                 }}
                 src={story.cover}
                 alt="Book Image"
@@ -207,29 +242,33 @@ export default async function Page(props: WritePageProps) {
             <p>{story.description ? story.description : 'No description'}</p>
 
             <Separator></Separator>
-
           </CardContent>
           <CardFooter className="flex justify-around">
             {/* TODO: Like comments*/}
-            <span className="flex gap-1" ><HeartIcon></HeartIcon> {story.likes.length}</span>
-            <span className="flex gap-1"> <MessageCircle></MessageCircle> {story.comments.length} </span>
+            <span className="flex gap-1">
+              <HeartIcon></HeartIcon> {story.likes.length}
+            </span>
+            <span className="flex gap-1">
+              {' '}
+              <MessageCircle></MessageCircle> {story.comments.length}{' '}
+            </span>
           </CardFooter>
-
         </Card>
         <div className="flex flex-col gap-4 p-4 items-end">
           <div className="flex gap-4">
             <Button asChild>
-              <Link href={`/myworks/${story.id}/write/new-chapter`}>Create new Chapter</Link>
+              <Link href={`/myworks/${story.id}/write/new-chapter`}>
+                Create new Chapter
+              </Link>
             </Button>
           </div>
           <ChaptersTableofContents story={story}></ChaptersTableofContents>
-          <CommentSection storyId={story?.id as string} comments={story.comments}></CommentSection>
+          <CommentSection
+            storyId={story?.id as string}
+            comments={story.comments}
+          ></CommentSection>
         </div>
       </section>
-
-
     </div>
   );
 }
-
-

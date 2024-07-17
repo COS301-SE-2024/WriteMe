@@ -1,7 +1,7 @@
 /* v8 ignore start */
 import { NextResponse } from 'next/server';
 import { createUserSchema } from '../../../db/user-schema';
-import { undefined, ZodError } from 'zod';
+import { object, string, ZodError } from 'zod';
 import { users , stories, storyGenres } from '../../../db/schema';
 import { db } from '../../../db/db';
 import { createStorySchema, updateStorySchema } from '../../../db/story-schema';
@@ -149,4 +149,55 @@ export async function PUT(req: Request){
       { status: 500 }
     );
   }
+}
+
+
+export async function DELETE(req: Request){
+  try {
+    const session = await auth();
+
+    if (!session?.user){
+      return new NextResponse(JSON.stringify({
+        status: 'fail', message: "You are not logged in",
+      }), { status : 401})
+    }
+
+    const deleteStorySchema = object({
+      id : string({required_error: "a story id is required"})})
+
+    const input = deleteStorySchema.parse(await req.json());
+
+    // todo: check user owns story
+
+    // deletes story
+    await db.delete(stories).where(eq(stories.id, input.id));
+
+
+
+    return NextResponse.json({
+      
+    });
+  } catch (error: any) {
+    console.log(error);
+    if (error instanceof ZodError) {
+      return NextResponse.json(
+        {
+          status: 'error',
+          message: 'Validation failed',
+          errors: error.errors,
+        },
+        { status: 400 }
+      );
+    }
+
+    return NextResponse.json(
+      {
+        status: 'error',
+        message: error.message || 'Internal Server Error',
+      },
+      { status: 500 }
+    );
+  }
+
+
 }
