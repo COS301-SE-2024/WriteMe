@@ -20,6 +20,7 @@ import { MultiSelector, MultiSelectorContent, MultiSelectorInput, MultiSelectorI
 import { signIn } from 'next-auth/react';
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
 import { useRouter } from 'next/navigation';
+import { Switch } from '@writeme/wmc/lib/ui/switch';
 
 export interface Genre {id: string, genre: string}
 
@@ -28,11 +29,12 @@ export interface EditStoryFormProps{
   title: string,
   brief: string,
   description: string,
+  published: boolean,
   genreItems: Genre[],
   selectedGenres: any[],
 }
 
-const EditStoryForm = ({id, title, brief, description, genreItems, selectedGenres}: EditStoryFormProps) => {
+const EditStoryForm = ({id, title, brief, description, genreItems, selectedGenres, published}: EditStoryFormProps) => {
   console.log(selectedGenres);
   const form = useForm<z.infer<typeof updateStorySchema>>({
     resolver: zodResolver(updateStorySchema),
@@ -42,6 +44,7 @@ const EditStoryForm = ({id, title, brief, description, genreItems, selectedGenre
       title: title,
       description: description,
       genre: selectedGenres ? selectedGenres.map(g => g.genreId) : [],
+      published: published
     }
   });
 
@@ -85,6 +88,9 @@ const EditStoryForm = ({id, title, brief, description, genreItems, selectedGenre
         return;
       }else {
         const { story } = await res.json();
+        toast({
+          title: "Story Updated",
+        })
         router.back();
       }
 
@@ -118,6 +124,30 @@ const EditStoryForm = ({id, title, brief, description, genreItems, selectedGenre
           )}
           name="title"
         >
+        </FormField>
+        <FormField 
+          control={form.control}
+          render={({field}) => (
+            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                  <div className="space-y-0.5">
+                    <FormLabel className="text-base">
+                      Published
+                    </FormLabel>
+                    <FormDescription>
+                      Specifies if the story is visible to the public.
+                    </FormDescription>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
+          )}
+          name='published'
+        >
+
         </FormField>
 
         <FormField
@@ -179,7 +209,10 @@ const EditStoryForm = ({id, title, brief, description, genreItems, selectedGenre
         >
         </FormField>
         <FormMessage>{form.formState.isValid}</FormMessage>
-        <Button type="submit">Save Changes</Button>
+        <div className='flex justify-between'>
+          <Button onClick={() => router.back()} variant='destructive'>Cancel</Button>
+          <Button type="submit">Save Changes</Button>
+        </div>
       </form>
     </Form>
   );

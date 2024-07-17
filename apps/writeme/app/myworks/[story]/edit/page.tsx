@@ -24,7 +24,7 @@ export default async function NewStory(props: NewStoryProps) {
           <CardTitle className="font-bold text-2xl text-center">Edit Your Story</CardTitle>
         </CardHeader>
         <CardContent>
-           <EditStoryForm id={story?.id || ""} title={story?.title || ""} brief={story?.brief || ""} description={story?.description || ""} genreItems={genres} selectedGenres={story?.genres}/>
+           <EditStoryForm id={story?.id || ""} title={story?.title || ""} brief={story?.brief || ""} description={story?.description || ""} genreItems={genres} selectedGenres={story?.genres} published={story?.published || false} />
 
         </CardContent>
       </Card>
