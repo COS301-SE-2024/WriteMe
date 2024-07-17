@@ -113,7 +113,6 @@ export async function PUT(req: Request){
       await db.insert(storyGenres).values(genreUpdates || [])
     }
 
-
     // : ensure user owns story
     // console.log(input);
     // @ts-ignore

@@ -140,6 +140,7 @@ import ChaptersTableofContents from '../../../components/chapters-toc';
 import Link from 'next/link';
 // import { Link } from 'next-view-transitions';
 import CommentSection from '../../../components/comments-sections'
+import { DeleteStoryDialog } from './delete-story-dialog';
 
 export interface WritePageProps {
   params: {
@@ -182,7 +183,7 @@ export default async function Page(props: WritePageProps) {
                   <DropdownMenuItem><Link href={`/myworks/${story.id}/edit`}>Edit</Link></DropdownMenuItem>
                   <DropdownMenuItem>Export</DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem >Delete</DropdownMenuItem>
+                  <DropdownMenuItem > <DeleteStoryDialog></DeleteStoryDialog> </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
