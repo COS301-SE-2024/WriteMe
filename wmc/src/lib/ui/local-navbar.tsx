@@ -44,7 +44,7 @@ const LocalNavbar = () => {
         </Link>
       </div>
 
-      {pathname == '/myworks' || pathname.startsWith('/stories') || pathname == "/myworks/new" ? (<div className="flex gap-2 items-center">
+      {pathname == '/myworks' || pathname == '/writeathons' || pathname == '/writeathons/new' || pathname.startsWith('/stories') || pathname == "/myworks/new" ? (<div className="flex gap-2 items-center">
         {session ? <Button onClick={() => startOnborda()}><CircleHelp /></Button> : <></>}
         {session ? (<Link href="/myworks"
                        className={cn(buttonVariants({ variant: 'link' }), pathname == '/myworks' ? 'underline' : '')}>My
@@ -52,6 +52,9 @@ const LocalNavbar = () => {
         {session ? (<Link id="new-my-works" href="/myworks/new"
                           className={cn(buttonVariants({ variant: 'link' }), pathname == '/myworks/new' ? 'underline' : '')}>
           New Story</Link>) : <></>}
+        {session ? (<Link id='writeathons' href="/writeathons"
+                          className={cn(buttonVariants({ variant: 'link' }), pathname == '/writeathons' ? 'underline' : '')}>
+          Writeathons</Link>) : <></>}
 
         <Link href="/stories"
               className={cn(buttonVariants({ variant: 'link' }), pathname == '/stories' ? 'underline' : '')}>Explore</Link>

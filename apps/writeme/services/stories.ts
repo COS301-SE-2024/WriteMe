@@ -2,7 +2,7 @@
 import { auth } from '../auth';
 import { db } from '../db/db';
 import { stories, chapters, users, userBookmarks } from '../db/schema';
-import { and, not, or, sql } from 'drizzle-orm';
+import { and, gt, not, or, sql } from 'drizzle-orm';
 
 export async function getMyStories() {
   const session = await auth();

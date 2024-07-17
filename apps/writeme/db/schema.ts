@@ -9,7 +9,8 @@ import {
   serial,
   boolean,
   json,
-  jsonb
+  jsonb,
+  date
 } from 'drizzle-orm/pg-core';
 
 import type { AdapterAccountType } from 'next-auth/adapters';
@@ -156,6 +157,38 @@ export const verificationTokens = pgTable(
   })
 );
 
+export const writeathons = pgTable('writeathon', {
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  userId: text('user_id')
+    .references(() => users.id)
+    .notNull(),
+  title: varchar('title', { length: 255 }).notNull(),
+  description: text('description'),
+  brief: text('brief'),
+  startDate: timestamp('start_date', { mode: "date" }),
+  endDate: timestamp('end_date', { mode: "date" })
+})
+
+export const storyWriteathons = pgTable('story_writeathons', {
+  storyId: text('story_id').references(() => stories.id).notNull(),
+  writeathonId: text('writeathon_id').references(() => writeathons.id).notNull(),
+},
+(t) => ({
+  pk: primaryKey({columns: [t.storyId, t.writeathonId]})
+})
+);
+
+export const writeathonsRelations = relations(writeathons, ({ many }) => ({
+  stories: many(storyWriteathons),
+}))
+
+export const storyWriteathonsRelations = relations(storyWriteathons, ({one}) => ({
+  stories: one(stories, {fields: [storyWriteathons.storyId], references: [stories.id]}),
+  writeathons: one(writeathons, {fields: [storyWriteathons.writeathonId], references: [writeathons.id]}),
+}));
+
 // @ts-ignore
 export const stories = pgTable('story', {
   id: text('id')
@@ -183,7 +216,8 @@ export const storiesRelations = relations(stories, ({ one, many }) => ({
   }),
   comments: many(comments),
   likes: many(likes),
-  bookmarkedBy: many(userBookmarks)
+  bookmarkedBy: many(userBookmarks),
+  writeathons: many(storyWriteathons),
   // tags: many(tags),
   // genres: many(genres)
 }));
