@@ -5,7 +5,7 @@ import { writeathonSchema } from "apps/writeme/db/story-schema";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
-type NewWriteathon = any;
+type NewWriteathon = typeof writeathons.$inferInsert;
 const createWriteathon = async (writeathon: NewWriteathon) => {
   const result = await db.insert(writeathons).values(writeathon).returning();
   return result[0];
@@ -24,8 +24,9 @@ export async function POST (req: Request) {
     const { title, description, brief, startDate, endDate } = writeathonSchema.parse(await req.json());
 
     const writeathon = await createWriteathon({
+      userId: session.user.id || '',
       title: title,
-      descripton: description,
+      description: description,
       brief: brief,
       startDate: startDate,
       endDate: endDate

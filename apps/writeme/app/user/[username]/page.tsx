@@ -174,8 +174,13 @@ export default async function User(props: UserProps) {
                   <div className='flex gap-2 justify-evenly'>
                     <div className='pl-3 flex flex-col gap-2 justify-between'>
                       <CardTitle>{writeathon.title}</CardTitle>
-                      <CardDescription>{dayjs(writeathon.startDate)}</CardDescription>
-                      <CardDescription>{dayjs(writeathon.endDate)}</CardDescription>
+                      {/* <CardDescription>{dayjs(writeathon.startDate)}</CardDescription>
+                      <CardDescription>{dayjs(writeathon.endDate)}</CardDescription> */}
+                      <Button asChild variant="default">
+                        {/* <Link href={`/stories/${writeathon.id}`}> */}
+                          <div className="flex gap-1 items-center"><BookOpenText size="1rem"/> View</div>
+                        {/* </Link> */}
+                      </Button>
                     </div>
                   </div>
                 </CardHeader>

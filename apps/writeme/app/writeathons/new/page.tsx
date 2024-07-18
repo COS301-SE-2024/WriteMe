@@ -4,15 +4,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@writeme/wmc'
 import AutoForm, { AutoFormSubmit } from '@writeme/wmc/lib/ui/auto-form'
 import LocalNavbar from '@writeme/wmc/lib/ui/local-navbar'
 import { writeathonSchema } from 'apps/writeme/db/story-schema'
-import router from 'next/router'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
 
-export interface WriteathonProps {
-
-}
-
-const Writeathons = (props: WriteathonProps) => {
+const Writeathons = () => {
+  const router = useRouter();
 
   const onWriteathonCreate = async (title: string, description: string, brief: string, startDate: Date, endDate: Date) => {
     const values = {
@@ -57,8 +54,7 @@ const Writeathons = (props: WriteathonProps) => {
         variant: "default"
       })
 
-      // router.push(`/user/${props.user.id}`);
-      // router.refresh()
+      router.push(`/writeathons`);
 
     } catch (error: any) {
       toast({
@@ -87,7 +83,12 @@ const Writeathons = (props: WriteathonProps) => {
                 
               }}
               fieldConfig={{
-               
+               startDate: {
+                fieldType: 'date'
+               },
+               endDate: {
+                fieldType: 'date'
+               }
               }}
               >
               <AutoFormSubmit>Create</AutoFormSubmit>

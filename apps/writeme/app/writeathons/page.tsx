@@ -3,7 +3,9 @@ import { BentoGrid } from '@writeme/wmc/lib/ui/bento-grid'
 import LocalNavbar from '@writeme/wmc/lib/ui/local-navbar'
 import { cn } from '@writeme/wmc/utils'
 import { getAllWriteathons } from 'apps/writeme/services/writeathons'
+import { BookOpenText } from 'lucide-react'
 import Link from 'next/link'
+import BookCover from '../../assets/temp-cover2.jpg';
 import React from 'react'
 
 export interface WriteathonProps {
@@ -11,11 +13,13 @@ export interface WriteathonProps {
 }
 
 const Writeathons = async (props: WriteathonProps) => {
-  const writeathons = await getAllWriteathons()
+  const currDate = new Date()
+  const writeathons = await getAllWriteathons(currDate)
+  
   return (
     <>
       <LocalNavbar />
-      <Button><Link href="/writeathons/new">Create a Writeathon</Link></Button>
+      <Button className='m-8'><Link href="/writeathons/new">Create a Writeathon</Link></Button>
         <BentoGrid className="max-w-6xl mx-auto md:auto-rows-[20rem]">
           {writeathons.map((writeathon, i) => (
             <Card
@@ -24,10 +28,26 @@ const Writeathons = async (props: WriteathonProps) => {
             >
               <CardHeader>
                 <div className='flex gap-2 justify-evenly'>
+                  <div className='relative aspect-[3/4] h-40'>
+                    <img
+                      alt='Book Cover'
+                      src={BookCover} 
+                      layout='fill'
+                      objectFit='cover'
+                    />
+                  </div>
                   <div className='pl-3 flex flex-col gap-2 justify-between'>
+                    
                     <CardTitle>{writeathon.title}</CardTitle>
-                    <CardDescription>{dayjs(writeathon.startDate)}</CardDescription>
-                    <CardDescription>{dayjs(writeathon.endDate)}</CardDescription>
+                    <CardDescription>{writeathon.brief}</CardDescription>
+
+                    {/* <CardDescription>{dayjs(writeathon.startDate)}</CardDescription>
+                    <CardDescription>{dayjs(writeathon.endDate)}</CardDescription> */}
+                    <Button asChild variant="default">
+                      {/* <Link href={`/stories/${writeathon.id}`}> */}
+                        <div className="flex gap-1 items-center"><BookOpenText size="1rem"/> View</div>
+                      {/* </Link> */}
+                    </Button>
                   </div>
                 </div>
               </CardHeader>

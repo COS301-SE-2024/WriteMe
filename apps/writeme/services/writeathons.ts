@@ -1,29 +1,13 @@
 import { and } from "drizzle-orm";
 import { db } from "../db/db";
 
-interface WriteathonProps {
-  startDate?: Date,
-  endDate?: Date
-}
-
-// export async function getAllWriteathons({ startDate = new Date(), endDate = new Date(new Date().setDate(new Date().getDate() + 7)) }: WriteathonProps) {
-//   const result = db.query.writeathons.findMany({
-//     where: (writeathons, { between }) =>
-//       and(
-//         between(writeathons.startDate, startDate, endDate),
-//         between(writeathons.endDate, startDate, endDate),
-//       ),
-//   });
-//   return result;
-// }
-
-export async function getAllWriteathons() {
-  const result = db.query.writeathons.findMany({
-    where: (writeathons, { between }) =>
+export async function getAllWriteathons(currDate: Date) {
+  const result = await db.query.writeathons.findMany({
+    where: (writeathons, { and, lt, gt }) => 
       and(
-        between(writeathons.startDate, new Date(), writeathons.endDate),
-        between(writeathons.endDate, writeathons.startDate, new Date()),
-      ),
+        lt(writeathons.startDate, currDate),
+        gt(writeathons.endDate, currDate),
+    ),
   });
   return result;
 }
