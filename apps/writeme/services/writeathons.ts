@@ -19,3 +19,11 @@ export async function getUserWriteathons(userId: string) {
   })
   return result;
 }
+
+export async function getWriteathon(writeathonId: string) {
+  const result = db.query.writeathons.findFirst({
+    where: (writeathons, { eq }) =>
+      eq(writeathons.id, writeathonId),
+  })
+  return result;
+}

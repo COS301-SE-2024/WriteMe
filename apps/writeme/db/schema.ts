@@ -164,11 +164,12 @@ export const writeathons = pgTable('writeathon', {
   userId: text('user_id')
     .references(() => users.id)
     .notNull(),
+  cover: text('cover_image'),
   title: varchar('title', { length: 255 }).notNull(),
   description: text('description'),
   brief: text('brief'),
-  startDate: timestamp('start_date', { mode: "date" }),
-  endDate: timestamp('end_date', { mode: "date" })
+  startDate: date('start_date', { mode: "date" }),
+  endDate: date('end_date', { mode: "date" })
 })
 
 export const storyWriteathons = pgTable('story_writeathons', {

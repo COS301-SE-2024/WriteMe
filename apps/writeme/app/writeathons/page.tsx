@@ -7,6 +7,7 @@ import { BookOpenText } from 'lucide-react'
 import Link from 'next/link'
 import BookCover from '../../assets/temp-cover2.jpg';
 import React from 'react'
+import { format } from "date-fns";
 
 export interface WriteathonProps {
 
@@ -30,24 +31,24 @@ const Writeathons = async (props: WriteathonProps) => {
                 <div className='flex gap-2 justify-evenly'>
                   <div className='relative aspect-[3/4] h-40'>
                     <img
-                      alt='Book Cover'
-                      src={BookCover} 
+                      alt='Writeathon Cover'
+                      src={writeathon.cover || BookCover} 
                       layout='fill'
                       objectFit='cover'
                     />
                   </div>
                   <div className='pl-3 flex flex-col gap-2 justify-between'>
-                    
                     <CardTitle>{writeathon.title}</CardTitle>
                     <CardDescription>{writeathon.brief}</CardDescription>
 
-                    {/* <CardDescription>{dayjs(writeathon.startDate)}</CardDescription>
-                    <CardDescription>{dayjs(writeathon.endDate)}</CardDescription> */}
                     <Button asChild variant="default">
-                      {/* <Link href={`/stories/${writeathon.id}`}> */}
+                      <Link href={`/writeathons/${writeathon.id}`}>
                         <div className="flex gap-1 items-center"><BookOpenText size="1rem"/> View</div>
-                      {/* </Link> */}
+                      </Link>
                     </Button>
+
+                    <CardDescription>Start Date: <span className='font-bold'>{format(writeathon?.startDate as Date, "PPP")}</span></CardDescription>
+                    <CardDescription>End Date: <span className='font-bold'>{format(writeathon?.endDate as Date, "PPP")}</span></CardDescription>
                   </div>
                 </div>
               </CardHeader>
