@@ -29,3 +29,8 @@ export const writeathonSchema = object({
   startDate: date({required_error: "The start date is required"}).or(z.string()).transform(arg => typeof arg == 'string' ? new Date(arg) : arg),
   endDate: date({required_error: "The end date is required"}).or(z.string()).transform(arg => typeof arg == 'string' ? new Date(arg) : arg)
 })
+
+export const storyWriteathonSchema = object({
+  storyId: string({required_error: "Story ID is required"}),
+  writeathonId: string({required_error: "Writeathon ID is required"})
+})

@@ -27,3 +27,14 @@ export async function getWriteathon(writeathonId: string) {
   })
   return result;
 }
+
+export async function getStoryWriteathons(writeathonId: string) {
+  const result = db.query.storyWriteathons.findMany({
+    where: (storyWriteathons, { eq }) =>
+      eq(storyWriteathons.writeathonId, writeathonId),
+      with: {
+        stories: true
+      }
+  })
+  return result;
+}
