@@ -74,7 +74,7 @@ export default async function NewChapterFrom(props: NewChapterFormProps) {
   }
 
   return (
-    <div className="flex items-center min-h-screen">
+    <div className="flex items-center">
       <div className="flex flex-col w-full px-4">
         <Card className="w-full max-w-[80ch]">
           <CardHeader className="bg-muted/50">

@@ -7,7 +7,7 @@ export interface NewStoryProps {}
 
 export default function NewStory(props: NewStoryProps) {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex flex-col">
       <LocalNavbar />
       <div className="flex-grow flex items-center justify-center mt-4 px-4">
         <Card className="w-full max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
