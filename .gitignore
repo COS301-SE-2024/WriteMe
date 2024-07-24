@@ -53,3 +53,7 @@ apps/writeme/.env.local
 storybook-static
 
 # webstorm pnpm linker
+
+#python
+
+/ml-backend/ml_backend/app/__pycache__/
