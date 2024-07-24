@@ -68,6 +68,10 @@ export const bookmarkUserSchema = object({
   storyId: string({ required_error: 'Story ID required' })
 })
 
+export const storyWriteathonVoteSchema = object({
+  storyId: string({ required_error: 'Story ID required' })
+})
+
 export type LoginUserInput = TypeOf<typeof loginUserSchema>;
 export type CreateUserInput = TypeOf<typeof createUserSchema>;
 export type UpdateUserInput = TypeOf<typeof updateUserSchema>;

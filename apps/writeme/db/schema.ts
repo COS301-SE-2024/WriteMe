@@ -157,6 +157,48 @@ export const verificationTokens = pgTable(
   })
 );
 
+export const storyWriteathonVotes = pgTable('story_writeathon_votes', {
+  userId: text('user_id')
+    .references(() => users.id, {
+      onDelete: 'cascade'
+    })
+    .notNull(),
+  // writeathonId: text('writeathon_id')
+  //   .references(() => writeathons.id, {
+  //     onDelete: 'cascade'
+  //   }).notNull(),
+  storyId: text('story_id')
+    .references(() => storyWriteathons.storyId, {
+      onDelete: 'cascade'
+    })
+    .notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull()
+}, (t) => {
+  return {
+    pk: primaryKey({
+      columns: [t.userId, t.storyId]
+    })
+  }
+})
+
+export const storyWriteathonVotesRelations = relations(storyWriteathonVotes, ({ one }) => ({
+  user: one(users, {
+    fields: [storyWriteathonVotes.userId],
+    references: [users.id],
+    relationName: 'user'
+  }),
+  story: one(stories, {
+    fields: [storyWriteathonVotes.storyId],
+    references: [stories.id],
+    relationName: 'story'
+  }),
+  // writeathon: one(writeathons, {
+  //   fields: [storyWriteathonVotes.storyId],
+  //   references: [writeathons.id],
+  //   relationName: 'writeathon'
+  // })
+}));
+
 export const writeathons = pgTable('writeathon', {
   id: text('id')
     .primaryKey()

@@ -1,5 +1,5 @@
 import LocalNavbar from '@writeme/wmc/lib/ui/local-navbar';
-import { getUser } from 'apps/writeme/services/users';
+import { getUser, isVoted } from 'apps/writeme/services/users';
 import { getStoryWriteathons, getWriteathon } from 'apps/writeme/services/writeathons';
 import React from 'react';
 import BookCover from '../../../assets/temp-cover2.jpg';
@@ -22,7 +22,8 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { BentoGrid } from '@writeme/wmc/lib/ui/bento-grid';
 import { Card, CardDescription, CardHeader, CardTitle } from '@writeme/wmc/lib/ui/card';
 import { cn } from '@writeme/wmc/utils';
-import { BookOpenText } from 'lucide-react';
+import { ArrowBigUp, BookOpenText } from 'lucide-react';
+import VoteButton from 'apps/writeme/components/vote-button';
 
 export interface WriteathonProps {
   params: {
@@ -40,6 +41,10 @@ export const Writeathon = async (props: WriteathonProps) => {
   const creator = await getUser(currWriteathon?.userId!)
   const stories = await getUserStories(session?.user?.id!)
   const storyWriteathons = await getStoryWriteathons(currWriteathon?.id!)
+
+  const votedStatus = await Promise.all(
+    storyWriteathons.map(storyWriteathon => isVoted(session?.user?.id!, storyWriteathon.storyId))
+  );
 
   return (
     <div className="flex flex-col h-screen">
@@ -107,6 +112,7 @@ export const Writeathon = async (props: WriteathonProps) => {
                     </div>
                   </div>
                 </CardHeader>
+                <VoteButton storyId={storyWriteathon.storyId} voted={votedStatus[i]}/>
               </Card>
             ))}
           </BentoGrid>
