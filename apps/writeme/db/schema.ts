@@ -15,6 +15,8 @@ import {
 import type { AdapterAccountType } from 'next-auth/adapters';
 import { relations } from 'drizzle-orm';
 
+export { nextUploadAssetsTable } from 'next-upload/store/drizzle/postgres-js';
+
 // @ts-ignore
 export const users = pgTable('user', {
   id: text('id')
