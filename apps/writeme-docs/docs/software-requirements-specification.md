@@ -8,6 +8,8 @@ The rise of digital content consumption has created a demand for platforms that 
 
 ## Functional Requirements
 
+<strong> All points in bold are requirements that have been implemented already and points that are not bolded are what we plan to do next</strong>
+
 ### Authentication
 
 <ol className="srs-bullets">
@@ -199,6 +201,90 @@ The rise of digital content consumption has created a demand for platforms that 
     </ol>
   </li>
    
+</ol>
+
+### Writeathons
+
+<ol className="srs-bullets">
+  <li>Users can participate in existing Writeathons:
+      <ol className='srs-bullets'>
+        <li><strong>Users can see a list of all active writeathons</strong></li>
+        <li><strong>Users can join a writeathon</strong></li>
+        <li><strong>Users can submit a story to the writeathon</strong></li>
+        <li><strong>Users can vote on whos stroy should win the writeathon</strong></li>
+        <li><strong>Users can receive writeathon points for winning writeathons</strong></li>
+        <li><strong>Users can </strong></li>
+     </ol>
+    </li>
+  <li>Users can host their own Writeathons
+    <ol className='srs-bullets'>
+        <li><strong>Users can choose what the writeathon is about</strong></li>
+        <li><strong>Users can can decide the start and end date of the writeathon</strong></li>
+     </ol>
+  </li>
+</ol>
+
+### Improv Game
+
+<ol className="srs-bullets">
+  <li>Users can play the improv game while writing stories
+      <ol className='srs-bullets'>
+        <li><strong>Users can refresh the improv suggestions until they get one they like</strong></li>
+        <li><strong>Users can see their current improve in the notepad</strong></li>
+     </ol>
+  </li>  
+</ol>
+
+### Writing Assistant
+
+grammar correction
+suggestions
+entity detection
+parts of speech detection
+
+<ol className="srs-bullets">
+  <li>Users can use the AI assistant for grammar correction
+    <ol className='srs-bullets'>
+      <li><strong>Users can use the assistant to correct punctuation errors</strong></li>
+      <li><strong>Users can use the assistant to correct spelling</strong></li>
+      <li><strong>Users can use the assistant to correct sentence construction</strong></li>
+    </ol>
+  </li>
+  <li>Users can use the AI assistant for entity detection
+    <ol className='srs-bullets'>
+      <li><strong>Users can use the assistant for charachter detection</strong></li>
+      <li><strong>Users can use the assistant for location detection</strong></li>
+      <li><strong>Users can use the assistant for organisation detection</strong></li>
+      <li><strong>Users can use the assistant for religion detection</strong></li>
+      <li><strong>Users can use the assistant for quantity detection</strong></li>
+    </ol>
+  </li>
+  <li>Users can use the AI assistant to get suggestions
+    <ol className='srs-bullets'>
+      <li><strong>Users can use the assistant to correct punctuation errors</strong></li>
+      <li><strong>Users can use the assistant to correct spelling</strong></li>
+      <li><strong>Users can use the assistant to correct sentence construction</strong></li>
+    </ol>
+  </li>
+  <li>Users can use the AI assistant for parts of speech detection
+    <ol className='srs-bullets'>
+      <li><strong>Users can use the assistant to correct punctuation errors</strong></li>
+      <li><strong>Users can use the assistant to correct spelling</strong></li>
+      <li><strong>Users can use the assistant to correct sentence construction</strong></li>
+    </ol>
+  </li>
+</ol>
+
+### Notepad
+
+<ol className="srs-bullets">
+  <li>Users can use the notepad to help with writing stories
+      <ol className='srs-bullets'>
+        <li><strong>Users can keep notes for later</strong></li>
+        <li><strong>Users can save answers for the improv game</strong></li>
+        <li><strong>Users can edit and change certain paragraphs to see how they would look without changing the story</strong></li>
+     </ol>
+  </li>  
 </ol>
 
 ## Architectural Requirements
@@ -718,24 +804,27 @@ This endpoint allows an authenticated user to create a new chapter for their sto
 
 ```json
 {
-    "status": "fail", 
-    "message": "You are not logged in"
+  "status": "fail",
+  "message": "You are not logged in"
 }
 ```
 
 - **Validation Error (400 Bad Request)**
+
 ```json
 {
-    "status": "error",
-    "message": "Validation failed",
-    "errors": []
+  "status": "error",
+  "message": "Validation failed",
+  "errors": []
 }
 ```
+
 - **Internal Server Error (500 Internal Server Error)**
+
 ```json
 {
-    "status": "error",
-    "message": "Internal Server Error"
+  "status": "error",
+  "message": "Internal Server Error"
 }
 ```
 
@@ -782,24 +871,27 @@ This endpoint allows an authenticated user to create a new chapter for their sto
 
 ```json
 {
-    "status": "fail", 
-    "message": "You are not logged in"
+  "status": "fail",
+  "message": "You are not logged in"
 }
 ```
 
 - **Validation Error (400 Bad Request)**
+
 ```json
 {
-    "status": "error",
-    "message": "Validation failed",
-    "errors": []
+  "status": "error",
+  "message": "Validation failed",
+  "errors": []
 }
 ```
+
 - **Internal Server Error (500 Internal Server Error)**
+
 ```json
 {
-    "status": "error",
-    "message": "Internal Server Error"
+  "status": "error",
+  "message": "Internal Server Error"
 }
 ```
 
@@ -839,8 +931,8 @@ This endpoint allows an authenticated user to like a chapter or story.
 
 ```json
 {
-    "status": "fail", 
-    "message": "You are not logged in"
+  "status": "fail",
+  "message": "You are not logged in"
 }
 ```
 
@@ -880,16 +972,17 @@ This endpoint allows an authenticated user to follow another user.
 
 ```json
 {
-    "status": "fail", 
-    "message": "You are not logged in"
+  "status": "fail",
+  "message": "You are not logged in"
 }
 ```
 
 - **Internal Server Error (500 Internal Server Error)**
+
 ```json
 {
-    "status": "error",
-    "message": "Internal Server Error"
+  "status": "error",
+  "message": "Internal Server Error"
 }
 ```
 
@@ -932,16 +1025,17 @@ This endpoint allows an authenticated comment on a story or chapter.
 
 ```json
 {
-    "status": "fail", 
-    "message": "You are not logged in"
+  "status": "fail",
+  "message": "You are not logged in"
 }
 ```
 
 - **Internal Server Error (500 Internal Server Error)**
+
 ```json
 {
-    "status": "error",
-    "message": "Internal Server Error"
+  "status": "error",
+  "message": "Internal Server Error"
 }
 ```
 
@@ -962,7 +1056,7 @@ This endpoint allows an authenticated user to export a chapter to pdf.
 
 ```json
 {
-  "id": "string",
+  "id": "string"
 }
 ```
 
@@ -971,22 +1065,24 @@ This endpoint allows an authenticated user to export a chapter to pdf.
 - **Success (200 OK)**
 
 - **Headers:**
+
   - `Content-Type`: application/pdf
 
 - **Unauthenticated (401 Unauthorised)**
 
 ```json
 {
-    "status": "fail", 
-    "message": "You are not logged in"
+  "status": "fail",
+  "message": "You are not logged in"
 }
 ```
 
 - **Internal Server Error (500 Internal Server Error)**
+
 ```json
 {
-    "status": "error",
-    "message": "Internal Server Error"
+  "status": "error",
+  "message": "Internal Server Error"
 }
 ```
 
@@ -1007,7 +1103,7 @@ This endpoint allows an authenticated user to export a story to pdf.
 
 ```json
 {
-  "id": "string",
+  "id": "string"
 }
 ```
 
@@ -1022,19 +1118,19 @@ This endpoint allows an authenticated user to export a story to pdf.
 
 ```json
 {
-    "status": "fail", 
-    "message": "You are not logged in"
+  "status": "fail",
+  "message": "You are not logged in"
 }
 ```
 
 - **Internal Server Error (500 Internal Server Error)**
+
 ```json
 {
-    "status": "error",
-    "message": "Internal Server Error"
+  "status": "error",
+  "message": "Internal Server Error"
 }
 ```
-
 
 ## Class Diagram
 
