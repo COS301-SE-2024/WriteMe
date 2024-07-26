@@ -235,12 +235,10 @@ export const writeathons = pgTable('writeathon', {
   endDate: date('end_date', { mode: "date" })
 })
 
-
 export const writeathonsRelations = relations(writeathons, ({ many }) => ({
   stories: many(storiesWriteathons),
   votes: many(storyWriteathonVotes)
 }))
-
 
 export const storiesWriteathons = pgTable('story_writeathons', {
   storyId: text('story_id').notNull().references(() => stories.id),
