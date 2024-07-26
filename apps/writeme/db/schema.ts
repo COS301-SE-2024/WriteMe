@@ -43,7 +43,8 @@ export const userRelations = relations(users, ({ many }) => ({
   }),
   stories: many(stories),
   comments: many(comments),
-  bookmarks: many(userBookmarks)
+  bookmarks: many(userBookmarks),
+  votes: many(storyWriteathonVotes)
 }));
 
 export const userFollowers = pgTable('user_followers', {
@@ -157,26 +158,42 @@ export const verificationTokens = pgTable(
   })
 );
 
+export const voteCategories = pgTable('vote_category', {
+  id: text('id')
+    .primaryKey()
+    .notNull()
+    .$defaultFn(() => crypto.randomUUID()),
+  category: text('category')
+    .notNull(),
+})
+
+export const voteCategoryRelations = relations(voteCategories, ({many}) => ({
+  votes: many(storyWriteathonVotes)
+}))
+
+
 export const storyWriteathonVotes = pgTable('story_writeathon_votes', {
   userId: text('user_id')
     .references(() => users.id, {
       onDelete: 'cascade'
     })
     .notNull(),
-  // writeathonId: text('writeathon_id')
-  //   .references(() => writeathons.id, {
-  //     onDelete: 'cascade'
-  //   }).notNull(),
+  writeathonId: text('writeathon_id')
+    .references(() => writeathons.id, {
+      onDelete: 'cascade'
+    }).notNull(),
   storyId: text('story_id')
-    .references(() => storyWriteathons.storyId, {
+    .references(() => stories.id, {
       onDelete: 'cascade'
     })
     .notNull(),
-  createdAt: timestamp('created_at').defaultNow().notNull()
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  categoryId: text('category_id')
+    .references(() => voteCategories.id),
 }, (t) => {
   return {
     pk: primaryKey({
-      columns: [t.userId, t.storyId]
+      columns: [t.userId, t.storyId, t.writeathonId, t.categoryId]
     })
   }
 })
@@ -192,11 +209,15 @@ export const storyWriteathonVotesRelations = relations(storyWriteathonVotes, ({ 
     references: [stories.id],
     relationName: 'story'
   }),
-  // writeathon: one(writeathons, {
-  //   fields: [storyWriteathonVotes.storyId],
-  //   references: [writeathons.id],
-  //   relationName: 'writeathon'
-  // })
+  writeathon: one(writeathons, {
+    fields: [storyWriteathonVotes.storyId],
+    references: [writeathons.id],
+    relationName: 'writeathon'
+  }),
+  categories: one(voteCategories, {
+    fields: [storyWriteathonVotes.categoryId],
+    references: [voteCategories.id]
+  })
 }));
 
 export const writeathons = pgTable('writeathon', {
@@ -214,23 +235,35 @@ export const writeathons = pgTable('writeathon', {
   endDate: date('end_date', { mode: "date" })
 })
 
-export const storyWriteathons = pgTable('story_writeathons', {
-  storyId: text('story_id').references(() => stories.id).notNull(),
-  writeathonId: text('writeathon_id').references(() => writeathons.id).notNull(),
-},
-(t) => ({
-  pk: primaryKey({columns: [t.storyId, t.writeathonId]})
-})
-);
 
 export const writeathonsRelations = relations(writeathons, ({ many }) => ({
-  stories: many(storyWriteathons),
+  stories: many(storiesWriteathons),
+  votes: many(storyWriteathonVotes)
 }))
 
-export const storyWriteathonsRelations = relations(storyWriteathons, ({one}) => ({
-  stories: one(stories, {fields: [storyWriteathons.storyId], references: [stories.id]}),
-  writeathons: one(writeathons, {fields: [storyWriteathons.writeathonId], references: [writeathons.id]}),
-}));
+
+export const storiesWriteathons = pgTable('story_writeathons', {
+  storyId: text('story_id').notNull().references(() => stories.id),
+  writeathonId: text('writeathon_id').notNull().references(() => writeathons.id)
+}, (t) => {
+  return {
+    pk: primaryKey({
+      columns: [t.storyId,t.writeathonId]
+    })
+  }
+})
+
+export const storiesWriteathonsRelations = relations(storiesWriteathons, ({one})=> ({
+  story: one(stories, {
+    fields: [storiesWriteathons.storyId],
+    references: [stories.id]
+  }),
+  writeathon: one(writeathons, {
+    fields: [storiesWriteathons.writeathonId],
+    references: [writeathons.id]
+  })
+}))
+
 
 // @ts-ignore
 export const stories = pgTable('story', {
@@ -260,7 +293,8 @@ export const storiesRelations = relations(stories, ({ one, many }) => ({
   comments: many(comments),
   likes: many(likes),
   bookmarkedBy: many(userBookmarks),
-  writeathons: many(storyWriteathons),
+  writeathons: many(storiesWriteathons),
+  votes: many(storyWriteathonVotes)
   // tags: many(tags),
   // genres: many(genres)
 }));
