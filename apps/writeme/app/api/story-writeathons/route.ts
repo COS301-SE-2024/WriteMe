@@ -1,13 +1,13 @@
 import { auth } from "apps/writeme/auth";
 import { db } from "apps/writeme/db/db";
-import { storyWriteathons } from "apps/writeme/db/schema";
+import { storiesWriteathons } from "apps/writeme/db/schema";
 import { storyWriteathonSchema } from "apps/writeme/db/story-schema";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
-type NewStoryWriteathon = typeof storyWriteathons.$inferInsert;
+type NewStoryWriteathon = typeof storiesWriteathons.$inferInsert;
 const createStoryWriteathon = async (storyWriteathon: NewStoryWriteathon) => {
-  const result = await db.insert(storyWriteathons).values(storyWriteathon).returning();
+  const result = await db.insert(storiesWriteathons).values(storyWriteathon).returning();
   return result[0];
 }
 

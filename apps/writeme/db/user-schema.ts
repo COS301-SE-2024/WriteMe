@@ -69,7 +69,9 @@ export const bookmarkUserSchema = object({
 })
 
 export const storyWriteathonVoteSchema = object({
-  storyId: string({ required_error: 'Story ID required' })
+  writeathonId: string({ required_error: 'Writeathon ID required'}),
+  storyId: string({ required_error: 'Story ID required' }),
+  categories: string({ required_error: 'Categories required'})
 })
 
 export type LoginUserInput = TypeOf<typeof loginUserSchema>;

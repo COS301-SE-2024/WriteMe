@@ -1,5 +1,6 @@
 import { and } from "drizzle-orm";
 import { db } from "../db/db";
+import { storyWriteathonVotes, voteCategories } from "../db/schema";
 
 export async function getAllWriteathons(currDate: Date) {
   const result = await db.query.writeathons.findMany({
@@ -29,12 +30,21 @@ export async function getWriteathon(writeathonId: string) {
 }
 
 export async function getStoryWriteathons(writeathonId: string) {
-  const result = db.query.storyWriteathons.findMany({
+  const result = db.query.storiesWriteathons.findMany({
     where: (storyWriteathons, { eq }) =>
       eq(storyWriteathons.writeathonId, writeathonId),
       with: {
-        stories: true
+        story: true
       }
   })
   return result;
+}
+
+export async function voteStory(userId: string, writeathonId: string, storyId: string, categoryId: string) {
+  await db.insert(storyWriteathonVotes).values({ userId: userId, writeathonId: writeathonId, storyId: storyId, categoryId: categoryId});
+};
+
+export async function getVoteCategories() {
+  const result = db.select().from(voteCategories).execute()
+  return result
 }

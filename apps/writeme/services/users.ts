@@ -45,18 +45,3 @@ export async function unbookmarkStory (userId: string, storyId: string) {
   await db.delete(userBookmarks).where(and(eq(userBookmarks.userId, userId), eq(userBookmarks.storyId, storyId)));
 };
 
-export async function isVoted (userId: string, storyId: string) {
-  const result = await db.query.storyWriteathonVotes.findFirst({               
-    where: (storyWriteathonVotes, {eq, and}) => and(eq(storyWriteathonVotes.userId, userId), eq(storyWriteathonVotes.storyId, storyId))
-  })
-
-  return result !== undefined;
-}
-
-export async function voteStory (userId: string, storyId: string) {
-  await db.insert(storyWriteathonVotes).values({ userId: userId, storyId: storyId });
-};
-
-export async function unVoteStory (userId: string, storyId: string) {
-  await db.delete(storyWriteathonVotes).where(and(eq(storyWriteathonVotes.userId, userId), eq(storyWriteathonVotes.storyId, storyId)));
-};

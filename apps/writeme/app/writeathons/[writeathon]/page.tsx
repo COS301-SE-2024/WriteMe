@@ -1,6 +1,6 @@
 import LocalNavbar from '@writeme/wmc/lib/ui/local-navbar';
-import { getUser, isVoted } from 'apps/writeme/services/users';
-import { getStoryWriteathons, getWriteathon } from 'apps/writeme/services/writeathons';
+import { getUser } from 'apps/writeme/services/users';
+import { getStoryWriteathons, getVoteCategories, getWriteathon } from 'apps/writeme/services/writeathons';
 import React from 'react';
 import BookCover from '../../../assets/temp-cover2.jpg';
 import { Button } from '@writeme/wmc/lib/ui/button';
@@ -34,17 +34,13 @@ export interface WriteathonProps {
 dayjs.extend(relativeTime);
 
 export const Writeathon = async (props: WriteathonProps) => {
-
   const session = await auth()
 
   const currWriteathon = await getWriteathon(props.params.writeathon)
   const creator = await getUser(currWriteathon?.userId!)
   const stories = await getUserStories(session?.user?.id!)
   const storyWriteathons = await getStoryWriteathons(currWriteathon?.id!)
-
-  const votedStatus = await Promise.all(
-    storyWriteathons.map(storyWriteathon => isVoted(session?.user?.id!, storyWriteathon.storyId))
-  );
+  const categories = await getVoteCategories()
 
   return (
     <div className="flex flex-col h-screen">
@@ -89,30 +85,30 @@ export const Writeathon = async (props: WriteathonProps) => {
             {storyWriteathons.map((storyWriteathon, i) => (
               <Card
                 className={cn('row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-white border border-transparent justify-between flex flex-col space-y-4', i === 3 || i === 6 ? "md:col-span-2" : "")}
-                key={storyWriteathon.stories.id}
+                key={storyWriteathon.story.id}
               >
                 <CardHeader>
                   <div className='flex gap-2 justify-evenly'>
                     <div className='relative aspect-[3/4] h-40'>
                       <img
                         alt='Book Cover'
-                        src={storyWriteathon.stories.cover || BookCover} 
+                        src={storyWriteathon.story.cover || BookCover} 
                         layout='fill'
                         objectFit='cover'
                       />
                     </div>
                     <div className='pl-3 flex flex-col gap-2 justify-between'>
-                      <CardTitle>{storyWriteathon.stories.title}</CardTitle>
-                      <CardDescription>{dayjs(storyWriteathon.stories.createdAt).fromNow()}</CardDescription>
+                      <CardTitle>{storyWriteathon.story.title}</CardTitle>
+                      <CardDescription>{dayjs(storyWriteathon.story.createdAt).fromNow()}</CardDescription>
                       <Button asChild variant="default">
-                        <Link href={`/stories/${storyWriteathon.stories.id}`}>
+                        <Link href={`/stories/${storyWriteathon.story.id}`}>
                           <div className="flex gap-1 items-center"><BookOpenText size="1rem"/> Read</div>
                         </Link>
                       </Button>
                     </div>
                   </div>
                 </CardHeader>
-                <VoteButton storyId={storyWriteathon.storyId} voted={votedStatus[i]}/>
+                <VoteButton writeathonId={currWriteathon?.id as string} storyId={storyWriteathon.story.id} categories={categories}/>
               </Card>
             ))}
           </BentoGrid>

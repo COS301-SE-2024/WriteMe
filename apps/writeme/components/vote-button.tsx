@@ -3,21 +3,30 @@
 import { Button } from '@writeme/wmc'
 import React, { useState } from 'react'
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
-import { ArrowBigUp } from 'lucide-react';
+import { Vote } from 'lucide-react';
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuLabel, 
+  DropdownMenuSeparator, 
+  DropdownMenuTrigger 
+} from '@writeme/wmc/lib/ui/dropdown-menu';
+import { ToggleGroup, ToggleGroupItem} from '@writeme/wmc/lib/ui/toggle-group'
 
 export interface VoteButtonProps {
+  writeathonId: string,
   storyId: string,
-  voted: boolean
+  categories: any
 }
 
 const VoteButton = (props: VoteButtonProps) => {
-  const [isVoted, setIsVoted] = useState(props.voted)
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
 
-  const handleVote = async (storyId: string) => {
+  const handleVote = async (writeathonId: string, storyId: string, categories: any) => {
     try {
       const response = await fetch('/api/votes', {
         method: 'POST', 
-        body: JSON.stringify({ storyId: storyId }),
+        body: JSON.stringify({ writeathonId: writeathonId, storyId: storyId, categories: categories[0] }),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -33,10 +42,10 @@ const VoteButton = (props: VoteButtonProps) => {
               variant: 'destructive'
             })
           });
-  
+
           return;
         }
-  
+
         toast({
           title: result.message,
           variant: 'destructive'
@@ -47,7 +56,6 @@ const VoteButton = (props: VoteButtonProps) => {
         title: result.message,
         variant: "default"
       })
-      setIsVoted(!isVoted)
     
     } catch (e: any) {
       toast({
@@ -57,12 +65,44 @@ const VoteButton = (props: VoteButtonProps) => {
     }
   }
 
+  const handleToggleCategory = (category: string) => {
+    setSelectedCategories(prev =>
+      prev.includes(category) ? prev.filter(c => c !== category) : [...prev, category]
+    )
+  }
+
   return (
-    <>
-      <Button onClick={() => handleVote(props.storyId)} variant='ghost' size='icon'>
-        <ArrowBigUp fill={isVoted ? 'black' : 'transparent'} />
-      </Button>
-    </>
+    <div className='grid grid-cols-2'>
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+            <Button variant='default'>
+              <Vote />
+              Vote
+            </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuLabel>Vote Categories</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <ToggleGroup className='flex flex-col' type="multiple">
+            {props.categories.map((category) => (
+              <ToggleGroupItem
+                value={category.id}
+                aria-pressed={selectedCategories.includes(category.id)}
+                onClick={() => handleToggleCategory(category.id)}
+              >
+                {category.category}
+              </ToggleGroupItem>
+            ))}
+          </ToggleGroup>
+          <Button
+            variant='default'
+            onClick={() => handleVote(props.writeathonId, props.storyId, selectedCategories)}
+          >
+            Submit Vote
+          </Button>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   )
 }
 
