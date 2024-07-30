@@ -397,6 +397,10 @@ The Client-Server architecture for our project splits the application into two m
 
 ![Stories Management System](./images/StoriesUseCase.jpg)
 
+### Writeathons System
+
+![Writeathons System](./images/WriteathonUseCase.jpg)
+
 ## Technology Requirements
 
 ### Mono Repository Management
