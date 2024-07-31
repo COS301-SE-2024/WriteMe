@@ -7,6 +7,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@writeme/wmc/lib/ui/popover"
+import { set } from "date-fns";
 import { Search } from "lucide-react"
 import { SetStateAction, useState } from 'react'
 
@@ -16,9 +17,9 @@ export function SearchModal() {
 
   const handleKeyDown = (event: { target: any; key: string; }) => {
     if (event.key === 'Enter') {
-      setInputVal(event.target.value);
       console.log(inputVal);
       setIsOpen(false);
+      setInputVal("");
     }
   };
 
@@ -40,6 +41,8 @@ export function SearchModal() {
                 id="search"
                 placeholder="Search..."
                 className="col-span-2 h-8"
+                value={inputVal}
+                onChange={v => setInputVal(v.target.value)}
                 onKeyDown={handleKeyDown}
               />
           </div>

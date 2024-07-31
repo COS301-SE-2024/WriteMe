@@ -9,11 +9,12 @@ import {
   serial,
   boolean,
   json,
-  jsonb
+  jsonb,
+  index
 } from 'drizzle-orm/pg-core';
 
 import type { AdapterAccountType } from 'next-auth/adapters';
-import { relations } from 'drizzle-orm';
+import { relations, sql } from 'drizzle-orm';
 
 // @ts-ignore
 export const users = pgTable('user', {
@@ -173,7 +174,9 @@ export const stories = pgTable('story', {
   published: boolean('published').default(false).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull()
-});
+},  (t) => ({
+  titleSearchIndex:index("title_search_index").using("gin", sql`to_tsvector('english', ${t.title})`)
+}));
 
 export const storiesRelations = relations(stories, ({ one, many }) => ({
   chapters: many(chapters),
