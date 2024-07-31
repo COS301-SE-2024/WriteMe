@@ -12,11 +12,21 @@ import {
   DropdownMenuTrigger 
 } from '@writeme/wmc/lib/ui/dropdown-menu';
 import { ToggleGroup, ToggleGroupItem} from '@writeme/wmc/lib/ui/toggle-group'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@writeme/wmc/lib/ui/popover'
+
+interface Category{
+  id: string,
+  category: string,
+}
 
 export interface VoteButtonProps {
   writeathonId: string,
   storyId: string,
-  categories: any
+  categories: Category[]
 }
 
 const VoteButton = (props: VoteButtonProps) => {
@@ -26,7 +36,7 @@ const VoteButton = (props: VoteButtonProps) => {
     try {
       const response = await fetch('/api/votes', {
         method: 'POST', 
-        body: JSON.stringify({ writeathonId: writeathonId, storyId: storyId, categories: categories[0] }),
+        body: JSON.stringify({ writeathonId: writeathonId, storyId: storyId, categories: selectedCategories }),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -73,17 +83,15 @@ const VoteButton = (props: VoteButtonProps) => {
 
   return (
     <div className='grid grid-cols-2'>
-      <DropdownMenu>
-        <DropdownMenuTrigger>
+      <Popover>
+        <PopoverTrigger>
             <Button variant='default'>
               <Vote />
               Vote
             </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuLabel>Vote Categories</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <ToggleGroup className='flex flex-col' type="multiple">
+        </PopoverTrigger>
+        <PopoverContent>
+          <ToggleGroup className='grid grid-cols-2' type="multiple">
             {props.categories.map((category) => (
               <ToggleGroupItem
                 value={category.id}
@@ -100,8 +108,8 @@ const VoteButton = (props: VoteButtonProps) => {
           >
             Submit Vote
           </Button>
-        </DropdownMenuContent>
-      </DropdownMenu>
+        </PopoverContent>
+      </Popover>
     </div>
   )
 }

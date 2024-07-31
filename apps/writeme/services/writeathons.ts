@@ -40,8 +40,12 @@ export async function getStoryWriteathons(writeathonId: string) {
   return result;
 }
 
-export async function voteStory(userId: string, writeathonId: string, storyId: string, categoryId: string) {
-  await db.insert(storyWriteathonVotes).values({ userId: userId, writeathonId: writeathonId, storyId: storyId, categoryId: categoryId});
+export async function voteStory(userId: string, writeathonId: string, storyId: string, categoryId: string | string[]) {
+  if (typeof categoryId == "string"){
+    await db.insert(storyWriteathonVotes).values({ userId: userId, writeathonId: writeathonId, storyId: storyId, categoryId: categoryId}).onConflictDoNothing();
+  }else {
+    await db.insert(storyWriteathonVotes).values(categoryId.map(c => ({ userId: userId, writeathonId: writeathonId, storyId: storyId, categoryId: c }))).onConflictDoNothing();
+  }
 };
 
 export async function getVoteCategories() {

@@ -1,4 +1,4 @@
-import { TypeOf, object, string } from 'zod';
+import { TypeOf, array, object, string, z } from 'zod';
 
 export const createUserSchema = object({
   name: string({ required_error: 'Name is required' }).min(
@@ -71,7 +71,7 @@ export const bookmarkUserSchema = object({
 export const storyWriteathonVoteSchema = object({
   writeathonId: string({ required_error: 'Writeathon ID required'}),
   storyId: string({ required_error: 'Story ID required' }),
-  categories: string({ required_error: 'Categories required'})
+  categories: array(z.string(), { required_error: "Category required" })
 })
 
 export type LoginUserInput = TypeOf<typeof loginUserSchema>;
