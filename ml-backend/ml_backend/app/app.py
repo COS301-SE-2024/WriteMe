@@ -60,14 +60,33 @@ async def grammar(req: GrammarCorrection) -> dict:
           "edits": edits
    }
 
+
 @app.post("/suggest", tags=["AI"])
 async def suggest(req: GrammarCorrection) -> dict:
-    # todo: limit input to avoid 500 error
-    output = gen(req.input, max_length=200, do_sample=True, temperature=0.9, truncation=True, return_full_text=False, prefix="You are a expert in storytelling your job is to suggest a better storyline to the following text: ")
+   # todo: limit input to avoid 500 error
+   output = gen(req.input, max_length=200, do_sample=True, temperature=0.9, truncation=True, return_full_text=False, prefix="You are a expert in storytelling your job is to suggest a better storyline to the following text: ")
+   # todo: maybe truncate result based on punctuation 
+   return output[0]
 
-    # todo: maybe truncate result based on punctuation 
-    return output[0]
-   
+# Supported tones:
+#  Formal
+#  Humourous
+#  Serious
+#  Friendly
+
+@app.post("/suggest/{tone}", tags=["AI"])
+async def suggest(req: GrammarCorrection, tone: str) -> dict:
+   # todo: limit input to avoid 500 error
+   if tone == "formal":
+      output = gen(req.input, max_length=200, do_sample=True, temperature=0.9, truncation=True, return_full_text=False, prefix="You are a expert in Advanced English, rewrite the following in a formal tone: ")
+   elif tone == "humourous":
+      output = gen(req.input, max_length=200, do_sample=True, temperature=0.9, truncation=True, return_full_text=False, prefix="You are a expert in Advanced English and Humour, rewrite the following in a humourous tone: ")
+   elif tone == "serious":
+      output = gen(req.input, max_length=200, do_sample=True, temperature=0.9, truncation=True, return_full_text=False, prefix="You are a expert in Advanced English, rewrite the following in a serious tone: ")
+   else:
+      output = gen(req.input, max_length=200, do_sample=True, temperature=0.9, truncation=True, return_full_text=False, prefix="You are a expert in Advanced English, rewrite the following in a friendly tone: ")
+   # todo: maybe truncate result based on punctuation 
+   return output[0]
 
 
 @app.post("/embed", tags=["Vectors"])
