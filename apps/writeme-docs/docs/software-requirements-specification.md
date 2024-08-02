@@ -237,11 +237,6 @@ The rise of digital content consumption has created a demand for platforms that 
 
 ### Writing Assistant
 
-grammar correction
-suggestions
-entity detection
-parts of speech detection
-
 <ol className="srs-bullets">
   <li>Users can use the AI assistant for grammar correction
     <ol className='srs-bullets'>
@@ -261,18 +256,16 @@ parts of speech detection
   </li>
   <li>Users can use the AI assistant to get suggestions
     <ol className='srs-bullets'>
-      <li><strong>Users can use the assistant to correct punctuation errors</strong></li>
-      <li><strong>Users can use the assistant to correct spelling</strong></li>
-      <li><strong>Users can use the assistant to correct sentence construction</strong></li>
+      <li>Users can use the assistant to get tone suggestions  
+        <ol className='srs-bullets'>
+        <li><strong>Users can use the assistant to get suggestions on how to rewrite certain sentences with a humourous tone</strong></li>
+        <li><strong>Users can use the assistant to get suggestions on how to rewrite certain sentences with a formal tone</strong></li>
+        </ol>
+      </li>
+      <li><strong>Users can use the assistant to generate story progression ideas</strong></li>
     </ol>
   </li>
-  <li>Users can use the AI assistant for parts of speech detection
-    <ol className='srs-bullets'>
-      <li><strong>Users can use the assistant to correct punctuation errors</strong></li>
-      <li><strong>Users can use the assistant to correct spelling</strong></li>
-      <li><strong>Users can use the assistant to correct sentence construction</strong></li>
-    </ol>
-  </li>
+  <li><strong>Users can use the AI assistant for parts of speech detection</strong></li>
 </ol>
 
 ### Notepad
