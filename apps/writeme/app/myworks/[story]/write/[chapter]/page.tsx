@@ -18,6 +18,7 @@ import EditorLoader from './editor-loader';
 import { Textarea } from '@writeme/wmc/lib/ui/textarea';
 import { ImprovGameDialog } from 'apps/writeme/components/improv-game';
 import PromptPad from './prompt-pad';
+import EditorUtils from './editor-utilities';
 
 const Editor = dynamic(() => import("@writeme/wmc/lib/ui/editor"), { ssr: false });
 
@@ -69,7 +70,7 @@ export default async function Write(props: WriteProps) {
           <ResizablePanel defaultSize={25}>
             <div className="px-4 top-0 sticky" id="editor-tools-panel">
               <ScrollArea>
-                <PromptPad></PromptPad>
+                <EditorUtils></EditorUtils>
               </ScrollArea>
             </div>
           </ResizablePanel>

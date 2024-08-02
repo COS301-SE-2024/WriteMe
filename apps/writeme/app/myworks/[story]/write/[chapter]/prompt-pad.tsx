@@ -10,14 +10,16 @@ import {
 } from '@writeme/wmc';
 import { Textarea } from '@writeme/wmc/lib/ui/textarea';
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
-import { ImprovGameDialog } from 'apps/writeme/components/improv-game';
+import { ImprovGameDialog } from './improv-game';
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { string } from 'zod';
+import {UtilContext } from "./editor-utilities"
+
 
 function PromptPad() {
     const params = useParams<{story: string, chapter: string}>();
-    const [note, setNote] = useState<string>();
+    const {promptPadContent, setPromptPadContent} = useContext(UtilContext)
 
 
     const saveNote = async () => {
@@ -27,7 +29,7 @@ function PromptPad() {
               body: JSON.stringify({
                 storyId: params.story,
                 chapterId: params.chapter,
-                content: note
+                content: promptPadContent
               }),
               headers: {
                 'Content-Type': "application/json"
@@ -77,7 +79,7 @@ function PromptPad() {
         <CardTitle>Prompt Pad</CardTitle>
       </CardHeader>
       <CardContent>
-        <Textarea placeholder="a place for your planning." value={note} onChange={v => setNote(v.target.value)}></Textarea>
+        <Textarea placeholder="a place for your planning." value={promptPadContent} onChange={v => setPromptPadContent(v.target.value)}></Textarea>
       </CardContent>
       <CardFooter className="flex justify-between gap-2">
         <Button onClick={saveNote}>Save Prompt</Button>
