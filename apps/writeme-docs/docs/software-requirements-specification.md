@@ -394,6 +394,18 @@ The Client-Server architecture for our project splits the application into two m
 
 ![Writeathons System](./images/WriteathonUseCase.jpg)
 
+### AI Assistant System
+
+![AI Assistant System](./images/NotepadUseCase.jpg)
+
+### Notepad System
+
+![Notepad System](./images/NotepadUseCase.jpg)
+
+### Improv Game System
+
+![Improv Game System](./images/NotepadUseCase.jpg)
+
 ## Technology Requirements
 
 ### Mono Repository Management
