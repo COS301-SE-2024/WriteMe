@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Dialog,
   DialogTrigger,
@@ -18,6 +18,8 @@ import {
 } from '@writeme/wmc/lib/ui/carousel';
 import { Textarea } from '@writeme/wmc/lib/ui/textarea';
 import { Button} from '@writeme/wmc';
+import {UtilContext} from "./editor-utilities";
+import { useToast } from '@writeme/wmc/lib/ui/use-toast';
 
 const QUESTIONS = [
 "What is a challenge your character faces, and how do they overcome it?",
@@ -32,11 +34,40 @@ const QUESTIONS = [
 "Describe the dynamic between your character and someone they are really close with."
 ]
 
+interface ImprovAnswerFieldProps {
+  q: string
+  setSuggestionCards: any,
+  suggestionCards: any[],
+}
+
+const ImprovAnswerField = ({q, setSuggestionCards,suggestionCards}: ImprovAnswerFieldProps) => {
+  const [input, setInput] = useState("");
+  const {toast} = useToast();
+
+  return (
+    <>
+    <p>{q}</p>
+    <Textarea onChange={(v) => setInput(v.target.value)} value={input}></Textarea>
+    <div className='flex justify-between gap-2'>
+        <Button>Skip</Button>
+        <Button onClick={() => {
+          console.log(suggestionCards)
+          toast({
+            title: "Answer Saved"
+          })
+          setSuggestionCards([...suggestionCards, {q: q, a: input}])
+        }}>Save</Button>
+        </div>
+      </>
+  )
+}
 
 
 export const ImprovGameDialog = () => {
     const [api, setApi] = React.useState<CarouselApi>();
     const [chosenQuestions, setChosenQuestions] =  useState<string[]>([]);
+    const {suggestionCards, setSuggestionCards} = useContext(UtilContext)
+
 
     function choose() {
       var index = Math.floor(Math.random() * QUESTIONS.length);
@@ -72,13 +103,7 @@ export const ImprovGameDialog = () => {
               {chosenQuestions.map(q=> 
 
               <CarouselItem className='flex flex-col gap-4'>
-                <p>{q}</p>
-                <Textarea>
-                </Textarea>
-                <div className='flex justify-between gap-2'>
-                    <Button>Skip</Button>
-                    <Button>Save</Button>
-                </div>
+                <ImprovAnswerField q={q} setSuggestionCards={setSuggestionCards} suggestionCards={suggestionCards}  ></ImprovAnswerField>
               </CarouselItem>
               )}
             </CarouselContent>
