@@ -7,6 +7,7 @@ import {
   DialogTitle,
   DialogHeader,
   DialogDescription,
+  DialogClose
 } from '@writeme/wmc/lib/ui/dialog';
 import {
   Carousel,
@@ -17,7 +18,7 @@ import {
   type CarouselApi
 } from '@writeme/wmc/lib/ui/carousel';
 import { Textarea } from '@writeme/wmc/lib/ui/textarea';
-import { Button} from '@writeme/wmc';
+import { Button , buttonVariants} from '@writeme/wmc';
 import {UtilContext} from "./editor-utilities";
 import { useToast } from '@writeme/wmc/lib/ui/use-toast';
 
@@ -38,33 +39,54 @@ interface ImprovAnswerFieldProps {
   q: string
   setSuggestionCards: any,
   suggestionCards: any[],
+  api: any
 }
 
-const ImprovAnswerField = ({q, setSuggestionCards,suggestionCards}: ImprovAnswerFieldProps) => {
+const ImprovAnswerField = ({q, api}: ImprovAnswerFieldProps) => {
+  const [canScroll, setCanScroll] = React.useState<boolean>(true);
   const [input, setInput] = useState("");
+  const {promptPadContent,setPromptPadContent, suggestionCards, setSuggestionCards} = useContext(UtilContext)
+
   const {toast} = useToast();
 
+  React.useEffect(() => {
+    if (!api) {
+      return
+    }
+ 
+    setCanScroll(api.canScrollNext())
+ 
+    api.on("select", () => {
+      setCanScroll(api.canScrollNext())
+    })
+  }, [api])
+
   return (
-    <>
+    <div className={"flex flex-col justify-between"}>
     <p>{q}</p>
     <Textarea onChange={(v) => setInput(v.target.value)} value={input}></Textarea>
-    <div className='flex justify-between gap-2'>
-        <Button>Skip</Button>
+    <div className='flex justify-between gap-2 max-w-full'>
+        {canScroll ? <Button onClick={() => {
+          api.scrollNext()
+        }}>Skip</Button> : <DialogClose >End Improv</DialogClose>}
+        
         <Button onClick={() => {
           console.log(suggestionCards)
           toast({
             title: "Answer Saved"
           })
           setSuggestionCards([...suggestionCards, {q: q, a: input}])
+          api.scrollNext();
         }}>Save</Button>
         </div>
-      </>
+      </div>
   )
 }
 
 
 export const ImprovGameDialog = () => {
     const [api, setApi] = React.useState<CarouselApi>();
+    const [current, setCurrent] = React.useState(0)
     const [chosenQuestions, setChosenQuestions] =  useState<string[]>([]);
     const {suggestionCards, setSuggestionCards} = useContext(UtilContext)
 
@@ -86,9 +108,18 @@ export const ImprovGameDialog = () => {
       setChosenQuestions(choices);
     }
 
-    const skipQuestion = () => {
+    React.useEffect(() => {
+      if (!api) {
+        return
+      }
+   
+      setCurrent(api.selectedScrollSnap() + 1)
+   
+      api.on("select", () => {
+        setCurrent(api.selectedScrollSnap() + 1)
+      })
+    }, [api])
 
-    }
 
   return (
     <Dialog>
@@ -98,12 +129,12 @@ export const ImprovGameDialog = () => {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Improv Game</DialogTitle>
-          <Carousel className="p-4">
+          <Carousel className="p-4" setApi={setApi}>
             <CarouselContent>
-              {chosenQuestions.map(q=> 
+              {chosenQuestions.map(q=>
 
               <CarouselItem className='flex flex-col gap-4'>
-                <ImprovAnswerField q={q} setSuggestionCards={setSuggestionCards} suggestionCards={suggestionCards}  ></ImprovAnswerField>
+                <ImprovAnswerField q={q} setSuggestionCards={setSuggestionCards} suggestionCards={suggestionCards} api={api}  ></ImprovAnswerField>
               </CarouselItem>
               )}
             </CarouselContent>
