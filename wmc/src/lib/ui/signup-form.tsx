@@ -15,6 +15,7 @@ import { CreateUserInput, createUserSchema} from '../../../../apps/writeme/db/us
 import { signIn } from 'next-auth/react';
 import { useToast } from '@writeme/wmc/lib/ui/use-toast';
 import { Button } from '@writeme/wmc';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from '@radix-ui/react-tooltip';
 
 
 export function SignupFormDemo() {
@@ -97,12 +98,24 @@ export function SignupFormDemo() {
           </LabelInputContainer>
         </div>
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="email@example.com" type="email" {...register("email")}/>
-        </LabelInputContainer>
-        <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" {...register("password")} />
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Input 
+                  id="password" 
+                  placeholder="••••••••" 
+                  type="password" 
+                  {...register("password")} 
+                />
+              </TooltipTrigger>
+              <TooltipContent side='right' sideOffset={40} className='text-white bg-[#2A303A] p-2 rounded-md shadow-lg'>
+                <p>Should contain: </p>
+                <p>• More than 8 characters</p>
+                <p>• Less than 32 characters</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </LabelInputContainer>
         <LabelInputContainer className="mb-8">
           <Label htmlFor="confirm-password">Confirm Password</Label>
