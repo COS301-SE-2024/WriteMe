@@ -156,7 +156,7 @@ const EditStoryForm = ({id, title, brief, description, genreItems, selectedGenre
             <FormItem>
               <FormLabel>Brief</FormLabel>
               <FormControl>
-                <Input placeholder={"short, sweet, impactful"} {...field}></Input>
+                <Textarea placeholder={"short, sweet, impactful"} {...field}></Textarea>
               </FormControl>
               <FormDescription>
                 A very short description of your story.
