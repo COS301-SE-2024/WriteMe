@@ -57,7 +57,7 @@ const EditStoryForm = ({id, title, brief, description, genreItems, selectedGenre
 
   async function onSubmit(values: z.infer<typeof updateStorySchema>){
     try {
-      console.log(values);
+      // console.log(values);
       // setSubmitting(true);
       const res = await fetch('/api/story', {
         method: 'PUT',
