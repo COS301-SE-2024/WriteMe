@@ -42,7 +42,8 @@ export const userRelations = relations(users, ({ many }) => ({
   }),
   stories: many(stories),
   comments: many(comments),
-  bookmarks: many(userBookmarks)
+  bookmarks: many(userBookmarks),
+  notepads: many(notepads)
 }));
 
 export const userFollowers = pgTable('user_followers', {
@@ -213,8 +214,28 @@ export const chaptersRelations = relations(chapters, ({ one, many }) => ({
     references: [stories.id]
   }),
   comments: many(comments),
-  likes: many(likes)
+  likes: many(likes),
+  notepads: many(notepads)
 }));
+
+export const notepads = pgTable('notepads', {
+  author: text('author_id').notNull(),
+  chapter: text('chapter_id').notNull(),
+  content: text('content').default('')
+}, (t) => ({
+  pk: primaryKey({ columns: [t.chapter, t.author]})
+}))
+
+export const notepadsRelations = relations(notepads, ({ one}) => ({
+  chapter: one(chapters, {
+    fields: [notepads.chapter],
+    references:  [chapters.id]
+  }),
+  author: one(users, {
+    fields: [notepads.author],
+    references: [users.id]
+  })
+}))
 
 
 // @ts-ignore
