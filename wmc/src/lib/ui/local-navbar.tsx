@@ -11,6 +11,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@writeme/wmc/lib/ui/pop
 import { useOnborda } from 'onborda';
 import { useEffect } from 'react';
 import { CircleHelp } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@radix-ui/react-tooltip';
 
 
 const LocalNavbar = () => {
@@ -45,7 +46,20 @@ const LocalNavbar = () => {
       </div>
 
       {pathname == '/myworks' || pathname.startsWith('/stories') || pathname == "/myworks/new" ? (<div className="flex gap-2 items-center">
-        {session ? <Button onClick={() => startOnborda()}><CircleHelp /></Button> : <></>}
+        {session ? (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Button onClick={() => startOnborda()}>
+                  <CircleHelp />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side='bottom' sideOffset={8} className='text-white bg-[#2A303A] p-2 rounded-sm shadow-lg'>
+                <p>Click to start onboarding</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        ) : null}
         {session ? (<Link href="/myworks"
                        className={cn(buttonVariants({ variant: 'link' }), pathname == '/myworks' ? 'underline' : '')}>My
           Stories</Link>) : <></>}
