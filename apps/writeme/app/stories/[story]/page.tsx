@@ -90,7 +90,10 @@ export default async function Story(props: StoryProps) {
             {/*<Button>Start reading <ArrowUpRight></ArrowUpRight></Button>*/}
             <div
               className="flex justify-center items-center gap-4"> {/* Centering container for card footer */}
-              <LikeButton storyId={story.id} liked={story.liked}></LikeButton>
+              <div>
+                <LikeButton storyId={story.id} liked={story.liked}></LikeButton>
+                {story?.likes.length}
+              </div>
               {/*<Bookmark></Bookmark>*/}
               <ShareStory link={`https://writeme.co.za/stories/${story.id}`} message={`Check out ${story.title}`}></ShareStory>
               <ExportButton storyId={story.id}></ExportButton>

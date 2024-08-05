@@ -167,7 +167,7 @@ export default async function Page(props: WritePageProps) {
       <LocalNavbar></LocalNavbar>
 
       <section className="flex">
-        <Card className="" id="my-story">
+        <Card className="max-w-md" id="my-story">
           <CardHeader className="flex flex-row items-start bg-muted/50 gap-1">
             <div className="grid gap-1">
               <CardTitle className="group flex items-center gap-2 text-lg">
