@@ -10,11 +10,12 @@ import {
   boolean,
   json,
   jsonb,
-  date
+  date,
+  index
 } from 'drizzle-orm/pg-core';
 
 import type { AdapterAccountType } from 'next-auth/adapters';
-import { relations } from 'drizzle-orm';
+import { relations, sql } from 'drizzle-orm';
 
 // @ts-ignore
 export const users = pgTable('user', {
@@ -44,7 +45,8 @@ export const userRelations = relations(users, ({ many }) => ({
   stories: many(stories),
   comments: many(comments),
   bookmarks: many(userBookmarks),
-  votes: many(storyWriteathonVotes)
+  votes: many(storyWriteathonVotes),
+  notepads: many(notepads)
 }));
 
 export const userFollowers = pgTable('user_followers', {
@@ -280,7 +282,9 @@ export const stories = pgTable('story', {
   published: boolean('published').default(false).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull()
-});
+},  (t) => ({
+  titleSearchIndex:index("title_search_index").using("gin", sql`to_tsvector('english', ${t.title})`)
+}));
 
 export const storiesRelations = relations(stories, ({ one, many }) => ({
   chapters: many(chapters),
@@ -322,8 +326,28 @@ export const chaptersRelations = relations(chapters, ({ one, many }) => ({
     references: [stories.id]
   }),
   comments: many(comments),
-  likes: many(likes)
+  likes: many(likes),
+  notepads: many(notepads)
 }));
+
+export const notepads = pgTable('notepads', {
+  author: text('author_id').notNull(),
+  chapter: text('chapter_id').notNull(),
+  content: text('content').default('')
+}, (t) => ({
+  pk: primaryKey({ columns: [t.chapter, t.author]})
+}))
+
+export const notepadsRelations = relations(notepads, ({ one}) => ({
+  chapter: one(chapters, {
+    fields: [notepads.chapter],
+    references:  [chapters.id]
+  }),
+  author: one(users, {
+    fields: [notepads.author],
+    references: [users.id]
+  })
+}))
 
 
 // @ts-ignore

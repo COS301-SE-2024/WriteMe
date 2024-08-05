@@ -61,7 +61,7 @@ export default async function Story(props: StoryProps) {
       </div> */}
       <div className="flex flex-col items-center justify-center gap-10">
 
-        <div className="flex justify-center mt-4 gap-x-8">
+        <div className="flex flex-col md:flex-row justify-center mt-4 gap-x-8">
           <div className="relative aspect-[3/4] h-60 m-8">
             <img
               style={{
@@ -102,8 +102,10 @@ export default async function Story(props: StoryProps) {
         </div>
 
         <div
-          className="flex gap-4 justify-center items-start h-full w-full"> {/* Centering container for the card */}
-          <ChaptersTableofContents viewer={true} story={story}></ChaptersTableofContents>
+          className="flex flex-col md:flex-row gap-4 justify-center items-start h-full w-full"> {/* Centering container for the card */}
+          <div className='w-full md:w-1/2'>
+            <ChaptersTableofContents viewer={true} story={story}></ChaptersTableofContents>
+          </div>
           <CommentSection comments={story.comments} storyId={story.id} fill={false}></CommentSection>
 
         </div>

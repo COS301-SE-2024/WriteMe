@@ -153,7 +153,7 @@ export default async function Page(props: WritePageProps) {
     <div>
       <LocalNavbar></LocalNavbar>
 
-      <section className="flex">
+      <section className="flex flex-col md:flex-row">
         <Card className="" id="my-story">
           <CardHeader className="flex flex-row items-start bg-muted/50 gap-1">
             <div className="grid gap-1">
@@ -189,7 +189,7 @@ export default async function Page(props: WritePageProps) {
           </CardHeader>
           <CardContent>
             {/*  IMage*/}
-            <div className="relative aspect-[3/4] h-60 m-10">
+            <div className="relative aspect-[3/4] h-60 m-10 flex justify-center">
               <img
                 style={{
                   objectFit: 'contain'
