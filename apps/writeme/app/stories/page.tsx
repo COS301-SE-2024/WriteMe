@@ -20,16 +20,15 @@ import { auth } from 'apps/writeme/auth';
 /* eslint-disable-next-line */
 export interface StoriesProps {}
 
-
-
 export default async function Stories(props: StoriesProps) {
   const stories = await getPublishedStories();
-  dayjs.extend(relativeTime)
+  dayjs.extend(relativeTime);
+
   return (
     <div>
       <LocalNavbar />
 
-      <BentoGrid className="max-w-6xl mx-auto md:auto-rows-[20rem]">
+      <BentoGrid className="max-w-6xl mx-auto md:grid-cols-2 lg:grid-cols-3 md:auto-rows-[20rem] gap-4">
         {stories.map((story, i) =>
           <Card className={cn('row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-white border border-transparent justify-between flex flex-col space-y-4', i === 3 || i === 6 ? "md:col-span-2" : "")}
                 key={story.id}>
@@ -60,14 +59,10 @@ export default async function Stories(props: StoriesProps) {
             </CardHeader>
             {/* <Trash2 className='cursor-pointer p-5' size={70}/> */}
           </Card>
-
         )}
 
         { stories.length === 0 ? <span className="text-center grow" >There are currently no published stories.</span> : <></>}
       </BentoGrid>
-
-
-
     </div>
   );
 }

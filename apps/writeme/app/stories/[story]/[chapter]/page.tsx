@@ -23,7 +23,7 @@ export default async function Chapter({params}: ChapterProps){
   return (
     <div>
       <LocalNavbar></LocalNavbar>
-      <div className="flex relative justify-between">
+        <div className="flex flex-col md:flex-row relative justify-between">
         <div>
           <Card className="sticky top-0">
             <CardHeader className="bg-muted/50">

@@ -9,7 +9,7 @@ export const connection = postgres('postgres://username:password@localhost:5432/
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   port: parseInt(process.env.DB_PORT || "5432"),
-  max: 1 
+  max: 1 ,
 });
 
 export const db = drizzle(connection);
