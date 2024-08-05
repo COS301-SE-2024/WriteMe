@@ -3,6 +3,12 @@
 import { Button } from '@writeme/wmc';
 import { Download } from 'lucide-react';
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@radix-ui/react-tooltip";
 
 interface ExportButtonProps {
   storyId: string;
@@ -102,15 +108,25 @@ export default function ExportButton({storyId, chapterId}: ExportButtonProps){
       }
 
     }
-
-
-
   }
 
   return (
-    <Button variant="ghost" size="icon" onClick={handleExport}>
-      <Download></Download>
-    </Button>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button variant="ghost" size="icon" onClick={handleExport}>
+            <Download />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent
+          side="right"
+          sideOffset={5}
+          className="text-white bg-[#2A303A] p-2 rounded-md shadow-lg"
+        >
+          <p>Export this story to a pdf</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   )
 
 }
