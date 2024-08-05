@@ -1,13 +1,17 @@
 /* v8 ignore start */
 import { auth } from '../auth';
 import { db } from '../db/db';
-import { users, userFollowers, userBookmarks } from '../db/schema';
+import { users, userFollowers, userBookmarks, storyWriteathonVotes } from '../db/schema';
 import { and, eq, not } from 'drizzle-orm';
 
 export async function getUser(id: string) {
 
   const result = await db.query.users.findFirst({
-    where: (users, {eq}) => eq(users.id, id)
+    where: (users, {eq}) => eq(users.id, id),
+    with: {
+      following: true,
+      followers: true
+    }
   })
 
   return result
@@ -44,3 +48,4 @@ export async function bookmarkStory (userId: string, storyId: string) {
 export async function unbookmarkStory (userId: string, storyId: string) {
   await db.delete(userBookmarks).where(and(eq(userBookmarks.userId, userId), eq(userBookmarks.storyId, storyId)));
 };
+

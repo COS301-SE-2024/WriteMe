@@ -16,6 +16,7 @@ import { auth } from 'apps/writeme/auth';
 import { getMyDrafts, getUserBookmarkedStories, getUserStories } from 'apps/writeme/services/stories';
 import FollowButton from 'apps/writeme/components/follow-button';
 import { isFollowing } from '../../../services/users';
+import { getUserWriteathons } from 'apps/writeme/services/writeathons';
 
 export interface UserProps {
   params: {
@@ -29,6 +30,7 @@ export default async function User(props: UserProps) {
   const user = await getUser(props.params.username);
   const stories = await getUserStories(props.params.username);
   const bookmarkedStories = await getUserBookmarkedStories(props.params.username)
+  const userWriteathons = await getUserWriteathons(props.params.username)
 
   const session = await auth()
   if (session?.user){
@@ -52,10 +54,9 @@ export default async function User(props: UserProps) {
           <FollowButton userId={props.params.username} following={following} />}
           <div className='flex mx-12 mb-3'>
             <IconUser />
-            <a className='font-bold mx-2'>3 </a>
-            <a className='text-gray-500'>followers</a>
-            {/* user.followers.length === 1 ? "follower" : "followers" */}
-            <a className='font-bold mx-2'>2 </a>
+            <a className='font-bold mx-2'>{user?.followers.length}</a>
+            <a className='text-gray-500'>{user?.followers.length === 1 ? "follower" : "followers"}</a>
+            <a className='font-bold mx-2'>{user?.following.length}</a>
             <a className='text-gray-500'>following</a>
           </div>
           <div className="border-t border-gray-300 my-5 mx-6 w-full"></div>
@@ -120,7 +121,7 @@ export default async function User(props: UserProps) {
                       <CardTitle>{story.title}</CardTitle>
                       <CardDescription>{dayjs(story.createdAt).fromNow()}</CardDescription>
                       <Button asChild variant="default">
-                        <Link href={`/stories/${story.id}`}>
+                        <Link href={`/myworks/${story.id}`}>
                           <div className="flex gap-1 items-center"><BookOpenText size="1rem"/> Read</div>
                         </Link>
                       </Button>
@@ -130,9 +131,9 @@ export default async function User(props: UserProps) {
               </Card>
             ))}
           </BentoGrid></>:<></>}
-          {session?.user?.id == props.params.username ? <><h2 className="text-2xl font-bold mb-6">Bookmarks</h2>
+          {session?.user?.id == props.params.username ? <><h2 className="text-2xl font-bold mb-6">My Bookmarks</h2>
           <BentoGrid className="max-w-6xl mx-auto md:auto-rows-[20rem]">
-            {bookmarkedStories.map((bookmarkedStory, i) => (
+            { bookmarkedStories.length > 0 ? bookmarkedStories.map((bookmarkedStory, i) => (
               <Card
                 className={cn('row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-white border border-transparent justify-between flex flex-col space-y-4', i === 3 || i === 6 ? "md:col-span-2" : "")}
                 key={bookmarkedStory.story.id}
@@ -154,6 +155,30 @@ export default async function User(props: UserProps) {
                         <Link href={`/stories/${bookmarkedStory.story.id}`}>
                           <div className="flex gap-1 items-center"><BookOpenText size="1rem"/> Read</div>
                         </Link>
+                      </Button>
+                    </div>
+                  </div>
+                </CardHeader>
+              </Card>
+            )): <p>You currently have no bookmarks.</p>}
+          </BentoGrid></>:<></>}
+          {session?.user?.id == props.params.username ? <><h2 className="text-2xl font-bold mb-6">My Writeathons</h2>
+          <BentoGrid className="max-w-6xl mx-auto md:auto-rows-[20rem]">
+            {userWriteathons.map((writeathon, i) => (
+              <Card
+                className={cn('row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-white border border-transparent justify-between flex flex-col space-y-4', i === 3 || i === 6 ? "md:col-span-2" : "")}
+                key={writeathon.id}
+              >
+                <CardHeader>
+                  <div className='flex gap-2 justify-evenly'>
+                    <div className='pl-3 flex flex-col gap-2 justify-between'>
+                      <CardTitle>{writeathon.title}</CardTitle>
+                      {/* <CardDescription>{dayjs(writeathon.startDate)}</CardDescription>
+                      <CardDescription>{dayjs(writeathon.endDate)}</CardDescription> */}
+                      <Button asChild variant="default">
+                        {/* <Link href={`/stories/${writeathon.id}`}> */}
+                          <div className="flex gap-1 items-center"><BookOpenText size="1rem"/> View</div>
+                        {/* </Link> */}
                       </Button>
                     </div>
                   </div>

@@ -9,6 +9,7 @@ import { updateUserSchema, updateUserSchemaOAuth, UpdateUserInput } from '../../
 import AutoForm, { AutoFormSubmit } from '@writeme/wmc/lib/ui/auto-form'
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
 import { Trash2 } from 'lucide-react';
+import UserImageUpload from './image-upload';
 
 export interface EditProfileProps {
   user: {
@@ -96,6 +97,9 @@ const EditProfileForm = (props: EditProfileProps) => {
           <CardTitle className="text-2xl">Edit your profile</CardTitle>
         </CardHeader>
       <CardContent>
+
+        <UserImageUpload user={props.user}></UserImageUpload>
+
         {props.user.password ? 
           <AutoForm
             onSubmit={(data) => {
@@ -112,7 +116,8 @@ const EditProfileForm = (props: EditProfileProps) => {
               bio: {
                 inputProps: {
                   placeholder: "Tell us a little bit about yourself",
-                }
+                },
+                fieldType: "textarea"
               },
               password: {
                 inputProps: {
@@ -144,7 +149,8 @@ const EditProfileForm = (props: EditProfileProps) => {
               bio: {
                 inputProps: {
                   placeholder: "Tell us a little bit about yourself",
-                }
+                },
+                fieldType: "textarea"
               },
             }}
             >
