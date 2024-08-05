@@ -2,7 +2,7 @@
 import { auth } from '../auth';
 import { db } from '../db/db';
 import { stories, chapters, users, userBookmarks } from '../db/schema';
-import { and, not, or, sql } from 'drizzle-orm';
+import { and, gt, not, or, sql } from 'drizzle-orm';
 
 export async function searchStories(q: string){
   let result = await db.select({title: stories.title, id: stories.id, cover: stories.cover}).from(stories).where(sql`to_tsvector('english', ${stories.title}) @@ websearch_to_tsquery('english', ${q})`).limit(5);

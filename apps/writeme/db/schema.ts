@@ -10,6 +10,7 @@ import {
   boolean,
   json,
   jsonb,
+  date,
   index
 } from 'drizzle-orm/pg-core';
 
@@ -46,6 +47,7 @@ export const userRelations = relations(users, ({ many }) => ({
   stories: many(stories),
   comments: many(comments),
   bookmarks: many(userBookmarks),
+  votes: many(storyWriteathonVotes),
   notepads: many(notepads)
 }));
 
@@ -160,6 +162,111 @@ export const verificationTokens = pgTable(
   })
 );
 
+export const voteCategories = pgTable('vote_category', {
+  id: text('id')
+    .primaryKey()
+    .notNull()
+    .$defaultFn(() => crypto.randomUUID()),
+  category: text('category')
+    .notNull(),
+})
+
+export const voteCategoryRelations = relations(voteCategories, ({many}) => ({
+  votes: many(storyWriteathonVotes)
+}))
+
+
+export const storyWriteathonVotes = pgTable('story_writeathon_votes', {
+  userId: text('user_id')
+    .references(() => users.id, {
+      onDelete: 'cascade'
+    })
+    .notNull(),
+  writeathonId: text('writeathon_id')
+    .references(() => writeathons.id, {
+      onDelete: 'cascade'
+    }).notNull(),
+  storyId: text('story_id')
+    .references(() => stories.id, {
+      onDelete: 'cascade'
+    })
+    .notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  categoryId: text('category_id')
+    .references(() => voteCategories.id),
+}, (t) => {
+  return {
+    pk: primaryKey({
+      columns: [t.userId, t.storyId, t.writeathonId, t.categoryId]
+    })
+  }
+})
+
+export const storyWriteathonVotesRelations = relations(storyWriteathonVotes, ({ one }) => ({
+  user: one(users, {
+    fields: [storyWriteathonVotes.userId],
+    references: [users.id],
+    relationName: 'user'
+  }),
+  story: one(stories, {
+    fields: [storyWriteathonVotes.storyId],
+    references: [stories.id],
+    relationName: 'story'
+  }),
+  writeathon: one(writeathons, {
+    fields: [storyWriteathonVotes.storyId],
+    references: [writeathons.id],
+    relationName: 'writeathon'
+  }),
+  categories: one(voteCategories, {
+    fields: [storyWriteathonVotes.categoryId],
+    references: [voteCategories.id]
+  })
+}));
+
+export const writeathons = pgTable('writeathon', {
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  userId: text('user_id')
+    .references(() => users.id)
+    .notNull(),
+  cover: text('cover_image'),
+  title: varchar('title', { length: 255 }).notNull(),
+  description: text('description'),
+  brief: text('brief'),
+  startDate: date('start_date', { mode: "date" }),
+  endDate: date('end_date', { mode: "date" })
+})
+
+export const writeathonsRelations = relations(writeathons, ({ many }) => ({
+  stories: many(storiesWriteathons),
+  votes: many(storyWriteathonVotes)
+}))
+
+export const storiesWriteathons = pgTable('story_writeathons', {
+  storyId: text('story_id').notNull().references(() => stories.id),
+  writeathonId: text('writeathon_id').notNull().references(() => writeathons.id)
+}, (t) => {
+  return {
+    pk: primaryKey({
+      columns: [t.storyId,t.writeathonId]
+    })
+  }
+})
+
+export const storiesWriteathonsRelations = relations(storiesWriteathons, ({one})=> ({
+  story: one(stories, {
+    fields: [storiesWriteathons.storyId],
+    references: [stories.id]
+  }),
+  writeathon: one(writeathons, {
+    fields: [storiesWriteathons.writeathonId],
+    references: [writeathons.id]
+  })
+}))
+
+
 // @ts-ignore
 export const stories = pgTable('story', {
   id: text('id')
@@ -191,6 +298,8 @@ export const storiesRelations = relations(stories, ({ one, many }) => ({
   likes: many(likes),
   bookmarkedBy: many(userBookmarks),
   genres: many(storyGenres),
+  writeathons: many(storiesWriteathons),
+  votes: many(storyWriteathonVotes)
 }));
 
 
