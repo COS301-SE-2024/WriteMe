@@ -5,6 +5,7 @@ import { getAllGenres } from 'apps/writeme/services/genres';
 import { Card, CardContent, CardHeader, CardTitle } from '@writeme/wmc';
 import { getChapterInfo } from '../../../../../../services/chapters';
 import EditChapterForm from './edit-chapter-form';
+import ChapterImageUpload from './image-upload';
 
 
 export interface EditChapterProps {
@@ -26,7 +27,8 @@ export default async function EditChapter(props: EditChapterProps) {
           <CardHeader className="bg-muted/50">
             <CardTitle className="font-bold text-2xl text-center">Edit {chapter.title}</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className='pt-4'>
+            <ChapterImageUpload chapter={chapter}></ChapterImageUpload>
             <EditChapterForm chapter={chapter}></EditChapterForm>
           </CardContent>
         </Card>

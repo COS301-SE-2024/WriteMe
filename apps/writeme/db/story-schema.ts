@@ -34,3 +34,9 @@ export const storyWriteathonSchema = object({
   storyId: string({required_error: "Story ID is required"}),
   writeathonId: string({required_error: "Writeathon ID is required"})
 })
+
+
+export const updateStoryCoverSchema = object({
+  id : string({required_error: "a story id is required"}),
+  cover: string({required_error: "a new cover is required"}).url("cover should be a url to an image resource")
+})

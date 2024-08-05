@@ -3,7 +3,7 @@ import { auth } from '../../../auth';
 import { NextResponse } from 'next/server';
 import { undefined, ZodError } from 'zod';
 import { createChapterSchema, editChapterSchema, updateChapterSchema } from '../../../db/chapter-schema';
-import { chapters, stories } from '../../../db/schema';
+import { chapters, stories, versions } from '../../../db/schema';
 import { db } from '../../../db/db';
 import { eq } from 'drizzle-orm';
 import { updateStorySchema } from '../../../db/story-schema';
@@ -74,6 +74,13 @@ type UpdadtedChapter = any;
 
 
 const updateChapter = async (chapter: UpdadtedChapter) => {
+
+  let updated_chapter = await db.insert(versions).values({
+    chapterId: chapter.id,
+    blocks: chapter.blocks
+  })
+
+
   const result = await db.update(chapters).set({
     cover: chapter.cover,
     title: chapter.title,

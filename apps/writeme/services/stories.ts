@@ -121,7 +121,7 @@ export async function getStoryInfo(id: string){
   const result = db.query.stories.findFirst({
     where: (stories, {eq}) => eq(stories.id, id),
     with: {
-      //genres: true,
+      genres: true,
       // tags: true
     }
   })
