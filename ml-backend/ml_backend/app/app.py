@@ -21,6 +21,9 @@ from flair.models import SequenceTagger, TextClassifier
 from flair.embeddings import TransformerWordEmbeddings
 from flair.splitter import SegtokSentenceSplitter
 
+from parrot import Parrot
+
+parrot = Parrot(model_tag="prithivida/parrot_paraphraser_on_T5", use_gpu=False)
 
 class GrammarCorrection(BaseModel):
    input: str
@@ -161,25 +164,22 @@ async def suggest(req: GrammarCorrection) -> dict:
    # todo: maybe truncate result based on punctuation 
    return output[0]
 
-# Supported tones:
-#  Formal
-#  Humourous
-#  Serious
-#  Friendly
-
+# for paraphrasing
 @app.post("/suggest/{tone}", tags=["AI"])
 async def suggest(req: GrammarCorrection, tone: str) -> dict:
+   sentences = splitter.split(req.input)
+   # for s in sentences:
+   #    print(s.text)
    # todo: limit input to avoid 500 error
-   if tone == "formal":
-      output = gen(req.input, max_length=200, do_sample=True, temperature=0.9, truncation=True, return_full_text=False, prefix="You are a expert in Advanced English, rewrite the following in a formal tone: ")
-   elif tone == "humourous":
-      output = gen(req.input, max_length=200, do_sample=True, temperature=0.9, truncation=True, return_full_text=False, prefix="You are a expert in Advanced English and Humour, rewrite the following in a humourous tone: ")
-   elif tone == "serious":
-      output = gen(req.input, max_length=200, do_sample=True, temperature=0.9, truncation=True, return_full_text=False, prefix="You are a expert in Advanced English, rewrite the following in a serious tone: ")
-   else:
-      output = gen(req.input, max_length=200, do_sample=True, temperature=0.9, truncation=True, return_full_text=False, prefix="You are a expert in Advanced English, rewrite the following in a friendly tone: ")
-   # todo: maybe truncate result based on punctuation 
-   return output[0]
+   if tone == "paraphrase":
+      para_phrases = [parrot.augment(s.to_original_text(), max_return_phrases=3) for s in sentences]
+      return {
+         "paraphrases": para_phrases
+      }
+
+   return {
+      "failed": True
+   }
 
 
 @app.post("/embed", tags=["Vectors"])
