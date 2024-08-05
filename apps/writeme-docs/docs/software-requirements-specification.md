@@ -396,7 +396,7 @@ The Client-Server architecture for our project splits the application into two m
 
 ### AI Assistant System
 
-![AI Assistant System](./images/NotepadUseCase.jpg)
+![AI Assistant System](./images/AIAssistantUseCase.jpg)
 
 ### Notepad System
 
@@ -697,28 +697,32 @@ This endpoint allows the user to update their profile.
 
 - **Method:** `PUT`
 - **Path:** `/register`
-- **Body:** 
+- **Body:**
+
 ```json
 {
-"name": "string",
-"email": "string",
-"bio": "string",
-"password": "string",
+  "name": "string",
+  "email": "string",
+  "bio": "string",
+  "password": "string"
 }
 ```
+
 **Response:**
 
 - **Success (200 OK):**
+
 ```json
-  {
-    "user": {
-      "name": "string",
-      "email": "string",
-    }
+{
+  "user": {
+    "name": "string",
+    "email": "string"
   }
+}
 ```
 
 - **Bad Request (400 Bad Request):**
+
 ```json
 {
   "status": "error",
@@ -728,6 +732,7 @@ This endpoint allows the user to update their profile.
 ```
 
 - **Conflict (409 Conflict): Email already exists**
+
 ```json
 {
   "status": "fail",
@@ -736,6 +741,7 @@ This endpoint allows the user to update their profile.
 ```
 
 - **Internal Server Error (500 Internal Server Error):**
+
 ```json
 {
   "status": "error",
