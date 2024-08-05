@@ -57,3 +57,4 @@ storybook-static
 #python
 
 /ml-backend/ml_backend/app/__pycache__/
+ml-backend/ml_backend/models/*
