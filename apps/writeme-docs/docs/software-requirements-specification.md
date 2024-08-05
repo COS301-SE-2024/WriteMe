@@ -99,25 +99,12 @@ The rise of digital content consumption has created a demand for platforms that 
   </li>
 </ol>
 
-### Viewing stories
-
-<ol className="srs-bullets">
-  <li>Users must be able to view a single story
-    <ol className='srs-bullets'>
-      <li><strong>Able to view a story on click</strong></li>
-      <li>Able to like a story</li>
-      <li>Able to share a story</li>
-      <li>Able to comment on a story</li>
-    </ol>
-  </li>
-</ol>
-
-### Explore Page\*
+### Explore Page
 
 <ol className="srs-bullets">
   <li>Users must be able to view other stories:
     <ol className='srs-bullets'>
-      <li>Stories can be displayed as thumbnails with the cover image, title and author</li>
+      <li><strong>Stories can be displayed as thumbnails with the cover image, title and author</strong></li>
       <li>Stories can be displayed as lists with more detailed information such as a short description, genre or publication date</li>
     </ol>
   </li>
@@ -137,50 +124,101 @@ The rise of digital content consumption has created a demand for platforms that 
   </li>
 </ol>
 
+### Social Interaction
+
+<ol className="srs-bullets">
+  <li>Users must be able to interact with published stories
+    <ol className='srs-bullets'>
+      <li> Users can comment on different features:
+        <ol className='srs-bullets'>
+          <li><strong>Users can comment on Entire Stories</strong></li>
+          <li><strong>Users can comment on Chapters</strong></li>
+          <li>Users can comment on Blocks</li>
+        </ol>
+      </li>
+      <li>Users can like differnet sections
+        <ol className='srs-bullets'>
+          <li><strong>Users can like Entire Stories</strong></li>
+          <li><strong>Users can like Chapters</strong></li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+</ol>
+
+### Sharing
+
+<ol className="srs-bullets">
+  <li>Users can share stories in different ways:
+      <ol className='srs-bullets'>
+        <li><strong>Users can share via Whatsapp</strong></li>
+        <li><strong>Users can share via Email</strong></li>
+        <li><strong>Users can share on Pinterest</strong></li>
+        <li><strong>Users can share on Facebook</strong></li>
+     </ol>
+    </li>
+    <li><strong>Users can export stories to PDF</strong></li>
+</ol>
+
+### Account Management
+
+<ol className="srs-bullets">
+  <li>The system must provide functionality that is specific to users that have an existing account:
+      <ol className='srs-bullets'>
+        <li>Users should be able to change their credentials
+          <ol className="srs-bullets">
+            <li><strong>Users should be able to change their password</strong></li>
+            <li><strong>Users should be able to change their email</strong></li>
+          </ol>
+        </li>
+        <li>Users should be able to update their infromation
+          <ol className="srs-bullets">
+            <li><strong>Users should be able to update bio</strong></li>
+            <li><strong>Users should be able to update name</strong></li>
+          </ol>
+        </li>
+        <li>Users should be able to delete their account</li>
+      </ol>
+    </li>
+
+</ol>
+
+### Offline Support
+
+<ol className="srs-bullets">
+  <li>Users can edit content while offline:
+      <ol className='srs-bullets'>
+        <li>Users can edit entire stories while offline</li>
+        <li>Users can edit specific chapters while offline</li>
+     </ol>
+  </li>
+  <li>Users can export content to a PDF:
+    <ol className='srs-bullets'>
+      <li><strong>Users can export a Story to a PDF</strong></li>
+      <li><strong>Users can export a Chapter to a PDF</strong></li>
+    </ol>
+  </li>
+   
+</ol>
+
 ## Architectural Requirements
 
 ### Quality Requirements
 
 <ol className="srs-bullets">
-  <li>Security
-    <ol className='srs-bullets'>
-      <li>Users can only access an account by entering the correct email and password</li>
-      <li>Passwords will be stored, salt added and hashed</li>
-      <li>Users cannot create an account until they have given a strong password</li>
-    </ol>
-  </li>
-  <li>Compatibility
+  <li><strong>Compatibility</strong>
+    <br></br>
+    compatibility is important to the application, in order to allow the growth of the community by lowering the barrier to entry.
     <ol className='srs-bullets'>
       <li>The app will be able to function across a variety of devices, web browsers and operating systems</li>
+      <li>Should be easy to use on a variety of screen sizes.</li>
     </ol>
+    <br></br>
+    In order to achieve high compatibility the app should be tested on a wide variety of browsers ,using playwright, a variaty of screen sizes and operating systems should also be targeted using github actions.
   </li>
-  <li>Reliability
-    <ol className='srs-bullets'>
-      <li>Testing and Performance
-        <ol className='src-bullets'>
-          <li>Thorough testing procedures using unit tests, integration tests and system tests to identify bugs before deployment using Playwright and vTest with atleast 90% coverage</li>
-          <li>Use of automated testing tools such as Google Lighthouse to test the systems performance and functionality.</li>
-          <li>The app must peform consistenly at all times.</li>
-          <li>The app must implement robust error handling mechanisms.</li>
-        </ol>
-      </li>
-      <li>Data Accuracy and Consistency
-        <ol className='src-bullets'>
-          <li>Implement data validation mechanisms to ensure that user input is accurate and consistent.</li>
-          <li>Enforce data validation rules and constraints at the application level to prevent invalid or incomplete data from entering the system.</li>
-          <li>Use transaction management techniques to maintain data integrity and consistency, such as atomicity, consistency, isolation, and durability (ACID) properties in database operations.</li>
-        </ol>
-      </li>
-    </ol>
-  </li>
-  <li>Efficiency
-    <ol className='srs-bullets'>
-      <li>The app will need to be fast and responsive</li>
-      <li>The app will not have unneccesary overhead that can cause delays</li>
-      <li>The app will need to have minimal load times and retrieval processes</li>
-    </ol>
-  </li>
-  <li>Usability
+  <li><strong>Usability</strong>
+    <br></br>
+    Usability is particularly important to us, as our app should be simple to use in order to allow the user to focus on what they really want to do, reading and writing.
     <ol className='srs-bullets'>
       <li>Clear and Intuitive Interface
         <ol className='srs-bullets'>
@@ -195,6 +233,44 @@ The rise of digital content consumption has created a demand for platforms that 
           <li>Use hierarchical menu structures, breadcrumbs, and navigation bars to provide clear pathways for users to navigate between different sections of the platform.</li>
         </ol>
       </li>
+    </ol>
+    <br></br>
+    Usability will be tested through visual testing with storybook.
+  </li>
+  <li><strong>Reliability</strong>
+    <ol className='srs-bullets'>
+      <li>Testing and Performance
+        <ol className='src-bullets'>
+          <li>Thorough testing procedures using unit tests, integration tests and system tests to identify bugs before deployment using Playwright and vitest with atleast 90% coverage for critical components</li>
+          <li>Use of automated testing tools such as Google Lighthouse to test the systems performance and functionality.</li>
+          <li>The app must peform consistenly at all times.</li>
+          <li>The app must implement robust error handling mechanisms.</li>
+        </ol>
+      </li>
+      <li>Data Accuracy and Consistency
+        <ol className='src-bullets'>
+          <li>Implement data validation mechanisms to ensure that user input is accurate and consistent.</li>
+          <li>Enforce data validation rules and constraints at the application level to prevent invalid or incomplete data from entering the system.</li>
+          <li>Use transaction management techniques to maintain data integrity and consistency, such as atomicity, consistency, isolation, and durability (ACID) properties in database operations.</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li><strong>Efficiency</strong>
+    <br></br>
+    <ol className='srs-bullets'>
+      <li>The app will need to be fast and responsive</li>
+      <li>The app will not have unneccesary overhead that can cause delays</li>
+      <li>The app will need to have minimal load times and retrieval processes</li>
+    </ol>
+  </li>
+  <li><strong>Security</strong>
+    <br></br>
+    As users may write about sensitive topics, we should strive to ensure confidentiality.
+    <ol className='srs-bullets'>
+      <li>Users can only access an account by entering the correct email and password</li>
+      <li>Passwords will be stored, salt added and hashed</li>
+      <li>Users cannot create an account until they have given a strong password</li>
     </ol>
   </li>
 </ol>
@@ -218,6 +294,22 @@ The Client-Server architecture for our project splits the application into two m
 ### View Story System
 
 ![View Story System](./images/ViewStoryUseCase.jpg)
+
+### Account Management System
+
+![Account Management System](./images/AccountManagementUsecase.jpg)
+
+### Social Interactions System
+
+![Social Interactions System](./images/SocialInteractionsUsecase.jpg)
+
+### Offline System
+
+![Offline System](./images/OfflineUseCase.jpg)
+
+### Stories Management System
+
+![Stories Management System](./images/StoriesUseCase.jpg)
 
 ## Technology Requirements
 
@@ -319,6 +411,10 @@ The Client-Server architecture for our project splits the application into two m
 
 ## User Stories
 
+#### A New Users Charachteristics
+
+Any user that has not made a WriteMe account before
+
 #### As a New User I would like to:
 
 <ul className='newUserStories'>
@@ -327,12 +423,21 @@ The Client-Server architecture for our project splits the application into two m
   <li>Sign up with an email and password so I can use all of WriteMe's features</li>
 </ul>
 
+#### A Guest Users Charachteristics
+
+Any user that would like to explore WriteMe to see what it is about before making an account
+
 #### As a Guest I would like to:
 
 <ul className='guestStories'>
   <li>View all of the published stories</li>
   <li>Read any of the published stories</li>
+  <li>Select a username so I can view that user's account information and stories by that user</li>
 </ul>
+
+#### An Existing Users Charachteristics
+
+Any user that has made a WriteMe account before
 
 #### As an Existing User I would like to:
 
@@ -340,6 +445,35 @@ The Client-Server architecture for our project splits the application into two m
   <li>Sign in with Google so it is faster and easier to sign in</li>
   <li>Sign in with GitHub so it is faster and easier to sign in</li>
   <li>Sign in with an email and password so I can use all of WriteMe's features</li>
+  <li>Select a username so I can view that user's account information and stories by that user</li>
+  <li>Enter a new username so I can change my current username</li>
+  <li>Change my password to a new password that I would prefer to use</li>
+  <li>Update my personal information on my profile so i can keep everything up to date</li>
+</ul>
+
+#### A Readers Charachteristics
+
+A WriteMe reader would be someone who devours stories and enjoys getting lost in new worlds. They'd likely be curious and have a strong imagination, appreciating the creativity of others. Active readers might leave comments, offering feedback and fostering connections with the writers. They'd also be open to discovering new voices and genres, making WriteMe a treasure trove for their reading adventures
+
+#### As a Reader I would like to
+
+<ul className='existingUserStories'>  
+  <li>View a story so I can read other peoples stories and get inspiration for some of my own stories</li>
+  <li>Like a story so I can show my appreciation for a good story</li>
+  <li>Comment on a story so I can share my thoughts and receive feedback from others</li>
+  <li>Share a story on WhatsApp so I can show others the story</li>
+  <li>The app to be a PWA that caches images and stories so I can read stories offline</li>
+  <li>Click a button that shares a story to Pinterest so I can share a story to Pinterest easily</li>
+  <li>Be able to comment on a chapter of a story so I can give an author feedback</li>
+</ul>
+
+#### A Writers Charachteristics
+
+A WriteMe writer would likely be someone with a passion for language and a desire to share their stories. They'd be creative and imaginative, able to craft compelling narratives and develop engaging characters. Patience and perseverance are key, as writers face rejection and refine their work. Additionally, a WriteMe writer would enjoy feedback and thrive in a community of fellow storytellers
+
+#### As a writer I would like to
+
+<ul className='existingUserStories'>
   <li>Select a story genre so I can create a story with this genre</li>
   <li>Publish my story so others can view and interact with it</li>
   <li>Save my story as a draft so I can carry on with it at another time without losing any of my story</li>
@@ -347,10 +481,9 @@ The Client-Server architecture for our project splits the application into two m
   <li>Add a title to my story so it is clear what the story is about</li>
   <li>Write my story in a helpful and easy to use editor so that my experience is fast, simple and enjoyable</li>
   <li>Add a cover image for my story so I can identify my different stories and associate them with cover images</li>
-  <li>View a story so I can read other peoples stories and get inspiration for some of my own stories</li>
-  <li>Like a story so I can show my appreciation for a good story</li>
-  <li>Comment on a story so I can share my thoughts and receive feedback from others</li>
-  <li>Share a story on WhatsApp so I can show others the story</li>
+  <li>Create a new chapter so I can have a multi-chapter story</li>
+  <li>A form so I can update a already created story's metadata</li>
+  <li>Share my editor in realtime so I can get help and feedback from other authors in realtime</li>
 </ul>
 
 ## Constraints
@@ -408,27 +541,31 @@ This endpoint allows the creation of a new user account.
 
 - **Method:** `POST`
 - **Path:** `/register`
-- **Body:** 
+- **Body:**
+
 ```json
 {
-"name": "string",
-"email": "string",
-"password": "string",
+  "name": "string",
+  "email": "string",
+  "password": "string"
 }
 ```
+
 **Response:**
 
 - **Success (200 OK):**
+
 ```json
-  {
-    "user": {
-      "name": "string",
-      "email": "string",
-    }
+{
+  "user": {
+    "name": "string",
+    "email": "string"
   }
+}
 ```
 
 - **Bad Request (400 Bad Request):**
+
 ```json
 {
   "status": "error",
@@ -438,6 +575,7 @@ This endpoint allows the creation of a new user account.
 ```
 
 - **Conflict (409 Conflict): Email already exists**
+
 ```json
 {
   "status": "fail",
@@ -446,6 +584,7 @@ This endpoint allows the creation of a new user account.
 ```
 
 - **Internal Server Error (500 Internal Server Error):**
+
 ```json
 {
   "status": "error",
@@ -466,24 +605,29 @@ This endpoint allows an authenticated user to update a story they own.
 - **Headers:**
   - `Authorization`: Bearer token containing user's session information
   - `Content-Type`: application/json
-- **Body:** 
+- **Body:**
+
 ```json
 {
   "story": {
     "id": "string"
   },
-  "content": "string", 
-  "brief": "string", 
-  "tite": "string", 
-  "description": "string", 
+  "content": "string",
+  "brief": "string",
+  "tite": "string",
+  "description": "string",
   "blocks": [],
   "published": true,
+  "cover": "string"
 }
 ```
+
 **Response:**
+
 - **Headers:**
   - `Content-Type`: application/json
 - **Body:**
+
 ```json
 {
   "story": {
@@ -505,26 +649,389 @@ This endpoint allows an authenticated user to create a new story.
 - **Headers:**
   - `Authorization`: Bearer token containing user's session information
   - `Content-Type`: application/json
-- **Body:** 
+- **Body:**
+
 ```json
 {
-"userId": "string", 
-"content": "string", 
-"brief": "string", 
-"tite": "string", 
-"description": "string", 
-"blocks": []
+  "userId": "string",
+  "content": "string",
+  "brief": "string",
+  "tite": "string",
+  "description": "string",
+  "blocks": [],
+  "cover": "string"
 }
 ```
+
 **Response:**
+
 - **Headers:**
   - `Content-Type`: application/json
 - **Body:**
+
 ```json
 {
   "story": {
     "id": "string"
   }
+}
+```
+
+### POST /chapter (Create a chapter)
+
+**Description:**
+
+This endpoint allows an authenticated user to create a new chapter for their story.
+
+**Request:**
+
+- **Method:** `POST`
+- **Path:** `/chapter`
+- **Headers:**
+  - `Authorization`: Bearer token containing user's session information
+  - `Content-Type`: application/json
+- **Body:**
+
+```json
+{
+  "storyId": "string",
+  "content": "string",
+  "brief": "string",
+  "tite": "string",
+  "description": "string",
+  "blocks": [],
+  "cover": "string"
+}
+```
+
+**Response:**
+
+- **Success (200 OK)**
+
+```json
+{
+  "chapterId": "string"
+}
+```
+
+- **Unauthenticated (401 Unauthorised)**
+
+```json
+{
+    "status": "fail", 
+    "message": "You are not logged in"
+}
+```
+
+- **Validation Error (400 Bad Request)**
+```json
+{
+    "status": "error",
+    "message": "Validation failed",
+    "errors": []
+}
+```
+- **Internal Server Error (500 Internal Server Error)**
+```json
+{
+    "status": "error",
+    "message": "Internal Server Error"
+}
+```
+
+### PUT /chapter (Update a chapter)
+
+**Description:**
+
+This endpoint allows an authenticated user to create a new chapter for their story.
+
+**Request:**
+
+- **Method:** `PUT`
+- **Path:** `/chapter`
+- **Headers:**
+  - `Authorization`: Bearer token containing user's session information
+  - `Content-Type`: application/json
+- **Body:**
+
+```json
+{
+  "content": "string",
+  "brief": "string",
+  "tite": "string",
+  "description": "string",
+  "blocks": [],
+  "cover": "string",
+  "order": 0
+}
+```
+
+**Response:**
+
+- **Success (200 OK)**
+
+```json
+{
+  "story": {
+    "chapterId": "string"
+  }
+}
+```
+
+- **Unauthenticated (401 Unauthorised)**
+
+```json
+{
+    "status": "fail", 
+    "message": "You are not logged in"
+}
+```
+
+- **Validation Error (400 Bad Request)**
+```json
+{
+    "status": "error",
+    "message": "Validation failed",
+    "errors": []
+}
+```
+- **Internal Server Error (500 Internal Server Error)**
+```json
+{
+    "status": "error",
+    "message": "Internal Server Error"
+}
+```
+
+### POST /likes (like/unlike a chapter/story):
+
+**Description:**
+
+This endpoint allows an authenticated user to like a chapter or story.
+
+**Request:**
+
+- **Method:** `POST`
+- **Path:** `/likes`
+- **Headers:**
+  - `Authorization`: Bearer token containing user's session information
+  - `Content-Type`: application/json
+- **Body:**
+
+```json
+{
+  "storyId": "string",
+  "chapterId": "string"
+}
+```
+
+**Response:**
+
+- **Success (200 OK)**
+
+```json
+{
+  "liked": true
+}
+```
+
+- **Unauthenticated (401 Unauthorised)**
+
+```json
+{
+    "status": "fail", 
+    "message": "You are not logged in"
+}
+```
+
+### POST /follow (follow/unfollow a user):
+
+**Description:**
+
+This endpoint allows an authenticated user to follow another user.
+
+**Request:**
+
+- **Method:** `POST`
+- **Path:** `/follow`
+- **Headers:**
+  - `Authorization`: Bearer token containing user's session information
+  - `Content-Type`: application/json
+- **Body:**
+
+```json
+{
+  "userId": "string",
+  "followedUser": "string"
+}
+```
+
+**Response:**
+
+- **Success (200 OK)**
+
+```json
+{
+  "followed": true
+}
+```
+
+- **Unauthenticated (401 Unauthorised)**
+
+```json
+{
+    "status": "fail", 
+    "message": "You are not logged in"
+}
+```
+
+- **Internal Server Error (500 Internal Server Error)**
+```json
+{
+    "status": "error",
+    "message": "Internal Server Error"
+}
+```
+
+### POST /comments (comment on a story or chapter):
+
+**Description:**
+
+This endpoint allows an authenticated comment on a story or chapter.
+
+**Request:**
+
+- **Method:** `POST`
+- **Path:** `/comments`
+- **Headers:**
+  - `Authorization`: Bearer token containing user's session information
+  - `Content-Type`: application/json
+- **Body:**
+
+```json
+{
+  "userId": "string",
+  "storyId": "string",
+  "chapterId": "string",
+  "content": "string"
+}
+```
+
+**Response:**
+
+- **Success (200 OK)**
+
+```json
+{
+  "commentId": "string",
+  "content": "string"
+}
+```
+
+- **Unauthenticated (401 Unauthorised)**
+
+```json
+{
+    "status": "fail", 
+    "message": "You are not logged in"
+}
+```
+
+- **Internal Server Error (500 Internal Server Error)**
+```json
+{
+    "status": "error",
+    "message": "Internal Server Error"
+}
+```
+
+### POST /export/chapter (export chapter to pdf):
+
+**Description:**
+
+This endpoint allows an authenticated user to export a chapter to pdf.
+
+**Request:**
+
+- **Method:** `POST`
+- **Path:** `/export/chapter`
+- **Headers:**
+  - `Authorization`: Bearer token containing user's session information
+  - `Content-Type`: application/json
+- **Body:**
+
+```json
+{
+  "id": "string",
+}
+```
+
+**Response:**
+
+- **Success (200 OK)**
+
+- **Headers:**
+  - `Content-Type`: application/pdf
+
+- **Unauthenticated (401 Unauthorised)**
+
+```json
+{
+    "status": "fail", 
+    "message": "You are not logged in"
+}
+```
+
+- **Internal Server Error (500 Internal Server Error)**
+```json
+{
+    "status": "error",
+    "message": "Internal Server Error"
+}
+```
+
+### POST /export/story (export story to pdf):
+
+**Description:**
+
+This endpoint allows an authenticated user to export a story to pdf.
+
+**Request:**
+
+- **Method:** `POST`
+- **Path:** `/export/chapter`
+- **Headers:**
+  - `Authorization`: Bearer token containing user's session information
+  - `Content-Type`: application/json
+- **Body:**
+
+```json
+{
+  "id": "string",
+}
+```
+
+**Response:**
+
+- **Success (200 OK)**
+
+  - **Headers:**
+    - `Content-Type`: application/pdf
+
+- **Unauthenticated (401 Unauthorised)**
+
+```json
+{
+    "status": "fail", 
+    "message": "You are not logged in"
+}
+```
+
+- **Internal Server Error (500 Internal Server Error)**
+```json
+{
+    "status": "error",
+    "message": "Internal Server Error"
 }
 ```
 

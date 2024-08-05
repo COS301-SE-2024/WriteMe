@@ -13,7 +13,7 @@ import BookCover from '../../../assets/temp-cover2.jpg';
 import * as dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { auth } from 'apps/writeme/auth';
-import { getMyDrafts, getUserStories } from 'apps/writeme/services/stories';
+import { getMyDrafts, getUserBookmarkedStories, getUserStories } from 'apps/writeme/services/stories';
 import FollowButton from 'apps/writeme/components/follow-button';
 import { isFollowing } from '../../../services/users';
 
@@ -28,6 +28,7 @@ dayjs.extend(relativeTime);
 export default async function User(props: UserProps) {
   const user = await getUser(props.params.username);
   const stories = await getUserStories(props.params.username);
+  const bookmarkedStories = await getUserBookmarkedStories(props.params.username)
 
   const session = await auth()
   if (session?.user){
@@ -97,7 +98,7 @@ export default async function User(props: UserProps) {
               </Card>
             ))}
           </BentoGrid>
-          {session?.user?.id == props.params.username ?<><h2 className="text-2xl font-bold mb-6">Drafts</h2>
+          {session?.user?.id == props.params.username ? <><h2 className="text-2xl font-bold mb-6">Drafts</h2>
           <BentoGrid className="max-w-6xl mx-auto md:auto-rows-[20rem]">
             {drafts.map((story, i) => (
               <Card
@@ -119,6 +120,37 @@ export default async function User(props: UserProps) {
                       <CardDescription>{dayjs(story.createdAt).fromNow()}</CardDescription>
                       <Button asChild variant="default">
                         <Link href={`/stories/${story.id}`}>
+                          <div className="flex gap-1 items-center"><BookOpenText size="1rem"/> Read</div>
+                        </Link>
+                      </Button>
+                    </div>
+                  </div>
+                </CardHeader>
+              </Card>
+            ))}
+          </BentoGrid></>:<></>}
+          {session?.user?.id == props.params.username ? <><h2 className="text-2xl font-bold mb-6">Bookmarks</h2>
+          <BentoGrid className="max-w-6xl mx-auto md:auto-rows-[20rem]">
+            {bookmarkedStories.map((bookmarkedStory, i) => (
+              <Card
+                className={cn('row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-white border border-transparent justify-between flex flex-col space-y-4', i === 3 || i === 6 ? "md:col-span-2" : "")}
+                key={bookmarkedStory.story.id}
+              >
+                <CardHeader>
+                  <div className='flex gap-2 justify-evenly'>
+                    <div className='relative aspect-[3/4] h-40'>
+                      <img
+                        alt='Book Cover'
+                        src={bookmarkedStory.story.cover || BookCover} // Use story cover if available
+                        layout='fill'
+                        objectFit='cover'
+                      />
+                    </div>
+                    <div className='pl-3 flex flex-col gap-2 justify-between'>
+                      <CardTitle>{bookmarkedStory.story.title}</CardTitle>
+                      <CardDescription>{dayjs(bookmarkedStory.story.createdAt).fromNow()}</CardDescription>
+                      <Button asChild variant="default">
+                        <Link href={`/stories/${bookmarkedStory.story.id}`}>
                           <div className="flex gap-1 items-center"><BookOpenText size="1rem"/> Read</div>
                         </Link>
                       </Button>

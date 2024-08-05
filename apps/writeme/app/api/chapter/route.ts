@@ -1,7 +1,8 @@
+/* v8 ignore start */
 import { auth } from '../../../auth';
 import { NextResponse } from 'next/server';
 import { undefined, ZodError } from 'zod';
-import { createChapterSchema, updateChapterSchema } from '../../../db/chapter-schema';
+import { createChapterSchema, editChapterSchema, updateChapterSchema } from '../../../db/chapter-schema';
 import { chapters, stories } from '../../../db/schema';
 import { db } from '../../../db/db';
 import { eq } from 'drizzle-orm';

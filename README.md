@@ -35,18 +35,27 @@
 We are Dynasty Devs and our project is WriteMe.
 WriteMe is an innovative platform revolutionizing collaborative writing. Our application integrates Natural Language Processing to offer writers tools for enhancing narrative structures, character development, and emotional impact. Think of it as a GitHub for writers where users can share and create their stories with community support and enjoy reading stories all in one convenient place. By using AI and creating a vibrant and social writing community, WriteMe transforms the solitary act of writing into a collaborative and expressive experience which can unlock further creative expression and brilliance.
 
-<p align = "center">Click here to visit our website: <a href="https://writeme.co.za/"> WriteMe </a>
+<p text-align="center">Click here to visit our website: <a href="https://writeme.co.za/"> WriteMe </a>
 
-## Demo Video
+## Demo Video 📹
 
-Here is a link to our Demo Video: [Google Drive](https://drive.google.com/file/d/14VCYFlI73uEyd8mLj_MsaBLnmQEUSglQ/view?usp=sharing) [YouTube](https://youtu.be/59M9FxcLfG0)
+Demo 1: [Google Drive](https://drive.google.com/file/d/14VCYFlI73uEyd8mLj_MsaBLnmQEUSglQ/view?usp=sharing) [YouTube](https://youtu.be/59M9FxcLfG0)
+
+Demo 2: [Google Drive](https://drive.google.com/file/d/1z1VcJblKExrX3pqxpPHeLQD5jxEAhosH/view?usp=sharing) [YouTube](https://youtu.be/tdMjbTVo7X8)
 
 ## Documentation
 <div><a href="https://docs.writeme.co.za/docs/software-requirements-specification">🧾 SRS Document</a></div>
-<div><a href="https://writeme-docs.pages.dev/">🧾 SRS Document (Cloudflare Domain)</a></div>
+<div><a href="https://writeme-docs.pages.dev/docs/software-requirements-specification">🧾 SRS Document (Backup if Blocked)</a></div>
+<div><a href="https://docs.writeme.co.za/docs/User">🧾 User Manual</a></div>
+<div><a href="https://github.com/COS301-SE-2024/WriteMe/blob/dev/apps/writeme-docs/static/pdfs/User%20Manual.pdf">🧾 User Manual (Backup if Blocked)</a></div>
+<div><a href="https://docs.writeme.co.za/docs/architectural-requirements">🧾 Architectural Requirements</a></div>
+<div><a href="https://github.com/COS301-SE-2024/WriteMe/blob/dev/apps/writeme-docs/static/pdfs/Architectural_Requirements.pdf">🧾 Architectural Requirements (Backup if blocked)</a></div>
+<div><a href="https://docs.writeme.co.za/docs/coding-standards">🧾 Coding Standards</a></div>
 <div><a href="https://docs.writeme.co.za/docs/guides/branching-strategy">🧾 Branching Strategy</a></div>
 <div><a href="https://docs.writeme.co.za/docs/guides/testing">🧾 Testing</a></div>
 <div><a href="https://storybook.writeme.co.za/?path=/story/stories-accordion--primary">🧾 Storybook</a></div>
+
+<div><a href="https://docs.writeme.co.za/pdfs/SRSv1.pdf">🧾 SRS Document v1</a></div>
 
 ## Project Management
 

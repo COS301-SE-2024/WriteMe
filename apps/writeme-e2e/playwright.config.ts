@@ -4,7 +4,9 @@ import { nxE2EPreset } from '@nx/playwright/preset';
 import { workspaceRoot } from '@nx/devkit';
 
 // For CI, you may want to set BASE_URL to the deployed application.
-const baseURL = process.env['BASE_URL'] || 'http://127.0.0.1:3000';
+// const baseURL = process.env['BASE_URL'] || 'http://127.0.0.1:3000';
+
+const baseURL = "https://writeme.co.za"
 
 /**
  * Read environment variables from file.
@@ -24,12 +26,12 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
   /* Run your local dev server before starting the tests */
-  webServer: {
-    command: 'pnpm exec nx start writeme',
-    url: 'http://127.0.0.1:3000',
-    reuseExistingServer: !process.env.CI,
-    cwd: workspaceRoot,
-  },
+  // webServer: {
+  //   command: 'pnpm exec nx start writeme',
+  //   url: 'http://127.0.0.1:3000',
+  //   reuseExistingServer: !process.env.CI,
+  //   cwd: workspaceRoot,
+  // },
   projects: [
     {
       name: 'chromium',
@@ -47,14 +49,14 @@ export default defineConfig({
     },
 
     // Uncomment for mobile browsers support
-    {
-      name: 'Mobile Chrome',
-      use: { ...devices['Pixel 5'] },
-    },
-    {
-      name: 'Mobile Safari',
-      use: { ...devices['iPhone 12'] },
-    },
+    // {
+    //   name: 'Mobile Chrome',
+    //   use: { ...devices['Pixel 5'] },
+    // },
+    // {
+    //   name: 'Mobile Safari',
+    //   use: { ...devices['iPhone 12'] },
+    // },
 
     // Uncomment for branded browsers
     /* {

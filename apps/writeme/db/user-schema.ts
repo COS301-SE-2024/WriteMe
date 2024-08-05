@@ -1,5 +1,4 @@
 import { TypeOf, object, string } from 'zod';
-import { getUser } from '../services/users';
 
 export const createUserSchema = object({
   name: string({ required_error: 'Name is required' }).min(
@@ -11,7 +10,6 @@ export const createUserSchema = object({
     .email('Invalid email'),
   photo: string().optional(),
   password: string({ required_error: 'Password is required' })
-    .min(1, 'Password is required')
     .min(8, 'Password must be more than 8 characters')
     .max(32, 'Password must be less than 32 characters'),
   passwordConfirm: string({
@@ -62,7 +60,11 @@ export const updateUserSchemaOAuth = object({
 })
 
 export const followerUserSchema = object({
-  userId: string({ required_error: 'User ID required'})
+  userId: string({ required_error: 'User ID required' })
+})
+
+export const bookmarkUserSchema = object({
+  storyId: string({ required_error: 'Story ID required' })
 })
 
 export type LoginUserInput = TypeOf<typeof loginUserSchema>;
