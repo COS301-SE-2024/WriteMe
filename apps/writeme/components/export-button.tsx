@@ -8,7 +8,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@radix-ui/react-tooltip";
+} from "@writeme/wmc/lib/ui/tooltip";
 
 interface ExportButtonProps {
   storyId: string;
@@ -121,7 +121,6 @@ export default function ExportButton({storyId, chapterId}: ExportButtonProps){
         <TooltipContent
           side="right"
           sideOffset={5}
-          className="text-white bg-[#2A303A] p-2 rounded-md shadow-lg"
         >
           <p>Export this story to a pdf</p>
         </TooltipContent>

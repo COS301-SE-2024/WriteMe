@@ -3,7 +3,7 @@
 import * as React from "react"
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@radix-ui/react-tooltip"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@writeme/wmc/lib/ui/tooltip"
 
 import { Button } from "./button"
 import {
@@ -30,7 +30,6 @@ export function ModeToggle() {
                 <TooltipContent
                   side="bottom"
                   sideOffset={15}
-                  className="text-white bg-[#2A303A] p-2 rounded-md shadow-lg"
                 >
                   Theme Switcher
                 </TooltipContent>

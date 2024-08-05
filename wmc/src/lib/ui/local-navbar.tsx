@@ -11,7 +11,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@writeme/wmc/lib/ui/pop
 import { useOnborda } from 'onborda';
 import { useEffect } from 'react';
 import { CircleHelp } from 'lucide-react';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@radix-ui/react-tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@writeme/wmc/lib/ui/tooltip';
 
 
 const LocalNavbar = () => {
@@ -54,7 +54,7 @@ const LocalNavbar = () => {
                   <CircleHelp />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent side='bottom' sideOffset={8} className='text-white bg-[#2A303A] p-2 rounded-sm shadow-lg'>
+              <TooltipContent side='bottom' sideOffset={8}>
                 <p>Click to start onboarding</p>
               </TooltipContent>
             </Tooltip>

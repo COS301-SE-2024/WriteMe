@@ -22,7 +22,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger
-} from "@radix-ui/react-tooltip";
+} from "@writeme/wmc/lib/ui/tooltip";
 
 export interface ShareProps{
   link:string,
@@ -57,7 +57,6 @@ export function ShareStory({link, message}: ShareProps) {
           <TooltipContent
             side="right"
             sideOffset={5}
-            className="text-white bg-[#2A303A] p-2 rounded-md shadow-lg"
           >
             <p>Share this story</p>
           </TooltipContent>

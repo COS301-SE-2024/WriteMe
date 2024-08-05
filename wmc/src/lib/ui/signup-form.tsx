@@ -15,7 +15,7 @@ import { CreateUserInput, createUserSchema} from '../../../../apps/writeme/db/us
 import { signIn } from 'next-auth/react';
 import { useToast } from '@writeme/wmc/lib/ui/use-toast';
 import { Button } from '@writeme/wmc';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from '@radix-ui/react-tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from '@writeme/wmc/lib/ui/tooltip';
 
 
 export function SignupFormDemo() {
@@ -109,7 +109,7 @@ export function SignupFormDemo() {
                   {...register("password")} 
                 />
               </TooltipTrigger>
-              <TooltipContent side='right' sideOffset={40} className='text-white bg-[#2A303A] p-2 rounded-md shadow-lg'>
+              <TooltipContent side='right' sideOffset={40}>
                 <p>Should contain: </p>
                 <p>• More than 8 characters</p>
                 <p>• Less than 32 characters</p>

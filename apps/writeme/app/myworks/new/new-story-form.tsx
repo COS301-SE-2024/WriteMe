@@ -18,7 +18,7 @@ import { Textarea } from '@writeme/wmc/lib/ui/textarea';
 import { signIn } from 'next-auth/react';
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
 import { useRouter } from 'next/navigation';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@radix-ui/react-tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@writeme/wmc/lib/ui/tooltip';
 
 
 const NewStoryForm = () => {
@@ -100,7 +100,7 @@ const NewStoryForm = () => {
                       <Input id="onborda-new-story-title" placeholder={"A really good title"} {...field} />
                     </FormControl>
                   </TooltipTrigger>
-                  <TooltipContent side='right' sideOffset={5} className='text-white bg-[#2A303A] p-2 rounded-md shadow-lg'>
+                  <TooltipContent side='right' sideOffset={5}>
                     This is the title of your story
                   </TooltipContent>
                 </Tooltip>
@@ -126,7 +126,6 @@ const NewStoryForm = () => {
                     <TooltipContent
                       side='right'
                       sideOffset={5}
-                      className='text-white bg-[#2A303A] p-2 rounded-md shadow-lg'
                     >
                       <p>A very short description of your story</p>
                     </TooltipContent>
@@ -156,7 +155,6 @@ const NewStoryForm = () => {
                     <TooltipContent
                       side="right"
                       sideOffset={5}
-                      className="text-white bg-[#2A303A] p-2 rounded-md shadow-lg"
                     >
                       <p>A longer description of your story</p>
                     </TooltipContent>
