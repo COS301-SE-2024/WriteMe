@@ -29,6 +29,10 @@ readme = 'README.md'
   gramformer = {git = "https://github.com/PrithivirajDamodaran/Gramformer.git"}
   pydantic = "^2.8.2"
   transformers = "^4.43.1"
+  language-tool-python = "^2.8"
+  nltk = "^3.8.1"
+  parrot = {git = "https://github.com/PrithivirajDamodaran/Parrot_Paraphraser.git"}
+  flair = "^0.14.0"
 
   [tool.poetry.group.dev.dependencies]
   autopep8 = "2.0.2"
