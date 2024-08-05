@@ -186,9 +186,29 @@ export const storiesRelations = relations(stories, ({ one, many }) => ({
   comments: many(comments),
   likes: many(likes),
   bookmarkedBy: many(userBookmarks),
-  genres: many(storyGenres)
+  genres: many(storyGenres),
 }));
 
+
+export const versions = pgTable('versions', {
+  chapterId: text("chapter_id").notNull(),
+  blocks: jsonb('blocks'),
+  createdAt: timestamp("created_at", {
+    mode: 'date',
+    precision: 3
+  }).defaultNow().notNull(),
+}, (t) => ({
+  pk: primaryKey({
+    columns: [t.chapterId, t.createdAt]
+  })
+}))
+
+export const versionRelations = relations(versions, ({one}) => ({
+  chapter: one(chapters, {
+    fields: [versions.chapterId],
+    references: [chapters.id]
+  })
+}))
 
 // @ts-ignore
 export const chapters = pgTable('chapter', {
@@ -214,7 +234,8 @@ export const chaptersRelations = relations(chapters, ({ one, many }) => ({
     references: [stories.id]
   }),
   comments: many(comments),
-  likes: many(likes)
+  likes: many(likes),
+  versions: many(versions)
 }));
 
 
