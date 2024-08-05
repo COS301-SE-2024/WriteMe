@@ -18,6 +18,8 @@ import { Textarea } from '@writeme/wmc/lib/ui/textarea';
 import { signIn } from 'next-auth/react';
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
 import { useRouter } from 'next/navigation';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@radix-ui/react-tooltip';
+
 
 const NewStoryForm = () => {
   const form = useForm<z.infer<typeof createStorySchema>>({
@@ -84,59 +86,88 @@ const NewStoryForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mx-auto max-w-sm mt-8">
-        <FormField
+      <FormField
           control={form.control}
-          render={({field})=> (
+          name="title"
+          render={({ field }) => (
             <FormItem>
-              <FormLabel>Title *</FormLabel>
-              <FormControl>
-                <Input id="onborda-new-story-title" placeholder={"A really good title"} {...field}></Input>
-              </FormControl>
-              <FormDescription>
-                This is the title of your story.
-              </FormDescription>
-              <FormMessage></FormMessage>
+              <FormLabel>Title </FormLabel>
+              <FormLabel className='text-red-500'>*</FormLabel>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <FormControl>
+                      <Input id="onborda-new-story-title" placeholder={"A really good title"} {...field} />
+                    </FormControl>
+                  </TooltipTrigger>
+                  <TooltipContent side='right' sideOffset={5} className='text-white bg-[#2A303A] p-2 rounded-md shadow-lg'>
+                    This is the title of your story
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+              <FormMessage />
             </FormItem>
           )}
-          name="title"
-        >
-        </FormField>
-
+        />
         <FormField
           control={form.control}
-          render={({field})=> (
+          render={({ field }) => (
             <FormItem>
               <FormLabel>Brief</FormLabel>
               <FormControl>
-                <Input placeholder={"short, sweet, impactful"} {...field}></Input>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Input
+                        placeholder={"short, sweet, impactful"}
+                        {...field}
+                      />
+                    </TooltipTrigger>
+                    <TooltipContent
+                      side='right'
+                      sideOffset={5}
+                      className='text-white bg-[#2A303A] p-2 rounded-md shadow-lg'
+                    >
+                      <p>A very short description of your story</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </FormControl>
-              <FormDescription>
-                A very short description of your story.
-              </FormDescription>
-              <FormMessage></FormMessage>
+              <FormMessage />
             </FormItem>
           )}
           name="brief"
-        >
-        </FormField>
+        />
 
         <FormField
           control={form.control}
-          render={({field})=> (
+          render={({ field }) => (
             <FormItem>
               <FormLabel>Description</FormLabel>
               <FormControl>
-                <Textarea placeholder="A slightly longer description of your story, to give the reader a feel for it." {...field}></Textarea>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Textarea
+                        placeholder="A slightly longer description of your story, to give the reader a feel for it."
+                        {...field}
+                      />
+                    </TooltipTrigger>
+                    <TooltipContent
+                      side="right"
+                      sideOffset={5}
+                      className="text-white bg-[#2A303A] p-2 rounded-md shadow-lg"
+                    >
+                      <p>A longer description of your story</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </FormControl>
-              <FormDescription>
-                A longer description of your story.
-              </FormDescription>
-              <FormMessage></FormMessage>
+              <FormMessage />
             </FormItem>
           )}
           name="description"
-        >
-        </FormField>
+        />
 
         <Button id="onborda-new-story-create" type="submit">Create Story</Button>
       </form>
