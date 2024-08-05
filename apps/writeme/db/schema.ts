@@ -16,6 +16,8 @@ import {
 import type { AdapterAccountType } from 'next-auth/adapters';
 import { relations, sql } from 'drizzle-orm';
 
+export { nextUploadAssetsTable } from 'next-upload/store/drizzle/postgres-js';
+
 // @ts-ignore
 export const users = pgTable('user', {
   id: text('id')
@@ -187,11 +189,30 @@ export const storiesRelations = relations(stories, ({ one, many }) => ({
   }),
   comments: many(comments),
   likes: many(likes),
-  bookmarkedBy: many(userBookmarks)
-  // tags: many(tags),
-  // genres: many(genres)
+  bookmarkedBy: many(userBookmarks),
+  genres: many(storyGenres),
 }));
 
+
+export const versions = pgTable('versions', {
+  chapterId: text("chapter_id").notNull(),
+  blocks: jsonb('blocks'),
+  createdAt: timestamp("created_at", {
+    mode: 'date',
+    precision: 3
+  }).defaultNow().notNull(),
+}, (t) => ({
+  pk: primaryKey({
+    columns: [t.chapterId, t.createdAt]
+  })
+}))
+
+export const versionRelations = relations(versions, ({one}) => ({
+  chapter: one(chapters, {
+    fields: [versions.chapterId],
+    references: [chapters.id]
+  })
+}))
 
 // @ts-ignore
 export const chapters = pgTable('chapter', {
@@ -218,6 +239,7 @@ export const chaptersRelations = relations(chapters, ({ one, many }) => ({
   }),
   comments: many(comments),
   likes: many(likes),
+  versions: many(versions),
   notepads: many(notepads)
 }));
 
@@ -320,10 +342,10 @@ export const likesRelations = relations(likes, ({ one }) => ({
 
 
 
-// export const genres = pgTable('genres', {
-//   id: serial('id').primaryKey(),
-//   genre: text('genre').notNull(),
-// });
+export const genres = pgTable('genres', {
+  id: text('id').primaryKey(),
+  genre: text('genre').notNull(),
+});
 //
 // export const tags = pgTable('tags', {
 //   id: serial('id').primaryKey(),
@@ -334,23 +356,23 @@ export const likesRelations = relations(likes, ({ one }) => ({
 //   stories: many(storyTags),
 // }));
 
-// export const storyGenres = pgTable('story_genres', {
-//   storyId: text('story_id').references(() => stories.id).notNull(),
-//   genreId: serial('genre_id').references(() => genres.id).notNull(),
-// },
-// (t) => ({
-//   pk: primaryKey({columns: [t.storyId, t.genreId]})
-// })
-// );
+export const storyGenres = pgTable('story_genres', {
+  storyId: text('story_id').references(() => stories.id).notNull(),
+  genreId: text('genre_id').references(() => genres.id).notNull(),
+},
+(t) => ({
+  pk: primaryKey({columns: [t.storyId, t.genreId]})
+})
+);
 //
-// export const genreRelations = relations(genres, ({many}) => ({
-//   stories: many(storyGenres),
-// }));
+export const genreRelations = relations(genres, ({many}) => ({
+  stories: many(storyGenres),
+}));
 //
-// export const storyGenreRelations = relations(storyGenres, ({one}) => ({
-//   stories: one(stories, {fields: [storyGenres.storyId], references: [stories.id]}),
-//   genres: one(genres, {fields: [storyGenres.genreId], references: [genres.id]}),
-// }));
+export const storyGenreRelations = relations(storyGenres, ({one}) => ({
+  stories: one(stories, {fields: [storyGenres.storyId], references: [stories.id]}),
+  genres: one(genres, {fields: [storyGenres.genreId], references: [genres.id]}),
+}));
 //
 // export const storyTags = pgTable('story_tags', {
 //   storyId: text('story_id').references(() => stories.id).notNull(),

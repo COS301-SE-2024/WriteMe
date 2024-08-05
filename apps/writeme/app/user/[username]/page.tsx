@@ -120,7 +120,7 @@ export default async function User(props: UserProps) {
                       <CardTitle>{story.title}</CardTitle>
                       <CardDescription>{dayjs(story.createdAt).fromNow()}</CardDescription>
                       <Button asChild variant="default">
-                        <Link href={`/stories/${story.id}`}>
+                        <Link href={`/myworks/${story.id}`}>
                           <div className="flex gap-1 items-center"><BookOpenText size="1rem"/> Read</div>
                         </Link>
                       </Button>
@@ -132,7 +132,7 @@ export default async function User(props: UserProps) {
           </BentoGrid></>:<></>}
           {session?.user?.id == props.params.username ? <><h2 className="text-2xl font-bold mb-6">Bookmarks</h2>
           <BentoGrid className="max-w-6xl mx-auto md:auto-rows-[20rem]">
-            {bookmarkedStories.map((bookmarkedStory, i) => (
+            { bookmarkedStories.length > 0 ? bookmarkedStories.map((bookmarkedStory, i) => (
               <Card
                 className={cn('row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-white border border-transparent justify-between flex flex-col space-y-4', i === 3 || i === 6 ? "md:col-span-2" : "")}
                 key={bookmarkedStory.story.id}
@@ -159,7 +159,7 @@ export default async function User(props: UserProps) {
                   </div>
                 </CardHeader>
               </Card>
-            ))}
+            )): <p>You currently have no bookmarks.</p>}
           </BentoGrid></>:<></>}
         </div>
       </div>

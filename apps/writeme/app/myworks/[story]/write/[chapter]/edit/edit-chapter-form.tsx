@@ -21,7 +21,7 @@ export default function EditChapterForm(props: EditChapterFormProps) {
   const handleUpdate = async (data: EditChapterInput) => {
 
     try {
-      console.log(data)
+      // console.log(data)
       const res = await fetch('/api/chapter', {
         method: 'PUT',
         body: JSON.stringify(data),
@@ -75,9 +75,17 @@ export default function EditChapterForm(props: EditChapterFormProps) {
       }}
       values={{
         title: props.chapter.title,
-        description: props.chapter.description,
-        published: props.chapter.published,
-        brief: props.chapter.brief
+        description: props.chapter.description || "",
+        published: props.chapter.published || false,
+        brief: props.chapter.brief || ""
+      }}
+      fieldConfig={{
+        brief: {
+          fieldType: "textarea"
+        },
+        description: {
+          fieldType: "textarea"
+        }
       }}
     >
 

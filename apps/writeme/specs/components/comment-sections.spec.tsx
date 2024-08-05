@@ -80,7 +80,7 @@ describe('Comment Section', () => {
         createdAt: "",
         author: {
           id: "1",
-          username: "Test User",
+          name: "Test User",
           image: ""
         }
       }

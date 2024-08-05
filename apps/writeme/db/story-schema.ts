@@ -21,3 +21,9 @@ export const updateStorySchema = object({
   genre: array(z.any(), {}).optional(),
   tags: array(z.any(), {}).optional(),
 })
+
+
+export const updateStoryCoverSchema = object({
+  id : string({required_error: "a story id is required"}),
+  cover: string({required_error: "a new cover is required"}).url("cover should be a url to an image resource")
+})

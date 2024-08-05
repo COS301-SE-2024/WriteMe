@@ -110,7 +110,7 @@ export default function CommentSection({
           <div className="flex gap-2 items-start justify-start">
             <Avatar className="mt-3">
               <AvatarImage src={c.author.image} />
-              <AvatarFallback>{c.author.username}</AvatarFallback>
+              <AvatarFallback>{c.author.name}</AvatarFallback>
             </Avatar>
             <div>
               <div className="flex items-center gap-1">
@@ -118,7 +118,7 @@ export default function CommentSection({
                   href={`/user/${c.author.id}`}
                   className={cn(buttonVariants({ variant: 'link' }), 'p-0')}
                 >
-                  {c.author.username}
+                  {c.author.name}
                 </Link>
                 <span>·</span>
                 <span className="text-primary text-sm">

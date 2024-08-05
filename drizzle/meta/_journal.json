@@ -57,6 +57,13 @@
       "when": 1717788305219,
       "tag": "0006_tranquil_paper_doll",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1721233513192,
+      "tag": "0008_luxuriant_roulette",
+      "breakpoints": true
     }
   ]
 }
