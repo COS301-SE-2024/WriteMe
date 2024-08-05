@@ -7,7 +7,11 @@ import { and, eq, not } from 'drizzle-orm';
 export async function getUser(id: string) {
 
   const result = await db.query.users.findFirst({
-    where: (users, {eq}) => eq(users.id, id)
+    where: (users, {eq}) => eq(users.id, id),
+    with: {
+      following: true,
+      followers: true
+    }
   })
 
   return result

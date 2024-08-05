@@ -52,10 +52,9 @@ export default async function User(props: UserProps) {
           <FollowButton userId={props.params.username} following={following} />}
           <div className='flex mx-12 mb-3'>
             <IconUser />
-            <a className='font-bold mx-2'>3 </a>
-            <a className='text-gray-500'>followers</a>
-            {/* user.followers.length === 1 ? "follower" : "followers" */}
-            <a className='font-bold mx-2'>2 </a>
+            <a className='font-bold mx-2'>{user?.followers.length}</a>
+            <a className='text-gray-500'>{user?.followers.length === 1 ? "follower" : "followers"}</a>
+            <a className='font-bold mx-2'>{user?.following.length}</a>
             <a className='text-gray-500'>following</a>
           </div>
           <div className="border-t border-gray-300 my-5 mx-6 w-full"></div>
