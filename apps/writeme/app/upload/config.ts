@@ -3,7 +3,7 @@ import { NextUpload } from 'next-upload';
 
 export const config: NextUploadConfig = {
   maxSize: '1mb',
-  bucket: NextUpload.bucketFromEnv('my-project-name'),
+  bucket: NextUpload.bucketFromEnv('writeme'),
   client: {
     region: process.env.S3_REGION,
     endpoint: process.env.S3_ENDPOINT,
