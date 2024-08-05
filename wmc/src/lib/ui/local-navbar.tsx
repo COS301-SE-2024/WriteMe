@@ -14,6 +14,7 @@ import { CircleHelp } from 'lucide-react';
 import { Search } from 'lucide-react';
 import { SearchModal } from '@writeme/wmc/lib/ui/search-modal'
 
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@writeme/wmc/lib/ui/tooltip';
 
 
 const LocalNavbar = () => {
@@ -48,7 +49,20 @@ const LocalNavbar = () => {
       </div>
 
       {pathname == '/myworks' || pathname.startsWith('/writeathons') || pathname.startsWith('/stories') || pathname == "/myworks/new" ? (<div className="flex gap-2 items-center">
-        {session ? <Button onClick={() => startOnborda()}><CircleHelp /></Button> : <></>}
+        {session ? (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Button onClick={() => startOnborda()}>
+                  <CircleHelp />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side='bottom' sideOffset={8}>
+                <p>Click to start Tutorial</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        ) : null}
         {session ? (<Link href="/myworks"
                        className={cn(buttonVariants({ variant: 'link' }), pathname == '/myworks' ? 'underline' : '')}>My
           Stories</Link>) : <></>}
@@ -69,7 +83,7 @@ const LocalNavbar = () => {
       <div className="flex items-center gap-4">
         { pathname == "/" ? <Link href="/stories" className={buttonVariants({ variant: 'link' })}>Explore</Link> : <></>}
 
-        
+
 
 
         <ModeToggle></ModeToggle>
