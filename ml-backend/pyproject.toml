@@ -1,0 +1,47 @@
+[tool.coverage.run]
+branch = true
+source = [ "ml_backend" ]
+
+[tool.coverage.report]
+exclude_lines = ['if TYPE_CHECKING:']
+show_missing = true
+
+[tool.pytest.ini_options]
+addopts = "--cov --cov-report html:'../coverage/ml-backend/html' --cov-report xml:'../coverage/ml-backend/coverage.xml' --html='../reports/ml-backend/unittests/html/index.html' --junitxml='../reports/ml-backend/unittests/junit.xml'"
+
+[tool.poetry]
+name = "ml_backend"
+version = "1.0.0"
+description = "NLP and AI python backend"
+authors = [ ]
+license = 'Proprietary'
+readme = 'README.md'
+
+  [[tool.poetry.packages]]
+  include = "ml_backend"
+
+  [tool.poetry.dependencies]
+  python = ">=3.9,<3.11"
+  torch = "^2.3.1"
+  uvicorn = "^0.30.3"
+  fastapi = "^0.111.1"
+  spacy = "^3.7.5"
+  gramformer = {git = "https://github.com/PrithivirajDamodaran/Gramformer.git"}
+  pydantic = "^2.8.2"
+  transformers = "^4.43.1"
+  language-tool-python = "^2.8"
+  nltk = "^3.8.1"
+  parrot = {git = "https://github.com/PrithivirajDamodaran/Parrot_Paraphraser.git"}
+  flair = "^0.14.0"
+
+  [tool.poetry.group.dev.dependencies]
+  autopep8 = "2.0.2"
+  flake8 = "6.0.0"
+  pytest = "7.3.1"
+  pytest-sugar = "0.9.7"
+  pytest-cov = "4.1.0"
+  pytest-html = "3.2.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
