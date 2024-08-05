@@ -1,3 +1,4 @@
+"use client";
 import { cn } from "@writeme/wmc/utils"
 
 function Skeleton({

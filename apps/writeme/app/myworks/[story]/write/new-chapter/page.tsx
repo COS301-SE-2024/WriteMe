@@ -9,9 +9,9 @@ export interface NewChapterProps {
 
 export default function Page(props: NewChapterProps) {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex flex-col ">
       <LocalNavbar />
-      <div className="flex-grow flex items-center justify-center p-4">
+      <div className="grow min-h-full flex items-center justify-center p-4">
         <div className="w-full max-w-md sm:max-w-lg md:max-w-xl">
           <NewChapterFrom story={props.params.story} />
         </div>

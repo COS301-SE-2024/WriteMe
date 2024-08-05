@@ -11,6 +11,9 @@ import { Popover, PopoverContent, PopoverTrigger } from '@writeme/wmc/lib/ui/pop
 import { useOnborda } from 'onborda';
 import { useEffect } from 'react';
 import { CircleHelp } from 'lucide-react';
+import { Search } from 'lucide-react';
+import { SearchModal } from '@writeme/wmc/lib/ui/search-modal'
+
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@writeme/wmc/lib/ui/tooltip';
 
 
@@ -45,7 +48,7 @@ const LocalNavbar = () => {
         </Link>
       </div>
 
-      {pathname == '/myworks' || pathname.startsWith('/stories') || pathname == "/myworks/new" ? (<div className="flex gap-2 items-center">
+      {pathname == '/myworks' || pathname.startsWith('/writeathons') || pathname.startsWith('/stories') || pathname == "/myworks/new" ? (<div className="flex gap-2 items-center">
         {session ? (
           <TooltipProvider>
             <Tooltip>
@@ -55,7 +58,7 @@ const LocalNavbar = () => {
                 </Button>
               </TooltipTrigger>
               <TooltipContent side='bottom' sideOffset={8}>
-                <p>Click to start onboarding</p>
+                <p>Click to start Tutorial</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -66,14 +69,21 @@ const LocalNavbar = () => {
         {session ? (<Link id="new-my-works" href="/myworks/new"
                           className={cn(buttonVariants({ variant: 'link' }), pathname == '/myworks/new' ? 'underline' : '')}>
           New Story</Link>) : <></>}
+        {session ? (<Link id='writeathons' href="/writeathons"
+                          className={cn(buttonVariants({ variant: 'link' }), pathname == '/writeathons' ? 'underline' : '')}>
+          Writeathons</Link>) : <></>}
 
         <Link href="/stories"
               className={cn(buttonVariants({ variant: 'link' }), pathname == '/stories' ? 'underline' : '')}>Explore</Link>
-      </div>) : undefined}
+        {session ? <SearchModal /> : <></>}
+      </div>) : undefined
+      }
 
 
       <div className="flex items-center gap-4">
         { pathname == "/" ? <Link href="/stories" className={buttonVariants({ variant: 'link' })}>Explore</Link> : <></>}
+
+
 
 
         <ModeToggle></ModeToggle>
