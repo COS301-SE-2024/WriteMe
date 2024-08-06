@@ -77,19 +77,30 @@ Once you have been logged in, you will be taken to the **"My Stories"** page. Th
 
 1. This button will allow you to update the image that you will be using for your story. 
 2. You can update the title of your story. 
-3. This will allow you to change whether your story is visble to the public or not.
+3. This will allow you to change whether your story is visible to the public or not.
 4. You can update the brief of your story. 
 5. You can update the description of your story. 
 6. This will allow you display the genre of your story. 
 
-
-#### Edit existing chapter
+#### Edit existing chapter metadata
 
 ![YourStory](./images/EditChapter.png)
 
-1. Click on the three dots to select the **"Edit"** option. You will then be taken to the page where you may edit the chapter.
+1. Click on the three dots to select the **"Edit"** option. You will then be taken to the page where you may edit the chapter metadata.
 
+![YourStory](./images/EditYourChapter.png)
 
+1. This button will allow you to update the image that you will be using for your chapter. 
+2. You can update the title of your chapter. 
+3. You can update the brief of your chapter. 
+4. You can update the description of your chapter. 
+5. This will allow you to choose whether your chapter is visible to the public or not. 
+
+#### Edit existing chapter
+
+![YourStory](./images/EditChapter1.png)
+
+1. Click on the title of the chapter you would like to edit and this will take you to the editor. 
 
 ![Chapter](./images/ChapterView.png)
 
