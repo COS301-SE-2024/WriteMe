@@ -2,7 +2,7 @@
 import { Button } from "@writeme/wmc/lib/ui/button"
 import { Input } from "@writeme/wmc/lib/ui/input"
 import { Search } from "lucide-react"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Dialog, DialogContent, DialogTrigger } from "./dialog";
 
 
@@ -11,6 +11,18 @@ export function SearchModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [results, setResults] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault()
+        setIsOpen((open) => !open)
+      }
+    }
+ 
+    document.addEventListener("keydown", down)
+    return () => document.removeEventListener("keydown", down)
+  }, [])
 
   const handleKeyDown = (event: { target: any; key: string; }) => {
     if (event.key === 'Enter') {
