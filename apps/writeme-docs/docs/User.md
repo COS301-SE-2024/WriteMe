@@ -10,7 +10,8 @@
     - **[Sign Up Page](#sign-up)**
     - **[Login Page](#log-in)**
     - **[My Stories Page](#my-stories)**
-        - **[Edit/View Existing Chapter](#editview-existing-chapter)**
+        - **[Edit existing story metadata](#edit-existing-story-metadata)**
+        - **[Edit existing chapter metadata](#edit-existing-chapter-metadata)**
         - **[Create a New Chapter](#create-a-new-chapter)**
     - **[A New Story](#a-new-story)**
     - **[Explore Page](#explore-page)**
@@ -66,11 +67,29 @@ Once you have been logged in, you will be taken to the **"My Stories"** page. Th
 
 1. Click on the **"View"** button on a story you would like to view/edit
 
-#### Edit/View existing chapter
+#### Edit existing story metadata
 
 ![Story](./images/EditStory.png)
 
-1. Click on the three dots to select the **"Edit"** option. You will then be taken to the editor.
+1. Click on the three dots to select the **"Edit"** option. You will then be taken to the page where you may edit your story metadata.
+
+![YourStory](./images/EditYourStory.png)
+
+1. This button will allow you to update the image that you will be using for your story. 
+2. You can update the title of your story. 
+3. This will allow you to change whether your story is visble to the public or not.
+4. You can update the brief of your story. 
+5. You can update the description of your story. 
+6. This will allow you display the genre of your story. 
+
+
+#### Edit existing chapter
+
+![YourStory](./images/EditChapter.png)
+
+1. Click on the three dots to select the **"Edit"** option. You will then be taken to the page where you may edit the chapter.
+
+
 
 ![Chapter](./images/ChapterView.png)
 
