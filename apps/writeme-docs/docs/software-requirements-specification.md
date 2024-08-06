@@ -18,22 +18,15 @@ The rise of digital content consumption has created a demand for platforms that 
       <li>Using a sign up form. The form should gather the following:
         <ol className="srs-bullets">
           <li><strong>Email address. Does not require email authentication.</strong></li>
-          <li>Date of birth</li>
+          <li><strong>Date of birth</strong></li>
           <li><strong>Password</strong></li>
-          <li>Username</li>
+          <li><strong>Username</strong></li>
         </ol>
        </li>
       <li>Using existing platforms:
         <ol className="srs-bullets">
           <li><strong>Google</strong></li>
           <li><strong>Github</strong></li>
-        </ol>
-      </li>
-      <li> After signing up, the system must obtain the following from the user:
-        <ol className="srs-bullets">
-          <li>Gender</li>
-          <li>Name and Surname</li>
-          <li>Language</li>
         </ol>
       </li>
     </ol>
@@ -45,8 +38,8 @@ The rise of digital content consumption has created a demand for platforms that 
           <li><strong>The user credentials must be validated</strong></li>
           <li>Must allow user to recover their password using their email or username
             <ol className="srs-bullets">
-              <li>The account must be verified (i.e. ensure it exists)</li>
-              <li>If the account is found, the system must allow the user to send a recovery email to the email address associated with the account</li>
+              <li><strong>The account must be verified (i.e. ensure it exists)</strong></li>
+              <li><strong>If the account is found, the system must allow the user to send a recovery email to the email address associated with the account</strong></li>
             </ol>
           </li>
         </ol>
@@ -59,8 +52,8 @@ The rise of digital content consumption has created a demand for platforms that 
       </li>
       <li>The user must be able to select “forgot password’
         <ol className="srs-bullets">
-          <li>The system must identify their account using their email address or username.</li>
-          <li>If an account is found, a button appears that lets the user send a password reset email to the email address linked to their account</li>
+          <li><strong>The system must identify their account using their email address or username.</strong></li>
+          <li><strong>If an account is found, a button appears that lets the user send a password reset email to the email address linked to their account</strong></li>
         </ol>
       </li>
     </ol>
@@ -75,8 +68,8 @@ The rise of digital content consumption has created a demand for platforms that 
       <li><strong>Access to account management</strong></li>
       <li><strong>Access to reading other stories</strong></li>
       <li><strong>Access to writing stories</strong></li>
-      <li>Access to the recommendation system. The access is implicit (i.e. the user doesn't directly interact with the system)</li>
-      <li>Access to the social interaction system*</li>
+      <li><strong>Access to the recommendation system. The access is implicit (i.e. the user doesn't directly interact with the system)</strong></li>
+      <li><strong>Access to the social interaction system</strong></li>
     </ol>
   </li>
 </ol>
@@ -89,14 +82,14 @@ The rise of digital content consumption has created a demand for platforms that 
       <li><strong>Users must be able to publish their story</strong></li>
       <li><strong>Users must be able to save their story to a draft</strong></li>
       <li><strong>Users must be able to edit their stories</strong></li>
-      <li>Genre selection</li>
+      <li><strong>Genre selection</strong></li>
     </ol>
   </li>
   <li>Metadata:
     <ol className='srs-bullets'>
       <li><strong>Users must be able to add a title to their story</strong></li>
       <li><strong>Editor for users to write the main content of their story</strong></li>
-      <li>Able to select a cover image</li>
+      <li><strong>Able to select a cover image</strong></li>
     </ol>
   </li>
 </ol>
@@ -119,9 +112,9 @@ The rise of digital content consumption has created a demand for platforms that 
   </li>
   <li>Search functionality
     <ol className='srs-bullets'>
-      <li>Allow users to search stories by title</li>
-      <li>Allow users to search stories by author</li>
-      <li>Allow users to search stories with keywords</li>
+      <li><strong>Allow users to search stories by title</strong></li>
+      <li><strong>Allow users to search stories by author</strong></li>
+      <li><strong>Allow users to search stories with keywords</strong></li>
     </ol>
   </li>
 </ol>
@@ -135,7 +128,6 @@ The rise of digital content consumption has created a demand for platforms that 
         <ol className='srs-bullets'>
           <li><strong>Users can comment on Entire Stories</strong></li>
           <li><strong>Users can comment on Chapters</strong></li>
-          <li>Users can comment on Blocks</li>
         </ol>
       </li>
       <li>Users can like differnet sections
@@ -179,7 +171,7 @@ The rise of digital content consumption has created a demand for platforms that 
             <li><strong>Users should be able to update name</strong></li>
           </ol>
         </li>
-        <li>Users should be able to delete their account</li>
+        <li><strong>Users should be able to delete their account</strong></li>
       </ol>
     </li>
 
@@ -229,8 +221,9 @@ The rise of digital content consumption has created a demand for platforms that 
 <ol className="srs-bullets">
   <li>Users can play the improv game while writing stories
       <ol className='srs-bullets'>
-        <li><strong>Users can refresh the improv suggestions until they get one they like</strong></li>
-        <li><strong>Users can see their current improve in the notepad</strong></li>
+        <li><strong>Users can choose from a variety of questions to answer</strong></li>
+        <li><strong>Users can see their current improve in the suggestion cards</strong></li>
+        <li><strong>Users can copy their answers into the clipboard to add to the story</strong></li>
      </ol>
   </li>  
 </ol>
@@ -256,12 +249,7 @@ The rise of digital content consumption has created a demand for platforms that 
   </li>
   <li>Users can use the AI assistant to get suggestions
     <ol className='srs-bullets'>
-      <li>Users can use the assistant to get tone suggestions  
-        <ol className='srs-bullets'>
-        <li><strong>Users can use the assistant to get suggestions on how to rewrite certain sentences with a humourous tone</strong></li>
-        <li><strong>Users can use the assistant to get suggestions on how to rewrite certain sentences with a formal tone</strong></li>
-        </ol>
-      </li>
+      <li><strong>Users can use the assistant to get paraphrase suggestions</strong></li>
       <li><strong>Users can use the assistant to generate story progression ideas</strong></li>
     </ol>
   </li>
@@ -276,6 +264,8 @@ The rise of digital content consumption has created a demand for platforms that 
         <li><strong>Users can keep notes for later</strong></li>
         <li><strong>Users can save answers for the improv game</strong></li>
         <li><strong>Users can edit and change certain paragraphs to see how they would look without changing the story</strong></li>
+        <li><strong>Users can save the notepad to local storage</strong></li>
+        <li><strong>Users can load previously saved notepad content from local storage</strong></li>
      </ol>
   </li>  
 </ol>
