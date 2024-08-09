@@ -19,7 +19,7 @@ export function SearchModal() {
         setIsOpen((open) => !open)
       }
     }
- 
+
     document.addEventListener("keydown", down)
     return () => document.removeEventListener("keydown", down)
   }, [])
@@ -57,7 +57,7 @@ export function SearchModal() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button><Search /></Button>
+        <Button variant={'outline'} size={'icon'}><Search className="size-4"/></Button>
       </DialogTrigger>
       <DialogContent className="w-96 p-6">
         <div className="grid gap-4">

@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import CopyButton from "./copy-button";
+import { ScrollArea } from "./scroll-area";
 
 let interval: any;
 
@@ -65,7 +67,9 @@ export const CardStack = ({
             </div>
             <div>
               <p className="text-neutral-500 font-medium dark:text-white">
-                {card.name}
+                <ScrollArea className="max-h-32">
+                  {card.name}
+                </ScrollArea>
               </p>
               <p className="text-neutral-400 font-normal dark:text-neutral-200">
                 {card.designation}
