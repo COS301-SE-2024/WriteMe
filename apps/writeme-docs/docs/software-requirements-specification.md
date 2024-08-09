@@ -616,7 +616,7 @@ A WriteMe writer would likely be someone with a passion for language and a desir
 
 ## Service Contracts
 
-### POST /register (Create User):
+### **POST /register (Create User):**
 
 **Description:**
 
@@ -677,7 +677,7 @@ This endpoint allows the creation of a new user account.
 }
 ```
 
-### PUT /register (Update User):
+### PUT **/register (Update User):**
 
 **Description:**
 
@@ -739,7 +739,7 @@ This endpoint allows the user to update their profile.
 }
 ```
 
-### PUT /story (Update Story):
+### PUT **/story (Update Story):**
 
 **Description:**
 
@@ -783,7 +783,7 @@ This endpoint allows an authenticated user to update a story they own.
 }
 ```
 
-### POST /story (Create Story):
+### **POST /story (Create Story):**
 
 **Description:**
 
@@ -824,7 +824,7 @@ This endpoint allows an authenticated user to create a new story.
 }
 ```
 
-### POST /chapter (Create a chapter)
+### **POST /chapter (Create a chapter)**
 
 **Description:**
 
@@ -889,7 +889,7 @@ This endpoint allows an authenticated user to create a new chapter for their sto
 }
 ```
 
-### PUT /chapter (Update a chapter)
+### ***PUT /chapter (Update a chapter)***
 
 **Description:**
 
@@ -956,7 +956,7 @@ This endpoint allows an authenticated user to create a new chapter for their sto
 }
 ```
 
-### POST /likes (like/unlike a chapter/story):
+### **POST /likes (like/unlike a chapter/story):**
 
 **Description:**
 
@@ -997,7 +997,7 @@ This endpoint allows an authenticated user to like a chapter or story.
 }
 ```
 
-### POST /follow (follow/unfollow a user):
+### **POST /follow (follow/unfollow a user):**
 
 **Description:**
 
@@ -1047,7 +1047,7 @@ This endpoint allows an authenticated user to follow another user.
 }
 ```
 
-### POST /comments (comment on a story or chapter):
+### **POST /comments (comment on a story or chapter):**
 
 **Description:**
 
@@ -1100,7 +1100,7 @@ This endpoint allows an authenticated comment on a story or chapter.
 }
 ```
 
-### POST /export/chapter (export chapter to pdf):
+### **POST /export/chapter (export chapter to pdf):**
 
 **Description:**
 
@@ -1147,7 +1147,7 @@ This endpoint allows an authenticated user to export a chapter to pdf.
 }
 ```
 
-### POST /export/story (export story to pdf):
+### **POST /export/story** (export story to pdf):
 
 **Description:**
 
@@ -1192,6 +1192,973 @@ This endpoint allows an authenticated user to export a story to pdf.
   "message": "Internal Server Error"
 }
 ```
+
+### **POST /bookmark**
+
+**Description:**
+
+This endpoint allows authenticated users to add or remove a bookmark on a story. If the story is already bookmarked, the bookmark will be removed. If the story is not bookmarked, a new bookmark will be added.
+
+#### **Request:**
+
+- **Headers:**
+  - `Content-Type: application/json`
+  - `Authorization: Bearer <token>` (optional, required for authentication)
+
+- **Body:**
+  - `storyId` (string, required): The unique identifier of the story to be bookmarked or unbookmarked.
+
+```json
+{
+  "storyId": "string"
+}
+```
+
+#### **Responses:**
+
+- **Success 200 OK (Bookmark Added):**
+
+```json
+{
+  "status": "success",
+  "message": "Bookmark added"
+}
+```
+- **401 Unauthorized:**
+```json
+{
+  "status": "fail",
+  "message": "You are not logged in"
+}
+```
+- **500 Internal Server Error:**
+```json
+{
+  "status": "error",
+  "message": "An error occurred"
+}
+```
+
+### **POST /notes**
+
+#### **Description:**
+This endpoint allows authenticated users to create or update notes associated with a specific chapter in a story. If a note already exists for the given chapter and user, the existing note will be updated with the new content. If no note exists, a new note will be created.
+
+#### **Request**
+
+- **Headers:**
+  - `Content-Type: application/json`
+  - `Authorization: Bearer <token>` (required for authentication)
+
+- **Body:**
+  - `storyId` (string, required): The unique identifier of the story.
+  - `chapterId` (string, required): The unique identifier of the chapter within the story.
+  - `content` (string, required): The content of the note to be created or updated.
+
+```json
+{
+  "storyId": "string",
+  "chapterId": "string",
+  "content": "string"
+}
+```
+
+#### **Response**
+- **200 OK (Note Created/Updated):**
+```json
+{
+  "status": "success",
+  "message": {
+    "id": "string",
+    "chapter": "string",
+    "author": "string",
+    "content": "string"
+  }
+}
+```
+
+- **401 Unauthorised:**
+```json
+{
+  "status": "fail",
+  "message": "You are not logged in"
+}
+```
+
+- **500 Internal Server Error:**
+```json
+{
+  "status": "error",
+  "message": "An error occurred"
+}
+```
+
+### **GET /search**
+
+### Description
+This endpoint allows users to search for stories based on a query string. The search results are returned as a list of stories that match the query.
+
+### Request
+
+- **Query Parameters:**
+  - `q` (string, optional): The search query string. If not provided, the search will return all stories.
+
+### Example Request
+
+#### Request with Query
+
+```http
+GET /api/stories/search?q=adventure HTTP/1.1
+Host: example.com
+```
+
+### **POST /api/writeathon/story**
+
+#### **Description**
+This endpoint allows authenticated users to associate a story with a writeathon by creating a record in the database. The request must include the `storyId` and `writeathonId`. If the user is not authenticated or if the request data is invalid, appropriate error responses are returned.
+
+#### **Request**
+
+- **Headers:**
+  - `Content-Type: application/json`
+  - `Authorization: Bearer <token>` (required for authentication)
+
+- **Body:**
+
+```json
+{
+  "storyId": "story123",
+  "writeathonId": "writeathon456"
+}
+```
+#### **Response**
+- 200 successful
+```json
+{
+  "storyWriteathon": {
+    "id": "writeathon456"
+  }
+}
+```
+- 400 Bad Request
+```json
+{
+  "status": "error",
+  "message": "Validation failed",
+  "errors": [
+    {
+      "path": ["storyId"],
+      "message": "Story ID is required"
+    },
+    {
+      "path": ["writeathonId"],
+      "message": "Writeathon ID is required"
+    }
+  ]
+}
+```
+
+- 401 Unauthorised
+```json
+{
+  "status": "fail",
+  "message": "You are not logged in"
+}
+```
+
+- 500 Internal Server Error
+```json
+{
+  "status": "error",
+  "message": "Internal Server Error"
+}
+```
+
+### **PUT story/cover**
+
+#### **Description**
+This endpoint allows authenticated users to update the cover image of a story. The request must include the `storyId` and the new `cover` URL. The endpoint ensures that the user is authenticated and owns the story before making the update.
+
+#### **Request**
+
+- **Headers:**
+  - `Content-Type: application/json`
+  - `Authorization: Bearer <token>` (required for authentication)
+
+- **Body:**
+
+```json
+{
+  "id": "string",
+  "cover": "URL"
+}
+```
+
+#### **Response:**
+
+- **200 successful:**
+```json
+{
+  "story": {
+    "id": "string"
+  }
+}
+```
+
+- **400 Bad Request:**
+```json
+{
+  "status": "error",
+  "message": "Validation failed",
+  "errors": [
+    {
+      "path": ["id"],
+      "message": "Story ID is required"
+    },
+    {
+      "path": ["cover"],
+      "message": "Cover URL is required"
+    }
+  ]
+}
+```
+
+- **401 Unauthorised:**
+```json
+{
+  "status": "fail",
+  "message": "You are not logged in"
+}
+```
+
+- **500 Internal Server Error:**
+```json
+{
+  "status": "error",
+  "message": "Internal Server Error"
+}
+```
+
+### **PUT /profile-image**
+
+#### **Description**
+This endpoint allows authenticated users to update their profile image. The request must include the new `cover` URL. The endpoint ensures that the user is authenticated before making the update.
+
+#### **Request**
+
+- **Headers:**
+  - `Content-Type: application/json`
+  - `Authorization: Bearer <token>` (required for authentication)
+
+- **Body:**
+
+```json
+{
+  "cover": "URL"
+}
+```
+
+#### **Response:**
+- **200 successful:**
+```json
+{
+  "user": {
+    "id": "user123"
+  }
+}
+```
+
+- **400 Bad Request:**
+```json
+{
+  "status": "error",
+  "message": "Validation failed",
+  "errors": [
+    {
+      "path": ["cover"],
+      "message": "Cover URL is required"
+    }
+  ]
+}
+```
+
+- **401 Unauthorised:**
+```json
+{
+  "status": "fail",
+  "message": "You are not logged in"
+}
+```
+
+- **500 Internal Server Error:**
+```json
+{
+  "status": "error",
+  "message": "Internal Server Error"
+}
+```
+
+### **GET chapters/versions**
+
+#### **Description**
+This endpoint allows authenticated users to retrieve the versions of a specific chapter. The request must include the `chapter_id` as a query parameter. If the user is not authenticated or if the `chapter_id` is not provided, appropriate error responses are returned.
+
+#### **Request**
+
+- **Headers:**
+  - `Authorization: Bearer <token>` (required for authentication)
+
+- **Query Parameters:**
+  - `id` (string, required): The unique identifier of the chapter for which versions are being requested.
+
+### Example Request
+
+```http
+GET /api/chapters/versions?id=chapter123 HTTP/1.1
+Host: example.com
+Authorization: Bearer <token>
+```
+
+#### **Response:**
+- **200 successfull:**
+```json
+{
+  "versions": [
+    {
+      "version": "1.0",
+      "content": "Initial draft of the chapter",
+      "timestamp": "2024-08-07T12:34:56Z"
+    },
+    {
+      "version": "1.1",
+      "content": "Revised chapter content",
+      "timestamp": "2024-08-08T15:21:34Z"
+    }
+  ]
+}
+```
+
+- **400 Bad Request:**
+```json
+{
+  "status": "error",
+  "message": "Chapter ID required"
+}
+```
+
+- **401 Unauthorised:**
+```json
+{
+  "status": "fail",
+  "message": "You are not logged in"
+}
+```
+
+- **500 Internal Server Error:**
+```json
+{
+  "status": "error",
+  "message": "Internal Server Error"
+}
+```
+
+### **GET /api/chapters/version**
+
+#### **Description**
+This endpoint allows authenticated users to retrieve the content of a specific version of a chapter. The request must include the `chapter_id` and the `time` representing the specific version timestamp. If the user is not authenticated or if the required query parameters are not provided, appropriate error responses are returned.
+
+#### **Request**
+
+- **Headers:**
+  - `Authorization: Bearer <token>` (required for authentication)
+
+- **Query Parameters:**
+  - `id` (string, required): The unique identifier of the chapter whose version content is being requested.
+  - `time` (string, required): The timestamp representing the specific version of the chapter content to be retrieved. The time should be in ISO 8601 format.
+
+### Example Request
+
+```http
+GET /api/chapters/version?id=chapter123&time=2024-08-07T12:34:56Z HTTP/1.1
+Host: example.com
+Authorization: Bearer <token>
+```
+
+#### **Response:**
+
+- **200 Successful:l**
+```json
+{
+  "version": {
+    "content": "This is the content of the chapter at the specified time.",
+    "timestamp": "2024-08-07T12:34:56Z"
+  }
+}
+```
+
+- **400 Bad Request:**
+```json
+{
+  "status": "error",
+  "message": "Chapter ID required"
+}
+```
+```json
+{
+  "status": "error",
+  "message": "Time required"
+}
+```
+
+- **401 Unauthorised:**
+```json
+{
+  "status": "fail",
+  "message": "You are not logged in"
+}
+```
+
+- **500 Internal Server Error:**
+```json
+{
+  "status": "error",
+  "message": "Internal Server Error"
+}
+```
+
+### **POST /api/writeathon/vote**
+
+#### **Description**
+This endpoint allows authenticated users to vote for a story in a writeathon. The request must include the `writeathonId`, `storyId`, and `categories` for the vote. The endpoint ensures that the user is authenticated before allowing them to submit a vote.
+
+#### **Request**
+
+- **Headers:**
+  - `Content-Type: application/json`
+  - `Authorization: Bearer <token>` (required for authentication)
+
+- **Body:**
+
+```json
+{
+  "writeathonId": "string",
+  "storyId": "string",
+  "categories": ["Best Plot", "Best Character Development"]
+}
+```
+
+#### **Response:**
+
+- **200 OK:**
+```json
+{
+  "status": "success",
+  "message": "Vote added"
+}
+```
+
+- **401 Unauthorised:**
+```json
+{
+  "status": "fail",
+  "message": "You are not logged in"
+}
+```
+
+- **500 Internal Server Error:**
+```json
+{
+  "status": "error",
+  "message": "An error occurred"
+}
+```
+
+### **POST /api/writeathons**
+
+#### **Description**
+This endpoint allows authenticated users to create a new writeathon. The request must include the title, description, brief, start date, and end date for the writeathon. The endpoint ensures that the user is authenticated before allowing them to create a writeathon.
+
+#### **Request**
+
+- **Headers:**
+  - `Content-Type: application/json`
+  - `Authorization: Bearer <token>` (required for authentication)
+
+- **Body:**
+
+```json
+{
+  "title": "string",
+  "description": "string",
+  "brief": "string",
+  "startDate": "Date (ISO 8601 Format)",
+  "endDate": "Date (ISO 8601 Format)"
+}
+```
+
+#### **Response:**
+
+- **200 OK:**
+```json
+{
+  "writeathon": {
+    "id": "writeathon123"
+  }
+}
+```
+- **400 Bad Request:**
+```json
+{
+  "status": "error",
+  "message": "Validation failed",
+  "errors": [
+    {
+      "path": ["title"],
+      "message": "Title is required"
+    },
+    {
+      "path": ["description"],
+      "message": "Description is required"
+    },
+    {
+      "path": ["startDate"],
+      "message": "Start date must be a valid date"
+    },
+    {
+      "path": ["endDate"],
+      "message": "End date must be a valid date"
+    }
+  ]
+}
+```
+
+- **401 Unauthorised:**
+```json
+{
+  "status": "fail",
+  "message": "You are not logged in"
+}
+```
+
+- **500 Internal Server Error:**
+```json
+{
+  "status": "error",
+  "message": "Internal Server Error"
+}
+```
+
+### **GET /**
+
+#### **Description**
+This endpoint is a simple health check for the API. It returns a basic "Ping" response, indicating that the server is running and responsive.
+
+#### **Request**
+
+- **Method:** `GET`
+- **URL:** `/`
+
+#### **Responses:**
+- **200 OK**:
+
+```json
+  {
+    "Ping": "Pong"
+  }
+```
+
+### **POST /analysis**
+
+#### **Description**
+This endpoint performs a comprehensive Natural Language Processing (NLP) analysis on the input text. It splits the input into sentences, performs sentiment analysis, Named Entity Recognition (NER), and Part-of-Speech (POS) tagging. The results are returned in a structured format.
+
+#### **Request**
+
+- **Headers:**
+  - `Content-Type: application/json`
+
+- **Body:**
+
+```json
+{
+  "input": "string"
+}
+```
+
+#### **Response:**
+
+- **200 OK:**
+```json
+{
+  "analysis": [
+    {
+      "text": "string",
+      "sentiment": "Positive",
+      "entities": [
+        {"entity": "Word", "type": "Part of Speech"},
+      ],
+      "pos_tags": [
+        {"word": "Word", "tag": "Part of Speech"},
+      ]
+    }
+  ]
+}
+```
+
+- **400 Bad Request:**
+```json
+{
+  "status": "error",
+  "message": "Invalid input provided."
+}
+```
+- **500 Nternal Server Error:**
+```json
+{
+  "status": "error",
+  "message": "Internal Server Error"
+}
+```
+
+### **POST /sentiment**
+
+#### **Description**
+This endpoint performs sentiment analysis on the input text. It splits the input into sentences, analyzes the sentiment of each sentence, and returns the results in a structured format.
+
+#### **Request**
+
+- **Headers:**
+  - `Content-Type: application/json`
+
+- **Body:**
+
+```json
+{
+  "input": "string"
+}
+```
+
+#### **Response:**
+- **200 OK**
+```json
+{
+  "sentiment": [
+    {
+      "text": "string",
+      "sentiment": "Positive",
+      "score": 0
+    }
+  ]
+}
+```
+
+- **400 Bad Request:**
+```json
+{
+  "status": "error",
+  "message": "Invalid input provided."
+}
+```
+
+- **500 Internal Server Error:**
+```json
+{
+  "status": "error",
+  "message": "Internal Server Error"
+}
+```
+
+### **POST /pos**
+
+#### **Description**
+This endpoint performs Part-of-Speech (POS) tagging on the input text. It splits the input into sentences, analyzes the POS for each word in the sentences, and returns the results in a structured format.
+
+#### **Request**
+
+- **Headers:**
+  - `Content-Type: application/json`
+
+- **Body:**
+
+```json
+{
+  "input": "string"
+}
+```
+
+#### **Response:**
+- **200 OK:**
+```json
+{
+  "pos": [
+    {
+      "text": "This is.",
+      "tokens": [
+        {"word": "This", "tag": "DT"},
+        {"word": "is", "tag": "VBZ"},
+      ]
+    }
+  ]
+}
+```
+
+- **400 Bad Request:**
+```json
+{
+  "status": "error",
+  "message": "Invalid input provided."
+}
+```
+
+- **500 Internal Server Error:**
+```json
+{
+  "status": "error",
+  "message": "Internal Server Error"
+}
+```
+
+### **POST /ner**
+
+#### **Description**
+This endpoint performs Named Entity Recognition (NER) on the input text. It splits the input into sentences, analyzes the named entities in each sentence, and returns the results in a structured format.
+
+#### **Request**
+
+- **Headers:**
+  - `Content-Type: application/json`
+
+- **Body:**
+
+```json
+{
+  "input": "string"
+}
+```
+
+#### **Response:**
+
+- **200 OK:**
+```json
+{
+  "entities": [
+    {
+      "text": "Barack Obama was born in Hawaii.",
+      "entities": [
+        {"entity": "Barack Obama", "label": "PERSON"},
+        {"entity": "Hawaii", "label": "GPE"}
+      ]
+    }
+  ]
+}
+```
+
+- **400 Bad Request:**
+```json
+{
+  "status": "error",
+  "message": "Invalid input provided."
+}
+```
+
+- **500 Internal Server Error:**
+```json
+{
+  "status": "error",
+  "message": "Internal Server Error"
+}
+```
+
+### **POST /grammar**
+
+#### **Description**
+This endpoint performs grammar checking on the input text. It identifies grammatical errors, suggests corrections, and returns the corrected text along with details about the errors found.
+
+#### **Request**
+
+- **Headers:**
+  - `Content-Type: application/json`
+
+- **Body:**
+
+```json
+{
+  "input": "This is an example sentence with a error."
+}
+```
+
+#### **Response:**
+
+- **200 OK:**
+```json
+{
+  "result": "This is an example sentence with an error.",
+  "edits": [
+    {
+      "rule": "Possible typo: you should use 'an' instead of 'a' before a word starting with a vowel sound.",
+      "replacements": ["an"],
+      "context": {"text": "This is an example sentence with a error.", "offset": 30, "length": 1},
+      "offset": 30,
+      "errorLength": 1
+    }
+  ]
+}
+```
+
+- **400 Bad Request:**
+```json
+{
+  "status": "error",
+  "message": "Invalid input provided."
+}
+```
+
+- **500 Internal Server Error:**
+```json
+{
+  "status": "error",
+  "message": "Internal Server Error"
+}
+```
+
+### **POST /suggest**
+
+#### **Description**
+This endpoint generates AI-powered suggestions to improve a given text, particularly in the context of storytelling. The input text is analyzed, and the AI provides alternative suggestions or enhancements to the storyline.
+
+#### **Request**
+
+- **Headers:**
+  - `Content-Type: application/json`
+
+- **Body:**
+
+```json
+{
+  "input": "Once upon a time, in a land far away, there lived a young princess."
+}
+```
+
+#### **Response:**
+
+- **200 OK**
+```json
+{
+  "options": ["string"]
+}
+```
+
+#### **Response:**
+
+- **400 Bad Request:**
+```json
+{
+  "status": "error",
+  "message": "Invalid input provided or input exceeds allowed length."
+}
+```
+
+- **500 Internal Server Error:**
+```json
+{
+  "status": "error",
+  "message": "Internal Server Error"
+}
+```
+
+### **POST /suggest/{tone}**
+
+#### **Description**
+This endpoint generates AI-powered suggestions based on the specified tone for the input text. If the tone is "paraphrase", the endpoint will return paraphrased versions of the input text. If the tone is not supported, the endpoint will indicate failure.
+
+#### **Request**
+
+- **Headers:**
+  - `Content-Type: application/json`
+
+- **Path Parameters:**
+  - `tone` (string, required): The tone or style of the suggestion to be generated. Currently supported value: `"paraphrase"`.
+
+- **Body:**
+
+```json
+{
+  "input": "string"
+}
+```
+
+#### **Response:**
+
+- **200 OK:**
+```json
+{
+  "paraphrases": [
+    ["string"]
+  ]
+}
+```
+
+- **400 Bad Request:**
+```json
+{
+  "status": "error",
+  "message": "Invalid input provided or input exceeds allowed length."
+}
+```
+
+- **500 Internal Server Error:**
+```json
+{
+  "status": "error",
+  "message": "Internal Server Error"
+}
+```
+
+### **POST /embed:**
+
+#### **Description**
+This endpoint generates vector embeddings for the input text. The input is split into sentences, and each sentence is processed to produce a vector embedding, which can be used for various machine learning or NLP tasks.
+
+#### **Request**
+
+- **Headers:**
+  - `Content-Type: application/json`
+
+- **Body:**
+
+```json
+{
+  "input": "string"
+}
+```
+
+#### **Response:**
+
+- **200 OK**
+```json
+{
+  "embedding": [
+    [0.0]
+  ]
+}
+```
+
+- **400 Bad Request:**
+```json
+{
+  "status": "error",
+  "message": "Invalid input provided or input exceeds allowed length."
+}
+```
+
+- **500 Internal Server Error:**
+```json
+{
+  "status": "error",
+  "message": "Internal Server Error"
+}
+```
+
 
 ## Class Diagram
 
