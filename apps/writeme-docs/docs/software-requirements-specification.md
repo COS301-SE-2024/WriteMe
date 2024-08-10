@@ -113,8 +113,8 @@ The rise of digital content consumption has created a demand for platforms that 
   <li>Search functionality
     <ol className='srs-bullets'>
       <li><strong>Allow users to search stories by title</strong></li>
-      <li><strong>Allow users to search stories by author</strong></li>
-      <li><strong>Allow users to search stories with keywords</strong></li>
+      <li>Allow users to search stories by author</li>
+      <li>>Allow users to search stories with keywords</li>
     </ol>
   </li>
 </ol>
