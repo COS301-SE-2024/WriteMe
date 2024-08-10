@@ -68,8 +68,8 @@ export default async function Write(props: WriteProps) {
           </ResizablePanel>
           <ResizableHandle withHandle></ResizableHandle>
           <ResizablePanel defaultSize={25}>
-            <div className="px-4 top-0 sticky" id="editor-tools-panel">
-              <ScrollArea>
+            <div className="px-4 top-0 sticky flex flex-wrap" id="editor-tools-panel">
+              <ScrollArea className='h-full'>
                 <EditorUtils></EditorUtils>
               </ScrollArea>
             </div>

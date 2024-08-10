@@ -42,7 +42,12 @@ export async function getPublishedChapter(chapterId: string){
       story: true,
       comments: {
         with: {
-          author: true
+          author: true,
+          replies: {
+            with: {
+              author: true
+            }
+          }
         }
       }
     }

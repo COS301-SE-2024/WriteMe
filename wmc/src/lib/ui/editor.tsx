@@ -44,8 +44,10 @@ import { useSession } from 'next-auth/react';
 
 import { upload } from 'next-upload/client';
 import { Sparkles } from 'lucide-react';
-import { ParaphraseButton } from './editor-extensions/ParaphraseButton';
-
+import { ParaphraseButton } from '../../../../apps/writeme/components/editor-extensions/ParaphraseButton';
+import { SuggestionButton } from '../../../../apps/writeme/components/editor-extensions/SuggestionButton';
+import { EntityButton } from '../../../../apps/writeme/components/editor-extensions/EntityButton';
+import  { GrammarButton} from '../../../../apps/writeme/components/editor-extensions/GrammarButton';
 // Our <Editor> component we can reuse later
 
 export interface EditorProps {
@@ -187,6 +189,9 @@ export default function Editor({ initialBlocks, setBlocks }: EditorProps) {
               key={'strikeStyleButton'}
             />
             <ParaphraseButton key={'paraphrase'} />
+            <SuggestionButton key={'suggest'} />
+            <GrammarButton key={'grammar'}/>
+            <EntityButton key={'entity'}/>
             {/* Extra button to toggle code styles */}
             {/* <BasicTextStyleButton
               key={'codeStyleButton'}

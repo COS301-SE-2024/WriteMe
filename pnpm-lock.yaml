@@ -28366,7 +28366,7 @@ packages:
       y-protocols: 1.0.6(yjs@13.6.18)
       yjs: 13.6.18
     optionalDependencies:
-      ws: 8.17.1
+      ws: 8.18.0
     transitivePeerDependencies:
       - bufferutil
       - supports-color

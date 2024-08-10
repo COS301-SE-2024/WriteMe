@@ -18,7 +18,7 @@ import {
 } from '@writeme/wmc/lib/ui/popover';
 import { useOnborda } from 'onborda';
 import { useEffect } from 'react';
-import { CircleHelp } from 'lucide-react';
+import { CircleHelp, Home } from 'lucide-react';
 import { Search } from 'lucide-react';
 import { SearchModal } from '@writeme/wmc/lib/ui/search-modal';
 
@@ -27,7 +27,8 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@writeme/wmc/lib/ui/tooltip';
+} from './tooltip';
+import { Badge } from './badge';
 
 const LocalNavbar = () => {
   const pathname = usePathname();
@@ -78,11 +79,15 @@ const LocalNavbar = () => {
           <div className="flex gap-2 items-center">
             {session ? (
               <Tooltip>
-                  <TooltipTrigger>
-                <Button variant={'outline'} size={'icon'} onClick={() => startOnborda()}>
-                    <CircleHelp  className='size-4'/>
-                </Button>
-                  </TooltipTrigger>
+                <TooltipTrigger>
+                  <Button
+                    variant={'outline'}
+                    size={'icon'}
+                    onClick={() => startOnborda()}
+                  >
+                    <CircleHelp className="size-4" />
+                  </Button>
+                </TooltipTrigger>
                 <TooltipContent side="bottom" sideOffset={8}>
                   <p>Click to start Tutorial</p>
                 </TooltipContent>
@@ -116,16 +121,19 @@ const LocalNavbar = () => {
               <></>
             )}
             {session ? (
-              <Link
-                id="writeathons"
-                href="/writeathons"
-                className={cn(
-                  buttonVariants({ variant: 'link' }),
-                  pathname == '/writeathons' ? 'underline' : ''
-                )}
-              >
-                Writeathons
-              </Link>
+              <div className="relative">
+                <Link
+                  id="writeathons"
+                  href="/writeathons"
+                  className={cn(
+                    buttonVariants({ variant: 'link' }),
+                    pathname == '/writeathons' ? 'underline' : ''
+                  )}
+                >
+                  Writeathons
+                </Link>
+                <Badge className="absolute top-0 left-[80%]">Beta</Badge>
+              </div>
             ) : (
               <></>
             )}
@@ -157,60 +165,68 @@ const LocalNavbar = () => {
 
           <ModeToggle></ModeToggle>
           {session?.user ? (
-            <Popover>
-              <PopoverTrigger>
-                <Avatar>
-                  <AvatarImage src={session.user.image} />
-                  <AvatarFallback>{session.user.name.at(0)}</AvatarFallback>
-                </Avatar>
-              </PopoverTrigger>
-              <PopoverContent>
-                <div>
-                  <Link
-                    className={cn(
-                      buttonVariants({ variant: 'ghost' }),
-                      'block fit-content'
-                    )}
-                    href="/stories"
-                  >
-                    Explore
-                  </Link>
-                  <Link
-                    className={cn(
-                      buttonVariants({ variant: 'ghost' }),
-                      'block fit-content'
-                    )}
-                    href="/myworks"
-                  >
-                    My Stories
-                  </Link>
-                  <Link
-                    className={cn(
-                      buttonVariants({ variant: 'ghost' }),
-                      'block'
-                    )}
-                    href={`/user/${session.user.id}`}
-                  >
-                    My Profile
-                  </Link>
-                  <Link
-                    className={cn(
-                      buttonVariants({ variant: 'ghost' }),
-                      'block'
-                    )}
-                    href={`/help`}
-                  >
-                    Help
-                  </Link>
-                  <Button
-                    variant="ghost"
-                    onClick={() => signOut({ callbackUrl: '/' })}
-                  >
-                    Sign Out
-                  </Button>
-                </div>
-              </PopoverContent>
-            </Popover>
+            <>
+              <Button asChild variant={'outline'} size={'icon'}>
+                <Link href={'/myworks'}>
+                  {' '}
+                  <Home></Home>{' '}
+                </Link>
+              </Button>
+              <Popover>
+                <PopoverTrigger>
+                  <Avatar>
+                    <AvatarImage src={session.user.image} />
+                    <AvatarFallback>{session.user.name.at(0)}</AvatarFallback>
+                  </Avatar>
+                </PopoverTrigger>
+                <PopoverContent>
+                  <div>
+                    <Link
+                      className={cn(
+                        buttonVariants({ variant: 'ghost' }),
+                        'block fit-content'
+                      )}
+                      href="/stories"
+                    >
+                      Explore
+                    </Link>
+                    <Link
+                      className={cn(
+                        buttonVariants({ variant: 'ghost' }),
+                        'block fit-content'
+                      )}
+                      href="/myworks"
+                    >
+                      My Stories
+                    </Link>
+                    <Link
+                      className={cn(
+                        buttonVariants({ variant: 'ghost' }),
+                        'block'
+                      )}
+                      href={`/user/${session.user.id}`}
+                    >
+                      My Profile
+                    </Link>
+                    <Link
+                      className={cn(
+                        buttonVariants({ variant: 'ghost' }),
+                        'block'
+                      )}
+                      href={`/help`}
+                    >
+                      Help
+                    </Link>
+                    <Button
+                      variant="ghost"
+                      onClick={() => signOut({ callbackUrl: '/' })}
+                    >
+                      Sign Out
+                    </Button>
+                  </div>
+                </PopoverContent>
+              </Popover>
+            </>
           ) : (
             <Link
               className={buttonVariants({ variant: 'default' })}

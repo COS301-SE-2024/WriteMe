@@ -85,6 +85,9 @@ export default function EditChapterForm(props: EditChapterFormProps) {
         },
         description: {
           fieldType: "textarea"
+        },
+        published: {
+          fieldType: "switch",
         }
       }}
     >

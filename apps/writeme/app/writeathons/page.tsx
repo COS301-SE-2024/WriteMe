@@ -9,6 +9,8 @@ import BookCover from '../../assets/temp-cover2.jpg';
 import React from 'react'
 import { format } from "date-fns";
 
+export const dynamic = 'force-dynamic';
+
 export interface WriteathonProps {
 
 }

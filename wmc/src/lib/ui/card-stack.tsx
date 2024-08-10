@@ -1,15 +1,15 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import CopyButton from "./copy-button";
-import { ScrollArea } from "./scroll-area";
+import { ScrollArea, ScrollBar } from "./scroll-area";
 
 let interval: any;
 
 type Card = {
   id: number;
-  name: string;
-  designation: string;
+  name: React.ReactNode;
+  designation: React.ReactNode;
   content: React.ReactNode;
 };
 
@@ -67,9 +67,7 @@ export const CardStack = ({
             </div>
             <div>
               <p className="text-neutral-500 font-medium dark:text-white">
-                <ScrollArea className="max-h-32">
                   {card.name}
-                </ScrollArea>
               </p>
               <p className="text-neutral-400 font-normal dark:text-neutral-200">
                 {card.designation}

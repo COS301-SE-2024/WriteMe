@@ -24,17 +24,17 @@ export function SearchModal() {
     return () => document.removeEventListener("keydown", down)
   }, [])
 
-  const handleKeyDown = (event: { target: any; key: string; }) => {
+  const handleKeyDown = async (event: { target: any; key: string; }) => {
     if (event.key === 'Enter') {
-      console.log(inputVal);
-      handleSearch();
+      // console.log(inputVal);
+      await handleSearch();
     }
   };
 
 
   const handleSearch = async () => {
 
-    if (inputVal.length > 2) {
+    if (inputVal.length >= 2) {
       try {
         setLoading(true);
         const response = await fetch(`/api/search?q=${inputVal}`);

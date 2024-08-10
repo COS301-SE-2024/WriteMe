@@ -159,8 +159,8 @@ async def grammar(req: GrammarCorrection) -> dict:
        "rule": m.message,
        "replacements": m.replacements,
        "context": m.context,
-       "offset": m.offset,
-       "errorLength": m.errorLength
+       "offset": m.offsetInContext,
+       "errorLength": m.errorLength,
     } for m in matches]
     print(safe_matches, correction)
 
