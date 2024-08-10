@@ -73,7 +73,7 @@ export function ParaphraseButton() {
       }}
       icon={<Sparkles />}
     >
-      <Sparkles/>AI
+      <Sparkles/>Paraphrase
     </Components.FormattingToolbar.Button>
   );
 }

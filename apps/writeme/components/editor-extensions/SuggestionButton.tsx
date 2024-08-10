@@ -68,7 +68,7 @@ export function SuggestionButton() {
       }}
       icon={<Sparkles />}
     >
-      <Sparkles/>AI
+      <Sparkles/>Suggest
     </Components.FormattingToolbar.Button>
   );
 }

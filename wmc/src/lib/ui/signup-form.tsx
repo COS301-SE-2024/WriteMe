@@ -98,6 +98,10 @@ export function SignupFormDemo() {
           </LabelInputContainer>
         </div>
         <LabelInputContainer className="mb-4">
+          <Label htmlFor="email">Email Address</Label>
+          <Input id="email" placeholder="email@example.com" type="email" {...register("email")}/>
+        </LabelInputContainer>
+        <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
           <TooltipProvider>
             <Tooltip>
