@@ -52,6 +52,10 @@ Demo 2: [Google Drive](https://drive.google.com/file/d/1z1VcJblKExrX3pqxpPHeLQD5
 
 [pdf](/apps/writeme-docs/static/pdfs/User%20Manualv3.pdf)
 
+<div><a href="https://docs.writeme.co.za/docs/technical-installation-menu">🧾 Technical Installation Manual</a></div>
+
+[pdf](/apps/writeme-docs/static/pdfs/Technical%20Installation%20Manual.pdf)
+
 <div><a href="https://docs.writeme.co.za/docs/architectural-requirements">🧾 Architectural Requirements</a></div>
 
 [pdf](/apps/writeme-docs/static/pdfs/Architectural%20Requirementsv3.pdf)
