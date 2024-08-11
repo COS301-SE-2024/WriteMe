@@ -1,9 +1,6 @@
 import { render, screen, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { EditorContext } from '../../app/myworks/[story]/write/[chapter]/editor-context';
-import EditorController from '../../app/myworks/[story]/write/[chapter]/editor-controller';
-import EditorLoader from '../../app/myworks/[story]/write/[chapter]/editor-loader';
-import LocalNavbar from '../../app/myworks/[story]/write/[chapter]/local-navbar'
+import EditProfileForm from '../../app/user/[username]/edit-profile/EditProfileForm';
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { userEvent } from '@storybook/testing-library';
 import { expect, test, describe, it, vitest, vi } from 'vitest';
@@ -38,7 +35,7 @@ vi.mock<typeof import("next/navigation")>("next/navigation", () => {
 });
 
 
-describe('Editor', () => {
+describe('Edit Profile Form', () => {
 
   // const mockSession = {
   //   expires: new Date(Date.now() + 2 * 86400).toISOString(),
@@ -51,7 +48,6 @@ describe('Editor', () => {
   //   status: "authenticated",
   // };
   it.fails('should render successfully', () => {
-    const user = userEvent.setup();
     mockUseSession.mockReturnValue({
       status: 'authenticated',
       data: null,
@@ -59,14 +55,15 @@ describe('Editor', () => {
 
     mockUsePathname.mockImplementation(() => '/');
 
-    const { baseElement } = render(<EditorContext >
-      <EditorLoader inputChapter={"1"}>
-        <EditorController>
-          <LocalNavbar>
-          </LocalNavbar>
-        </EditorController>
-      </EditorLoader>
-    </EditorContext>);
+    const user = {
+      id: "1",
+      name: "Test User",
+      bio: "Bio",
+      email: "me@gmail.com",
+      password: null
+    }
+
+    const { baseElement } = render(<EditProfileForm user={user} />);
     expect(baseElement).toBeTruthy();
   });
 

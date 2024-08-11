@@ -88,6 +88,12 @@ const Writeathons = () => {
                },
                endDate: {
                 fieldType: 'date'
+               },
+               description: {
+                fieldType: 'textarea'
+               },
+               brief: {
+                fieldType: 'textarea'
                }
               }}
               >

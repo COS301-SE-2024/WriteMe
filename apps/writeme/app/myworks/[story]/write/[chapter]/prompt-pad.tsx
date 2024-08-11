@@ -7,6 +7,7 @@ import {
   CardContent,
   CardFooter,
   Button,
+  buttonVariants,
 } from '@writeme/wmc';
 import { Textarea } from '@writeme/wmc/lib/ui/textarea';
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
@@ -15,6 +16,9 @@ import { useParams } from 'next/navigation';
 import { useState, useContext } from 'react';
 import { string } from 'zod';
 import {UtilContext } from "./editor-utilities"
+import { ChevronDown, Sparkles } from 'lucide-react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from '@writeme/wmc/lib/ui/dropdown-menu';
+import { cn } from '@writeme/wmc/utils';
 
 
 function PromptPad() {
@@ -58,7 +62,7 @@ function PromptPad() {
             }
       
             toast({
-              title: "Chapter Created",
+              title: "Prompt Saved",
               variant: "default"
             })
       
@@ -74,7 +78,7 @@ function PromptPad() {
 
 
   return (
-    <Card>
+    <Card className='max-w-sm inline'>
       <CardHeader>
         <CardTitle>Prompt Pad</CardTitle>
       </CardHeader>
@@ -82,7 +86,39 @@ function PromptPad() {
         <Textarea placeholder="a place for your planning." value={promptPadContent} onChange={v => setPromptPadContent(v.target.value)}></Textarea>
       </CardContent>
       <CardFooter className="flex justify-between gap-2">
-        <Button onClick={saveNote}>Save Prompt</Button>
+        <div className='flex -space-x-px'>
+          <DropdownMenu>
+          <Button className='rounded-r-none' onClick={saveNote}>Save Prompt</Button>
+              <DropdownMenuTrigger className={cn(buttonVariants({variant: 'default'}), "rounded-l-none")}>
+                <ChevronDown className='size-4'></ChevronDown>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem className='cursor-pointer' onClick={() => {
+                  localStorage.setItem(`pp-${params.chapter}`, promptPadContent)
+                  toast({
+                    title: 'Saved to Browser',
+                    variant: "default"
+                  })
+                }}>Save to Browser Storage</DropdownMenuItem>
+                <DropdownMenuItem className='cursor-pointer' onClick={() => {
+                  let content = localStorage.getItem(`pp-${params.chapter}`)
+                  if (!content){
+                    toast({
+                      title: 'Nothing saved in Browser',
+                      variant: "destructive"
+                    })
+                  }
+                  setPromptPadContent(content)
+                  toast({
+                    title: 'Loaded from browser',
+                    variant: "default"
+                  })
+                }}>
+                  Load from Browser Storage
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
         <ImprovGameDialog></ImprovGameDialog>
       </CardFooter>
     </Card>

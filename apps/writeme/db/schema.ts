@@ -231,7 +231,7 @@ export const writeathons = pgTable('writeathon', {
   userId: text('user_id')
     .references(() => users.id)
     .notNull(),
-  cover: text('cover_image'),
+  cover: text('cover_image').default("https://www.writersdigest.com/.image/t_share/MTcxMDY0NzcxMzIzNTY5NDEz/image-placeholder-title.jpg"),
   title: varchar('title', { length: 255 }).notNull(),
   description: text('description'),
   brief: text('brief'),
@@ -283,7 +283,8 @@ export const stories = pgTable('story', {
   blocks: json('blocks'),
   published: boolean('published').default(false).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
-  updatedAt: timestamp('updated_at').defaultNow().notNull()
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+  exportable: boolean('exportable').default(false).notNull(),
 },  (t) => ({
   titleSearchIndex:index("title_search_index").using("gin", sql`to_tsvector('english', ${t.title})`)
 }));
@@ -385,7 +386,7 @@ export const comments = pgTable('comments', {
   createdAt: timestamp('created_at').defaultNow().notNull()
 });
 
-export const commentsRelations = relations(comments, ({ one }) => {
+export const commentsRelations = relations(comments, ({ one, many }) => {
   return {
     chapter: one(chapters, {
       fields: [comments.chapterId],
@@ -398,9 +399,40 @@ export const commentsRelations = relations(comments, ({ one }) => {
     author: one(users, {
       fields: [comments.userId],
       references: [users.id]
+    }),
+    replies: many(commentReplies, {
+      relationName: 'replies'
+    }),
+    parent: many(commentReplies, {
+      relationName: 'parent'
     })
   };
 });
+
+export const commentReplies = pgTable("comment_replies", {
+  parentComment: serial('parent_id').notNull().references(() => comments.id),
+  childComment: serial('child_id').notNull().references(() => comments.id)
+}, (t) => ({
+  pk: primaryKey({
+    columns: [t.parentComment, t.childComment]
+  })
+}))
+
+export const commentRepliesRelations = relations(commentReplies, ({one}) => ({
+  parentComment: one(comments,{
+    fields: [commentReplies.childComment],
+    references: [comments.id],
+    relationName: "parent"
+  }),
+  replies: one(comments, {
+    fields: [commentReplies.parentComment],
+    references: [comments.id],
+    relationName: "replies"
+  })
+}))
+
+
+
 
 // Likes table
 // @ts-ignore

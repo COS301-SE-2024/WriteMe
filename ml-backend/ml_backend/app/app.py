@@ -1,11 +1,12 @@
 from fastapi import FastAPI
-from gramformer import Gramformer
+from fastapi.middleware.cors import CORSMiddleware
+# from gramformer import Gramformer
 import torch
 from pydantic import BaseModel
 from transformers import pipeline
-import spacy
-from spacy import displacy
-from collections import Counter
+# import spacy
+# from spacy import displacy
+# from collections import Counter
 # import en_core_web_sm
 # nlp = en_core_web_sm.load()
 import language_tool_python
@@ -53,9 +54,23 @@ pos_tagger = Classifier.load('pos')
 embedding = TransformerWordEmbeddings('bert-base-uncased')
 splitter = SegtokSentenceSplitter()
 
-
-
 app = FastAPI()
+
+origins = [
+    "http://localhost.tiangolo.com",
+    "https://localhost.tiangolo.com",
+    "http://localhost",
+    "http://localhost:8080",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @app.get("/", tags=["ROOT"])
 async def root() -> dict:
@@ -144,8 +159,8 @@ async def grammar(req: GrammarCorrection) -> dict:
        "rule": m.message,
        "replacements": m.replacements,
        "context": m.context,
-       "offset": m.offset,
-       "errorLength": m.errorLength
+       "offset": m.offsetInContext,
+       "errorLength": m.errorLength,
     } for m in matches]
     print(safe_matches, correction)
 
@@ -162,7 +177,9 @@ async def suggest(req: GrammarCorrection) -> dict:
    # todo: limit input to avoid 500 error
    output = gen(req.input, max_length=200, do_sample=True, temperature=0.9, truncation=True, return_full_text=False, prefix="You are a expert in storytelling your job is to suggest a better storyline to the following text: ")
    # todo: maybe truncate result based on punctuation 
-   return output[0]
+   return {
+      "options": output
+   }
 
 # for paraphrasing
 @app.post("/suggest/{tone}", tags=["AI"])

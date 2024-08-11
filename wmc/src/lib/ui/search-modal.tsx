@@ -19,22 +19,22 @@ export function SearchModal() {
         setIsOpen((open) => !open)
       }
     }
- 
+
     document.addEventListener("keydown", down)
     return () => document.removeEventListener("keydown", down)
   }, [])
 
-  const handleKeyDown = (event: { target: any; key: string; }) => {
+  const handleKeyDown = async (event: { target: any; key: string; }) => {
     if (event.key === 'Enter') {
-      console.log(inputVal);
-      handleSearch();
+      // console.log(inputVal);
+      await handleSearch();
     }
   };
 
 
   const handleSearch = async () => {
 
-    if (inputVal.length > 2) {
+    if (inputVal.length >= 2) {
       try {
         setLoading(true);
         const response = await fetch(`/api/search?q=${inputVal}`);
@@ -57,7 +57,7 @@ export function SearchModal() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button><Search /></Button>
+        <Button variant={'outline'} size={'icon'}><Search className="size-4"/></Button>
       </DialogTrigger>
       <DialogContent className="w-96 p-6">
         <div className="grid gap-4">

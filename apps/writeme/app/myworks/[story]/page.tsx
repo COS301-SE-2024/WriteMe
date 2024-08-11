@@ -154,6 +154,8 @@ import {
   AlertDialogTrigger,
 } from '@writeme/wmc/lib/ui/alert-dialog';
 
+export const dynamic = 'force-dynamic';
+
 export interface WritePageProps {
   params: {
     story: string;

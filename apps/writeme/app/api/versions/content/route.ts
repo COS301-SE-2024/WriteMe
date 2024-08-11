@@ -1,6 +1,7 @@
 import { auth } from "apps/writeme/auth";
 import { getVersionContent, getVersions } from "apps/writeme/services/chapters";
 import { NextRequest, NextResponse } from "next/server";
+import { ZodError } from "zod";
 
 export const GET = async (req: NextRequest) => {
     try {
