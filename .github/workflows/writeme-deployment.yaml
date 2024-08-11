@@ -44,5 +44,5 @@ jobs:
         run: pnpm i -g @railway/cli
       - name: Deploy
         run: railway up
-        evn:
+        env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
