@@ -3,12 +3,20 @@
 
 import LocalNavbar from '@writeme/wmc/lib/ui/local-navbar';
 import LoginForm from './LoginForm';
+import { Suspense } from 'react';
 
-export default function Login(){
+export default function Login() {
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       <LocalNavbar />
-      <LoginForm />
+      <div className="flex-grow flex items-center justify-center">
+        <div className="w-full max-w-md">
+          <Suspense>
+            <LoginForm />
+          </Suspense>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
+

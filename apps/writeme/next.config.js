@@ -37,6 +37,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'lh3.googleusercontent.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'minio.khyalkara.com',
+      },
     ],
   },
   transpilePackages: ["next-auth"]

@@ -9,11 +9,15 @@ import {
   serial,
   boolean,
   json,
-  jsonb
+  jsonb,
+  date,
+  index
 } from 'drizzle-orm/pg-core';
 
 import type { AdapterAccountType } from 'next-auth/adapters';
-import { relations } from 'drizzle-orm';
+import { relations, sql } from 'drizzle-orm';
+
+export { nextUploadAssetsTable } from 'next-upload/store/drizzle/postgres-js';
 
 // @ts-ignore
 export const users = pgTable('user', {
@@ -41,7 +45,10 @@ export const userRelations = relations(users, ({ many }) => ({
     relationName: 'followers'
   }),
   stories: many(stories),
-  comments: many(comments)
+  comments: many(comments),
+  bookmarks: many(userBookmarks),
+  votes: many(storyWriteathonVotes),
+  notepads: many(notepads)
 }));
 
 export const userFollowers = pgTable('user_followers', {
@@ -77,29 +84,60 @@ export const followersRelations = relations(userFollowers, ({ one }) => ({
   })
 }));
 
-// @ts-ignore
-export const accounts = pgTable(
-  'account',
-  {
-    userId: text('userId')
-      .notNull()
-      .references(() => users.id, { onDelete: 'cascade' }),
-    type: text('type').$type<AdapterAccountType>().notNull(),
-    provider: text('provider').notNull(),
-    providerAccountId: text('providerAccountId').notNull(),
-    refresh_token: text('refresh_token'),
-    access_token: text('access_token'),
-    expires_at: integer('expires_at'),
-    token_type: text('token_type'),
-    scope: text('scope'),
-    id_token: text('id_token'),
-    session_state: text('session_state')
-  },
-  (account) => ({
-    compoundKey: primaryKey({
-      columns: [account.provider, account.providerAccountId]
+export const userBookmarks = pgTable('user_bookmarks', {
+  userId: text('user_id')
+    .references(() => users.id, {
+      onDelete: 'cascade'
     })
+    .notNull(),
+  storyId: text('story_id')
+    .references(() => stories.id, {
+      onDelete: 'cascade'
+    })
+    .notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull()
+}, (t) => {
+  return {
+    pk: primaryKey({
+      columns: [t.userId, t.storyId]
+    })
+  }
+})
+
+export const userBookmarksRelations = relations(userBookmarks, ({ one }) => ({
+  user: one(users, {
+    fields: [userBookmarks.userId],
+    references: [users.id],
+    relationName: 'user'
+  }),
+  story: one(stories, {
+    fields: [userBookmarks.storyId],
+    references: [stories.id],
+    relationName: 'story'
   })
+}));
+
+// @ts-ignore
+export const accounts = pgTable('account', {
+  userId: text('userId')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  type: text('type').$type<AdapterAccountType>().notNull(),
+  provider: text('provider').notNull(),
+  providerAccountId: text('providerAccountId').notNull(),
+  refresh_token: text('refresh_token'),
+  access_token: text('access_token'),
+  expires_at: integer('expires_at'),
+  token_type: text('token_type'),
+  scope: text('scope'),
+  id_token: text('id_token'),
+  session_state: text('session_state')
+},
+(account) => ({
+  compoundKey: primaryKey({
+    columns: [account.provider, account.providerAccountId]
+  })
+})
 );
 
 // @ts-ignore
@@ -124,6 +162,111 @@ export const verificationTokens = pgTable(
   })
 );
 
+export const voteCategories = pgTable('vote_category', {
+  id: text('id')
+    .primaryKey()
+    .notNull()
+    .$defaultFn(() => crypto.randomUUID()),
+  category: text('category')
+    .notNull(),
+})
+
+export const voteCategoryRelations = relations(voteCategories, ({many}) => ({
+  votes: many(storyWriteathonVotes)
+}))
+
+
+export const storyWriteathonVotes = pgTable('story_writeathon_votes', {
+  userId: text('user_id')
+    .references(() => users.id, {
+      onDelete: 'cascade'
+    })
+    .notNull(),
+  writeathonId: text('writeathon_id')
+    .references(() => writeathons.id, {
+      onDelete: 'cascade'
+    }).notNull(),
+  storyId: text('story_id')
+    .references(() => stories.id, {
+      onDelete: 'cascade'
+    })
+    .notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  categoryId: text('category_id')
+    .references(() => voteCategories.id),
+}, (t) => {
+  return {
+    pk: primaryKey({
+      columns: [t.userId, t.storyId, t.writeathonId, t.categoryId]
+    })
+  }
+})
+
+export const storyWriteathonVotesRelations = relations(storyWriteathonVotes, ({ one }) => ({
+  user: one(users, {
+    fields: [storyWriteathonVotes.userId],
+    references: [users.id],
+    relationName: 'user'
+  }),
+  story: one(stories, {
+    fields: [storyWriteathonVotes.storyId],
+    references: [stories.id],
+    relationName: 'story'
+  }),
+  writeathon: one(writeathons, {
+    fields: [storyWriteathonVotes.storyId],
+    references: [writeathons.id],
+    relationName: 'writeathon'
+  }),
+  categories: one(voteCategories, {
+    fields: [storyWriteathonVotes.categoryId],
+    references: [voteCategories.id]
+  })
+}));
+
+export const writeathons = pgTable('writeathon', {
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  userId: text('user_id')
+    .references(() => users.id)
+    .notNull(),
+  cover: text('cover_image').default("https://www.writersdigest.com/.image/t_share/MTcxMDY0NzcxMzIzNTY5NDEz/image-placeholder-title.jpg"),
+  title: varchar('title', { length: 255 }).notNull(),
+  description: text('description'),
+  brief: text('brief'),
+  startDate: date('start_date', { mode: "date" }),
+  endDate: date('end_date', { mode: "date" })
+})
+
+export const writeathonsRelations = relations(writeathons, ({ many }) => ({
+  stories: many(storiesWriteathons),
+  votes: many(storyWriteathonVotes)
+}))
+
+export const storiesWriteathons = pgTable('story_writeathons', {
+  storyId: text('story_id').notNull().references(() => stories.id),
+  writeathonId: text('writeathon_id').notNull().references(() => writeathons.id)
+}, (t) => {
+  return {
+    pk: primaryKey({
+      columns: [t.storyId,t.writeathonId]
+    })
+  }
+})
+
+export const storiesWriteathonsRelations = relations(storiesWriteathons, ({one})=> ({
+  story: one(stories, {
+    fields: [storiesWriteathons.storyId],
+    references: [stories.id]
+  }),
+  writeathon: one(writeathons, {
+    fields: [storiesWriteathons.writeathonId],
+    references: [writeathons.id]
+  })
+}))
+
+
 // @ts-ignore
 export const stories = pgTable('story', {
   id: text('id')
@@ -140,8 +283,11 @@ export const stories = pgTable('story', {
   blocks: json('blocks'),
   published: boolean('published').default(false).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
-  updatedAt: timestamp('updated_at').defaultNow().notNull()
-});
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+  exportable: boolean('exportable').default(false).notNull(),
+},  (t) => ({
+  titleSearchIndex:index("title_search_index").using("gin", sql`to_tsvector('english', ${t.title})`)
+}));
 
 export const storiesRelations = relations(stories, ({ one, many }) => ({
   chapters: many(chapters),
@@ -151,10 +297,32 @@ export const storiesRelations = relations(stories, ({ one, many }) => ({
   }),
   comments: many(comments),
   likes: many(likes),
-  // tags: many(tags),
-  // genres: many(genres)
+  bookmarkedBy: many(userBookmarks),
+  genres: many(storyGenres),
+  writeathons: many(storiesWriteathons),
+  votes: many(storyWriteathonVotes)
 }));
 
+
+export const versions = pgTable('versions', {
+  chapterId: text("chapter_id").notNull(),
+  blocks: jsonb('blocks'),
+  createdAt: timestamp("created_at", {
+    mode: 'date',
+    precision: 3
+  }).defaultNow().notNull(),
+}, (t) => ({
+  pk: primaryKey({
+    columns: [t.chapterId, t.createdAt]
+  })
+}))
+
+export const versionRelations = relations(versions, ({one}) => ({
+  chapter: one(chapters, {
+    fields: [versions.chapterId],
+    references: [chapters.id]
+  })
+}))
 
 // @ts-ignore
 export const chapters = pgTable('chapter', {
@@ -180,8 +348,29 @@ export const chaptersRelations = relations(chapters, ({ one, many }) => ({
     references: [stories.id]
   }),
   comments: many(comments),
-  likes: many(likes)
+  likes: many(likes),
+  versions: many(versions),
+  notepads: many(notepads)
 }));
+
+export const notepads = pgTable('notepads', {
+  author: text('author_id').notNull(),
+  chapter: text('chapter_id').notNull(),
+  content: text('content').default('')
+}, (t) => ({
+  pk: primaryKey({ columns: [t.chapter, t.author]})
+}))
+
+export const notepadsRelations = relations(notepads, ({ one}) => ({
+  chapter: one(chapters, {
+    fields: [notepads.chapter],
+    references:  [chapters.id]
+  }),
+  author: one(users, {
+    fields: [notepads.author],
+    references: [users.id]
+  })
+}))
 
 
 // @ts-ignore
@@ -197,7 +386,7 @@ export const comments = pgTable('comments', {
   createdAt: timestamp('created_at').defaultNow().notNull()
 });
 
-export const commentsRelations = relations(comments, ({ one }) => {
+export const commentsRelations = relations(comments, ({ one, many }) => {
   return {
     chapter: one(chapters, {
       fields: [comments.chapterId],
@@ -210,9 +399,40 @@ export const commentsRelations = relations(comments, ({ one }) => {
     author: one(users, {
       fields: [comments.userId],
       references: [users.id]
+    }),
+    replies: many(commentReplies, {
+      relationName: 'replies'
+    }),
+    parent: many(commentReplies, {
+      relationName: 'parent'
     })
   };
 });
+
+export const commentReplies = pgTable("comment_replies", {
+  parentComment: serial('parent_id').notNull().references(() => comments.id),
+  childComment: serial('child_id').notNull().references(() => comments.id)
+}, (t) => ({
+  pk: primaryKey({
+    columns: [t.parentComment, t.childComment]
+  })
+}))
+
+export const commentRepliesRelations = relations(commentReplies, ({one}) => ({
+  parentComment: one(comments,{
+    fields: [commentReplies.childComment],
+    references: [comments.id],
+    relationName: "parent"
+  }),
+  replies: one(comments, {
+    fields: [commentReplies.parentComment],
+    references: [comments.id],
+    relationName: "replies"
+  })
+}))
+
+
+
 
 // Likes table
 // @ts-ignore
@@ -263,10 +483,10 @@ export const likesRelations = relations(likes, ({ one }) => ({
 
 
 
-// export const genres = pgTable('genres', {
-//   id: serial('id').primaryKey(),
-//   genre: text('genre').notNull(),
-// });
+export const genres = pgTable('genres', {
+  id: text('id').primaryKey(),
+  genre: text('genre').notNull(),
+});
 //
 // export const tags = pgTable('tags', {
 //   id: serial('id').primaryKey(),
@@ -277,23 +497,23 @@ export const likesRelations = relations(likes, ({ one }) => ({
 //   stories: many(storyTags),
 // }));
 
-// export const storyGenres = pgTable('story_genres', {
-//   storyId: text('story_id').references(() => stories.id).notNull(),
-//   genreId: serial('genre_id').references(() => genres.id).notNull(),
-// },
-// (t) => ({
-//   pk: primaryKey({columns: [t.storyId, t.genreId]})
-// })
-// );
+export const storyGenres = pgTable('story_genres', {
+  storyId: text('story_id').references(() => stories.id).notNull(),
+  genreId: text('genre_id').references(() => genres.id).notNull(),
+},
+(t) => ({
+  pk: primaryKey({columns: [t.storyId, t.genreId]})
+})
+);
 //
-// export const genreRelations = relations(genres, ({many}) => ({
-//   stories: many(storyGenres),
-// }));
+export const genreRelations = relations(genres, ({many}) => ({
+  stories: many(storyGenres),
+}));
 //
-// export const storyGenreRelations = relations(storyGenres, ({one}) => ({
-//   stories: one(stories, {fields: [storyGenres.storyId], references: [stories.id]}),
-//   genres: one(genres, {fields: [storyGenres.genreId], references: [genres.id]}),
-// }));
+export const storyGenreRelations = relations(storyGenres, ({one}) => ({
+  stories: one(stories, {fields: [storyGenres.storyId], references: [stories.id]}),
+  genres: one(genres, {fields: [storyGenres.genreId], references: [genres.id]}),
+}));
 //
 // export const storyTags = pgTable('story_tags', {
 //   storyId: text('story_id').references(() => stories.id).notNull(),

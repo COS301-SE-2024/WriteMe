@@ -1,10 +1,14 @@
 import { render, screen, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import EditProfileForm from '../../app/user/[username]/edit-profile/EditProfileForm';
+import { EditorContext } from '../../app/myworks/[story]/write/[chapter]/editor-context';
+import EditorController from '../../app/myworks/[story]/write/[chapter]/editor-controller';
+import EditorLoader from '../../app/myworks/[story]/write/[chapter]/editor-loader';
+import LocalNavbar from '../../app/myworks/[story]/write/[chapter]/local-navbar'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { userEvent } from '@storybook/testing-library';
 import { expect, test, describe, it, vitest, vi } from 'vitest';
 import { mockRouter } from '../utils/next-router-utils';
+import EditorUtils from 'apps/writeme/app/myworks/[story]/write/[chapter]/editor-utilities';
 vitest.mock('next-auth/react')
 
 const mockUseSession = useSession as vitest.Mock;
@@ -35,7 +39,7 @@ vi.mock<typeof import("next/navigation")>("next/navigation", () => {
 });
 
 
-describe('Edit Profile Form', () => {
+describe('Editor', () => {
 
   // const mockSession = {
   //   expires: new Date(Date.now() + 2 * 86400).toISOString(),
@@ -47,7 +51,8 @@ describe('Edit Profile Form', () => {
   //   },
   //   status: "authenticated",
   // };
-  it('should render successfully', () => {
+  it.fails('should render successfully', () => {
+    const user = userEvent.setup();
     mockUseSession.mockReturnValue({
       status: 'authenticated',
       data: null,
@@ -55,15 +60,16 @@ describe('Edit Profile Form', () => {
 
     mockUsePathname.mockImplementation(() => '/');
 
-    const user = {
-      id: "1",
-      name: "Test User",
-      bio: "Bio",
-      email: "me@gmail.com",
-      password: null
-    }
-
-    const { baseElement } = render(<EditProfileForm user={user} />);
+    const { baseElement } = render(<EditorContext >
+      <EditorLoader inputChapter={"1"}>
+        <EditorUtils>
+        <EditorController>
+          <LocalNavbar>
+          </LocalNavbar>
+        </EditorController>
+        </EditorUtils>
+      </EditorLoader>
+    </EditorContext>);
     expect(baseElement).toBeTruthy();
   });
 

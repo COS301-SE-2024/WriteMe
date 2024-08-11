@@ -25,6 +25,9 @@ import CommentSection from '../../../components/comments-sections';
 import { ShareStory } from '@writeme/wmc/lib/ui/share-story';
 import LikeButton from '../../../components/like-button';
 import ExportButton from '../../../components/export-button';
+import BookmarkButton from 'apps/writeme/components/bookmark-button';
+import { isBookmarked } from 'apps/writeme/services/users';
+import { auth } from 'apps/writeme/auth';
 // import Link from 'next/link';
 
 
@@ -36,7 +39,11 @@ export interface StoryProps {
 }
 
 export default async function Story(props: StoryProps) {
+  const session = await auth()
+
   const story = await getPublishedStory(props.params.story);
+  const bookmarked = await isBookmarked(session?.user?.id as string, props.params.story)
+
   // console.log(story.liked)
   return (
     <div>
@@ -54,7 +61,7 @@ export default async function Story(props: StoryProps) {
       </div> */}
       <div className="flex flex-col items-center justify-center gap-10">
 
-        <div className="flex justify-center mt-4 gap-x-8">
+        <div className="flex flex-col md:flex-row justify-center mt-4 gap-x-8">
           <div className="relative aspect-[3/4] h-60 m-8">
             <img
               style={{
@@ -83,10 +90,14 @@ export default async function Story(props: StoryProps) {
             {/*<Button>Start reading <ArrowUpRight></ArrowUpRight></Button>*/}
             <div
               className="flex justify-center items-center gap-4"> {/* Centering container for card footer */}
-              <LikeButton storyId={story.id} liked={story.liked}></LikeButton>
+              <div>
+                <LikeButton storyId={story.id} liked={story.liked}></LikeButton>
+                {story?.likes.length}
+              </div>
               {/*<Bookmark></Bookmark>*/}
               <ShareStory link={`https://writeme.co.za/stories/${story.id}`} message={`Check out ${story.title}`}></ShareStory>
               <ExportButton storyId={story.id}></ExportButton>
+              <BookmarkButton storyId={story.id} bookmarked={bookmarked}></BookmarkButton>
             </div>
 
 
@@ -94,8 +105,10 @@ export default async function Story(props: StoryProps) {
         </div>
 
         <div
-          className="flex gap-4 justify-center items-start h-full w-full"> {/* Centering container for the card */}
-          <ChaptersTableofContents viewer={true} story={story}></ChaptersTableofContents>
+          className="flex flex-col md:flex-row gap-4 justify-center items-start h-full w-full"> {/* Centering container for the card */}
+          <div className='w-full md:w-1/2'>
+            <ChaptersTableofContents viewer={true} story={story}></ChaptersTableofContents>
+          </div>
           <CommentSection comments={story.comments} storyId={story.id} fill={false}></CommentSection>
 
         </div>

@@ -3,6 +3,12 @@
 import { Button } from '@writeme/wmc';
 import { Download } from 'lucide-react';
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@writeme/wmc/lib/ui/tooltip";
 
 interface ExportButtonProps {
   storyId: string;
@@ -102,15 +108,24 @@ export default function ExportButton({storyId, chapterId}: ExportButtonProps){
       }
 
     }
-
-
-
   }
 
   return (
-    <Button variant="ghost" size="icon" onClick={handleExport}>
-      <Download></Download>
-    </Button>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button variant="ghost" size="icon" onClick={handleExport}>
+            <Download />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent
+          side="right"
+          sideOffset={5}
+        >
+          <p>Export this story to a pdf</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   )
 
 }

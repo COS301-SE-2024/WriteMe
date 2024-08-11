@@ -12,7 +12,7 @@ export default function Index() {
       <LocalNavbar />
       <div className="flex overflow-hidden h-full lg:flex-row">
         <div className="min-w-[40ch] md:min-w-[70ch]">
-          <div className="flex flex-col justify-evenly h-full p-10">
+          <div className="flex flex-col justify-evenly h-full p-2 md:p-10">
             <div className="flex flex-col gap-10">
               <div className="">
                 <h1 className="flex flex-col text-8xl"><span className="font-bold">Welcome To</span><span
@@ -33,7 +33,7 @@ export default function Index() {
             </div>
           </div>
         </div>
-        <div className="w-[66vw] ml-[15vw] md:-ml-[15vw] ">
+        <div className="hidden md:block w-[66vw] ml-[15vw] md:-ml-[15vw] ">
           <BooksAnimation></BooksAnimation>
         </div>
       </div>

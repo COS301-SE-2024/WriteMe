@@ -4,7 +4,7 @@ import { Button } from '@writeme/wmc'
 import React, { useState } from 'react'
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
 
-export interface FollowButtonProps {
+export interface FollowButtonProps {  
   userId: string,
   following: boolean
 }
