@@ -1,4 +1,11 @@
+import TOCInline from '@theme/TOCInline';
+
 # Software Requirements Specification
+
+## Contents:
+
+<TOCInline toc={toc} />
+
 
 ## Introduction
 
@@ -270,85 +277,215 @@ The rise of digital content consumption has created a demand for platforms that 
   </li>  
 </ol>
 
+
 ## Architectural Requirements
 
-### Quality Requirements
+###  Architectural Design Strategy
+
+Our architectural design strategy focuses on creating a collaborative writing platform that is robust and user-friendly. We start by breaking down our system into clear functional and quality requirements made by the team and prioritised by the clients, using practical use cases to guide our development process. This helps us build modular subsystems and components that are flexible and easy to maintain. By carefully selecting architectural patterns that enhance storytelling and user engagement, we ensure our platform integrates seamlessly with Natural Language Processing (NLP) tools. This approach guarantees that WriteMe provides a cohesive and enjoyable writing experience, inspiring creativity and enabling writers to thrive.
+
+Apart from reliability, performance, usability,compatibility and security the architecture should also be based around:
+
+1. User-Centric Design:
+Designing based on quality requirements puts the users' needs and expectations at the forefront. Since WriteMe is used by Readers and Writers and aims to build communities, the needs of our users' are paramount.
+2. Facilitates Long-term Maintenance and Rapid Development:
+A system designed based on quality requirements is generally more maintainable in the long run. When a system is created with a focus on aspects such as modularity, performance, reliability, and security, it is typically easier to identify and fix issues, add new features, and scale as needed all in a timely manner.
+
+This is our main architectural strategy, other strategies like decomposition and generating test cases are still important and will be applied in the different phases of the project.
+
+## Architectural Styles
+
+1. Multi-tier Architechture
+2. Model View Controller Architecture
+3. Client-Server Architecture
+4. REST Architecture
+
+### Multi-tier Architecture
+
+Our software architecture doesn't adhere to a strict layered model due to the bidirectional communication pathways between its components. Instead, it's organized into distinct tiers, each housing a specific set of functionalities.
+
+The web application's user interface (UI), API calls, cloud functions for data processing, and database interactions are all physically separated, residing on their own independent tiers. Each tier acts as a cluster of modules, collectively providing a cohesive set of services.
+
+In our mapping system, we've defined three primary tiers:
+
+- Presentation Tier: This encompasses the user interface and application client interfaces, responsible for visual rendering and user interaction.
+
+- Logic Tier: This serves as the central hub, managing interactions between various components such as the persistent database storage, client, cloud functions, API gateway. It handles the core application logic and data manipulation.
+
+- Data Access Tier: This tier is dedicated to data storage and retrieval, encompassing the database and media storage.
+
+This tiered structure, while allowing bidirectional communication, maintains a clear separation of concerns, promoting modularity, flexibility, and easier maintenance of the system
+
+### Model View Controller Architecture
+
+Our web application's client-side interaction is structured around the Model-View-Controller (MVC) architectural pattern, albeit with a modern twist. We leverage Next.js as our front-end framework, which implements a refined version of MVC known as Model-View-ViewModel (MVVM).
+
+Next.js's MVVM architecture facilitates seamless two-way data binding between the View and the ViewModel. This dynamic relationship enables our web application to automatically propagate changes within the user interface. Whenever a change event occurs, the UI is updated to reflect the modified state within the front-end data bindings. This capability is particularly advantageous for our colabertative system, where real-time updates are essential. While MVVM permeates our entire application, its primary role lies within the presentation layer. Here, it ensures that the UI remains responsive and accurately mirrors the underlying state changes, enhancing the user experience.
+
+In our Next.js implementation:
+
+- View: Server Component files define the visual layout and appearance of the user interface.
+
+- Model: Files in the db and services folder which encapsulate the logic and data management. This defines a contract for interacting with back-end services.
+
+- Controller (ViewModel): Client Component files act as the bridge between the View and Model. They handle user input, manage data binding, and orchestrate UI updates based on changes in the Model.
+
+### Client-Server Architecture
+
+In our system, the display of information to the client is facilitated through a dedicated interface, API, that communicates with the database.
+
+This database houses all the important information and data about the users, stories, chapters as well as interactions from the users.
+
+User interaction with the UI components triggers calls to the server. For instance, opening a story triggers the backend to retrieve said story and display it accordingly.
+
+### REST Architecture
+
+Our system utilizes a REST API for synchronous communication. This API responds to requests made to resource URIs with JSON-formatted payloads, specifically handling PUT, GET, and POST methods.
+
+Within our system, the REST API governs operations on the media storage, managing the creation, retrieval, modification, and deletion of users, stories, chapters and interactions between them.
+
+The REST architectural style contributes significantly to the scalability of our system and enables the establishment of a tiered architecture. Additionally, it enhances security by requiring a `Bearer: <Token>` header for accessing protected routes with sensitive data, effectively preventing unauthorized access.
+
+Furthermore, the REST API plays a crucial role in implementing the user registration mechanism. It facilitates communication with cloud functions, streamlining the registration process and ensures data integrity.
+
+## Architectural Quality Requirements
+
+The following Quality Requirements have been identified by the team and the client. They are listed in order of importance and discussed in some detail below.
 
 <ol className="srs-bullets">
-  <li><strong>Compatibility</strong>
-    <br></br>
-    compatibility is important to the application, in order to allow the growth of the community by lowering the barrier to entry.
-    <ol className='srs-bullets'>
-      <li>The app will be able to function across a variety of devices, web browsers and operating systems</li>
-      <li>Should be easy to use on a variety of screen sizes.</li>
-    </ol>
-    <br></br>
-    In order to achieve high compatibility the app should be tested on a wide variety of browsers ,using playwright, a variaty of screen sizes and operating systems should also be targeted using github actions.
-  </li>
   <li><strong>Usability</strong>
-    <br></br>
-    Usability is particularly important to us, as our app should be simple to use in order to allow the user to focus on what they really want to do, reading and writing.
+  <br></br>A key to user adoption and engagement. An intuitive interface, clear navigation, and responsive design facilitate easy access to features and functionalities, reducing user frustration and enhancing productivity. By focusing on usability, the application ensures that users can intuitively navigate and utilize its capabilities without extensive training or assistance.<br></br>
+
+  <strong>Measured by:</strong><br></br>
+  Less time and fewer steps are needed to perform typical tasks.<br></br>
+  Reduced user errors and quick recovery when errors do occur.<br></br>
+  High levels of user satisfaction are achieved through the usability of the tool. It is measurable through usability testing sessions and feedback.<br></br>
     <ol className='srs-bullets'>
-      <li>Clear and Intuitive Interface
+      <li>Intuitive Interface
         <ol className='srs-bullets'>
-          <li>Simplify the interface by removing unnecessary clutter and organising information logically and intuitively.</li>
-          <li>Use consistent design patterns and terminology throughout the platform to reduce cognitive load and improve user comprehension.</li>
-          <li>Provide clear visual cues, such as buttons, icons, and labels, to guide users through the interface and indicate interactive elements.</li>
+          <li>Include a well-organized menu and clear navigation paths to help users find features and tools quickly.
+          <br></br><strong>Implementation: </strong>
+          Component libraries such as shadcn will be used together with consistent CSS styling to incorporate a smooth and responsive user interface.
+          </li>
+          <li>Provide tooltips, guides, and tutorials to assist users in understanding how to use various features effectively.
+          <br></br><strong>Implementation: </strong>New users will be introduced to the app via an onboarding process which will be implemented using shadcn and Framer Motion. The user will be able to turn the guide on / off at anytime they feel confused.
+          </li>
+          <li>Provide clear visual cues, such as buttons, icons, and labels, to guide users through the interface and indicate interactive elements.
+          <br></br><strong>Implementation: </strong>Lucide icons will be used to display high quality icons.
+          </li>
+          <li>Feedback will always be given to the user when an action has been completed or if an error has occured.</li><br></br><strong>Implementation: </strong>Various toasts with messages will be used to provide feedback to the user. If an error has occured, detailed error messages will be displayed showing the user what may have occured. These functions should be implemented asynchronously such that the view does not hang or freeze.
         </ol>
       </li>
-      <li>User-Friendly Navigation
+      <li>Collaboration Features
         <ol className='srs-bullets'>
-          <li>Design an intuitive navigation structure that allows users to easily find and access the platform's features and functionalities.</li>
-          <li>Use hierarchical menu structures, breadcrumbs, and navigation bars to provide clear pathways for users to navigate between different sections of the platform.</li>
-        </ol>
-      </li>
-    </ol>
-    <br></br>
-    Usability will be tested through visual testing with storybook.
-  </li>
-  <li><strong>Reliability</strong>
-    <ol className='srs-bullets'>
-      <li>Testing and Performance
-        <ol className='src-bullets'>
-          <li>Thorough testing procedures using unit tests, integration tests and system tests to identify bugs before deployment using Playwright and vitest with atleast 90% coverage for critical components</li>
-          <li>Use of automated testing tools such as Google Lighthouse to test the systems performance and functionality.</li>
-          <li>The app must peform consistenly at all times.</li>
-          <li>The app must implement robust error handling mechanisms.</li>
-        </ol>
-      </li>
-      <li>Data Accuracy and Consistency
-        <ol className='src-bullets'>
-          <li>Implement data validation mechanisms to ensure that user input is accurate and consistent.</li>
-          <li>Enforce data validation rules and constraints at the application level to prevent invalid or incomplete data from entering the system.</li>
-          <li>Use transaction management techniques to maintain data integrity and consistency, such as atomicity, consistency, isolation, and durability (ACID) properties in database operations.</li>
+          <li>Provide commenting / annotation tools that allow users to give feedback directly on the document.
+          <br></br><strong>Implementation: </strong>
+          A comment section will be implemented with polling, such that new comments will appear on viewers pages.
+          </li>
         </ol>
       </li>
     </ol>
   </li>
-  <li><strong>Efficiency</strong>
-    <br></br>
-    <ol className='srs-bullets'>
-      <li>The app will need to be fast and responsive</li>
-      <li>The app will not have unneccesary overhead that can cause delays</li>
-      <li>The app will need to have minimal load times and retrieval processes</li>
+
+  <li><strong>Compatibility</strong>
+  <br></br>Compatibility across different platforms and devices expands the application's reach and usability. Supporting a wide range of operating systems, browsers, and device types ensures that users can access and interact with the application seamlessly regardless of their preferred technology. This broad compatibility enhances user convenience and accessibility, contributing to a positive user experience.<br></br>
+
+  <strong>Measured by:</strong><br></br>
+  Visual testing sessions and feedback.<br></br>
+  Less time and fewer steps are needed to perform typical tasks.<br></br>
+  Reduced user errors and quick recovery when errors do occur.<br></br>
+     <ol className='srs-bullets'>
+      <li>The app should be able to work consistently across various operating systems and devices.
+      <br></br><strong>Implementation: </strong>
+      The application is distributed as a PWA, making it available to any operating system or device that is able to run a modern web browser.
+      </li>
+      <li>The app should be able to run on mobile devices, with modern browsers.
+      <br></br><strong>Implementation: </strong>
+      The application is implemented using well supported css and javascript features, such that it is compatible with all major web browsers and screen sizes.
+      </li>
     </ol>
   </li>
+
   <li><strong>Security</strong>
-    <br></br>
-    As users may write about sensitive topics, we should strive to ensure confidentiality.
-    <ol className='srs-bullets'>
-      <li>Users can only access an account by entering the correct email and password</li>
-      <li>Passwords will be stored, salt added and hashed</li>
-      <li>Users cannot create an account until they have given a strong password</li>
+  <br></br> Measures are critical to protect user data and maintain trust. Implementing robust authentication methods, data encryption, and access controls ensures that sensitive information remains secure from unauthorized access and cyber threats. By prioritizing security, the application safeguards user privacy, complies with regulatory requirements, and mitigates risks associated with data breaches or malicious activities.
+    <ol className="srs-bullets">
+        <li>
+        The system will authenticate users using a hashed password protected login.
+        <br></br><strong>Implementation: </strong>
+        Bcrypt using the blowfish algorithm will be used to store the password hash of each user, only the hashed password  will be saved to the database.
+        </li>
+        <li>
+        The system will prevent unauthorised users from accessing the pages using a JWT.
+        <br></br><strong>Implementation: </strong>
+        The JWT's are signed with a private key on the server and are valid for 24 hours. The JWT should be sent with each request, in the form of a bearer token, to the API if a user is logged in. Only logged in users will have acces to the full functionality of the application.
+        </li>
+        <li>
+        The system will allow authors to choose who can access their works.
+        <br></br><strong>Implementation: </strong>
+        This is done using access controls. Authors can set whether anyone should be able to access their published works, certain logged in users, or no one at all. Exporting as a pdf can be toggled on or off.
+        </li>
+    </ol>
+
+  </li>
+  <li><strong>Performance</strong>
+  <br></br>Crucial as it directly impacts user satisfaction and retention. A well-performing application ensures fast response times and minimal loading delays, which are essential for providing a seamless user experience. By optimizing backend processes and frontend interactions, the application can handle simultaneous user requests efficiently, maintaining high responsiveness under varying workloads.
+    <ol className="srs-bullets">
+        <li>
+        The application should remain responsive when calling the API.
+        <br></br><strong>Implementation: </strong>
+        Requests should be made asynchronously such that the webpage does not hang, and Next.js should be used for streaming the Response back to the client.
+        </li>
+        <li>
+        File uploads should be completed in a reasonable amount of time, not exceeding 60 seconds, assuming a stable internet connection.
+        <br></br><strong>Implementation: </strong>
+        AWS buckets are used to achieve this, files are streamed from the API directly to the bucket, resulting in fast upload times.
+        </li>
+        <li>
+        Hundreds of users may user the system daily resulting in a large amount of read write calls to the database. The system should be able to handle all of these requests with minimal response times.
+        <br></br><strong>Implementation: </strong>
+        </li>
+    </ol>
+  </li>
+
+  <li><strong>Reliability</strong>
+  <br></br> Ensures consistent availability and functionality of the application. Achieving high uptime and minimizing downtime through reliable hosting, proactive monitoring, and efficient error handling processes ensures uninterrupted service for users. By prioritizing reliability, the application builds user confidence, supports continuous operations, and minimizes disruptions that could impact user productivity or experience.
+    <ol className="srs-bullets">
+        <li>The system should be available and functional at all times once deployed, meaning an uptime greater than 99% should be achieved.<br></br><strong>Implementation: </strong>Since the system is hosted on AWS uptime can be assumed due to their management.
+        </li>
+        <li>The application should make use of orchestration and continuous integration and deployment (CI/CD) such that no downtime is incurred, when deploying new features or fixes.
+        <br></br><strong>Implementation: </strong>
+        GitHub Actions are used along with <a href="https://sst.dev/" target="_blank">sst</a> for AWS to migrate changes and redeploy without down time.
+        </li>
+        <li>
+        Runtime errors should be caught earlier to avoid down time of service.
+        <br></br><strong>Implementation: </strong>
+        Error logging should take place, high amounts of errors should notify the developers, using AWS CloudWatch.
+        </li>
     </ol>
   </li>
 </ol>
 
-### Architectural Pattern
+## Architectural Requirements
 
-### Client-Server Pattern
+### Deployment
 
-The Client-Server architecture for our project splits the application into two main components being the client and the server. The client is a Progressive Web App built with React and provides an interactive and responsive user interface that can be accessed and used across multiple devices. Users actions such as creating and writing stories are sent as HTTP requests to the server. The server, developed using NestJS, handles these requests by processing the data, applying NLP techniques, and managing the business logic. All of our data is stored in a database therefore ensuring persistence and reliability.CI/CD using GitHub actions make updates and maintenance fast and efficient. This architecture ensures a robust, scalable, and secure platform, therefore creating a simple yet effective writing experience for users
+Application is required to be deployed to AWS.
+
+### Security
+
+Specific encryption standards are necessary to protect sensitive data from breaches and ensure that the app meets industry standards for data security. Thus, the use of standardized authentication protocols (e.g., OAuth) ensures secure user authentication and authorization, preventing unauthorized access and ensuring compliance with security best practices.
+
+### Cost
+
+The system requires the use of AWS, therefore implementing budget constraints within AWS will ensure that the overall cost of infrastructure and services does not exceed the allocated budget.
+
+### Reliability
+
+By leveraging AWS's robust infrastructure and services, the app can achieve high reliability, ensuring consistent availability and performance even in the face of potential failures and disruptions. Amazon S3 will be used to automatically back up user data and application data, ensuring that critical information is protected and can be recovered in case of data loss.
+
+## 6 Architectural Diagram
+
+![Architectural Diagaram](./images/ArchDiagram.jpg)
 
 ## Use Case Diagrams
 
