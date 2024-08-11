@@ -15,7 +15,7 @@ export async function uploadFile(file: File){
 
 export async function getSuggestions(input: string){
     try {
-        const res = await fetch(process.env.NEXT_PUBLIC_AI_ENDPOINT + "/suggest", {
+        const res = await fetch("https://ai.writeme.co.za/suggest", {
             method: 'post',
             body: JSON.stringify({
                 input: input
@@ -35,7 +35,7 @@ export async function getSuggestions(input: string){
 
 export async function getParaphrase(input: string){
     try {
-        const res = await fetch(process.env.NEXT_PUBLIC_AI_ENDPOINT + "/suggest/paraphrase", {
+        const res = await fetch("https://ai.writeme.co.za/suggest/paraphrase", {
             method: 'post',
             body: JSON.stringify({
                 input: input
@@ -54,7 +54,7 @@ export async function getParaphrase(input: string){
 
 export async function getGrammar(input: string){
     try {
-        const res = await fetch(process.env.NEXT_PUBLIC_AI_ENDPOINT + "/grammar", {
+        const res = await fetch("https://ai.writeme.co.za/grammar", {
             method: 'post',
             body: JSON.stringify({
                 input: input
@@ -73,7 +73,7 @@ export async function getGrammar(input: string){
 
 export async function getEntities(input: string){
     try {
-        const res = await fetch(process.env.NEXT_PUBLIC_AI_ENDPOINT + "/analysis", {
+        const res = await fetch("https://ai.writeme.co.za/analysis", {
             method: 'post',
             body: JSON.stringify({
                 input: input
@@ -92,7 +92,7 @@ export async function getEntities(input: string){
 
 export async function getSentiment(input: string){
     try {
-        const res = await fetch(process.env.NEXT_PUBLIC_AI_ENDPOINT + "/sentiment", {
+        const res = await fetch("https://ai.writeme.co.za/sentiment", {
             method: 'post',
             body: JSON.stringify({
                 input: input
