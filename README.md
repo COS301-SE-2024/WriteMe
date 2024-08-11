@@ -43,6 +43,8 @@ Demo 1: [Google Drive](https://drive.google.com/file/d/14VCYFlI73uEyd8mLj_MsaBLn
 
 Demo 2: [Google Drive](https://drive.google.com/file/d/1z1VcJblKExrX3pqxpPHeLQD5jxEAhosH/view?usp=sharing) [YouTube](https://youtu.be/tdMjbTVo7X8)
 
+Demo 3: [Google Drive](https://drive.google.com/file/d/1v_udVqfBefF_wH6479UACoq-LTIUB0lH/view?usp=sharing) [YouTube](https://youtu.be/KyhjMNwcoPg)
+
 ## Documentation
 <div><a href="https://docs.writeme.co.za/docs/software-requirements-specification">🧾 SRS Document</a></div> 
 
