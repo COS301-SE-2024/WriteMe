@@ -44,13 +44,21 @@ Demo 1: [Google Drive](https://drive.google.com/file/d/14VCYFlI73uEyd8mLj_MsaBLn
 Demo 2: [Google Drive](https://drive.google.com/file/d/1z1VcJblKExrX3pqxpPHeLQD5jxEAhosH/view?usp=sharing) [YouTube](https://youtu.be/tdMjbTVo7X8)
 
 ## Documentation
-<div><a href="https://docs.writeme.co.za/docs/software-requirements-specification">🧾 SRS Document</a></div> [pdf](/apps/writeme-docs/static/pdfs/SRSv3.pdf)
+<div><a href="https://docs.writeme.co.za/docs/software-requirements-specification">🧾 SRS Document</a></div> 
 
-<div><a href="https://docs.writeme.co.za/docs/User">🧾 User Manual</a></div>[pdf](/apps/writeme-docs/static/pdfs/User%20Manualv3.pdf)
+[pdf](/apps/writeme-docs/static/pdfs/SRSv3.pdf)
 
-<div><a href="https://docs.writeme.co.za/docs/architectural-requirements">🧾 Architectural Requirements</a></div>[pdf](/apps/writeme-docs/static/pdfs/Architectural%20Requirementsv3.pdf)
+<div><a href="https://docs.writeme.co.za/docs/User">🧾 User Manual</a></div>
 
-<div><a href="https://docs.writeme.co.za/docs/coding-standards">🧾 Coding Standards</a></div>[pdf](/apps/writeme-docs/static/pdfs/Coding%20Standards%20Documentv3.pdf)
+[pdf](/apps/writeme-docs/static/pdfs/User%20Manualv3.pdf)
+
+<div><a href="https://docs.writeme.co.za/docs/architectural-requirements">🧾 Architectural Requirements</a></div>
+
+[pdf](/apps/writeme-docs/static/pdfs/Architectural%20Requirementsv3.pdf)
+
+<div><a href="https://docs.writeme.co.za/docs/coding-standards">🧾 Coding Standards</a></div>
+
+[pdf](/apps/writeme-docs/static/pdfs/Coding%20Standards%20Documentv3.pdf)
 
 <div><a href="https://docs.writeme.co.za/docs/guides/branching-strategy">🧾 Branching Strategy</a></div>
 <div><a href="https://docs.writeme.co.za/docs/guides/testing">🧾 Testing</a></div>
