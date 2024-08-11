@@ -19,7 +19,7 @@ export default function Index() {
                   className="font-accent"><span className="text-primary dark:text-indigo-500">Write</span>Me</span></h1>
               </div>
 
-              <div className="text-lg text-gray-500">
+              <div className="text-lg text-gray-500"> 
                 <p >WriteMe provides you with an amazing</p>
                 <p>collaborative writing experience. Join</p>
                 <p>today to unlock your full creative potential!</p>
