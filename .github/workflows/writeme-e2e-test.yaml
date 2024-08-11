@@ -39,6 +39,8 @@ jobs:
         run: pnpm install
       - name: Install Playwright Browsers
         run: pnpm dlx playwright install --with-deps
+      - name: Install Playwright Browser Cache
+        run:  pnpm exec playwright install
       - name: Run E2E Tests
         run: pnpm exec nx run writeme-e2e:e2e-ci
       - uses: actions/upload-artifact@v4
