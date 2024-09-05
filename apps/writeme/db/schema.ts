@@ -400,12 +400,8 @@ export const commentsRelations = relations(comments, ({ one, many }) => {
       fields: [comments.userId],
       references: [users.id]
     }),
-    replies: many(commentReplies, {
-      relationName: 'replies'
-    }),
-    parent: many(commentReplies, {
-      relationName: 'parent'
-    })
+    replies: many(commentReplies),
+    parent: one(commentReplies)
   };
 });
 
@@ -419,13 +415,13 @@ export const commentReplies = pgTable("comment_replies", {
 }))
 
 export const commentRepliesRelations = relations(commentReplies, ({one}) => ({
-  parentComment: one(comments,{
-    fields: [commentReplies.childComment],
+  parent: one(comments,{
+    fields: [commentReplies.parentComment],
     references: [comments.id],
     relationName: "parent"
   }),
   replies: one(comments, {
-    fields: [commentReplies.parentComment],
+    fields: [commentReplies.childComment],
     references: [comments.id],
     relationName: "replies"
   })

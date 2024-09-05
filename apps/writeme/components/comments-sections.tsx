@@ -47,7 +47,7 @@ export default function CommentSection({
 }: CommentSectionProps) {
   dayjs.extend(relativeTime);
   const [input, setInput] = useState('');
-  const [parent, setParent] = useState('');
+  const [parent, setParent] = useState(undefined);
   const [replyName, setReplyName] = useState("")
   const [emoji, setEmoji] = useState("")
   const [emojiPicker, setEmojiPicker] = useState(false)
@@ -63,6 +63,7 @@ export default function CommentSection({
           content: input,
           storyId: storyId,
           chapterId: chapterId,
+          parentId: parent,
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -147,7 +148,7 @@ export default function CommentSection({
               {/* Replies */}
               <div className="pl-4">
                 <ol>
-                  {/* {c.replies.map((r) => {
+                  {c.replies.map((r) => {
                     <div className="flex gap-2 items-start justify-start">
                       <Avatar className="mt-3">
                         <AvatarImage src={r.author.image} />
@@ -174,7 +175,7 @@ export default function CommentSection({
                         </p>
                       </div>
                     </div>;
-                  })} */}
+                  })}
                 </ol>
               </div>
             </div>
@@ -203,7 +204,7 @@ export default function CommentSection({
               <Button variant="outline" size="icon" onClick={handleComment}>
                 <Send />
               </Button>
-              {parent !== "" && (<Button size={'icon'} onClick={() => { setParent(""); setReplyName("") }} variant={"destructive"}><X className='size-2'/></Button>)}
+              {parent !== undefined && (<Button size={'icon'} onClick={() => { setParent(undefined); setReplyName("") }} variant={"destructive"}><X className='size-2'/></Button>)}
             </div>
           </>
         ) : (

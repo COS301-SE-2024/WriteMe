@@ -3,7 +3,7 @@ import { NextResponse, NextRequest } from 'next/server';
 import { auth } from '../../../auth';
 import { createCommentSchema, updateCommentSchema, deleteCommentSchema } from "../../../db/comments-schema";
 import { db } from '../../../db/db';
-import { comments } from '../../../db/schema';
+import { commentReplies, comments } from '../../../db/schema';
 import { eq } from 'drizzle-orm';
 
 // Fetching
@@ -27,9 +27,9 @@ export async function POST(req: NextRequest) {
               status: 'fail', message: "You are not logged in",
             }), { status : 401})
         }else {
-            const {content, storyId, chapterId} = createCommentSchema.parse(await req.json());
+            const {content, storyId, chapterId, parentId}= createCommentSchema.parse(await req.json());
 
-            const comment = await db.insert(comments).values({
+            const [comment] = await db.insert(comments).values({
                 content : content,
                 storyId : storyId,
                 chapterId : chapterId,
@@ -38,7 +38,13 @@ export async function POST(req: NextRequest) {
                 id: comments.id,
                 content: comments.content
             });
-
+            
+            if (parentId) {
+              await db.insert(commentReplies).values({
+                parentComment: parentId,
+                childComment: comment.id
+              });
+            }
             return NextResponse.json({
                 success: true,
                 ...comment
@@ -47,7 +53,6 @@ export async function POST(req: NextRequest) {
     }catch (e: any){
         console.log(e)
     }
-
 }
 
 // Updating
