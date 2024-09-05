@@ -106,12 +106,14 @@ const VoteButton = (props: VoteButtonProps) => {
               </ToggleGroupItem>
             ))}
           </ToggleGroup>
-          <Button
-            variant='default'
-            onClick={() => handleVote(props.writeathonId, props.storyId, selectedCategories)}
-          >
-            Submit Vote
-          </Button>
+          <div className='grid grid-cols-2'>
+            <Button
+              variant='default'
+              onClick={() => handleVote(props.writeathonId, props.storyId, selectedCategories)}
+            >
+              Submit Vote
+            </Button>
+          </div>
         </DialogContent>
       </Dialog>
     </div>
