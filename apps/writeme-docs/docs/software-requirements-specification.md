@@ -6,7 +6,6 @@ import TOCInline from '@theme/TOCInline';
 
 <TOCInline toc={toc} />
 
-
 ## Introduction
 
 WriteMe is an innovative platform designed to revolutionize the way people create, share, and consume stories. Our vision is to become the leading platform for writers and readers, providing tools and features that enhance the storytelling experience and make it accessible to everyone. WriteMe aims to enhance user experience through an intuitive and seamless interface, foster creativity by offering helpful tools and suggestions, build a vibrant community for sharing and feedback, ensure security with robust measures to protect user data, and expand accessibility across various devices and operating systems.
@@ -211,7 +210,7 @@ The rise of digital content consumption has created a demand for platforms that 
         <li><strong>Users can join a writeathon</strong></li>
         <li><strong>Users can submit a story to the writeathon</strong></li>
         <li><strong>Users can vote on whos stroy should win the writeathon</strong></li>
-        <li><strong>Users can receive writeathon points for winning writeathons</strong></li>
+        <li><strong>Users can receive writeathon badges based on their placement in specific writeathons</strong></li>
      </ol>
     </li>
   <li>Users can host their own Writeathons
@@ -277,19 +276,18 @@ The rise of digital content consumption has created a demand for platforms that 
   </li>  
 </ol>
 
-
 ## Architectural Requirements
 
-###  Architectural Design Strategy
+### Architectural Design Strategy
 
 Our architectural design strategy focuses on creating a collaborative writing platform that is robust and user-friendly. We start by breaking down our system into clear functional and quality requirements made by the team and prioritised by the clients, using practical use cases to guide our development process. This helps us build modular subsystems and components that are flexible and easy to maintain. By carefully selecting architectural patterns that enhance storytelling and user engagement, we ensure our platform integrates seamlessly with Natural Language Processing (NLP) tools. This approach guarantees that WriteMe provides a cohesive and enjoyable writing experience, inspiring creativity and enabling writers to thrive.
 
 Apart from reliability, performance, usability,compatibility and security the architecture should also be based around:
 
 1. User-Centric Design:
-Designing based on quality requirements puts the users' needs and expectations at the forefront. Since WriteMe is used by Readers and Writers and aims to build communities, the needs of our users' are paramount.
+   Designing based on quality requirements puts the users' needs and expectations at the forefront. Since WriteMe is used by Readers and Writers and aims to build communities, the needs of our users' are paramount.
 2. Facilitates Long-term Maintenance and Rapid Development:
-A system designed based on quality requirements is generally more maintainable in the long run. When a system is created with a focus on aspects such as modularity, performance, reliability, and security, it is typically easier to identify and fix issues, add new features, and scale as needed all in a timely manner.
+   A system designed based on quality requirements is generally more maintainable in the long run. When a system is created with a focus on aspects such as modularity, performance, reliability, and security, it is typically easier to identify and fix issues, add new features, and scale as needed all in a timely manner.
 
 This is our main architectural strategy, other strategies like decomposition and generating test cases are still important and will be applied in the different phases of the project.
 
@@ -356,54 +354,56 @@ The following Quality Requirements have been identified by the team and the clie
   <li><strong>Usability</strong>
   <br></br>A key to user adoption and engagement. An intuitive interface, clear navigation, and responsive design facilitate easy access to features and functionalities, reducing user frustration and enhancing productivity. By focusing on usability, the application ensures that users can intuitively navigate and utilize its capabilities without extensive training or assistance.<br></br>
 
-  <strong>Measured by:</strong><br></br>
-  Less time and fewer steps are needed to perform typical tasks.<br></br>
-  Reduced user errors and quick recovery when errors do occur.<br></br>
-  High levels of user satisfaction are achieved through the usability of the tool. It is measurable through usability testing sessions and feedback.<br></br>
-    <ol className='srs-bullets'>
-      <li>Intuitive Interface
-        <ol className='srs-bullets'>
-          <li>Include a well-organized menu and clear navigation paths to help users find features and tools quickly.
-          <br></br><strong>Implementation: </strong>
-          Component libraries such as shadcn will be used together with consistent CSS styling to incorporate a smooth and responsive user interface.
-          </li>
-          <li>Provide tooltips, guides, and tutorials to assist users in understanding how to use various features effectively.
-          <br></br><strong>Implementation: </strong>New users will be introduced to the app via an onboarding process which will be implemented using shadcn and Framer Motion. The user will be able to turn the guide on / off at anytime they feel confused.
-          </li>
-          <li>Provide clear visual cues, such as buttons, icons, and labels, to guide users through the interface and indicate interactive elements.
-          <br></br><strong>Implementation: </strong>Lucide icons will be used to display high quality icons.
-          </li>
-          <li>Feedback will always be given to the user when an action has been completed or if an error has occured.</li><br></br><strong>Implementation: </strong>Various toasts with messages will be used to provide feedback to the user. If an error has occured, detailed error messages will be displayed showing the user what may have occured. These functions should be implemented asynchronously such that the view does not hang or freeze.
-        </ol>
-      </li>
-      <li>Collaboration Features
-        <ol className='srs-bullets'>
-          <li>Provide commenting / annotation tools that allow users to give feedback directly on the document.
-          <br></br><strong>Implementation: </strong>
-          A comment section will be implemented with polling, such that new comments will appear on viewers pages.
-          </li>
-        </ol>
-      </li>
-    </ol>
+<strong>Measured by:</strong><br></br>
+Less time and fewer steps are needed to perform typical tasks.<br></br>
+Reduced user errors and quick recovery when errors do occur.<br></br>
+High levels of user satisfaction are achieved through the usability of the tool. It is measurable through usability testing sessions and feedback.<br></br>
+<ol className='srs-bullets'>
+<li>Intuitive Interface
+<ol className='srs-bullets'>
+<li>Include a well-organized menu and clear navigation paths to help users find features and tools quickly.
+<br></br><strong>Implementation: </strong>
+Component libraries such as shadcn will be used together with consistent CSS styling to incorporate a smooth and responsive user interface.
+</li>
+<li>Provide tooltips, guides, and tutorials to assist users in understanding how to use various features effectively.
+<br></br><strong>Implementation: </strong>New users will be introduced to the app via an onboarding process which will be implemented using shadcn and Framer Motion. The user will be able to turn the guide on / off at anytime they feel confused.
+</li>
+<li>Provide clear visual cues, such as buttons, icons, and labels, to guide users through the interface and indicate interactive elements.
+<br></br><strong>Implementation: </strong>Lucide icons will be used to display high quality icons.
+</li>
+<li>Feedback will always be given to the user when an action has been completed or if an error has occured.</li><br></br><strong>Implementation: </strong>Various toasts with messages will be used to provide feedback to the user. If an error has occured, detailed error messages will be displayed showing the user what may have occured. These functions should be implemented asynchronously such that the view does not hang or freeze.
+</ol>
+</li>
+<li>Collaboration Features
+<ol className='srs-bullets'>
+<li>Provide commenting / annotation tools that allow users to give feedback directly on the document.
+<br></br><strong>Implementation: </strong>
+A comment section will be implemented with polling, such that new comments will appear on viewers pages.
+</li>
+</ol>
+</li>
+</ol>
+
   </li>
 
   <li><strong>Compatibility</strong>
   <br></br>Compatibility across different platforms and devices expands the application's reach and usability. Supporting a wide range of operating systems, browsers, and device types ensures that users can access and interact with the application seamlessly regardless of their preferred technology. This broad compatibility enhances user convenience and accessibility, contributing to a positive user experience.<br></br>
 
-  <strong>Measured by:</strong><br></br>
-  Visual testing sessions and feedback.<br></br>
-  Less time and fewer steps are needed to perform typical tasks.<br></br>
-  Reduced user errors and quick recovery when errors do occur.<br></br>
-     <ol className='srs-bullets'>
-      <li>The app should be able to work consistently across various operating systems and devices.
-      <br></br><strong>Implementation: </strong>
-      The application is distributed as a PWA, making it available to any operating system or device that is able to run a modern web browser.
-      </li>
-      <li>The app should be able to run on mobile devices, with modern browsers.
-      <br></br><strong>Implementation: </strong>
-      The application is implemented using well supported css and javascript features, such that it is compatible with all major web browsers and screen sizes.
-      </li>
-    </ol>
+<strong>Measured by:</strong><br></br>
+Visual testing sessions and feedback.<br></br>
+Less time and fewer steps are needed to perform typical tasks.<br></br>
+Reduced user errors and quick recovery when errors do occur.<br></br>
+<ol className='srs-bullets'>
+<li>The app should be able to work consistently across various operating systems and devices.
+<br></br><strong>Implementation: </strong>
+The application is distributed as a PWA, making it available to any operating system or device that is able to run a modern web browser.
+</li>
+<li>The app should be able to run on mobile devices, with modern browsers.
+<br></br><strong>Implementation: </strong>
+The application is implemented using well supported css and javascript features, such that it is compatible with all major web browsers and screen sizes.
+</li>
+</ol>
+
   </li>
 
   <li><strong>Security</strong>
