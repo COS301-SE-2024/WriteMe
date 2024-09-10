@@ -1,5 +1,6 @@
 import LocalNavbar from '@writeme/wmc/lib/ui/local-navbar';
 import NewChapterFrom from './new-chapter-from';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
 
 export interface NewChapterProps {
   params: {

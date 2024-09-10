@@ -153,6 +153,7 @@ import {
   AlertDialogFooter,
   AlertDialogTrigger,
 } from '@writeme/wmc/lib/ui/alert-dialog';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
 
 export const dynamic = 'force-dynamic';
 
@@ -167,6 +168,23 @@ export default async function Page(props: WritePageProps) {
   return (
     <div>
       <LocalNavbar></LocalNavbar>
+
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/components">Components</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
 
       <section className="flex flex-col md:flex-row">
         <Card className="max-w-md" id="my-story">

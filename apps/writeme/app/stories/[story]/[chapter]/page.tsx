@@ -9,6 +9,7 @@ import { ShareStory } from '@writeme/wmc/lib/ui/share-story';
 import CommentSection from '../../../../components/comments-sections';
 import LikeButton from '../../../../components/like-button';
 import ExportButton from '../../../../components/export-button';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
 
 export interface ChapterProps {
   params: {
