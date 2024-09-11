@@ -8,6 +8,7 @@ import Link from 'next/link'
 import BookCover from '../../assets/temp-cover2.jpg';
 import React from 'react'
 import { format } from "date-fns";
+import ConfettiAnimation from 'apps/writeme/components/confetti-animation'
 
 export interface WriteathonProps {
 
@@ -20,6 +21,7 @@ const Writeathons = async (props: WriteathonProps) => {
   return (
     <>
       <LocalNavbar />
+      <ConfettiAnimation />
       <Button className='m-8'><Link href="/writeathons/new">Create a Writeathon</Link></Button>
         <BentoGrid className="max-w-6xl mx-auto md:auto-rows-[20rem]">
           {writeathons.map((writeathon, i) => (
