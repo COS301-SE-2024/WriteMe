@@ -93,6 +93,11 @@ const updateChapter = async (chapter: UpdadtedChapter) => {
   return result[0];
 };
 
+// const updateChapterMeta = async (chapter: any)=> {
+//   const result = await db.update(chapters).set({
+    
+//   })
+// }
 
 export async function PUT(req: Request){
   try {
@@ -106,7 +111,7 @@ export async function PUT(req: Request){
 
     // console.log(await req.json());
 
-    const input = updateChapterSchema.parse(await req.json());
+    const input = editChapterSchema.parse(await req.json());
 
     // : ensure user owns story
     // console.log(input);
@@ -118,7 +123,7 @@ export async function PUT(req: Request){
 
 
     return NextResponse.json({
-      story: {
+      chapter: {
         id: chapter.updatedId,
       },
     });

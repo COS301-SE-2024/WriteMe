@@ -5,7 +5,6 @@ import { object, string, ZodError } from 'zod';
 import { users , stories, storyGenres } from '../../../db/schema';
 import { db } from '../../../db/db';
 import { createStorySchema, updateStorySchema } from '../../../db/story-schema';
-import { title } from '@storybook/core-server/dist/presets/common-preset';
 import { auth } from '../../../auth';
 import { eq } from 'drizzle-orm';
 
@@ -90,9 +89,11 @@ export async function PUT(req: Request){
       }), { status : 401})
     }
 
-    // console.log(await req.json());
+    const raw_json = await req.json();
 
-    const input = updateStorySchema.parse(await req.json());
+    // console.log(raw_json);
+
+    const input = updateStorySchema.parse(raw_json);
 
     // todo: check user owns story
 
