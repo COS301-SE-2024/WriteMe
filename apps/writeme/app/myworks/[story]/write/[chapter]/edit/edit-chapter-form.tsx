@@ -77,9 +77,17 @@ export default function EditChapterForm(props: EditChapterFormProps) {
         title: props.chapter.title,
         description: props.chapter.description || "",
         published: props.chapter.published || false,
-        brief: props.chapter.brief || ""
+        brief: props.chapter.brief || "",
+        id: props.chapter.id || "",
       }}
       fieldConfig={{
+        id: {
+          inputProps: {
+            hidden: true,
+            type: "hidden"
+          },
+          renderParent: ({}) => (<></>),
+        },
         brief: {
           fieldType: "textarea"
         },
@@ -88,6 +96,9 @@ export default function EditChapterForm(props: EditChapterFormProps) {
         },
         published: {
           fieldType: "switch",
+          inputProps: {
+            required: false
+          }
         }
       }}
     >

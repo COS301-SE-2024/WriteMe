@@ -198,7 +198,7 @@ export default async function Page(props: WritePageProps) {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
                     <DropdownMenuItem>
-                      <Link href={`/myworks/${story.id}/edit`}>Edit</Link>
+                      <Link className='w-full' href={`/myworks/${story.id}/edit`}>Edit</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem>Export</DropdownMenuItem>
                     <DropdownMenuSeparator />
