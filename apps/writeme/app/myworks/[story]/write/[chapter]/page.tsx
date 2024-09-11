@@ -19,6 +19,7 @@ import { Textarea } from '@writeme/wmc/lib/ui/textarea';
 import { ImprovGameDialog } from 'apps/writeme/components/improv-game';
 import PromptPad from './prompt-pad';
 import EditorUtils from './editor-utilities';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
 
 const Editor = dynamic(() => import("@writeme/wmc/lib/ui/editor"), { ssr: false });
 
@@ -56,6 +57,23 @@ export default async function Write(props: WriteProps) {
       <EditorLoader inputChapter={chapter}>
 
       <LocalNavbar />
+
+      
+      {/* <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/myworks">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink>{stories.title}</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink>{chapters.title}</BreadcrumbLink>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb> */}
 
       <div className='z-1 relative'>
         <ResizablePanelGroup direction='horizontal'>
