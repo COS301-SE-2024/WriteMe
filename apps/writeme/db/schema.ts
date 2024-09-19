@@ -48,7 +48,9 @@ export const userRelations = relations(users, ({ many }) => ({
   comments: many(comments),
   bookmarks: many(userBookmarks),
   votes: many(storyWriteathonVotes),
-  notepads: many(notepads)
+  notepads: many(notepads),
+  liveEditorSessions: many(liveEditorSessions),
+  viewableSessions: many(viewableSessions)
 }));
 
 export const userFollowers = pgTable('user_followers', {
@@ -350,7 +352,9 @@ export const chaptersRelations = relations(chapters, ({ one, many }) => ({
   comments: many(comments),
   likes: many(likes),
   versions: many(versions),
-  notepads: many(notepads)
+  notepads: many(notepads),
+  liveEditorSessions: many(liveEditorSessions),
+  viewableSessions: many(viewableSessions)
 }));
 
 export const notepads = pgTable('notepads', {
@@ -528,3 +532,36 @@ export const storyGenreRelations = relations(storyGenres, ({one}) => ({
 //   stories: one(stories, {fields: [storyTags.storyId], references: [stories.id]}),
 //   tags: one(tags, {fields: [storyTags.tagId], references: [tags.id]}),
 // }));
+
+export const liveEditorSessions = pgTable('live_editor_sessions', {
+  id: text('id')
+  .primaryKey()
+  .$defaultFn(() => crypto.randomUUID()),
+  chapterId: text('chapter_id').notNull().references(() => chapters.id),
+  userId: text('user_id').notNull().references(() => users.id),
+  sessionToken: text('session_token').notNull().$defaultFn(() => crypto.randomUUID()),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  expiresAt: timestamp('expires_at').notNull(),
+})
+
+export const liveEditorSessionRelations = relations(liveEditorSessions, ({ one }) => ({
+  user: one(users, { fields: [liveEditorSessions.userId], references: [users.id] }),
+  chapter: one(chapters, { fields: [liveEditorSessions.chapterId], references: [chapters.id] }),
+}));
+
+
+export const viewableSessions = pgTable('viewable_editor_sessions', {
+  id: text('id')
+  .primaryKey()
+  .$defaultFn(() => crypto.randomUUID()),
+  chapterId: text('chapter_id').notNull().references(() => chapters.id),
+  userId: text('user_id').notNull().references(() => users.id),
+  sessionToken: text('session_token').notNull().$defaultFn(() => crypto.randomUUID()),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  expiresAt: timestamp('expires_at').notNull(),
+})
+
+export const viewableSessionsRelations = relations(viewableSessions, ({ one }) => ({
+  user: one(users, { fields: [viewableSessions.userId], references: [users.id] }),
+  chapter: one(chapters, { fields: [viewableSessions.chapterId], references: [chapters.id] }),
+}));

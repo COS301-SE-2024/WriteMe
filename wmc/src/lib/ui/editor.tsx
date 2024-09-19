@@ -55,77 +55,15 @@ export interface EditorProps {
   setBlocks: any;
 }
 
-const insertHelloWorldItem = (editor: BlockNoteEditor) => ({
-  title: 'AI rewrite humourously',
-  onItemClick: () => {
-    // Block that the text cursor is currently in.
-    const currentBlock = editor.getTextCursorPosition().block;
-
-    // New block we want to insert.
-    const helloWorldBlock: PartialBlock = {
-      type: 'paragraph',
-      content: [{ type: 'text', text: 'Hello World', styles: { bold: true } }],
-    };
-
-    // Inserting the new block after the current one.
-    editor.insertBlocks([helloWorldBlock], currentBlock, 'after');
-  },
-  aliases: ['helloworld', 'hw'],
-  group: 'AI',
-  icon: <Sparkles></Sparkles>,
-  subtext: "Used to insert a block with 'Hello World' below.",
-});
 
 const getCustomSlashMenuItems = (
   editor: BlockNoteEditor
 ): DefaultReactSuggestionItem[] => [
   ...getDefaultReactSlashMenuItems(editor),
-  insertHelloWorldItem(editor),
 ];
 
 export default function Editor({ initialBlocks, setBlocks }: EditorProps) {
   const { data } = useSession();
-  // const {upload, files, signedPostPolicies} = useNextUpload();
-  // console.log(initialBlocks);
-  // const [blocks, setBlocks] = useState(initialBlocks);
-
-  // async function uploadFile(file: File){
-  //   const res = await upload({file}, {
-  //     api: "/upload"
-  //   })
-  //   console.log(res)
-
-  //   const url = res[0].url +"/" + res[0].data.key;
-  //   console.log(url)
-  //   return url;
-  // }
-
-  // Creates a new editor instance.
-  // const editor = useCreateBlockNote({ });
-  // const editor = useMemo(() => {
-  //   // const doc = new Y.Doc();
-  //   // doc.
-  //   // const provider = new WebrtcProvider('testing-writeme-chapter12', doc);
-
-  //   // console.log(initialBlocks);
-  //   // console.log(initialBlocks.length)
-  //   if (initialBlocks.length === 0 || initialBlocks.length == undefined) {
-  //     return BlockNoteEditor.create({
-  //       uploadFile: uploadFile
-  //     });
-  //   }
-  //   return BlockNoteEditor.create({ initialContent: initialBlocks,
-  //     uploadFile: uploadFile
-  //   //   collaboration: {
-  //   //   provider,
-  //   //   fragment: doc.getXmlFragment('document-store'),
-  //   //   user: {
-  //   //     name: data?.user?.name || "anon",
-  //   //     color: '#'+(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0')
-  //   //   }
-  //   // }
-  // });
-  // }, []);
 
   const theme = useTheme();
   const editor = useBlockNoteEditor();

@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { Button } from '@writeme/wmc';
-import { ArrowLeft, Download, Ellipsis, History } from 'lucide-react';
+import { ArrowLeft, Download, Ellipsis, History, Play, UsersRound, Link as LinkChain } from 'lucide-react';
 import Link from 'next/link';
 import { useContext, useState } from 'react';
 import { EditorContext } from './editor-context';
@@ -30,6 +30,8 @@ import {Skeleton} from '@writeme/wmc/lib/ui/skeleton'
 import * as dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { useBlockNoteEditor } from '@blocknote/react';
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@writeme/wmc/lib/ui/dialog';
+import { createSession, createViewableSession } from 'apps/writeme/services/client-services';
 dayjs.extend(relativeTime)
 // interface LocalNavbarProps {
 //   title: string;
@@ -39,6 +41,7 @@ dayjs.extend(relativeTime)
 
 
 const VersionsSheet = ({chapterId}) => {
+  const router = useRouter()
   const [error, setError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [versions, setVersions] = useState([]);
@@ -203,7 +206,43 @@ const LocalNavbar = () => {
   const [submitting, setSubmitting] = useState(false);
   const { chapter, setChapter, blocks, setBlocks } = useContext(EditorContext);
   const [error, setError] = useState(false);
+  const editor = useBlockNoteEditor();
 
+  const onLiveSessionCreate = async () => {
+    try{
+      const res = await createSession(chapter.id);
+      toast({
+        title: "Session Started",
+        variant: "default"
+      })
+      router.push(`/s/e/${res.session}`)
+
+    }catch (error: any){
+      toast({
+        title: 'Unable to create Session',
+        variant: "default"
+      })
+    }
+  }
+
+  const onViewableSessionCreate = async () => {
+    try{
+      const res = await createViewableSession(chapter.id);
+      toast({
+        title: "Session Started",
+        variant: "default"
+      })
+
+
+      router.push(`/s/v/${res.session}`)
+
+    }catch (error: any){
+      toast({
+        title: 'Unable to create Session',
+        variant: "default"
+      })
+    }
+  }
 
   const exportPdf = async ()=> {
     const pdfWindow = window.open('about:blank');
@@ -311,7 +350,7 @@ const LocalNavbar = () => {
     setError(false);
     e.preventDefault();
 
-    let content = await BlockNoteEditor.create({ initialContent: blocks }).blocksToHTMLLossy();
+    let content = await editor.blocksToHTMLLossy();
 
     const values = {
       ...chapter,
@@ -383,6 +422,24 @@ const LocalNavbar = () => {
           <Link href={`/myworks/${chapter.storyId}/write/${chapter.id}/edit`}>
             <Button variant='default'> Edit </Button>
           </Link>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant='default'><UsersRound/> Share</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Live Collaboration</DialogTitle>
+              </DialogHeader>
+              <div className='flex flex-col items-center gap-2'>
+                <p>Start a Session, in which you can invite your friends or anyone via a link to view and edit this chapter in real-time.</p>
+                <Button variant='default' onClick={onLiveSessionCreate}><Play/> Start Session</Button>
+                <p>Or</p>
+                <p>Shareable link, a read only link to allow others to view your work without publishing.</p>
+                <Button variant='default' onClick={onViewableSessionCreate}><LinkChain/> Viewer Link</Button>
+              </div>
+              <DialogFooter></DialogFooter>
+            </DialogContent>
+          </Dialog>
           <Button variant='default' onClick={(e) => onSave(e)}> Save </Button>
           <Button variant='default' onClick={(e) => onPublish(e)}> Publish </Button>
           <DropdownMenu>

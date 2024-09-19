@@ -83,11 +83,6 @@ function getFlairLabelMeaning(label: string) {
   return labelMeanings[label] || label;
 }
 
-// Example usage
-console.log(getFlairLabelMeaning("PER"));     // Output: "Person's Name"
-console.log(getFlairLabelMeaning("NOUN"));    // Output: "Noun"
-console.log(getFlairLabelMeaning("UNKNOWN")); // Output: "UNKNOWN"
-
 
 export const UtilContext = React.createContext({
   promptPadContent: '',
@@ -172,7 +167,7 @@ export default function EditorUtils() {
   }, [grammars.loading]);
 
   useEffect(() => {
-    console.log(grammars.entities)
+    // console.log(grammars.entities)
     setCurrentGrammars(grammars.entities);
   }, [grammars.entities]);
 
