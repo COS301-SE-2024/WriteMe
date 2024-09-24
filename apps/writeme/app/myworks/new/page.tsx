@@ -2,6 +2,7 @@ import NewStoryForm from './new-story-form';
 import LocalNavbar from '@writeme/wmc/lib/ui/local-navbar';
 import { Card, CardContent, CardHeader } from '@writeme/wmc';
 import { Separator } from '@writeme/wmc/lib/ui/separator';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
 
 export interface NewStoryProps {}
 

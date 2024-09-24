@@ -43,11 +43,11 @@ export async function getPublishedChapter(chapterId: string){
       comments: {
         with: {
           author: true,
-          replies: {
-            with: {
-              author: true
-            }
-          }
+          // replies: {
+          //   with: {
+          //     author: true
+          //   }
+          // }
         }
       }
     }

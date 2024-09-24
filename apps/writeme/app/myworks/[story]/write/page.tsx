@@ -23,6 +23,7 @@ import { IconFileLike } from '@tabler/icons-react';
 import { CommentsIcon } from '@storybook/icons';
 import ChaptersTableofContents from '../../../../components/chapters-toc';
 import Link from 'next/link';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
 // import { Link } from 'next-view-transitions';
 
 export interface WritePageProps {

@@ -2,6 +2,7 @@ import React from 'react'
 import EditProfileForm from './EditProfileForm'
 import LocalNavbar from '@writeme/wmc/lib/ui/local-navbar';
 import { getUser } from 'apps/writeme/services/users';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
 
 export interface EditProfileProps {
   params: {

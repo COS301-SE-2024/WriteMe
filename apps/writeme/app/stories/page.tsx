@@ -16,6 +16,7 @@ import { ShareStory } from '@writeme/wmc/lib/ui/share-story';
 import BookmarkButton from 'apps/writeme/components/bookmark-button';
 import { isBookmarked } from 'apps/writeme/services/users';
 import { auth } from 'apps/writeme/auth';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
 
 /* eslint-disable-next-line */
 export interface StoriesProps {}

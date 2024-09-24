@@ -28,6 +28,7 @@ import ExportButton from '../../../components/export-button';
 import BookmarkButton from 'apps/writeme/components/bookmark-button';
 import { isBookmarked } from 'apps/writeme/services/users';
 import { auth } from 'apps/writeme/auth';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
 // import Link from 'next/link';
 
 
