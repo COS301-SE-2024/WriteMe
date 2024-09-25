@@ -1,116 +1,70 @@
-"use client"
+"use client";
 
 import { Button } from '@writeme/wmc';
 import { Download } from 'lucide-react';
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
+import { useState, useEffect } from 'react';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import PDFFile from '../components/pdf/PDFFile'; 
 
 interface ExportButtonProps {
   storyId: string;
-  chapterId? : string;
+  chapterId?: string;
 }
 
-export default function ExportButton({storyId, chapterId}: ExportButtonProps){
-  const handleExport = async () => {
-    if (chapterId){
-      const pdfWindow = window.open('about:blank');
+export default function ExportButton({ storyId, chapterId }: ExportButtonProps) {
+  const [loading, setLoading] = useState(false);
+  const [storyData, setStoryData] = useState(null);
+
+  useEffect(() => {
+    const fetchStoryData = async () => {
+      setLoading(true);
       try {
-        const res = await fetch('/api/export/chapter', {
+        const res = await fetch(chapterId ? '/api/export/chapter' : '/api/export/story', {
           method: 'POST',
-          body: JSON.stringify({ id: chapterId }),
+          body: JSON.stringify({id: storyId}),
           headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-
-        if (!res.ok) {
-          const errorData = await res.json();
-
-          if (Array.isArray(errorData.errors) && errorData.errors.length > 0) {
-            errorData.errors.forEach((error: any) => {
-              toast({
-                title: error.message,
-                variant: 'destructive'
-              })
-            });
-
-            return;
+            'Content-Type': 'application/json'
           }
-
-          toast({
-            title: errorData.message,
-            variant: 'destructive'
-          })
-          return;
-        }
-        toast({
-          title: 'Exported Successfully',
-          variant: "default"
-        })
-
-        // @ts-ignore
-        const blob = await res.blob();
-        const url = URL.createObjectURL(blob);
-        pdfWindow.location.href = url; // and here, we finally forward the data to the new window
-        pdfWindow.focus();
-      }catch (e) {
-        pdfWindow.close();
-      }
-
-    }else {
-      const pdfWindow = window.open('about:blank');
-      try {
-        const res = await fetch('/api/export/story', {
-          method: 'POST',
-          body: JSON.stringify({ id: storyId }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
         });
-
-        if (!res.ok) {
-          const errorData = await res.json();
-
-          if (Array.isArray(errorData.errors) && errorData.errors.length > 0) {
-            errorData.errors.forEach((error: any) => {
-              toast({
-                title: error.message,
-                variant: 'destructive'
-              })
-            });
-
-            return;
-          }
-
-          toast({
-            title: errorData.message,
-            variant: 'destructive'
-          })
-          return;
-        }
+        const data = await res.json();
+        setStoryData(data);
+      } catch (error) {
         toast({
-          title: 'Exported Successfully',
-          variant: "default"
-        })
-
-        // @ts-ignore
-        const blob = await res.blob();
-        const url = URL.createObjectURL(blob);
-        pdfWindow.location.href = url; // and here, we finally forward the data to the new window
-        pdfWindow.focus();
-      }catch (e) {
-        pdfWindow.close();
+          title: 'Failed to fetch story data.',
+          variant: 'destructive',
+        });
+        console.error('Error fetching story:', error);
+      } finally {
+        setLoading(false);
       }
+    };
 
-    }
+    fetchStoryData();
+  }, [storyId, chapterId]);
 
-
-
+  if (loading || !storyData) {
+    return <Button variant="ghost" size="icon" disabled></Button>;
   }
 
+  console.log(storyData)
   return (
-    <Button variant="ghost" size="icon" onClick={handleExport}>
-      <Download></Download>
-    </Button>
-  )
 
+    <PDFDownloadLink
+      document={<PDFFile story={storyData} />}
+      fileName="story.pdf"
+    >
+      {/* {({ loading }) => 
+        loading ? (
+          <Button variant="ghost" size="icon" disabled>
+            Generating PDF...
+          </Button>
+        ) : ( */}
+          <Button variant="ghost" size="icon">
+            <Download />
+          </Button>
+        {/* ) */}
+      {/* } */}
+    </PDFDownloadLink>
+  );
 }
