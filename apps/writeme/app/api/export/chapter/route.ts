@@ -1,7 +1,7 @@
 import { auth } from '../../../../auth';
 import { NextResponse } from 'next/server';
 import { exportChapterSchema } from '../../../../db/chapter-schema';
-import { getPublishedStory } from '../../../../services/stories';
+import { getPublishedChapter } from '../../../../services/chapters';
 
 export async function POST(req: Request) {
   try {
@@ -14,7 +14,7 @@ export async function POST(req: Request) {
     }
 
     const input = exportChapterSchema.parse(await req.json());
-    const chapter = await getPublishedStory(input.id);
+    const chapter = await getPublishedChapter(input.id);
 
     if (!chapter) {
       return new NextResponse(

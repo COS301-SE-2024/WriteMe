@@ -25,9 +25,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'justify',
   },
-
-
-
   pageNumber: {
     position: "absolute",
     fontSize: 12,
@@ -63,7 +60,7 @@ const renderContentBlock = (block) => {
     case 'numberedListItem':
       return (
         <Text>
-          Numbered List Item
+          {'\u2022 ' + block.content[0].text}
         </Text>
       );
     
@@ -81,7 +78,7 @@ const renderContentBlock = (block) => {
             <View key={rowIdx} style={{ flexDirection: 'row', marginBottom: 5 }}>
               {row.cells.map((cell, cellIdx) => (
                 <Text key={cellIdx} style={{ border: '1px solid black', padding: 5 }}>
-                  {cell.text + 'cell'}
+                  {cell.text}
                 </Text>
               ))}
             </View>
@@ -108,7 +105,11 @@ const PDFFile = ({ story }: PDFFileProps) => {
     <Document>
       <Page style={{ padding: 30, fontSize: 12 }}>
         <Image src={story.cover}/>
-        {story.chapters.map(chapter => renderContent(chapter.blocks))}
+        {story.chapters ? (story.chapters.map(chapter => renderContent(chapter.blocks))) : (renderContent(story.blocks))}
+        <Text
+          style={styles.pageNumber}
+          render={({ pageNumber, totalPages}) => `${pageNumber} / ${totalPages}`}
+        />
       </Page>
     </Document>
   )

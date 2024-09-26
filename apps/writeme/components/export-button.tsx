@@ -22,7 +22,7 @@ export default function ExportButton({ storyId, chapterId }: ExportButtonProps) 
       try {
         const res = await fetch(chapterId ? '/api/export/chapter' : '/api/export/story', {
           method: 'POST',
-          body: JSON.stringify({id: storyId}),
+          body: JSON.stringify({id: (chapterId ? chapterId : storyId)}),
           headers: {
             'Content-Type': 'application/json'
           }
@@ -52,7 +52,7 @@ export default function ExportButton({ storyId, chapterId }: ExportButtonProps) 
 
     <PDFDownloadLink
       document={<PDFFile story={storyData} />}
-      fileName="story.pdf"
+      fileName={storyData.title + ".pdf"}
     >
       {/* {({ loading }) => 
         loading ? (
