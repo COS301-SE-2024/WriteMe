@@ -1,12 +1,12 @@
 /* v8 ignore start */
-import { NextResponse } from 'next/server';
-import { createUserSchema } from '../../../db/user-schema';
-import { object, string, ZodError } from 'zod';
-import { users , stories, storyGenres } from '../../../db/schema';
-import { db } from '../../../db/db';
-import { createStorySchema, updateStorySchema } from '../../../db/story-schema';
-import { auth } from '../../../auth';
-import { eq } from 'drizzle-orm';
+import { NextResponse } from "next/server";
+import { createUserSchema } from "../../../db/user-schema";
+import { object, string, ZodError } from "zod";
+import { users, stories, storyGenres } from "../../../db/schema";
+import { db } from "../../../db/db";
+import { createStorySchema, updateStorySchema } from "../../../db/story-schema";
+import { auth } from "../../../auth";
+import { eq, and } from "drizzle-orm";
 
 type NewStory = typeof stories.$inferInsert;
 const insertStory = async (story: NewStory) => {
@@ -16,29 +16,33 @@ const insertStory = async (story: NewStory) => {
 
 export async function POST(req: Request) {
   try {
-
     const session = await auth();
 
-    if (!session?.user){
-      return new NextResponse(JSON.stringify({
-        status: 'fail', message: "You are not logged in",
-      }), { status : 401})
+    if (!session?.user) {
+      return new NextResponse(
+        JSON.stringify({
+          status: "fail",
+          message: "You are not logged in",
+        }),
+        { status: 401 },
+      );
     }
 
-    const { brief, title, description } = createStorySchema.parse(await req.json());
-
+    const { brief, title, description } = createStorySchema.parse(
+      await req.json(),
+    );
 
     // @ts-ignore
     const story = await insertStory({
       userId: session.user.id,
-      content: '',
+      content: "",
       brief: brief,
       title: title,
       description: description,
       blocks: [],
-      cover: 'https://www.writersdigest.com/.image/t_share/MTcxMDY0NzcxMzIzNTY5NDEz/image-placeholder-title.jpg'
+      cover:
+        "https://www.writersdigest.com/.image/t_share/MTcxMDY0NzcxMzIzNTY5NDEz/image-placeholder-title.jpg",
     });
-
 
     return NextResponse.json({
       story: {
@@ -50,43 +54,55 @@ export async function POST(req: Request) {
     if (error instanceof ZodError) {
       return NextResponse.json(
         {
-          status: 'error',
-          message: 'Validation failed',
+          status: "error",
+          message: "Validation failed",
           errors: error.errors,
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     return NextResponse.json(
       {
-        status: 'error',
-        message: error.message || 'Internal Server Error',
+        status: "error",
+        message: error.message || "Internal Server Error",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
-
 type UpdadtedStory = any;
 
-
 const updateStory = async (story: UpdadtedStory) => {
-  const result = await db.update(stories).set({blocks: story.blocks, title: story.title, description: story.description, brief: story.brief, content: story.content, published: story.published}).where(eq(stories.id, story.id)).returning({updatedId: stories.id});
+  const result = await db
+    .update(stories)
+    .set({
+      blocks: story.blocks,
+      title: story.title,
+      description: story.description,
+      brief: story.brief,
+      content: story.content,
+      published: story.published,
+    })
+    .where(eq(stories.id, story.id))
+    .returning({ updatedId: stories.id });
 
   return result[0];
 };
 
-
-export async function PUT(req: Request){
+export async function PUT(req: Request) {
   try {
     const session = await auth();
 
-    if (!session?.user){
-      return new NextResponse(JSON.stringify({
-        status: 'fail', message: "You are not logged in",
-      }), { status : 401})
+    if (!session?.user) {
+      return new NextResponse(
+        JSON.stringify({
+          status: "fail",
+          message: "You are not logged in",
+        }),
+        { status: 401 },
+      );
     }
 
     const raw_json = await req.json();
@@ -95,110 +111,129 @@ export async function PUT(req: Request){
 
     const input = updateStorySchema.parse(raw_json);
 
-    // todo: check user owns story
+    const requested_story = await db.query.stories.findFirst({
+      where: (stories, { eq, and }) =>
+        and(
+          eq(stories.id, input.id),
+          eq(stories.userId, session.user?.id || ""),
+        ),
+    });
 
-    // delete current genres
+    if (requested_story) {
+      // delete current genres
 
-    await db.delete(storyGenres).where(eq(storyGenres.storyId, input.id))
+      await db.delete(storyGenres).where(eq(storyGenres.storyId, input.id));
 
-    // console.log(input.genre)
+      // console.log(input.genre)
 
-    // insert new or current genres
-    // input.genre?.forEach
-    const genreUpdates = input.genre?.map(g => ({
-      storyId: input.id,
-      genreId: g
-    }))
+      // insert new or current genres
+      // input.genre?.forEach
+      const genreUpdates = input.genre?.map((g) => ({
+        storyId: input.id,
+        genreId: g,
+      }));
 
-    if (genreUpdates && genreUpdates.length > 0){
-      await db.insert(storyGenres).values(genreUpdates || [])
+      if (genreUpdates && genreUpdates.length > 0) {
+        await db.insert(storyGenres).values(genreUpdates || []);
+      }
+
+      // : ensure user owns story
+      // console.log(input);
+      // @ts-ignore
+      const story = await updateStory({
+        ...input,
+        userId: session.user.id,
+      });
+      // console.log(story);
+
+      return NextResponse.json({
+        story: {
+          id: story.updatedId,
+        },
+      });
+    } else {
+      return NextResponse.json(
+        {
+          status: "failed",
+          message: "unable to update story, you do not have permission",
+        },
+        {
+          status: 401,
+        },
+      );
     }
-
-    // : ensure user owns story
-    // console.log(input);
-    // @ts-ignore
-    const story = await updateStory({
-      ...input,
-      userId: session.user.id,
-    });
-    // console.log(story);
-
-
-    return NextResponse.json({
-      story: {
-        id: story.updatedId,
-      },
-    });
   } catch (error: any) {
     console.log(error);
     if (error instanceof ZodError) {
       return NextResponse.json(
         {
-          status: 'error',
-          message: 'Validation failed',
+          status: "error",
+          message: "Validation failed",
           errors: error.errors,
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     return NextResponse.json(
       {
-        status: 'error',
-        message: error.message || 'Internal Server Error',
+        status: "error",
+        message: error.message || "Internal Server Error",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
-
-export async function DELETE(req: Request){
+export async function DELETE(req: Request) {
   try {
     const session = await auth();
 
-    if (!session?.user){
-      return new NextResponse(JSON.stringify({
-        status: 'fail', message: "You are not logged in",
-      }), { status : 401})
+    if (!session?.user) {
+      return new NextResponse(
+        JSON.stringify({
+          status: "fail",
+          message: "You are not logged in",
+        }),
+        { status: 401 },
+      );
     }
 
     const deleteStorySchema = object({
-      id : string({required_error: "a story id is required"})})
+      id: string({ required_error: "a story id is required" }),
+    });
 
     const input = deleteStorySchema.parse(await req.json());
 
-    // todo: check user owns story
+    // check user owns story
 
     // deletes story
-    await db.delete(stories).where(eq(stories.id, input.id));
+    await db
+      .delete(stories)
+      .where(
+        and(eq(stories.id, input.id), eq(stories.id, session.user.id || "")),
+      );
 
-
-
-    return NextResponse.json({
-      
-    });
+    return NextResponse.json({});
   } catch (error: any) {
     console.log(error);
     if (error instanceof ZodError) {
       return NextResponse.json(
         {
-          status: 'error',
-          message: 'Validation failed',
+          status: "error",
+          message: "Validation failed",
           errors: error.errors,
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     return NextResponse.json(
       {
-        status: 'error',
-        message: error.message || 'Internal Server Error',
+        status: "error",
+        message: error.message || "Internal Server Error",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
-
-
 }
