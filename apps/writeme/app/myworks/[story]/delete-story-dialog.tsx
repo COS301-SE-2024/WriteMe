@@ -5,63 +5,64 @@ import {
 } from '@writeme/wmc/lib/ui/alert-dialog';
 import { Button } from '@writeme/wmc/lib/ui/button';
 import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
+import { toast } from '@writeme/wmc/lib/ui/use-toast';
 
 interface DeleteStoryDialogProps {
-  id: string;
+  id: string,
 }
 
-export function DeleteStoryDialog({id}: DeleteStoryDialogProps) {
+export function DeleteStoryDialog(props: DeleteStoryDialogProps) {
   const router = useRouter();
 
-
-  return (
-    <Button asChild variant="destructive" onClick={async () => {
-      try {
-        // setSubmitting(true);
-        const res = await fetch('/api/story', {
-          method: 'DELETE',
-          body: JSON.stringify({id}),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-  
-        if (!res.ok) {
-          const errorData = await res.json();
-  
-          if (Array.isArray(errorData.errors) && errorData.errors.length > 0) {
-            errorData.errors.forEach((error: any) => {
-              toast({
-                title: error.message,
-                variant: 'destructive'
-              })
-            });
-  
-            return;
-          }
-  
-          toast({
-            title: errorData.message,
-            variant: 'destructive'
-          })
+  const handleDelete = async (id: string) => {
+    try {
+      // setSubmitting(true);
+      const res = await fetch('/api/story', {
+        method: 'DELETE',
+        body: JSON.stringify({ id: id }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      if (!res.ok) {
+        const errorData = await res.json();
+        if (Array.isArray(errorData.errors) && errorData.errors.length > 0) {
+          errorData.errors.forEach((error: any) => {
+            toast({
+              title: error.message,
+              variant: 'destructive'
+            })
+          });
+          
           return;
-        }else {
-          const { story } = await res.json();
-          router.replace("/myworks")
-          toast("Successfully Deleted")
         }
-  
-      } catch (error: any) {
+        
         toast({
-          title: error.message,
+          title: errorData.message,
           variant: 'destructive'
         })
-      } finally {
-        // setSubmitting(false);
+        return;
       }
-    }}>
-      <AlertDialogAction>Continue</AlertDialogAction>
+        
+      toast({
+        title: "Successfully Deleted",
+        variant: "default"
+      })
+      
+    } catch (error: any) {
+      toast({
+        title: error.message,
+        variant: 'destructive'
+      })
+    } finally {
+      // setSubmitting(false);
+    }
+  } 
+
+  return (
+    <Button asChild variant="destructive" onClick={() => handleDelete(props.id)} >
+      <AlertDialogAction>Delete</AlertDialogAction>
     </Button>
   );
 }

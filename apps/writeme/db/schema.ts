@@ -338,7 +338,7 @@ export const chapters = pgTable('chapter', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
   storyId: text('story_id')
-    .references(() => stories.id)
+    .references(() => stories.id, { onDelete: 'cascade'})
     .notNull()
 });
 
