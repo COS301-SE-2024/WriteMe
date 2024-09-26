@@ -13,6 +13,7 @@ import LocalNavbar from '@writeme/wmc/lib/ui/local-navbar';
 import { ShareStory } from '@writeme/wmc/lib/ui/share-story';
 import BookmarkButton from 'apps/writeme/components/bookmark-button';
 import { isBookmarked } from 'apps/writeme/services/users';
+import { getAllGenres } from 'apps/writeme/services/genres';
 import { auth } from 'apps/writeme/auth';
 import BentoGridComponent from './bentogrid';
 
@@ -21,12 +22,13 @@ export interface StoriesProps {}
 
 export default async function Stories(props: StoriesProps) {
   const stories = await getPublishedStories();
+  const genres = await getAllGenres();
   dayjs.extend(relativeTime)
 ;
   return (
     <div>
       <LocalNavbar />
-      <BentoGridComponent stories={stories} />
+      <BentoGridComponent genres={genres} stories={stories} />
     </div>
   );
 }

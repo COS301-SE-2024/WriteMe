@@ -6,143 +6,313 @@ import { users , stories, storyGenres } from '../../../../db/schema';
 import { db } from '../../../../db/db';
 import { filterStorySchema } from '../../../../db/story-schema';
 import { auth } from '../../../../auth';
-import { eq } from 'drizzle-orm';
+import { eq, inArray } from 'drizzle-orm';
 
 
 export async function POST(req: NextRequest) {
   try {
     
-    const { filterby, orderby } = filterStorySchema.parse(await req.json());
+    const { filterby, orderby, genres } = filterStorySchema.parse(await req.json());
     let result;
-    if (orderby == "desc"){
-        switch (filterby) {
-          case 'all':
-            result = await db.query.stories.findMany({
-              where: (stories, { eq }) => eq(stories.published, true),
-              with: {
-                chapters: {
+
+    if (genres && genres.length > 0){
+        let matchingStories = await  db.query.storyGenres.findMany({
+            where: (storyGenres, {inArray})=> inArray(storyGenres.genreId, genres),
+            columns: {
+                storyId: true
+            }
+        });
+        matchingStories = matchingStories.map((sg) => sg.storyId);
+
+        if (orderby == "desc"){
+            switch (filterby) {
+              case 'all':
+                result = await db.query.stories.findMany({
+                  where: (stories, { eq, and, inArray }) => and(
+                    eq(stories.published, true), 
+                    inArray(stories.id, matchingStories)
+                ),
                   with: {
+                    chapters: {
+                      with: {
+                        likes: true,
+                      },
+                    },
+                    author: true,
                     likes: true,
+                    comments: true,
                   },
-                },
-                author: true,
-                likes: true,
-                comments: true,
-              },
-            });
-            break;
-          case 'date_created':
-            result = await db.query.stories.findMany({
-              where: (stories, { eq }) => eq(stories.published, true),
-              orderBy: (stories, { desc }) => [desc(stories.createdAt)],
-              with: {
-                chapters: {
+                });
+                break;
+              case 'date_created':
+                result = await db.query.stories.findMany({
+                    where: (stories, { eq, and, inArray }) => and(
+                        eq(stories.published, true), 
+                        inArray(stories.id, matchingStories)
+                    ),
+                  orderBy: (stories, { desc }) => [desc(stories.createdAt)],
                   with: {
+                    chapters: {
+                      with: {
+                        likes: true,
+                      },
+                    },
+                    author: true,
                     likes: true,
+                    comments: true,
                   },
-                },
-                author: true,
-                likes: true,
-                comments: true,
-              },
-            });
-            break;
-          case 'date_updated':
-            result = await db.query.stories.findMany({
-              where: (stories, { eq }) => eq(stories.published, true),
-              orderBy: (stories, { desc }) => [desc(stories.updatedAt)],
-              with: {
-                chapters: {
+                });
+                break;
+              case 'date_updated':
+                result = await db.query.stories.findMany({
+                  where: (stories, { eq, and, inArray }) => and(
+                    eq(stories.published, true), 
+                    inArray(stories.id, matchingStories)
+                ),
+                  orderBy: (stories, { desc }) => [desc(stories.updatedAt)],
                   with: {
+                    chapters: {
+                      with: {
+                        likes: true,
+                      },
+                    },
+                    author: true,
                     likes: true,
+                    comments: true,
                   },
-                },
-                author: true,
-                likes: true,
-                comments: true,
-              },
-            });
-            break;
-          default:
-            result = await db.query.stories.findMany({
-              where: (stories, { eq }) => eq(stories.published, true),
-              with: {
-                chapters: {
+                });
+                break;
+              default:
+                result = await db.query.stories.findMany({
+                  where: (stories, { eq, and, inArray }) => and(
+                    eq(stories.published, true), 
+                    inArray(stories.id, matchingStories)
+                ),
                   with: {
+                    chapters: {
+                      with: {
+                        likes: true,
+                      },
+                    },
+                    author: true,
                     likes: true,
+                    comments: true,
                   },
-                },
-                author: true,
-                likes: true,
-                comments: true,
-              },
-            });
+                });
+            }
+        }else {
+            switch (filterby) {
+                case 'all':
+                  result = await db.query.stories.findMany({
+                    where: (stories, { eq, and, inArray }) => and(
+                    eq(stories.published, true), 
+                    inArray(stories.id, matchingStories)
+                ),
+                    with: {
+                      chapters: {
+                        with: {
+                          likes: true,
+                        },
+                      },
+                      author: true,
+                      likes: true,
+                      comments: true,
+                    },
+                  });
+                  break;
+                case 'date_created':
+                  result = await db.query.stories.findMany({
+                    where: (stories, { eq, and, inArray }) => and(
+                    eq(stories.published, true), 
+                    inArray(stories.id, matchingStories)
+                ),
+                    orderBy: (stories, { asc }) => [asc(stories.createdAt)],
+                    with: {
+                      chapters: {
+                        with: {
+                          likes: true,
+                        },
+                      },
+                      author: true,
+                      likes: true,
+                      comments: true,
+                    },
+                  });
+                  break;
+                case 'date_updated':
+                  result = await db.query.stories.findMany({
+                    where: (stories, { eq, and, inArray }) => and(
+                    eq(stories.published, true), 
+                    inArray(stories.id, matchingStories)
+                ),
+                    orderBy: (stories, { asc }) => [asc(stories.updatedAt)],
+                    with: {
+                      chapters: {
+                        with: {
+                          likes: true,
+                        },
+                      },
+                      author: true,
+                      likes: true,
+                      comments: true,
+                    },
+                  });
+                  break;
+                default:
+                  result = await db.query.stories.findMany({
+                    where: (stories, { eq, and, inArray }) => and(
+                    eq(stories.published, true), 
+                    inArray(stories.id, matchingStories)
+                ),
+                    with: {
+                      chapters: {
+                        with: {
+                          likes: true,
+                        },
+                      },
+                      author: true,
+                      likes: true,
+                      comments: true,
+                    },
+                  });
+              }
         }
     }else {
-        switch (filterby) {
-            case 'all':
-              result = await db.query.stories.findMany({
-                where: (stories, { eq }) => eq(stories.published, true),
-                with: {
-                  chapters: {
-                    with: {
-                      likes: true,
+        if (orderby == "desc"){
+            switch (filterby) {
+              case 'all':
+                result = await db.query.stories.findMany({
+                  where: (stories, { eq, and }) => eq(stories.published, true),
+                  with: {
+                    chapters: {
+                      with: {
+                        likes: true,
+                      },
                     },
+                    author: true,
+                    likes: true,
+                    comments: true,
                   },
-                  author: true,
-                  likes: true,
-                  comments: true,
-                },
-              });
-              break;
-            case 'date_created':
-              result = await db.query.stories.findMany({
-                where: (stories, { eq }) => eq(stories.published, true),
-                orderBy: (stories, { asc }) => [asc(stories.createdAt)],
-                with: {
-                  chapters: {
-                    with: {
-                      likes: true,
+                });
+                break;
+              case 'date_created':
+                result = await db.query.stories.findMany({
+                  where: (stories, { eq }) => eq(stories.published, true),
+                  orderBy: (stories, { desc }) => [desc(stories.createdAt)],
+                  with: {
+                    chapters: {
+                      with: {
+                        likes: true,
+                      },
                     },
+                    author: true,
+                    likes: true,
+                    comments: true,
                   },
-                  author: true,
-                  likes: true,
-                  comments: true,
-                },
-              });
-              break;
-            case 'date_updated':
-              result = await db.query.stories.findMany({
-                where: (stories, { eq }) => eq(stories.published, true),
-                orderBy: (stories, { asc }) => [asc(stories.updatedAt)],
-                with: {
-                  chapters: {
-                    with: {
-                      likes: true,
+                });
+                break;
+              case 'date_updated':
+                result = await db.query.stories.findMany({
+                  where: (stories, { eq }) => eq(stories.published, true),
+                  orderBy: (stories, { desc }) => [desc(stories.updatedAt)],
+                  with: {
+                    chapters: {
+                      with: {
+                        likes: true,
+                      },
                     },
+                    author: true,
+                    likes: true,
+                    comments: true,
                   },
-                  author: true,
-                  likes: true,
-                  comments: true,
-                },
-              });
-              break;
-            default:
-              result = await db.query.stories.findMany({
-                where: (stories, { eq }) => eq(stories.published, true),
-                with: {
-                  chapters: {
-                    with: {
-                      likes: true,
+                });
+                break;
+              default:
+                result = await db.query.stories.findMany({
+                  where: (stories, { eq }) => eq(stories.published, true),
+                  with: {
+                    chapters: {
+                      with: {
+                        likes: true,
+                      },
                     },
+                    author: true,
+                    likes: true,
+                    comments: true,
                   },
-                  author: true,
-                  likes: true,
-                  comments: true,
-                },
-              });
-          }
+                });
+            }
+        }else {
+            switch (filterby) {
+                case 'all':
+                  result = await db.query.stories.findMany({
+                    where: (stories, { eq }) => eq(stories.published, true),
+                    with: {
+                      chapters: {
+                        with: {
+                          likes: true,
+                        },
+                      },
+                      author: true,
+                      likes: true,
+                      comments: true,
+                    },
+                  });
+                  break;
+                case 'date_created':
+                  result = await db.query.stories.findMany({
+                    where: (stories, { eq }) => eq(stories.published, true),
+                    orderBy: (stories, { asc }) => [asc(stories.createdAt)],
+                    with: {
+                      chapters: {
+                        with: {
+                          likes: true,
+                        },
+                      },
+                      author: true,
+                      likes: true,
+                      comments: true,
+                    },
+                  });
+                  break;
+                case 'date_updated':
+                  result = await db.query.stories.findMany({
+                    where: (stories, { eq }) => eq(stories.published, true),
+                    orderBy: (stories, { asc }) => [asc(stories.updatedAt)],
+                    with: {
+                      chapters: {
+                        with: {
+                          likes: true,
+                        },
+                      },
+                      author: true,
+                      likes: true,
+                      comments: true,
+                    },
+                  });
+                  break;
+                default:
+                  result = await db.query.stories.findMany({
+                    where: (stories, { eq }) => eq(stories.published, true),
+                    with: {
+                      chapters: {
+                        with: {
+                          likes: true,
+                        },
+                      },
+                      author: true,
+                      likes: true,
+                      comments: true,
+                    },
+                  });
+              }
+        }
     }
+
+
+
+
+    
 
 
     return NextResponse.json({

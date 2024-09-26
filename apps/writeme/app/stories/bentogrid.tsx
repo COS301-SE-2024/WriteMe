@@ -5,25 +5,29 @@ import { BentoGrid } from '@writeme/wmc/lib/ui/bento-grid';
 import { Button, Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@writeme/wmc';
 import { cn } from '@writeme/wmc/utils';
 import Image from 'next/image';
-import { BookOpenText, Heart, MessageCircle, MoveUp, MoveDown } from 'lucide-react';
+import { BookOpenText, Heart, MessageCircle, MoveUp, MoveDown, Search } from 'lucide-react';
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { ShareStory } from '@writeme/wmc/lib/ui/share-story';
 import { ToggleGroup, ToggleGroupItem } from '@writeme/wmc/lib/ui/toggle-group';
-
+import { MultiSelector, MultiSelectorContent, MultiSelectorInput, MultiSelectorItem, MultiSelectorList, MultiSelectorTrigger} from '@writeme/wmc/lib/ui/multi-select';
 
 dayjs.extend(relativeTime);
-
+interface Genre {id: string, genre: string}
 interface BentoGridProps {
     stories: any[]
+    genres: Genre[]
 }
 
 
-const  BentoGridComponent = ({ stories }: BentoGridProps) => { 
+const  BentoGridComponent = ({ stories, genres }: BentoGridProps) => { 
   const [storiesState, setStoriesState] = useState(stories);
   const [filter, setFilter] = useState("all");
   const [orderBy, setOrderBy] = useState("asc");
+  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+
+
 
   const getFilteredStories = async () => {
     try {
@@ -31,7 +35,8 @@ const  BentoGridComponent = ({ stories }: BentoGridProps) => {
           method: 'post',
           body: JSON.stringify({
               orderby: orderBy,
-              filterby: filter
+              filterby: filter,
+              genres: selectedGenres
           }),
           headers: {
             'Content-Type': 'application/json',
@@ -53,6 +58,16 @@ const  BentoGridComponent = ({ stories }: BentoGridProps) => {
   const handleOrderByChange = async (p0: string) => {
     await getFilteredStories()
   }
+
+  const handleGenreChange =  async (p0: string[]) => {
+    setSelectedGenres(p0);
+  }
+
+  useEffect(() => {
+    getFilteredStories()
+  }, [selectedGenres])
+
+
 
   useEffect(() => {
       setStoriesState(stories);
@@ -79,6 +94,21 @@ const  BentoGridComponent = ({ stories }: BentoGridProps) => {
               <MoveDown className="h-4 w-4"/>
             </ToggleGroupItem>
           </ToggleGroup>
+          <MultiSelector onValuesChange={handleGenreChange} values={selectedGenres}>
+              <MultiSelectorTrigger>
+                <MultiSelectorInput placeholder="Select Genres" />
+              </MultiSelectorTrigger>
+              <MultiSelectorContent>
+                <MultiSelectorList>
+                  {genres.map(g => (
+                    <MultiSelectorItem value={g.id}>{g.genre}</MultiSelectorItem>
+                  ))}
+                  </MultiSelectorList>
+                </MultiSelectorContent>
+               </MultiSelector>
+            <Button onClick={async () => {
+              await getFilteredStories();
+            }}><Search/></Button>
         </div>
 
         <BentoGrid className="max-w-6xl mx-auto md:grid-cols-2 lg:grid-cols-3 md:auto-rows-[20rem] gap-4">

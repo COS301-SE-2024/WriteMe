@@ -45,4 +45,5 @@ export const updateStoryCoverSchema = object({
 export const filterStorySchema = object({
   filterby: string({required_error: "needs to have a filter"}),
   orderby: string({required_error: "needs to have an order by"}).default("asc"),
+  genres: z.string().array().optional()
 })
