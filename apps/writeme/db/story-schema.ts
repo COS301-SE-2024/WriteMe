@@ -76,3 +76,10 @@ export const updateStoryCoverSchema = object({
     'cover should be a url to an image resource'
   ),
 });
+
+export const writeathonCheckSchema = object({
+  util_token: string({
+    required_error:
+      'a untility token is required in order to access this functionality',
+  }),
+});
