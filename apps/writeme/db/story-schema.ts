@@ -40,3 +40,9 @@ export const updateStoryCoverSchema = object({
   id : string({required_error: "a story id is required"}),
   cover: string({required_error: "a new cover is required"}).url("cover should be a url to an image resource")
 })
+
+
+export const filterStorySchema = object({
+  filterby: string({required_error: "needs to have a filter"}),
+  orderby: string({required_error: "needs to have an order by"}).default("asc"),
+})
