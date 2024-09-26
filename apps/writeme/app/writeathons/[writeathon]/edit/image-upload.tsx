@@ -8,7 +8,7 @@ import FileUpload, {
 import { updateStoryCoverSchema } from 'apps/writeme/db/story-schema';
 import { useState } from 'react';
 
-export default function StoryImageUpload({ writeathon }: any) {
+export default function WriteathonImageUpload({ writeathon }: any) {
   const [currentFile, setCurrentFile] = useState(writeathon.cover || '');
 
   return (
