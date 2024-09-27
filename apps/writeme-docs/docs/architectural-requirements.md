@@ -213,7 +213,7 @@ By leveraging AWS's robust infrastructure and services, the app can achieve high
 
 ## 6 Architectural Diagram
 
-![Architectural Diagaram](./images/ArchitecturalDiagram.png)
+![Architectural Diagaram](./images/ArchDiagram.jpg)
 
 ## Technology Requirements
 
