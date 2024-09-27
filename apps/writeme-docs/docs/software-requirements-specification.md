@@ -14,8 +14,6 @@ The rise of digital content consumption has created a demand for platforms that 
 
 ## Functional Requirements
 
-<strong> All points in bold are requirements that have been implemented already and points that are not bolded are what we plan to do next</strong>
-
 ### Authentication
 
 <ol className="srs-bullets">
@@ -42,12 +40,6 @@ The rise of digital content consumption has created a demand for platforms that 
       <li>Using their email and password
         <ol className="srs-bullets">
           <li><strong>The user credentials must be validated</strong></li>
-          <li>Must allow user to recover their password using their email or username
-            <ol className="srs-bullets">
-              <li><strong>The account must be verified (i.e. ensure it exists)</strong></li>
-              <li><strong>If the account is found, the system must allow the user to send a recovery email to the email address associated with the account</strong></li>
-            </ol>
-          </li>
         </ol>
       </li>
       <li>Using existing platforms
@@ -56,14 +48,14 @@ The rise of digital content consumption has created a demand for platforms that 
           <li><strong>Using Github</strong></li>
         </ol>
       </li>
-      <li>The user must be able to select “forgot password’
+    </ol>
+  </li>
+  <li>The user must be able to select “forgot password’
         <ol className="srs-bullets">
           <li><strong>The system must identify their account using their email address or username.</strong></li>
           <li><strong>If an account is found, a button appears that lets the user send a password reset email to the email address linked to their account</strong></li>
         </ol>
       </li>
-    </ol>
-  </li>
 </ol>
 
 ### Authorization
@@ -72,10 +64,12 @@ The rise of digital content consumption has created a demand for platforms that 
   <li>The system must provide functionality that is specific to users that are singed up:
     <ol className="srs-bullets">
       <li><strong>Access to account management</strong></li>
-      <li><strong>Access to reading other stories</strong></li>
-      <li><strong>Access to writing stories</strong></li>
+      <li><strong>Access to the explore page(To read other stories)</strong></li>
+      <li><strong>Access to the editor(To write stories)</strong></li>
       <li><strong>Access to the recommendation system. The access is implicit (i.e. the user doesn't directly interact with the system)</strong></li>
       <li><strong>Access to the social interaction system</strong></li>
+      <li><strong>Access to Writeathons</strong></li>
+      <li><strong>Access to real time collaboration as a guest or host</strong></li>
     </ol>
   </li>
 </ol>
@@ -88,14 +82,13 @@ The rise of digital content consumption has created a demand for platforms that 
       <li><strong>Users must be able to publish their story</strong></li>
       <li><strong>Users must be able to save their story to a draft</strong></li>
       <li><strong>Users must be able to edit their stories</strong></li>
-      <li><strong>Genre selection</strong></li>
+      <li><strong>Users must be able to give their stories Genre Tags</strong></li>
     </ol>
   </li>
   <li>Metadata:
     <ol className='srs-bullets'>
       <li><strong>Users must be able to add a title to their story</strong></li>
-      <li><strong>Editor for users to write the main content of their story</strong></li>
-      <li><strong>Able to select a cover image</strong></li>
+      <li><strong>Users must be able to select a cover image</strong></li>
     </ol>
   </li>
 </ol>
@@ -106,21 +99,22 @@ The rise of digital content consumption has created a demand for platforms that 
   <li>Users must be able to view other stories:
     <ol className='srs-bullets'>
       <li><strong>Stories can be displayed as thumbnails with the cover image, title and author</strong></li>
-      <li>Stories can be displayed as lists with more detailed information such as a short description, genre or publication date</li>
+      <li><strong>Stories can be displayed as lists with more detailed information such as a short description, genre or publication date</strong></li>
     </ol>
   </li>
   <li>Story filters
     <ol className='srs-bullets'>
-      <li>Allow users to filter stories by genre</li>
-      <li>Allow users to filter stories by popularity</li>
-      <li>Allow users to filter stories by most recently published</li>
+      <li><strong>Allow users to filter stories by date published</strong></li>
+      <li><strong>Allow users to filter stories by genre</strong></li>
+      <li><strong>Allow users to filter stories by most recently published</strong></li>
+      <li><strong>Allow users to see filtered stories in ascending or descending order</strong></li>
     </ol>
   </li>
   <li>Search functionality
     <ol className='srs-bullets'>
       <li><strong>Allow users to search stories by title</strong></li>
-      <li>Allow users to search stories by author</li>
-      <li>>Allow users to search stories with keywords</li>
+      <li><strong>Allow users to search stories by author</strong></li>
+      <li><strong>Allow users to search stories with keywords</strong></li>
     </ol>
   </li>
 </ol>
@@ -134,6 +128,7 @@ The rise of digital content consumption has created a demand for platforms that 
         <ol className='srs-bullets'>
           <li><strong>Users can comment on Entire Stories</strong></li>
           <li><strong>Users can comment on Chapters</strong></li>
+          <li><strong>Users can reply to other users comments</strong></li>
         </ol>
       </li>
       <li>Users can like differnet sections
@@ -157,7 +152,7 @@ The rise of digital content consumption has created a demand for platforms that 
         <li><strong>Users can share on Facebook</strong></li>
      </ol>
     </li>
-    <li><strong>Users can export stories to PDF</strong></li>
+    <li>Users can export stories to PDF</li>
 </ol>
 
 ### Account Management
@@ -177,7 +172,7 @@ The rise of digital content consumption has created a demand for platforms that 
             <li><strong>Users should be able to update name</strong></li>
           </ol>
         </li>
-        <li><strong>Users should be able to delete their account</strong></li>
+        <li>Users should be able to delete their account</li>
       </ol>
     </li>
 
@@ -188,8 +183,8 @@ The rise of digital content consumption has created a demand for platforms that 
 <ol className="srs-bullets">
   <li>Users can edit content while offline:
       <ol className='srs-bullets'>
-        <li>Users can edit entire stories while offline</li>
-        <li>Users can edit specific chapters while offline</li>
+        <li><strong>Users can edit entire stories while offline</strong></li>
+        <li><strong>Users can edit specific chapters while offline</strong></li>
      </ol>
   </li>
   <li>Users can export content to a PDF:
@@ -258,8 +253,8 @@ The rise of digital content consumption has created a demand for platforms that 
       <li><strong>Users can use the assistant to generate story progression ideas</strong></li>
     </ol>
   </li>
-  <li><strong>Users can use the AI assistant for parts of speech detection</strong></li>
-  <li><strong>Users can use the AI assistant for tone detection</strong></li>
+  <li>Users can use the AI assistant for parts of speech detection</li>
+  <li>Users can use the AI assistant for tone detection</li>
 </ol>
 
 ### Notepad
@@ -274,6 +269,37 @@ The rise of digital content consumption has created a demand for platforms that 
         <li><strong>Users can load previously saved notepad content from local storage</strong></li>
      </ol>
   </li>  
+</ol>
+
+### Real Time Collaboration
+
+<ol className="srs-bullets">
+
+  <li>Users can Collaborate with other WriteMe users in Real-Time
+      <ol className='srs-bullets'>
+        <li><strong>Users can host a collaboration session</strong></li>
+        <li><strong>Users can join another users collaboration session</strong></li>
+        <li><strong>Users can make collaboration sessions Read-Only</strong></li>
+        <li><strong>Users can make collaboration sessions Read and Write sessions to give guests full access to the story</strong></li>
+        <li><strong>Users can work on the same story at the same time with their collaboration guest</strong></li>
+     </ol>
+  </li>
+
+  <li>Users can use the Whiteboard while collaborating with others
+      <ol className='srs-bullets'>
+        <li><strong>Users can collaborate on the same whiteboard in Real-Time</strong></li>
+        <li><strong>Users can draw pictures or diagrams to brainstorm ideas</strong></li>
+        <li><strong>Users can type and add text to the whiteboard</strong></li>
+     </ol>
+  </li>
+
+  <li>Users can use the conferencing feature while collaborating with others
+      <ol className='srs-bullets'>
+        <li><strong>Users can see real time video of collaborators</strong></li>
+        <li><strong>Users can hear real time audio of collaborators</strong></li>
+     </ol>
+  </li> 
+
 </ol>
 
 ## Architectural Requirements
@@ -483,7 +509,7 @@ The system requires the use of AWS, therefore implementing budget constraints wi
 
 By leveraging AWS's robust infrastructure and services, the app can achieve high reliability, ensuring consistent availability and performance even in the face of potential failures and disruptions. Amazon S3 will be used to automatically back up user data and application data, ensuring that critical information is protected and can be recovered in case of data loss.
 
-## 6 Architectural Diagram
+## Architectural Diagram
 
 ![Architectural Diagaram](./images/ArchDiagram.jpg)
 
