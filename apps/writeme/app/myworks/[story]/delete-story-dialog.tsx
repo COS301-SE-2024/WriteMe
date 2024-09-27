@@ -49,6 +49,8 @@ export function DeleteStoryDialog(props: DeleteStoryDialogProps) {
         title: "Successfully Deleted",
         variant: "default"
       })
+
+      router.push('/myworks')
       
     } catch (error: any) {
       toast({
