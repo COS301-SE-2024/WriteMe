@@ -4,30 +4,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { updateStorySchema, updateWriteathonSchema } from '../../../../db/story-schema';
 import { z } from 'zod';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@writeme/wmc/lib/ui/form';
+
 import { Button, Input } from '@writeme/wmc';
-import { Textarea } from '@writeme/wmc/lib/ui/textarea';
-import {
-  FancyMultiSelect,
-  type Framework,
-} from '@writeme/wmc/lib/ui/fancy-multi-select';
-import {
-  MultiSelector,
-  MultiSelectorContent,
-  MultiSelectorInput,
-  MultiSelectorItem,
-  MultiSelectorList,
-  MultiSelectorTrigger,
-} from '@writeme/wmc/lib/ui/multi-select';
-import { signIn } from 'next-auth/react';
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
 import { useRouter } from 'next/navigation';
 import { Switch } from '@writeme/wmc/lib/ui/switch';
