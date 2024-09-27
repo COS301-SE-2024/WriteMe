@@ -559,6 +559,10 @@ By leveraging AWS's robust infrastructure and services, the app can achieve high
 
 ![Improv Game System](./images/ImprovUseCase.jpg)
 
+### Real-Time Collaboration System
+
+![Real-Time Collaboration System](./images/RealTimeUseCase.jpg)
+
 ## Technology Requirements
 
 ### Mono Repository Management
@@ -2422,4 +2426,4 @@ This endpoint generates vector embeddings for the input text. The input is split
 
 ## Class Diagram
 
-![Class Diagram](/img/class-diagram.png)
+![Class Diagram](./images/ClassDiagram.jpg)
