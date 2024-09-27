@@ -616,7 +616,7 @@ A WriteMe writer would likely be someone with a passion for language and a desir
 
 ## Service Contracts
 
-### **POST /register (Create User):**
+### POST /register (Create User):
 
 **Description:**
 
@@ -677,7 +677,7 @@ This endpoint allows the creation of a new user account.
 }
 ```
 
-### PUT **/register (Update User):**
+### PUT /register (Update User):
 
 **Description:**
 
@@ -739,7 +739,7 @@ This endpoint allows the user to update their profile.
 }
 ```
 
-### PUT **/story (Update Story):**
+### PUT /story (Update Story):
 
 **Description:**
 
@@ -783,7 +783,7 @@ This endpoint allows an authenticated user to update a story they own.
 }
 ```
 
-### **POST /story (Create Story):**
+### POST /story (Create Story):
 
 **Description:**
 
@@ -824,7 +824,7 @@ This endpoint allows an authenticated user to create a new story.
 }
 ```
 
-### **POST /chapter (Create a chapter)**
+### POST /chapter (Create a chapter)
 
 **Description:**
 
@@ -889,7 +889,7 @@ This endpoint allows an authenticated user to create a new chapter for their sto
 }
 ```
 
-### ***PUT /chapter (Update a chapter)***
+### PUT /chapter (Update a chapter)
 
 **Description:**
 
@@ -956,7 +956,7 @@ This endpoint allows an authenticated user to create a new chapter for their sto
 }
 ```
 
-### **POST /likes (like/unlike a chapter/story):**
+### POST /likes (like/unlike a chapter/story):
 
 **Description:**
 
@@ -997,7 +997,7 @@ This endpoint allows an authenticated user to like a chapter or story.
 }
 ```
 
-### **POST /follow (follow/unfollow a user):**
+### POST /follow (follow/unfollow a user):
 
 **Description:**
 
@@ -1047,7 +1047,7 @@ This endpoint allows an authenticated user to follow another user.
 }
 ```
 
-### **POST /comments (comment on a story or chapter):**
+### POST /comments (comment on a story or chapter):
 
 **Description:**
 
@@ -1100,7 +1100,7 @@ This endpoint allows an authenticated comment on a story or chapter.
 }
 ```
 
-### **POST /export/chapter (export chapter to pdf):**
+### POST /export/chapter (export chapter to pdf):
 
 **Description:**
 
@@ -1147,7 +1147,7 @@ This endpoint allows an authenticated user to export a chapter to pdf.
 }
 ```
 
-### **POST /export/story** (export story to pdf):
+### POST /export/story (export story to pdf):
 
 **Description:**
 
@@ -1193,7 +1193,7 @@ This endpoint allows an authenticated user to export a story to pdf.
 }
 ```
 
-### **POST /bookmark**
+### POST /bookmark (creates a bookmark in a story)
 
 **Description:**
 
@@ -1239,7 +1239,7 @@ This endpoint allows authenticated users to add or remove a bookmark on a story.
 }
 ```
 
-### **POST /notes**
+### POST /notes (for note taking)
 
 #### **Description:**
 This endpoint allows authenticated users to create or update notes associated with a specific chapter in a story. If a note already exists for the given chapter and user, the existing note will be updated with the new content. If no note exists, a new note will be created.
@@ -1293,17 +1293,17 @@ This endpoint allows authenticated users to create or update notes associated wi
 }
 ```
 
-### **GET /search**
+### GET /search (search for stories)
 
-### Description
+#### Description
 This endpoint allows users to search for stories based on a query string. The search results are returned as a list of stories that match the query.
 
-### Request
+#### Request
 
 - **Query Parameters:**
   - `q` (string, optional): The search query string. If not provided, the search will return all stories.
 
-### Example Request
+#### Example Request
 
 #### Request with Query
 
@@ -1312,7 +1312,7 @@ GET /api/stories/search?q=adventure HTTP/1.1
 Host: example.com
 ```
 
-### **POST /api/writeathon/story**
+### POST /api/writeathon/story (entre into a writeathon)
 
 #### **Description**
 This endpoint allows authenticated users to associate a story with a writeathon by creating a record in the database. The request must include the `storyId` and `writeathonId`. If the user is not authenticated or if the request data is invalid, appropriate error responses are returned.
@@ -1374,7 +1374,7 @@ This endpoint allows authenticated users to associate a story with a writeathon 
 }
 ```
 
-### **PUT story/cover**
+### PUT story/cover (upload a cover image)
 
 #### **Description**
 This endpoint allows authenticated users to update the cover image of a story. The request must include the `storyId` and the new `cover` URL. The endpoint ensures that the user is authenticated and owns the story before making the update.
@@ -1439,7 +1439,7 @@ This endpoint allows authenticated users to update the cover image of a story. T
 }
 ```
 
-### **PUT /profile-image**
+### PUT /profile-image (upload a profile picture)
 
 #### **Description**
 This endpoint allows authenticated users to update their profile image. The request must include the new `cover` URL. The endpoint ensures that the user is authenticated before making the update.
@@ -1498,7 +1498,7 @@ This endpoint allows authenticated users to update their profile image. The requ
 }
 ```
 
-### **GET chapters/versions**
+### GET chapters/versions (versioning)
 
 #### **Description**
 This endpoint allows authenticated users to retrieve the versions of a specific chapter. The request must include the `chapter_id` as a query parameter. If the user is not authenticated or if the `chapter_id` is not provided, appropriate error responses are returned.
@@ -1511,7 +1511,7 @@ This endpoint allows authenticated users to retrieve the versions of a specific 
 - **Query Parameters:**
   - `id` (string, required): The unique identifier of the chapter for which versions are being requested.
 
-### Example Request
+#### Example Request
 
 ```http
 GET /api/chapters/versions?id=chapter123 HTTP/1.1
@@ -1562,7 +1562,7 @@ Authorization: Bearer <token>
 }
 ```
 
-### **GET /api/chapters/version**
+### GET /api/chapters/version (versioning)
 
 #### **Description**
 This endpoint allows authenticated users to retrieve the content of a specific version of a chapter. The request must include the `chapter_id` and the `time` representing the specific version timestamp. If the user is not authenticated or if the required query parameters are not provided, appropriate error responses are returned.
@@ -1576,7 +1576,7 @@ This endpoint allows authenticated users to retrieve the content of a specific v
   - `id` (string, required): The unique identifier of the chapter whose version content is being requested.
   - `time` (string, required): The timestamp representing the specific version of the chapter content to be retrieved. The time should be in ISO 8601 format.
 
-### Example Request
+#### Example Request
 
 ```http
 GET /api/chapters/version?id=chapter123&time=2024-08-07T12:34:56Z HTTP/1.1
@@ -1626,7 +1626,7 @@ Authorization: Bearer <token>
 }
 ```
 
-### **POST /api/writeathon/vote**
+### POST /api/writeathon/vote (vote in a writeathon)
 
 #### **Description**
 This endpoint allows authenticated users to vote for a story in a writeathon. The request must include the `writeathonId`, `storyId`, and `categories` for the vote. The endpoint ensures that the user is authenticated before allowing them to submit a vote.
@@ -1673,7 +1673,7 @@ This endpoint allows authenticated users to vote for a story in a writeathon. Th
 }
 ```
 
-### **POST /api/writeathons**
+### POST /api/writeathons (create a writeathon)
 
 #### **Description**
 This endpoint allows authenticated users to create a new writeathon. The request must include the title, description, brief, start date, and end date for the writeathon. The endpoint ensures that the user is authenticated before allowing them to create a writeathon.
@@ -1748,7 +1748,7 @@ This endpoint allows authenticated users to create a new writeathon. The request
 }
 ```
 
-### **GET /**
+### GET / (API health check)
 
 #### **Description**
 This endpoint is a simple health check for the API. It returns a basic "Ping" response, indicating that the server is running and responsive.
@@ -1767,7 +1767,7 @@ This endpoint is a simple health check for the API. It returns a basic "Ping" re
   }
 ```
 
-### **POST /analysis**
+### POST /analysis (NLP)
 
 #### **Description**
 This endpoint performs a comprehensive Natural Language Processing (NLP) analysis on the input text. It splits the input into sentences, performs sentiment analysis, Named Entity Recognition (NER), and Part-of-Speech (POS) tagging. The results are returned in a structured format.
@@ -1820,7 +1820,7 @@ This endpoint performs a comprehensive Natural Language Processing (NLP) analysi
 }
 ```
 
-### **POST /sentiment**
+### POST /sentiment (sentiment analysis)
 
 #### **Description**
 This endpoint performs sentiment analysis on the input text. It splits the input into sentences, analyzes the sentiment of each sentence, and returns the results in a structured format.
@@ -1868,7 +1868,7 @@ This endpoint performs sentiment analysis on the input text. It splits the input
 }
 ```
 
-### **POST /pos**
+### POST /pos (part-of-speech tagging)
 
 #### **Description**
 This endpoint performs Part-of-Speech (POS) tagging on the input text. It splits the input into sentences, analyzes the POS for each word in the sentences, and returns the results in a structured format.
@@ -1918,7 +1918,7 @@ This endpoint performs Part-of-Speech (POS) tagging on the input text. It splits
 }
 ```
 
-### **POST /ner**
+### POST /ner (Named Entity Recognition)
 
 #### **Description**
 This endpoint performs Named Entity Recognition (NER) on the input text. It splits the input into sentences, analyzes the named entities in each sentence, and returns the results in a structured format.
@@ -1969,7 +1969,7 @@ This endpoint performs Named Entity Recognition (NER) on the input text. It spli
 }
 ```
 
-### **POST /grammar**
+### POST /grammar (grammar checker)
 
 #### **Description**
 This endpoint performs grammar checking on the input text. It identifies grammatical errors, suggests corrections, and returns the corrected text along with details about the errors found.
@@ -2021,7 +2021,7 @@ This endpoint performs grammar checking on the input text. It identifies grammat
 }
 ```
 
-### **POST /suggest**
+### POST /suggest (AI suggestions)
 
 #### **Description**
 This endpoint generates AI-powered suggestions to improve a given text, particularly in the context of storytelling. The input text is analyzed, and the AI provides alternative suggestions or enhancements to the storyline.
@@ -2066,7 +2066,7 @@ This endpoint generates AI-powered suggestions to improve a given text, particul
 }
 ```
 
-### **POST /suggest/{tone}**
+### POST /suggest/{tone} (AI suggsetions)
 
 #### **Description**
 This endpoint generates AI-powered suggestions based on the specified tone for the input text. If the tone is "paraphrase", the endpoint will return paraphrased versions of the input text. If the tone is not supported, the endpoint will indicate failure.
@@ -2114,7 +2114,7 @@ This endpoint generates AI-powered suggestions based on the specified tone for t
 }
 ```
 
-### **POST /embed:**
+### POST /embed: (vector embeddings for text)
 
 #### **Description**
 This endpoint generates vector embeddings for the input text. The input is split into sentences, and each sentence is processed to produce a vector embedding, which can be used for various machine learning or NLP tasks.
