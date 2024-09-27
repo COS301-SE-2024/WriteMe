@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { updateStorySchema } from '../../../../db/story-schema';
+import { updateStorySchema, updateWriteathonSchema } from '../../../../db/story-schema';
 import { z } from 'zod';
 import {
   Form,
@@ -31,6 +31,9 @@ import { signIn } from 'next-auth/react';
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
 import { useRouter } from 'next/navigation';
 import { Switch } from '@writeme/wmc/lib/ui/switch';
+import { editChapterSchema } from '../../../../db/chapter-schema';
+import Link from 'next/link';
+import AutoForm, { AutoFormSubmit } from '@writeme/wmc/lib/ui/auto-form';
 
 export interface Genre {
   id: string;
@@ -42,9 +45,9 @@ export interface EditStoryFormProps {
   title: string;
   brief: string;
   description: string;
-  published: boolean;
-  genreItems: Genre[];
-  selectedGenres: any[];
+  startDate: Date;
+  endDate: Date;
+
 }
 
 const EditWriteathonForm = ({
@@ -52,20 +55,13 @@ const EditWriteathonForm = ({
   title,
   brief,
   description,
-  genreItems,
-  selectedGenres,
-  published,
+  startDate,
+  endDate
 }: EditStoryFormProps) => {
-  console.log(selectedGenres);
-  const form = useForm<z.infer<typeof updateStorySchema>>({
-    resolver: zodResolver(updateStorySchema),
+  const form = useForm<z.infer<typeof updateWriteathonSchema>>({
+    resolver: zodResolver(updateWriteathonSchema),
     defaultValues: {
-      id: id,
-      brief: brief,
-      title: title,
-      description: description,
-      genre: selectedGenres ? selectedGenres.map((g) => g.genreId) : [],
-      published: published,
+
     },
   });
 
@@ -73,7 +69,7 @@ const EditWriteathonForm = ({
 
   const router = useRouter();
 
-  async function onSubmit(values: z.infer<typeof updateStorySchema>) {
+  async function onSubmit(values: z.infer<typeof updateWriteathonSchema>) {
     try {
       // console.log(values);
       // setSubmitting(true);
@@ -122,123 +118,41 @@ const EditWriteathonForm = ({
   }
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 mx-auto max-w-sm mt-8"
-      >
-        <FormField
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Title *</FormLabel>
-              <FormControl>
-                <Input placeholder={'A really good title'} {...field}></Input>
-              </FormControl>
-              <FormDescription>
-                This is the title of your story.
-              </FormDescription>
-              <FormMessage></FormMessage>
-            </FormItem>
-          )}
-          name="title"
-        ></FormField>
-        <FormField
-          control={form.control}
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-              <div className="space-y-0.5">
-                <FormLabel className="text-base">Published</FormLabel>
-                <FormDescription>
-                  Specifies if the story is visible to the public.
-                </FormDescription>
-              </div>
-              <FormControl>
-                <Switch
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-            </FormItem>
-          )}
-          name="published"
-        ></FormField>
-
-        <FormField
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Brief</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder={'short, sweet, impactful'}
-                  {...field}
-                ></Textarea>
-              </FormControl>
-              <FormDescription>
-                A very short description of your story.
-              </FormDescription>
-              <FormMessage></FormMessage>
-            </FormItem>
-          )}
-          name="brief"
-        ></FormField>
-
-        <FormField
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Description</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="A slightly longer description of your story, to give the reader a feel for it."
-                  {...field}
-                ></Textarea>
-              </FormControl>
-              <FormDescription>
-                A longer description of your story.
-              </FormDescription>
-              <FormMessage></FormMessage>
-            </FormItem>
-          )}
-          name="description"
-        ></FormField>
-
-        <FormField
-          control={form.control}
-          name="genre"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Genres</FormLabel>
-              <MultiSelector
-                onValuesChange={field.onChange}
-                values={field.value}
-              >
-                <MultiSelectorTrigger>
-                  <MultiSelectorInput placeholder="Select Genres" />
-                </MultiSelectorTrigger>
-                <MultiSelectorContent>
-                  <MultiSelectorList>
-                    {genreItems.map((g) => (
-                      <MultiSelectorItem value={g.id}>
-                        {g.genre}
-                      </MultiSelectorItem>
-                    ))}
-                  </MultiSelectorList>
-                </MultiSelectorContent>
-              </MultiSelector>
-            </FormItem>
-          )}
-        ></FormField>
-        <FormMessage>{form.formState.isValid}</FormMessage>
-        <div className="flex justify-between">
-          <Button onClick={() => router.back()} variant="destructive">
-            Cancel
-          </Button>
-          <Button type="submit">Save Changes</Button>
-        </div>
-      </form>
-    </Form>
+    <AutoForm
+      formSchema={updateWriteathonSchema}
+      onSubmit={(data) => {
+        onSubmit(data)
+      }}
+      values={{
+        id: id,
+        brief: brief,
+        title: title,
+        description: description,
+        endDate: endDate,
+        startDate: startDate
+      }}
+      fieldConfig={{
+        brief: {
+          fieldType: "textarea"
+        },
+        description: {
+          fieldType: "textarea"
+        },
+        startDate: {
+          fieldType: 'datetime',
+        },
+        endDate: {
+          fieldType: 'datetime',
+        },
+      }}
+    >
+      <div className="flex justify-evenly">
+        <Button asChild variant="destructive">
+          <Link href={`/writeathons`}>Cancel</Link>
+        </Button>
+        <AutoFormSubmit>Update Writeathon</AutoFormSubmit>
+      </div>
+    </AutoForm>
   );
 };
 

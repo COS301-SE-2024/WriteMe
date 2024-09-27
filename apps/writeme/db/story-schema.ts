@@ -59,6 +59,29 @@ export const writeathonSchema = object({
     .transform((arg) => (typeof arg == 'string' ? new Date(arg) : arg)),
 });
 
+
+export const updateWriteathonSchema = object({
+  id: string({ required_error: 'a writeathon id is required' }),
+  title: string({ required_error: 'Title is Required' })
+    .max(255, 'Title is too long, a maximum of 255 characters are allowed')
+    .min(3, 'title should be at least 3 characters long.'),
+  brief: string({ required_error: 'brief is required' }).max(
+    40,
+    "Brief is too long, a maximum of 40 characters are allowed. It's meant to challenge you..."
+  ).default(""),
+  description: string({ required_error: 'description is required' }).max(
+    10000,
+    'Description is too long, maximum of 10000 characters'
+  ).default(""),
+  cover: string().url('cover should be a url to an image resource').optional(),
+  startDate: date({ required_error: 'The start date is required' })
+    .or(z.string())
+    .transform((arg) => (typeof arg == 'string' ? new Date(arg) : arg)),
+  endDate: date({ required_error: 'The end date is required' })
+    .or(z.string())
+    .transform((arg) => (typeof arg == 'string' ? new Date(arg) : arg)),
+});
+
 export const writeathonVote = object({
   storyId: string({ required_error: 'Story ID is required' }).uuid(),
   writeathonId: string({ required_error: 'Writeathon Id is required' }).uuid(),

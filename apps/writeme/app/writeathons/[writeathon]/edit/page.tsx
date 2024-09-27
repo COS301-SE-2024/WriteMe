@@ -6,7 +6,7 @@ export interface EditWriteathonProps {
   params: { story: string };
 }
 
-export default async function NewStory(props: EditWriteathonProps) {
+export default async function EditWriteathon(props: EditWriteathonProps) {
   //let story = await getStoryInfo(props.params.story);
 
   return (
@@ -17,7 +17,7 @@ export default async function NewStory(props: EditWriteathonProps) {
         <Card className="w-[70ch]">
           <CardHeader className="bg-muted/50">
             <CardTitle className="font-bold text-2xl text-center">
-              Edit Your Story
+              Edit Your Writeathon
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-2">
