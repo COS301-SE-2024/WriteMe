@@ -98,6 +98,7 @@
 		"y-indexeddb": "^9.0.12",
 		"y-partykit": "^0.0.32",
 		"y-webrtc": "^10.3.0",
+		"yjs": "^13.6.19",
 		"zod": "^3.23.8"
 	},
 	"devDependencies": {

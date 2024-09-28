@@ -284,6 +284,9 @@ dependencies:
   y-webrtc:
     specifier: ^10.3.0
     version: 10.3.0(yjs@13.6.19)
+  yjs:
+    specifier: ^13.6.19
+    version: 13.6.19
   zod:
     specifier: ^3.23.8
     version: 3.23.8
