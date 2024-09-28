@@ -104,9 +104,11 @@ Once you have been logged in, you will be taken to the **"My Stories"** page. Th
 
 ![Chapter](./images/ChapterView.png)
 
-1. This panel will show you a variety of ideas for various charactors and also suggestion to aid you when you are writing a story.
-2. You can click on the **"Save"** button which will save your story and only you will be able to view it.
-3. Once you are confident, you can click on the **"Publish"** button to publish your story for others to view.
+1. This panel will show you a variety of ideas for various characters and also suggestion to aid you when you are writing a story.
+2. This is where you can use the **Prompt Pad**, this is used when you have a writers block and would like to get interesting questions to stir your creative juices. You can either click on **Start Improv**, to get random questions, or click on **Save Prompt** to save your answers to refer back to.
+3. You can click on the **"Save"** button which will save your story and only you will be able to view it.
+4. Once you are confident, you can click on the **"Publish"** button to publish your story for others to view.
+5. You can click on **Share** button to start a live session where other users may join via the link shared.
 
 #### Create a new chapter
 
