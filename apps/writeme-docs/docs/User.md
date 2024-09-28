@@ -13,6 +13,8 @@
         - **[Edit existing story metadata](#edit-existing-story-metadata)**
         - **[Edit existing chapter metadata](#edit-existing-chapter-metadata)**
         - **[Create a New Chapter](#create-a-new-chapter)**
+        - **[Live Collaboration](#live-collaboration)**
+        - **[Live Collaboration Session](#live-collaboration-session)**
     - **[A New Story](#a-new-story)**
     - **[Explore Page](#explore-page)**
     - **[Profile Page](#profile-page)**
@@ -108,7 +110,29 @@ Once you have been logged in, you will be taken to the **"My Stories"** page. Th
 2. This is where you can use the **Prompt Pad**, this is used when you have a writers block and would like to get interesting questions to stir your creative juices. You can either click on **Start Improv**, to get random questions, or click on **Save Prompt** to save your answers to refer back to.
 3. You can click on the **"Save"** button which will save your story and only you will be able to view it.
 4. Once you are confident, you can click on the **"Publish"** button to publish your story for others to view.
-5. You can click on **Share** button to start a live session where other users may join via the link shared.
+
+#### Live Collaboration
+
+![Chapter1](./images/ChapterView1.png)
+
+1. You can click on **Share** button to start a live collaboration which will open a popup.
+
+![Collaboration](./images/LiveCollaboration.png)
+
+1. You may either click on **Start Session** to start a live collaboration where users with the link can access the story and also contribute and communicate via live voice chat and messaging. 
+2. Or you may click on **Viewer link** which can be shared with other users that can view live updates to your story while you work on it.
+
+#### Live Collaboration Session
+
+![Collaboration2](./images/LiveCollaboration2.png)
+
+1. This button will allow you end the live collaborations session.
+2. This button will end the live voice chat if you wish to work in peace.
+3. These are all the available options for voice chat and if needed you may also send messages to other users via the chat box.
+4. You may also use this whiteboard to write, draw  and brainstorm ideas related to your story.
+5. If you would like more space regarding the whiteboard, you may click on **FullScreen WhiteBoard** button as shown below.
+
+![Whiteboard](./images/Whiteboard.png)
 
 #### Create a new chapter
 
