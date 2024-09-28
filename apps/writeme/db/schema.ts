@@ -50,7 +50,8 @@ export const userRelations = relations(users, ({ many }) => ({
   votes: many(storyWriteathonVotes),
   notepads: many(notepads),
   liveEditorSessions: many(liveEditorSessions),
-  viewableSessions: many(viewableSessions)
+  viewableSessions: many(viewableSessions),
+  awards: many(userAwards)
 }));
 
 export const userAwards = pgTable("user_awards", {
@@ -76,24 +77,20 @@ export const userAwards = pgTable("user_awards", {
   }
 )
 
-export const userAwardsRelations = relations(userAwards, ({ one }) => {
+export const userAwardsRelations = relations(userAwards, ({ one }) => ({
   user: one(users, {
     fields: [userAwards.userId],
     references: [users.id]
   }),
-    writeathon;
-:
-  one(writeathons, {
+  writeathon: one(writeathons, {
     fields: [userAwards.writeathonId],
     references: [users.id]
   }),
-    story;
-:
-  one(stories, {
+  story: one(stories, {
     field: [userAwards.storyId],
     references: [stories.id]
-  });
-})
+  })
+}));
 
 export const userFollowers = pgTable(
   "user_followers",
