@@ -84,10 +84,10 @@ export const userAwardsRelations = relations(userAwards, ({ one }) => ({
   }),
   writeathon: one(writeathons, {
     fields: [userAwards.writeathonId],
-    references: [users.id]
+    references: [writeathons.id]
   }),
   story: one(stories, {
-    field: [userAwards.storyId],
+    fields: [userAwards.storyId],
     references: [stories.id]
   })
 }));
@@ -130,27 +130,27 @@ export const followersRelations = relations(userFollowers, ({ one }) => ({
 }));
 
 export const userBookmarks = pgTable(
-  "user_bookmarks",
+  'user_bookmarks',
   {
-    userId: text("user_id")
+    userId: text('user_id')
       .references(() => users.id, {
-        onDelete: "cascade",
+        onDelete: 'cascade'
       })
       .notNull(),
-    storyId: text("story_id")
+    storyId: text('story_id')
       .references(() => stories.id, {
-        onDelete: "cascade",
+        onDelete: 'cascade'
       })
       .notNull(),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull()
   },
   (t) => {
     return {
       pk: primaryKey({
-        columns: [t.userId, t.storyId],
-      }),
+        columns: [t.userId, t.storyId]
+      })
     };
-  },
+  }
 );
 
 export const userBookmarksRelations = relations(userBookmarks, ({ one }) => ({

@@ -10,7 +10,23 @@ export async function getUser(id: string) {
     where: (users, {eq}) => eq(users.id, id),
     with: {
       following: true,
-      followers: true
+      followers: true,
+      awards: {
+        with: {
+          story: {
+            columns: {
+              id: true,
+              title: true
+            }
+          },
+          writeathon: {
+            columns: {
+              id: true,
+              title: true
+            }
+          }
+        }
+      },
     }
   })
 
@@ -34,7 +50,7 @@ export async function followUser (userId: string, followedId: string) {
 };
 
 export async function isBookmarked (userId: string, storyId: string) {
-  const result = await db.query.userBookmarks.findFirst({               
+  const result = await db.query.userBookmarks.findFirst({
     where: (userBookmarks, {eq, and}) => and(eq(userBookmarks.userId, userId), eq(userBookmarks.storyId, storyId))
   })
 
