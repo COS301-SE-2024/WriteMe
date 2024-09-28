@@ -87,7 +87,7 @@ export async function PUT(req: NextRequest){
         "message": "Writeathon does not exist or is not owned by user"
       })
     }
-    
+
 
 
   } catch (e) {
