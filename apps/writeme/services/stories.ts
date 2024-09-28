@@ -67,11 +67,7 @@ export async function getStory(id: string) {
           comments : {
             with : {
               author: true,
-              // replies: {
-              //   with: {
-              //     author: true
-              //   }
-              // }
+              parent: true,
             }
           },
           likes: true
@@ -81,11 +77,9 @@ export async function getStory(id: string) {
         where: (comments, { isNull }) => isNull(comments.chapterId),
         with: {
           author: true,
-          // replies: {
-          //   with: {
-          //     author: true
-          //   }
-          // }
+          replies: {
+            replies: true,
+          }
         }
 
       },

@@ -50,6 +50,10 @@ export interface WritePageProps {
 
 export default async function Page(props: WritePageProps) {
   const story = await getStory(props.params.story);
+  console.log(story)
+
+  story?.comments.forEach(c => console.log(c.replies))
+
   return (
     <div>
       <LocalNavbar></LocalNavbar>
