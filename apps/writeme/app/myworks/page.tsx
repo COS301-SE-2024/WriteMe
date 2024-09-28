@@ -48,41 +48,23 @@ export default async function Myworks(props: MyworksProps) {
       <LocalNavbar />
 
       <BentoGrid className="max-w-6xl mx-auto md:auto-rows-[20rem]">
-        {stories.length > 0 ? stories.map((story, i) => (
-          <Card
-            className={cn(
-              'row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-white border border-transparent justify-between flex flex-col space-y-4',
-              i === 3 || i === 6 ? 'md:col-span-2' : ''
-            )}
-            key={story.id}
-          >
+        {stories.length > 0 ? stories.map((story, i) =>
+          <Card className={cn('row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-white border border-transparent justify-between flex flex-col space-y-4', i === 3 || i === 6 ? "md:col-span-2" : "")}
+                key={story.id}>
             <CardHeader>
-              <div className="flex gap-2 md:justify-evenly">
-                <div className="relative aspect-[3/4] h-40">
+              <div className='flex gap-2 justify-evenly'>
+                <div className='relative aspect-[3/4] h-40'>
                   <img
-                    alt="Book Cover"
+                    alt='Book Cover'
                     src={story.cover}
-                    layout="fill"
-                    objectFit="cover"
                   />
                 </div>
-                <div className="pl-3 flex flex-col gap-2 justify-between">
+                <div className='pl-3 flex flex-col gap-2 justify-between'>
                   <CardTitle>{story.title}</CardTitle>
                   <CardDescription>
                     {dayjs(story.createdAt).fromNow()}
                   </CardDescription>
-                  {/*<div className='flex pt-5'>*/}
-                  {/*  <CardDescription><Heart className='cursor-pointer' size={20}/></CardDescription><p className='text-[15px] pr-2'>12</p>*/}
-                  {/*  <CardDescription><MessageCircle className='cursor-pointer' size={20}/></CardDescription><p className='text-[15px] pr-2'>2</p>*/}
-                  {/*  <CardDescription><Share2 className='cursor-pointer' size={20}/></CardDescription>*/}
-                  {/*</div>*/}
                   <div className="flex gap-1">
-                    {/*<Button asChild variant="default">*/}
-                    {/*  <Link href={`/myworks/${story.id}/write/${story.id}`}><div className="flex gap-1 items-center"><Pencil size='1rem' /> Write</div></Link>*/}
-                    {/*</Button>*/}
-                    {/*<Button asChild variant="default">*/}
-                    {/*  <Link href={`/stories/${story.id}`}><div className="flex gap-1 items-center"><BookOpenText size="1rem"/> Read</div></Link>*/}
-                    {/*</Button>*/}
                     <Button asChild variant="default">
                       <Link href={`/myworks/${story.id}`}>
                         <div className="flex gap-1 items-center">

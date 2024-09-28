@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import EmojiPicker from 'emoji-picker-react';
+// import EmojiPicker from 'emoji-picker-react';
 
 import {
   Card,
@@ -31,6 +31,15 @@ import { Separator } from '@writeme/wmc/lib/ui/separator';
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+
+import dynamic from 'next/dynamic';
+
+const EmojiPicker = dynamic(
+  () => {
+    return import('emoji-picker-react');
+  },
+  { ssr: false }
+);
 
 export interface CommentSectionProps {
   comments: any;
@@ -146,10 +155,10 @@ export default function CommentSection({
                 </div>
               </div>
               {/* Replies */}
-              <div className="pl-4">
+              <div className="pl-8">
                 <ol>
-                  {c.replies.map((r) => {
-                    <div className="flex gap-2 items-start justify-start">
+                  {c.replies.map((r) => (
+                    <div className="flex gap-2 items-end justify-start">
                       <Avatar className="mt-3">
                         <AvatarImage src={r.author.image} />
                         <AvatarFallback>{r.author.name}</AvatarFallback>
@@ -174,8 +183,8 @@ export default function CommentSection({
                           {r.content}
                         </p>
                       </div>
-                    </div>;
-                  })}
+                    </div>
+                    ))}
                 </ol>
               </div>
             </div>
@@ -187,8 +196,8 @@ export default function CommentSection({
       <CardFooter className="flex justify-center items-center pt-6">
         {status == 'authenticated' ? (
           <>
+            <EmojiPicker onEmojiClick={(e) => { setInput(input + e.emoji) }} previewConfig={{ showPreview: true }} height={300} open={emojiPicker} ></EmojiPicker>
             <div className="flex items-center gap-2 w-full justify-between">
-              <EmojiPicker onEmojiClick={(e) => { setInput(input + e.emoji) }} previewConfig={{ showPreview: false }} height={300} open={emojiPicker} ></EmojiPicker>
               <Button onClick={() => setEmojiPicker(!emojiPicker)} variant="outline" size="icon">
                 <Smile></Smile>
               </Button>
