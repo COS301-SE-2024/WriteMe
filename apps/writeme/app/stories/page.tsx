@@ -21,6 +21,11 @@ export const dynamic = 'force-dynamic';
 
 import BentoGridComponent from './bentogrid';
 
+export const metadata = {
+  title: 'Stories | WriteMe',
+  description: '',
+};
+
 /* eslint-disable-next-line */
 export interface StoriesProps {}
 
