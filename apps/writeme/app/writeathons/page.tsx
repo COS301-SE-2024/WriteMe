@@ -25,7 +25,6 @@ const Writeathons = async (props: WriteathonProps) => {
   return (
     <>
       <LocalNavbar />
-      <ConfettiAnimation />
       <Button className='m-8'><Link href="/writeathons/new">Create a Writeathon</Link></Button>
       <div className='p-8'>
       <h2 className='font-bold text-2xl'>Live Writeathons</h2>

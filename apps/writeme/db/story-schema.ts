@@ -50,11 +50,11 @@ export const writeathonSchema = object({
       10000,
       'Description is too long, a maximum of 10 000 characters are allowed'
     )
-    .min(10, 'Description should be atleast 10 characters long.'),
+    .min(10, 'Description should be atleast 10 characters long.').optional(),
   brief: string({ required_error: 'Brief is required' }).max(
     40,
     "Brief is too long, a maximum of 40 characters are allowed. It's meant to challenge you..."
-  ),
+  ).optional(),
   startDate: date({ required_error: 'The start date is required' })
     .or(z.string())
     .transform((arg) => (typeof arg == 'string' ? new Date(arg) : arg)),

@@ -22,6 +22,8 @@ export default function AutoFormDateTime({
           onChange={field.onChange}
           className="w-72"
           value={field.value}
+          granularity={'hour'}
+          hourCycle={12}
           {...fieldProps}
         />
       </FormControl>

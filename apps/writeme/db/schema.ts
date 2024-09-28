@@ -180,6 +180,7 @@ export const voteCategories = pgTable("vote_category", {
     .notNull()
     .$defaultFn(() => crypto.randomUUID()),
   category: text("category").notNull(),
+  description: text("description").default("")
 });
 
 export const voteCategoryRelations = relations(voteCategories, ({ many }) => ({
@@ -252,8 +253,8 @@ export const writeathons = pgTable("writeathon", {
     "https://www.writersdigest.com/.image/t_share/MTcxMDY0NzcxMzIzNTY5NDEz/image-placeholder-title.jpg",
   ),
   title: varchar("title", { length: 255 }).notNull(),
-  description: text("description"),
-  brief: text("brief"),
+  description: text("description").default(""),
+  brief: text("brief").default(""),
   startDate: date("start_date", { mode: 'date' }),
   complete: boolean('complete').default(false),
   endDate: date("end_date", { mode: 'date' }),
