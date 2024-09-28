@@ -136,7 +136,6 @@ const LocalNavbar = ({children} : LocalNavbarProps) => {
                 >
                   Writeathons
                 </Link>
-                <Badge className="absolute top-0 left-[80%]">Beta</Badge>
               </div>
             ) : (
               <></>
