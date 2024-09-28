@@ -15,9 +15,12 @@
         - **[Create a New Chapter](#create-a-new-chapter)**
         - **[Live Collaboration](#live-collaboration)**
         - **[Live Collaboration Session](#live-collaboration-session)**
+    - **[Writathons](#writathons)**
     - **[A New Story](#a-new-story)**
     - **[Explore Page](#explore-page)**
     - **[Profile Page](#profile-page)**
+    - **[Awards](#awards)**
+
 
 
 ## Introduction
@@ -208,7 +211,7 @@ You may interact with the story in various ways. Such as:
 
 ### Profile Page
 
-You can navigate to this page by clicking on your profile on the top right corner and clickingon **"My Profile"**.
+You can navigate to this page by clicking on your profile on the top right corner and clicking on **"My Profile"**.
 
 ![Profile_Page](./images/ProfilePage.png)
 
@@ -221,6 +224,17 @@ You can navigate to this page by clicking on your profile on the top right corne
 3. Add/update your **Bio**.
 4. Once you are done you may click on the **Update profile** button.
 5. If you wish to no longer have the account, you can click on the **Delete account** button.
+
+### Awards
+
+You can navigate to this page by clicking on your profile on the top right corner and clicking on **"My Profile"**
+
+![Awards](./images/Awards.png)
+
+1. The awards that you have achieved from participating in writathons and winning polls that other users have voted on will be displayed on your profile as colorful badges to show them off! Click on any **badge** you would like to view and you will be able to view more details about it as shown below.
+
+![Badge](./images/Badge.png)
+
 
 
 
