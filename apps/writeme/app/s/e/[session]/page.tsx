@@ -29,7 +29,9 @@ import { VideoConferenceWithControls } from 'apps/writeme/components/live-discus
 import CopyButton from '@writeme/wmc/lib/ui/copy-button';
 import { Suspense } from 'react';
 import LoaderSpinner from 'apps/writeme/components/loader-spinner';
-
+import DeleteSessionButton from '../../DeleteSessionButton';
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@writeme/wmc/lib/ui/resizable';
+import {ServerBlockNoteEditor} from "@blocknote/server-util"
 
 const LocalNavbar = dynamic(() => import("@writeme/wmc/lib/ui/local-navbar"), {ssr:false})
 const CollabEditorWrapper = dynamic(() => import('./CollabEditor'), {
@@ -52,6 +54,10 @@ export interface ChapterProps {
 
 export default async function Page({ params }: ChapterProps) {
   const v = await getEditableChapter(params.session);
+
+  // const server_editor = ServerBlockNoteEditor.create(v.chapter.blocks);
+  // console.log(server_editor)
+
   const owner = await isLiveSessionOwner(params.session);
 
   if (!v) {
@@ -87,59 +93,84 @@ export default async function Page({ params }: ChapterProps) {
   }
 
   return (
-    <div>
+    <div className="h-screen flex flex-col">
       <LiveSessionWrapper sessionId={params.session}>
         <LocalNavbar>
           <ExitWhiteBoardFullscreenButton></ExitWhiteBoardFullscreenButton>
         </LocalNavbar>
-        <div className="flex justify-between p-4">
-          <div className="w-[140ch]">
-            <Suspense fallback={<LoaderSpinner />}>
-              <CollabEditorWrapper
-                inputBlocks={v.chapter.blocks}
-                sessionId={v.id}
-              />
-            </Suspense>
-          </div>
-          <div className="flex flex-col grow min-h-screen">
-            <Card>
-              <CardHeader>Shared Chapter</CardHeader>
-              <CardContent>
-                <CardDescription>
-                  <div className="flex w-full max-w-sm items-center space-x-2">
-                    <Input
-                      readOnly
-                      placeholder="URL"
-                      value={`https://writeme.co.za/s/v/${params.session}`}
-                    />
-                    <CopyButton
-                      inputContent={`https://writeme.co.za/s/v/${params.session}`}
-                    ></CopyButton>
-                  </div>
-                  {owner ? (
-                    <div className="flex flex-col gap-2 p-2">
-                      <p>This is your Live Session.</p>
-                      <Button className="flex gap-1" variant={'destructive'}>
-                        End Session
-                      </Button>
-                    </div>
-                  ) : (
-                    <p className="p-2">
-                      {v?.user.name} has shared a chapter with you.
-                    </p>
-                  )}
-                  <LiveSessionControls></LiveSessionControls>
-                </CardDescription>
-              </CardContent>
-            </Card>
-            <LiveDiscussion room={params.session}>
-              <VideoConferenceWithControls />
-            </LiveDiscussion>
-            <div className="h-96 flex">
-              <WhiteBoard></WhiteBoard>
+
+        <ResizablePanelGroup
+          direction="horizontal"
+          className="w-full grow rounded-lg border"
+        >
+          <ResizablePanel defaultSize={75}>
+            <div className="w-full p-2">
+              <Suspense fallback={<LoaderSpinner />}>
+                <CollabEditorWrapper
+                  inputBlocks={v.chapter.blocks}
+                  sessionId={v.id}
+                  chapterId={v.chapter.id}
+                  owner={owner}
+                  chapter={v.chapter}
+                />
+              </Suspense>
             </div>
-          </div>
-        </div>
+          </ResizablePanel>
+          <ResizableHandle />
+          <ResizablePanel defaultSize={25}>
+            <ResizablePanelGroup direction="vertical">
+              <ResizablePanel defaultSize={35}>
+                <div className="flex h-full items-center justify-center p-6">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>{v.chapter.title}</CardTitle>
+                      <CardDescription>Shared Chapter</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <CardDescription>
+                        <div className="flex w-full max-w-sm items-center space-x-2">
+                          <Input
+                            readOnly
+                            placeholder="URL"
+                            value={`https://writeme.co.za/s/e/${params.session}`}
+                          />
+                          <CopyButton
+                            inputContent={`https://writeme.co.za/s/e/${params.session}`}
+                          ></CopyButton>
+                        </div>
+                        {owner ? (
+                          <div className="flex flex-col gap-2 p-2">
+                            <p>This is your Live Session.</p>
+                            <DeleteSessionButton sessionType={"editable"} id={params.session}/>
+                          </div>
+                        ) : (
+                          <p className="p-2">
+                            {v?.user.name} has shared a chapter with you.
+                          </p>
+                        )}
+                        <LiveSessionControls></LiveSessionControls>
+                      </CardDescription>
+                    </CardContent>
+                  </Card>
+                </div>
+              </ResizablePanel>
+              <ResizableHandle />
+              <ResizablePanel defaultSize={35}>
+                <div className="flex h-full items-center justify-center p-6">
+                  <LiveDiscussion room={params.session}>
+                    <VideoConferenceWithControls />
+                  </LiveDiscussion>
+                </div>
+              </ResizablePanel>
+              <ResizableHandle />
+              <ResizablePanel defaultSize={30}>
+                <div className="flex h-full items-center justify-center p-6">
+                  <WhiteBoard></WhiteBoard>
+                </div>
+              </ResizablePanel>
+            </ResizablePanelGroup>
+          </ResizablePanel>
+        </ResizablePanelGroup>
       </LiveSessionWrapper>
     </div>
   );

@@ -51,7 +51,7 @@ const VersionsSheet = ({chapterId}) => {
   const getVersions = async (e) => {
     setError(false);
     // e.preventDefault();
-    
+
     try {
       setSubmitting(true);
       const res = await fetch(`/api/versions?id=${chapterId}`, {
@@ -100,7 +100,7 @@ const VersionsSheet = ({chapterId}) => {
 
   const getVersionContent = async (time: string) => {
     setError(false);
-    
+
     try {
       setSubmitting(true);
       const res = await fetch(`/api/versions/content?`+ new URLSearchParams({
@@ -215,6 +215,7 @@ const LocalNavbar = () => {
         title: "Session Started",
         variant: "default"
       })
+      console.log(res)
       router.push(`/s/e/${res.session}`)
 
     }catch (error: any){
@@ -228,6 +229,7 @@ const LocalNavbar = () => {
   const onViewableSessionCreate = async () => {
     try{
       const res = await createViewableSession(chapter.id);
+      console.log(res)
       toast({
         title: "Session Started",
         variant: "default"
@@ -292,6 +294,7 @@ const LocalNavbar = () => {
 
   const onSave = async (e) => {
     setError(false);
+    console.log(blocks);
     e.preventDefault();
     const values = {
       ...chapter,

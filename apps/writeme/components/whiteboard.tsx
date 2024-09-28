@@ -20,7 +20,7 @@ export default function WhiteBoard() {
 
     const userInfo = {
         name : data?.user?.name || "Guest User",
-        id : data?.user?.id || self.crypto.randomUUID()
+        id : data?.user?.id || window.crypto.randomUUID()
     }
 
     const store = useSyncDemo({ roomId: `writeme-${session}-whiteboard`, userInfo })
@@ -30,8 +30,8 @@ export default function WhiteBoard() {
     }
 
 	return (
-		<div className='tldraw__editor grow' style={{position: whiteboardFullScreen ? "fixed" : "initial", inset: 0}} >
-			<Tldraw store={store} />
+		<div className='tldraw__editor w-full h-full' style={{position: whiteboardFullScreen ? "fixed" : "initial", inset: 0}} >
+			<Tldraw inferDarkMode store={store} />
 		</div>
 	)
 }

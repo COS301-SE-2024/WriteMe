@@ -36,6 +36,7 @@ export async function POST(req: NextRequest){
     }
 
     const newSession = await createViewableSession(chapterId, userId);
+    console.log(newSession)
 
     return NextResponse.json({
       status: 'success',
@@ -48,7 +49,7 @@ export async function POST(req: NextRequest){
   } catch (error: any){
     console.log(error);
     return NextResponse.json({
-    
+
     }, {
         status: 500
     })
@@ -93,5 +94,5 @@ export async function DELETE(req:NextRequest) {
       message: "This Session is not owned by you."
     }, {status: 401})
   }
-  
+
 }

@@ -3,11 +3,22 @@ import { db } from '../db/db';
 import { auth } from '../auth';
 import { eq } from 'drizzle-orm';
 
+
 export const createLiveEditorSession = async (
   chapterId: string,
   userId: string
 ) => {
   const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours from now
+
+  const existing = await db.select({
+    id: liveEditorSessions.id
+  }).from(liveEditorSessions).where(eq(liveEditorSessions.chapterId, chapterId));
+
+  if (existing.length > 0){
+    return {
+      sessionId: existing[0].id
+    }
+  }
 
   const result = await db.insert(liveEditorSessions).values({
     chapterId,
@@ -25,7 +36,7 @@ export async function getEditableChapter(sessionId: string) {
     where: (liveEditorSessions, { eq }) => eq(liveEditorSessions.id, sessionId),
     with: {
       user: {
-        colums: {
+        columns: {
           name: true,
           id: true,
           image: true
@@ -65,6 +76,16 @@ export const createViewableSession = async (
 ) => {
   const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours from now
 
+  const existing = await db.select({
+    id: viewableSessions.id
+  }).from(viewableSessions).where(eq(viewableSessions.chapterId, chapterId));
+
+  if (existing.length > 0){
+    return {
+      sessionId: existing[0].id
+    }
+  }
+
   const result = await db.insert(viewableSessions).values({
     chapterId,
     expiresAt,
@@ -81,7 +102,7 @@ export async function getViewableChapter(sessionId: string) {
     where: (viewableSessions, { eq }) => eq(viewableSessions.id, sessionId),
     with: {
       user: {
-        colums: {
+        columns: {
           name: true,
           id: true,
           image: true
@@ -111,14 +132,14 @@ export async function isViewableSessionOwner(sessionId :string): Promise<boolean
       userId: true
     }
   });
-  
+
   // console.log(chapter)
   return view_session?.userId == session?.user?.id;
 }
 
 export async function  getMySharedViewableSessions() {
   const session = await auth();
-  
+
   if (!session?.user.id){
     return []
   }
@@ -131,7 +152,8 @@ export async function  getMySharedViewableSessions() {
     with: {
       chapter: {
         columns: {
-          title: true
+          title: true,
+          cover: true
         }
       }
     }
@@ -142,7 +164,7 @@ export async function  getMySharedViewableSessions() {
 
 export async function  getMySharedEditableSessions() {
   const session = await auth();
-  
+
   if (!session?.user.id){
     return []
   }
@@ -155,7 +177,8 @@ export async function  getMySharedEditableSessions() {
     with: {
       chapter: {
         columns: {
-          title: true
+          title: true,
+          cover: true
         }
       }
     }

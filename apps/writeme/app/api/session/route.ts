@@ -38,7 +38,7 @@ export async function POST(req: NextRequest){
     const newSession = await createLiveEditorSession(chapterId, userId);
     return NextResponse.json({
       status: 'success',
-      session: newSession
+      session: newSession.sessionId
     }, {
       status: 200
     })
@@ -89,13 +89,13 @@ export async function DELETE(req:NextRequest) {
       message: "This Session is not owned by you."
     }, {status: 401})
   }
-  
+
 }
 
 export async function GET(_request: Request) {
   const session = await auth();
 
-  
+
 
   return NextResponse.json({
     authenticated: !!session,

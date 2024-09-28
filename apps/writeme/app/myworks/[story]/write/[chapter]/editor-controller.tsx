@@ -12,7 +12,7 @@ const EditorController = () => {
   const { story, setStory, blocks, setBlocks } = useContext(EditorContext);
   useEffect(() => {
     console.log(blocks)
-  },[])
+  },[blocks])
   // const editor = useBlockNoteEditor();
   // console.log(editor.document)
 

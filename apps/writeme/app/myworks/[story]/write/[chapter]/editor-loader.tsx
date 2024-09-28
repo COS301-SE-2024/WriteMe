@@ -74,9 +74,11 @@ const EditorLoader = ({ inputChapter, children }: EditorLoaderProps) => {
         console.log("no editor")
         return;
       }
-      if (editor.document.length === 1 || editor.document.length == 2 || editor.document.length == 0){
+      if (editor.document.length == 0){
         console.log("updating", editor, editor.document.length, blocks);
         editor.insertBlocks(inputChapter?.blocks || [], editor.document[0])
+      }else {
+        setBlocks(editor.document);
       }
     }
 

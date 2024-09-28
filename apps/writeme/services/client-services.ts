@@ -171,7 +171,7 @@ export async function deleteViewableSession(sessionId: string) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ chapterId }),
+      body: JSON.stringify({ sessionId }),
     });
 
     if (!response.ok) {

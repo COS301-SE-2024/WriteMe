@@ -28,8 +28,8 @@ export interface LiveSessionWrapperProps {
 
 export const LiveSessionWrapper = ({children, sessionId} : LiveSessionWrapperProps) => {
     const [session, setSession] = useState(sessionId);
-    const [whiteboard, setWhiteBoard] = useState(false);
-    const [conference, setConference] = useState(false);
+    const [whiteboard, setWhiteBoard] = useState(true);
+    const [conference, setConference] = useState(true);
     const [whiteboardFullScreen, setWhiteBoardFullScreen] = useState(false);
     const [conferenceFullScreen, setConferenceFullScreen] = useState(false);
 
@@ -44,13 +44,13 @@ export const LiveSessionControls = () => {
     const {conference, whiteboard, setConference, setWhiteBoard, whiteboardFullScreen, setWhiteBoardFullScreen} = useContext(LiveSessionContext);
 
     return (
-        <div className='flex flex-col gap-2'>
+        <div className='flex flex-col gap-2 max-w-lg'>
             <Button className="flex gap-1" onClick={() => setConference(!conference)}><Phone/> {!conference ? "Join" : "End"} Live Discusson</Button>
-            
-            <Button className="flex gap-1" onClick={() => setWhiteBoard(!whiteboard)}><PencilRuler />  {!whiteboard ? "Join" : "End"} WhiteBoard Session</Button>
-            {whiteboard && (
+
+            {/*<Button className="flex gap-1" onClick={() => setWhiteBoard(!whiteboard)}><PencilRuler />  {!whiteboard ? "Join" : "End"} WhiteBoard Session</Button>*/}
+            {/*{whiteboard && (*/}
                 <Button onClick={() => setWhiteBoardFullScreen(!whiteboardFullScreen)}><Expand/> Fullscreen WhiteBoard</Button>
-            )}
+            {/*)}*/}
         </div>
     )
 }

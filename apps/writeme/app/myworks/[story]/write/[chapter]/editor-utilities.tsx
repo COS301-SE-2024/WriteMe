@@ -324,7 +324,7 @@ export default function EditorUtils() {
 
                 {e.tokens.map((t) => (
                   <Tooltip>
-                  <TooltipTrigger>
+                  <TooltipTrigger asChild>
                     <span className='inline'>{t.text}</span>
                   </TooltipTrigger>
                   <TooltipContent>

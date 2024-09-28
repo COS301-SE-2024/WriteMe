@@ -77,7 +77,7 @@ export default function Editor({ initialBlocks, setBlocks }: EditorProps) {
       formattingToolbar={false}
       onChange={() => {
         // Saves the document JSON to state.
-        // console.log(editor.document)
+        console.log(editor.document);
         setBlocks(editor.document);
       }}
       shadCNComponents={{
@@ -156,7 +156,7 @@ export default function Editor({ initialBlocks, setBlocks }: EditorProps) {
 
             <CreateLinkButton key={'createLinkButton'} />
 
-            
+
           </FormattingToolbar>
         )}
       />

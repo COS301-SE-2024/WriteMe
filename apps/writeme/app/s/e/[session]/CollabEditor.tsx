@@ -1,8 +1,8 @@
 'use client';
 
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { BlockNoteContext, useCreateBlockNote } from '@blocknote/react';
-import { BlockNoteEditor } from '@blocknote/core';
+import { BlockNoteEditor, Block } from '@blocknote/core';
 import * as Y from 'yjs';
 import { WebrtcProvider } from 'y-webrtc';
 import { randomColor, uploadFile } from 'apps/writeme/services/client-services';
@@ -11,6 +11,9 @@ import { BlockNoteView } from '@blocknote/mantine';
 import { useTheme } from 'next-themes';
 import LoaderSpinner from 'apps/writeme/components/loader-spinner';
 import '@blocknote/mantine/style.css';
+import YPartyKitProvider from 'y-partykit/provider';
+import { Button } from '@writeme/wmc';
+import {toast} from "@writeme/wmc/lib/ui/use-toast";
 
 export const CollabEditorContext = createContext({
   blocks: [],
@@ -19,99 +22,174 @@ export const CollabEditorContext = createContext({
 
 export interface CollabEditorWrapperProps {
   inputBlocks: any[],
-  sessionId: string
+  sessionId: string,
+  chapterId: string,
+  owner: boolean,
+  chapter: any
 }
 
-const CollabEditorWrapper = ({ inputBlocks, sessionId }: CollabEditorWrapperProps) => {
+const CollabEditorWrapper = ({ inputBlocks, sessionId, chapterId, owner, chapter }: CollabEditorWrapperProps) => {
   const [blocks, setBlocks] = useState(inputBlocks);
-  //   const [editor, setEditor] = useState<null | BlockNoteEditor>(null);
-
+  const [doc, setDoc] = useState<Y.Doc>()
+  const [provider , setProvider] =useState<YPartyKitProvider>()
   const { data } = useSession();
 
-  const ydoc = new Y.Doc();
-  const provider = new WebrtcProvider(`writeme-${sessionId}-live`, ydoc);
+  useEffect(() => {
+    const yDoc = new Y.Doc();
 
-  const editor = useCreateBlockNote({
-    uploadFile,
+    const yProvider = new YPartyKitProvider(process.env.NEXT_PUBLIC_PARTYKIT_HOST, `writeme-${sessionId}-live`, yDoc)
+    setDoc(yDoc);
+    setProvider(yProvider);
+
+    return () => {
+      yDoc?.destroy();
+      yProvider?.destroy();
+    }
+  }, [sessionId]);
+
+  if (!doc || !provider){
+    return null;
+  }
+
+  return (
+    <CollabEditorContext.Provider value={{ blocks, setBlocks }}>
+      <BlockNoteCollab doc={doc} provider={provider} blocks={inputBlocks} chapterId={chapterId} inputBlocks={inputBlocks} owner={owner} chapter={chapter}/>
+    </CollabEditorContext.Provider>
+  );
+};
+
+type EditorProps = {
+  doc: Y.Doc;
+  provider: YPartyKitProvider;
+  inputBlocks: Block[];
+  chapterId: string;
+  chapter:any;
+  owner: boolean;
+};
+export function BlockNoteCollab({ doc, provider, inputBlocks, chapterId, owner, chapter }: EditorProps) {
+
+  const {data} = useSession();
+  const theme = useTheme();
+  const {setBlocks, blocks} = useContext(CollabEditorContext);
+  const [error, setError] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+
+
+  const editor: BlockNoteEditor = useCreateBlockNote({
     collaboration: {
       provider,
-      fragment: ydoc.getXmlFragment('document-store'),
+      // Where to store BlockNote data in the Y.Doc:
+      fragment: doc.getXmlFragment("document-store"),
+      // Information for this user:
       user: {
-        name: data?.user?.name || 'Guest User',
+        name: data?.user?.name || "Guest User",
         color: randomColor(),
       },
     },
   });
 
-  if (!editor) {
-    return null;
-  }
-//   editor.replaceBlocks(editor.document, inputBlocks);
-
-  //   useEffect(() => {
-  //     const ydoc = new Y.Doc();
-  //     const provider = new WebrtcProvider('your-room-name', ydoc);
-  //     const editorInstance = BlockNoteEditor.create({
-  //       initialContent: inputBlocks,
-  //       uploadFile,
-  //       collaboration: {
-  //         provider,
-  //         fragment: ydoc.getXmlFragment('document-store'),
-  //         user: {
-  //           name: data?.user?.name || 'Guest User',
-  //           color: '#fff',
-  //         },
-  //       },
-  //     });
-  //     console.log(editor);
-  //     setEditor(editorInstance);
-  //   }, []);
-
-  const theme = useTheme();
-
+  // Set default state if you wish
   useEffect(() => {
-    console.log("started effect")
     function setDefault() {
-        if (!editor){
-            console.log("no editor")
-            return;
-        }
+      console.log("set default called")
+      if (!editor) {
+        return;
+      }
 
-        console.log("current", editor, editor.document.length, blocks);
-
-        if (editor.document.length === 1){
-            console.log("setting Default")
-            console.log("updating", editor, editor.document.length, blocks);
-            editor.insertBlocks(blocks,editor.document[0]);
-        }
+      if (editor.document.length === 1 || editor.document.length === 0) {
+        console.log("updating")
+        editor.insertBlocks(
+          inputBlocks,
+          editor.document[0]
+        );
+      }
     }
 
-    if (provider.connected){
-        console.log("connected!")
+    if (provider.synced) {
+      setDefault();
+    }
+
+    provider.on("synced", setDefault);
+    provider.on('peers', peers => {
+      console.log(peers)
+      if (peers.bcPeers.length ===1 && peers.removed.length === 0){
         setDefault();
+      }
+    })
+    return () => provider.off("synced", setDefault);
+  }, [provider, editor]);
+
+  const onSave = async (e) => {
+    setError(false);
+    console.log(blocks);
+    e.preventDefault();
+    const values = {
+      ...chapter,
+      blocks:blocks
     }
-    provider.on('synced', setDefault);
-    return () => provider.off('synced', setDefault)
-  },[provider, editor])
+
+
+    try {
+      setSubmitting(true);
+      const res = await fetch('/api/chapter', {
+        method: 'PUT',
+        body: JSON.stringify(values),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+
+        if (Array.isArray(errorData.errors) && errorData.errors.length > 0) {
+          errorData.errors.forEach((error: any) => {
+            toast({
+              title: error.message,
+              variant: 'destructive'
+            })
+          });
+
+          return;
+        }
+
+        toast({
+          title: errorData.message,
+          variant: 'destructive'
+        })
+        return;
+      }
+      toast({
+        title: 'Saved Successfully',
+        variant: "default"
+      })
+
+    } catch (error: any) {
+      setError(true);
+      toast({
+        title: error.message,
+        variant: 'destructive'
+      })
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
 
   return (
-    <CollabEditorContext.Provider value={{ blocks, setBlocks }}>
-      {!editor ? (
-        <LoaderSpinner />
-      ) : (
-        <BlockNoteContext.Provider editor={editor}>
-          <BlockNoteView
-            theme={theme.theme as any}
-            onChange={() => {
-              setBlocks(editor.document);
-            }}
-            editor={editor}
-          ></BlockNoteView>
-        </BlockNoteContext.Provider>
-      )}
-    </CollabEditorContext.Provider>
+
+    <div>
+      {owner ? <Button onClick={onSave}>Save</Button> : <></>}
+      <BlockNoteView
+        editor={editor}
+        theme={theme.theme as any}
+        onChange={() => {
+          setBlocks(editor.document);
+        }}
+      />
+    </div>
   );
-};
+}
 
 export default CollabEditorWrapper;

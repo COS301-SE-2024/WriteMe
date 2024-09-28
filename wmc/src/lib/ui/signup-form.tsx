@@ -105,7 +105,7 @@ export function SignupFormDemo() {
           <Label htmlFor="password">Password</Label>
           <TooltipProvider>
             <Tooltip>
-              <TooltipTrigger>
+              <TooltipTrigger asChild>
                 <Input 
                   id="password" 
                   placeholder="••••••••" 

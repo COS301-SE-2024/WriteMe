@@ -83,7 +83,7 @@ const LocalNavbar = ({children} : LocalNavbarProps) => {
           <div className="flex gap-2 items-center">
             {session ? (
               <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger asChild>
                   <Button
                     variant={'outline'}
                     size={'icon'}
@@ -202,6 +202,15 @@ const LocalNavbar = ({children} : LocalNavbarProps) => {
                       href="/myworks"
                     >
                       My Stories
+                    </Link>
+                    <Link
+                      className={cn(
+                        buttonVariants({ variant: 'ghost' }),
+                        'block fit-content'
+                      )}
+                      href="/s"
+                    >
+                      My Sessions
                     </Link>
                     <Link
                       className={cn(
