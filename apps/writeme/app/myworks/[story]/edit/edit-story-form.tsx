@@ -16,20 +16,25 @@ import {
 import { Button, Input } from '@writeme/wmc';
 import { Textarea } from '@writeme/wmc/lib/ui/textarea';
 import { FancyMultiSelect, type Framework } from '@writeme/wmc/lib/ui/fancy-multi-select';
+import { MultiSelector, MultiSelectorContent, MultiSelectorInput, MultiSelectorItem, MultiSelectorList, MultiSelectorTrigger} from '@writeme/wmc/lib/ui/multi-select';
 import { signIn } from 'next-auth/react';
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
 import { useRouter } from 'next/navigation';
+import { Switch } from '@writeme/wmc/lib/ui/switch';
+
+export interface Genre {id: string, genre: string}
 
 export interface EditStoryFormProps{
   id: string,
   title: string,
   brief: string,
   description: string,
-  genreItems: Framework[],
-  tagItems: Framework[],
+  published: boolean,
+  genreItems: Genre[],
+  selectedGenres: any[],
 }
 
-const EditStoryForm = ({id, title, brief, description, genreItems, tagItems}: EditStoryFormProps) => {
+const EditStoryForm = ({id, title, brief, description, genreItems, selectedGenres, published}: EditStoryFormProps) => {
   const form = useForm<z.infer<typeof updateStorySchema>>({
     resolver: zodResolver(updateStorySchema),
     defaultValues: {
@@ -37,8 +42,8 @@ const EditStoryForm = ({id, title, brief, description, genreItems, tagItems}: Ed
       brief: brief,
       title: title,
       description: description,
-      genre: [],
-      tags: [],
+      genre: selectedGenres ? selectedGenres.map(g => g.genreId) : [],
+      published: published
     }
   });
 
@@ -51,6 +56,7 @@ const EditStoryForm = ({id, title, brief, description, genreItems, tagItems}: Ed
 
   async function onSubmit(values: z.infer<typeof updateStorySchema>){
     try {
+      // console.log(values);
       // setSubmitting(true);
       const res = await fetch('/api/story', {
         method: 'PUT',
@@ -81,6 +87,9 @@ const EditStoryForm = ({id, title, brief, description, genreItems, tagItems}: Ed
         return;
       }else {
         const { story } = await res.json();
+        toast({
+          title: "Story Updated",
+        })
         router.back();
       }
 
@@ -115,6 +124,30 @@ const EditStoryForm = ({id, title, brief, description, genreItems, tagItems}: Ed
           name="title"
         >
         </FormField>
+        <FormField 
+          control={form.control}
+          render={({field}) => (
+            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                  <div className="space-y-0.5">
+                    <FormLabel className="text-base">
+                      Published
+                    </FormLabel>
+                    <FormDescription>
+                      Specifies if the story is visible to the public.
+                    </FormDescription>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
+          )}
+          name='published'
+        >
+
+        </FormField>
 
         <FormField
           control={form.control}
@@ -122,7 +155,7 @@ const EditStoryForm = ({id, title, brief, description, genreItems, tagItems}: Ed
             <FormItem>
               <FormLabel>Brief</FormLabel>
               <FormControl>
-                <Input placeholder={"short, sweet, impactful"} {...field}></Input>
+                <Textarea placeholder={"short, sweet, impactful"} {...field}></Textarea>
               </FormControl>
               <FormDescription>
                 A very short description of your story.
@@ -152,43 +185,33 @@ const EditStoryForm = ({id, title, brief, description, genreItems, tagItems}: Ed
         >
         </FormField>
 
-        {/*<FormField*/}
-        {/*  control={form.control}*/}
-        {/*  render={({field: {value, onChange }, fieldState})=> (*/}
-        {/*    <FormItem>*/}
-        {/*      <FormLabel>Genre</FormLabel>*/}
-        {/*      <FormControl>*/}
-        {/*        <FancyMultiSelect selected={value as Framework[]} setSelected={(val) => onChange(val)}  {...register("genre")}  items={genreItems} placeholder='Select Genres'></FancyMultiSelect>*/}
-        {/*      </FormControl>*/}
-        {/*      <FormDescription>*/}
-        {/*        This is the genre of your story.*/}
-        {/*      </FormDescription>*/}
-        {/*      <FormMessage></FormMessage>*/}
-        {/*    </FormItem>*/}
-        {/*  )}*/}
-        {/*  name="genre"*/}
-        {/*>*/}
-        {/*</FormField>*/}
-
-        {/*<FormField*/}
-        {/*  control={form.control}*/}
-        {/*  render={({field : {value, onChange}})=> (*/}
-        {/*    <FormItem>*/}
-        {/*      <FormLabel>Tags</FormLabel>*/}
-        {/*      <FormControl>*/}
-        {/*        <FancyMultiSelect selected={value as Framework[]} setSelected={(val) => onChange(val)} {...register("tags")} items = {tagItems} placeholder='Select Tags'></FancyMultiSelect>*/}
-        {/*      </FormControl>*/}
-        {/*      <FormDescription>*/}
-        {/*        These are the tags of your story.*/}
-        {/*      </FormDescription>*/}
-        {/*      <FormMessage></FormMessage>*/}
-        {/*    </FormItem>*/}
-        {/*  )}*/}
-        {/*  name="tags"*/}
-        {/*>*/}
-        {/*</FormField>*/}
+        <FormField
+          control={form.control}
+          name="genre"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Genres</FormLabel>
+              <MultiSelector onValuesChange={field.onChange} values={field.value}>
+              <MultiSelectorTrigger>
+                <MultiSelectorInput placeholder="Select Genres" />
+              </MultiSelectorTrigger>
+              <MultiSelectorContent>
+                <MultiSelectorList>
+                  {genreItems.map(g => (
+                    <MultiSelectorItem value={g.id}>{g.genre}</MultiSelectorItem>
+                  ))}
+                  </MultiSelectorList>
+                </MultiSelectorContent>
+               </MultiSelector>
+            </FormItem>
+          )}
+        >
+        </FormField>
         <FormMessage>{form.formState.isValid}</FormMessage>
-        <Button type="submit">Save Changes</Button>
+        <div className='flex justify-between'>
+          <Button onClick={() => router.back()} variant='destructive'>Cancel</Button>
+          <Button type="submit">Save Changes</Button>
+        </div>
       </form>
     </Form>
   );

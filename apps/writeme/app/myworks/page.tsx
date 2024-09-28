@@ -27,6 +27,7 @@ import { cn } from '@writeme/wmc/utils';
 import Link from 'next/link';
 import { Button, buttonVariants } from '@writeme/wmc';
 import { getMyStories } from '../../services/stories';
+import { Separator } from "@radix-ui/react-dropdown-menu";
 
 export const metadata = {
   title: 'My Works | WriteMe',
@@ -47,7 +48,7 @@ export default async function Myworks(props: MyworksProps) {
       <LocalNavbar />
 
       <BentoGrid className="max-w-6xl mx-auto md:auto-rows-[20rem]">
-        {stories.map((story, i) => (
+        {stories.length > 0 ? stories.map((story, i) => (
           <Card
             className={cn(
               'row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-white border border-transparent justify-between flex flex-col space-y-4',
@@ -56,7 +57,7 @@ export default async function Myworks(props: MyworksProps) {
             key={story.id}
           >
             <CardHeader>
-              <div className="flex gap-2 justify-evenly">
+              <div className="flex gap-2 md:justify-evenly">
                 <div className="relative aspect-[3/4] h-40">
                   <img
                     alt="Book Cover"
@@ -95,7 +96,16 @@ export default async function Myworks(props: MyworksProps) {
             </CardHeader>
             {/* <Trash2 className='cursor-pointer p-5' size={70}/> */}
           </Card>
-        ))}
+
+        ): <Card className="p-8 col-span-3">
+            <CardTitle>You currently have no stories of your own.</CardTitle>
+            <CardDescription>You can create your first story in the navbar above or click the button below.</CardDescription>
+            <CardContent>
+                  <Button asChild>
+                    <Link href="/myworks/new">Create Story</Link>
+                  </Button>
+            </CardContent>
+          </Card>}
       </BentoGrid>
     </div>
   );

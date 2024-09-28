@@ -1,13 +1,13 @@
 /* v8 ignore start */
 import { NextResponse } from 'next/server';
 import { createUserSchema } from '../../../db/user-schema';
-import { undefined, ZodError } from 'zod';
-import { users , stories } from '../../../db/schema';
+import { object, string, ZodError } from 'zod';
+import { users , stories, storyGenres, chapters } from '../../../db/schema';
 import { db } from '../../../db/db';
-import { createStorySchema, updateStorySchema } from '../../../db/story-schema';
-import { title } from '@storybook/core-server/dist/presets/common-preset';
+import { createStorySchema, deleteStorySchema, updateStorySchema } from '../../../db/story-schema';
 import { auth } from '../../../auth';
 import { eq } from 'drizzle-orm';
+import { getStory } from 'apps/writeme/services/stories';
 
 type NewStory = typeof stories.$inferInsert;
 const insertStory = async (story: NewStory) => {
@@ -90,9 +90,30 @@ export async function PUT(req: Request){
       }), { status : 401})
     }
 
-    // console.log(await req.json());
+    const raw_json = await req.json();
 
-    const input = updateStorySchema.parse(await req.json());
+    // console.log(raw_json);
+
+    const input = updateStorySchema.parse(raw_json);
+
+    // todo: check user owns story
+
+    // delete current genres
+
+    await db.delete(storyGenres).where(eq(storyGenres.storyId, input.id))
+
+    // console.log(input.genre)
+
+    // insert new or current genres
+    // input.genre?.forEach
+    const genreUpdates = input.genre?.map(g => ({
+      storyId: input.id,
+      genreId: g
+    }))
+
+    if (genreUpdates && genreUpdates.length > 0){
+      await db.insert(storyGenres).values(genreUpdates || [])
+    }
 
     // : ensure user owns story
     // console.log(input);
@@ -108,6 +129,69 @@ export async function PUT(req: Request){
       story: {
         id: story.updatedId,
       },
+    });
+  } catch (error: any) {
+    console.log(error);
+    if (error instanceof ZodError) {
+      return NextResponse.json(
+        {
+          status: 'error',
+          message: 'Validation failed',
+          errors: error.errors,
+        },
+        { status: 400 }
+      );
+    }
+
+    return NextResponse.json(
+      {
+        status: 'error',
+        message: error.message || 'Internal Server Error',
+      },
+      { status: 500 }
+    );
+  }
+}
+
+
+export async function DELETE(req: Request){
+  try {
+    const session = await auth();
+
+    if (!session?.user){
+      return new NextResponse(JSON.stringify({
+        status: 'fail', message: "You are not logged in",
+      }), { status : 401})
+    }
+
+    const input = deleteStorySchema.parse(await req.json());
+    const story = await getStory(input.id);
+    
+    if (!story) {
+      return new NextResponse(
+        JSON.stringify({
+          status: 'fail',
+          message: 'Story not found',
+        }),
+        { status: 404 }
+      );
+    }
+
+    if (story.userId !== session.user.id) {
+      return new NextResponse(
+        JSON.stringify({
+          status: 'fail',
+          message: 'You do not have permission to delete this story',
+        }),
+        { status: 403 }
+      );
+    }
+
+    await db.delete(stories).where(eq(stories.id, input.id));
+
+    return NextResponse.json({
+      status: 'success',
+      message: 'Story deleted successfully',
     });
   } catch (error: any) {
     console.log(error);

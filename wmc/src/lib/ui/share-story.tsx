@@ -17,6 +17,12 @@ import { IconMail } from "@tabler/icons-react";
 import { IconBrandMessenger } from "@tabler/icons-react";
 import { IconLink } from "@tabler/icons-react";
 import { IconBrandX } from "@tabler/icons-react";
+import { 
+  Tooltip, 
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from "@writeme/wmc/lib/ui/tooltip";
 
 export interface ShareProps{
   link:string,
@@ -38,46 +44,84 @@ export function ShareStory({link, message}: ShareProps) {
 
   };
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <Share/>
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="PopoverContent">
-        <div className="flex flex-col gap-4">
-          <div className="">
-            <h4 className="font-medium leading-none text-center">Share</h4>
-            <p className="text-sm text-muted-foreground text-center">
-              Share the link
-            </p>
-          </div>
-          <div className="flex justify-center items-center gap-2">
-            <Link target="_blank" href={`https://wa.me/send?text=${message}...${link}`} className={buttonVariants({variant:"ghost", size:"icon"})}>
-              <IconBrandWhatsapp className="h-8 w-8"></IconBrandWhatsapp>
-            </Link>
-            {/* need to take look at this again */}
-            <Link target="_blank" href={`https://pinterest.com/pin/create/button/?url=${link}&description=${message}`} className={buttonVariants({variant:"ghost", size:"icon"})}>
-              <IconBrandPinterest className="h-8 w-8"></IconBrandPinterest>
-            </Link>
-            <Link target="_blank" href={`https://www.reddit.com/submit?url=${link}&title=${message}&type=LINK`} className={buttonVariants({variant:"ghost", size:"icon"})}>
-              <IconBrandReddit className="h-8 w-8"></IconBrandReddit>
-            </Link>
-            <Link target="_blank" href={`https://x.com/intent/post?url=${link}&text=${message}`} className={buttonVariants({variant:"ghost", size:"icon"})}>
-              <IconBrandX className="h-8 w-8"></IconBrandX>
-            </Link>
-            <Link target="_blank" href={`mailto:?subject=${message}&body=${link}`} className={buttonVariants({variant:"ghost", size:"icon"})}>
-              <IconMail className="h-8 w-8"></IconMail>
-            </Link>
-            <button className={buttonVariants({ variant: "ghost", size: "icon" })} onClick={() => handleMessengerShare({ link, message })}>
-              <IconBrandMessenger className="h-8 w-8" />
-            </button>
-            <Button variant="ghost" size="icon">
-              <IconLink className="h-8 w-8" onClick={() => handleCopyLink({link})} />
-            </Button>
-          </div>
-        </div>
-      </PopoverContent>
-    </Popover>
+    <TooltipProvider>
+      <Tooltip>
+        <Popover>
+          <TooltipTrigger asChild>
+            <PopoverTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Share />
+              </Button>
+            </PopoverTrigger>
+          </TooltipTrigger>
+          <TooltipContent
+            side="right"
+            sideOffset={5}
+          >
+            <p>Share this story</p>
+          </TooltipContent>
+          <PopoverContent className="PopoverContent">
+            <div className="flex flex-col gap-4">
+              <div className="">
+                <h4 className="font-medium leading-none text-center">Share</h4>
+                <p className="text-sm text-muted-foreground text-center">
+                  Share the link
+                </p>
+              </div>
+              <div className="flex justify-center items-center gap-2">
+                <Link
+                  target="_blank"
+                  href={`https://wa.me/send?text=${message}...${link}`}
+                  className={buttonVariants({ variant: "ghost", size: "icon" })}
+                >
+                  <IconBrandWhatsapp className="h-8 w-8"></IconBrandWhatsapp>
+                </Link>
+                {/* need to take look at this again */}
+                <Link
+                  target="_blank"
+                  href={`https://pinterest.com/pin/create/button/?url=${link}&description=${message}`}
+                  className={buttonVariants({ variant: "ghost", size: "icon" })}
+                >
+                  <IconBrandPinterest className="h-8 w-8"></IconBrandPinterest>
+                </Link>
+                <Link
+                  target="_blank"
+                  href={`https://www.reddit.com/submit?url=${link}&title=${message}&type=LINK`}
+                  className={buttonVariants({ variant: "ghost", size: "icon" })}
+                >
+                  <IconBrandReddit className="h-8 w-8"></IconBrandReddit>
+                </Link>
+                <Link
+                  target="_blank"
+                  href={`https://x.com/intent/post?url=${link}&text=${message}`}
+                  className={buttonVariants({ variant: "ghost", size: "icon" })}
+                >
+                  <IconBrandX className="h-8 w-8"></IconBrandX>
+                </Link>
+                <Link
+                  target="_blank"
+                  href={`mailto:?subject=${message}&body=${link}`}
+                  className={buttonVariants({ variant: "ghost", size: "icon" })}
+                >
+                  <IconMail className="h-8 w-8"></IconMail>
+                </Link>
+                <button
+                  className={buttonVariants({ variant: "ghost", size: "icon" })}
+                  onClick={() => handleMessengerShare({ link, message })}
+                >
+                  <IconBrandMessenger className="h-8 w-8" />
+                </button>
+                <Button variant="ghost" size="icon">
+                  <IconLink
+                    className="h-8 w-8"
+                    onClick={() => handleCopyLink({ link })}
+                  />
+                </Button>
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
+      </Tooltip>
+    </TooltipProvider>
   )
 }

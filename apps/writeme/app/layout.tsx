@@ -142,7 +142,9 @@ export default function RootLayout({
   return (
     // <ViewTransitions>
     <html lang="en">
-      <body>
+      <body style={{
+        minHeight: "100%"
+      }}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <SessionWrapper>
             <OnbordaProvider>
