@@ -53,6 +53,48 @@ export const userRelations = relations(users, ({ many }) => ({
   viewableSessions: many(viewableSessions)
 }));
 
+export const userAwards = pgTable("user_awards", {
+  storyId: text("storyId")
+    .notNull()
+    .references(() => stories.id, { onDelete: "cascade" }),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  writeathonId: text('writeathon_id')
+  .references(() => writeathons.id, {
+    onDelete: 'cascade',
+  })
+  .notNull(),
+  award: text('award').notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+},(t) => {
+    return {
+      pk: primaryKey({
+        columns: [t.storyId, t.userId, t.award],
+      }),
+    };
+  }
+)
+
+export const userAwardsRelations = relations(userAwards, ({ one }) => {
+  user: one(users, {
+    fields: [userAwards.userId],
+    references: [users.id]
+  }),
+    writeathon;
+:
+  one(writeathons, {
+    fields: [userAwards.writeathonId],
+    references: [users.id]
+  }),
+    story;
+:
+  one(stories, {
+    field: [userAwards.storyId],
+    references: [stories.id]
+  });
+})
+
 export const userFollowers = pgTable(
   "user_followers",
   {
@@ -255,9 +297,9 @@ export const writeathons = pgTable("writeathon", {
   title: varchar("title", { length: 255 }).notNull(),
   description: text("description").default(""),
   brief: text("brief").default(""),
-  startDate: date("start_date", { mode: 'date' }),
+  startDate: timestamp("start_date", { mode: 'date' }),
   complete: boolean('complete').default(false),
-  endDate: date("end_date", { mode: 'date' }),
+  endDate: timestamp("end_date", { mode: 'date' }),
 });
 
 export const writeathonsRelations = relations(writeathons, ({ many }) => ({
