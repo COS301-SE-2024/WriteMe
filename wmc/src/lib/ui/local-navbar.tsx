@@ -17,7 +17,7 @@ import {
   PopoverTrigger,
 } from '@writeme/wmc/lib/ui/popover';
 import { useOnborda } from 'onborda';
-import { useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { CircleHelp, Home } from 'lucide-react';
 import { Search } from 'lucide-react';
 import { SearchModal } from '@writeme/wmc/lib/ui/search-modal';
@@ -30,7 +30,11 @@ import {
 } from './tooltip';
 import { Badge } from './badge';
 
-const LocalNavbar = () => {
+export interface LocalNavbarProps {
+  children?: ReactNode;
+}
+
+const LocalNavbar = ({children} : LocalNavbarProps) => {
   const pathname = usePathname();
 
   const { data: session } = useSession();
@@ -79,7 +83,7 @@ const LocalNavbar = () => {
           <div className="flex gap-2 items-center">
             {session ? (
               <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger asChild>
                   <Button
                     variant={'outline'}
                     size={'icon'}
@@ -162,7 +166,7 @@ const LocalNavbar = () => {
           ) : (
             <></>
           )}
-
+          {children}
           <ModeToggle></ModeToggle>
           {session?.user ? (
             <>
@@ -198,6 +202,15 @@ const LocalNavbar = () => {
                       href="/myworks"
                     >
                       My Stories
+                    </Link>
+                    <Link
+                      className={cn(
+                        buttonVariants({ variant: 'ghost' }),
+                        'block fit-content'
+                      )}
+                      href="/s"
+                    >
+                      My Sessions
                     </Link>
                     <Link
                       className={cn(

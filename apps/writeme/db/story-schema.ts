@@ -7,6 +7,9 @@ export const createStorySchema = object({
   description: string().max(10000, "Description is too long, maximum of 10000 characters")
 })
 
+export const deleteStorySchema = object({
+  id : string({required_error: "a story id is required"})
+})
 
 export const updateStorySchema = object({
   id : string({required_error: "a story id is required"}),

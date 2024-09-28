@@ -1,8 +1,8 @@
 "use client";
 
-
+import dynamic from 'next/dynamic';
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import Editor from '@writeme/wmc/lib/ui/editor';
+const Editor = dynamic(() => import("@writeme/wmc/lib/ui/editor"), { ssr: false });
 import { EditorContext } from './editor-context';
 import { useBlockNoteEditor } from '@blocknote/react';
 
@@ -10,20 +10,11 @@ let interval: any;
 
 const EditorController = () => {
   const { story, setStory, blocks, setBlocks } = useContext(EditorContext);
-
-  // const editor = useBlockNoteEditor()
-
-  // // autosave every 30 mins
-  // useEffect(() => {
-
-  // })
-
-  // const autoSave = () => {
-  //   interval = setInterval(() => {
-
-  //   }, 6000)
-  // }
-
+  useEffect(() => {
+    console.log(blocks)
+  },[blocks])
+  // const editor = useBlockNoteEditor();
+  // console.log(editor.document)
 
   return (
     <div>

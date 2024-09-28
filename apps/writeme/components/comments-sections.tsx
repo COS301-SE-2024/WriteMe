@@ -116,7 +116,7 @@ export default function CommentSection({
               <div className="flex gap-2 items-start justify-start">
                 <Avatar className="mt-3">
                   <AvatarImage src={c.author.image} />
-                  <AvatarFallback>{c.author.name}</AvatarFallback>
+                  <AvatarFallback>{c.author.name[0]}</AvatarFallback>
                 </Avatar>
                 <div>
                   <div className="flex items-center gap-1">
