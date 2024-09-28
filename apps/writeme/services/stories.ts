@@ -18,7 +18,11 @@ export async function getMyStories() {
     with: {
       comments: {
         with: {
-          // replies: true,
+          replies: {
+            with : {
+              author: true
+            }
+          },
           author: true
         }
       }
@@ -67,7 +71,6 @@ export async function getStory(id: string) {
           comments : {
             with : {
               author: true,
-              parent: true,
             }
           },
           likes: true
@@ -78,7 +81,9 @@ export async function getStory(id: string) {
         with: {
           author: true,
           replies: {
-            replies: true,
+            with: {
+              author: true
+            }
           }
         }
 
@@ -112,11 +117,11 @@ export async function getPublishedStory(id: string) {
       comments: {
         with: {
           author: true,
-          // replies: {
-          //   with: {
-          //     author: true
-          //   }
-          // }
+          replies: {
+            with: {
+              author: true
+            }
+          }
         }
       },
       chapters: {
@@ -126,11 +131,11 @@ export async function getPublishedStory(id: string) {
           comments: {
             with: {
               author: true,
-              // replies: {
-              //   with: {
-              //     author: true
-              //   }
-              // }
+              replies: {
+                with: {
+                  author: true
+                }
+              }
             }
           }
         }
