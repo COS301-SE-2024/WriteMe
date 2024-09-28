@@ -247,7 +247,7 @@ export const writeathonsRelations = relations(writeathons, ({ many }) => ({
 }))
 
 export const storiesWriteathons = pgTable('story_writeathons', {
-  storyId: text('story_id').notNull().references(() => stories.id),
+  storyId: text('story_id').notNull().references(() => stories.id, {onDelete: 'cascade'}),
   writeathonId: text('writeathon_id').notNull().references(() => writeathons.id)
 }, (t) => {
   return {
@@ -340,7 +340,7 @@ export const chapters = pgTable('chapter', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
   storyId: text('story_id')
-    .references(() => stories.id)
+    .references(() => stories.id, { onDelete: 'cascade' })
     .notNull()
 });
 
@@ -414,8 +414,8 @@ export const commentsRelations = relations(comments, ({ one, many }) => {
 });
 
 export const commentReplies = pgTable("comment_replies", {
-  parentComment: serial('parent_id').notNull().references(() => comments.id),
-  childComment: serial('child_id').notNull().references(() => comments.id)
+  parentComment: serial('parent_id').notNull().references(() => comments.id, {onDelete: 'cascade'}),
+  childComment: serial('child_id').notNull().references(() => comments.id, {onDelete: 'cascade'})
 }, (t) => ({
   pk: primaryKey({
     columns: [t.parentComment, t.childComment]
@@ -445,7 +445,7 @@ export const likes = pgTable(
   {
     id: serial("id").primaryKey(),
     storyId: text('story_id')
-      .references(() => stories.id)
+      .references(() => stories.id, {onDelete: 'cascade'})
       .notNull(),
     chapterId: text('chapter_id').references(() => chapters.id),
     userId: text('user_id')
@@ -502,7 +502,7 @@ export const genres = pgTable('genres', {
 // }));
 
 export const storyGenres = pgTable('story_genres', {
-  storyId: text('story_id').references(() => stories.id).notNull(),
+  storyId: text('story_id').references(() => stories.id, {onDelete: 'cascade'}).notNull(),
   genreId: text('genre_id').references(() => genres.id).notNull(),
 },
 (t) => ({
