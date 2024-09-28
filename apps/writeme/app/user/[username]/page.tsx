@@ -5,7 +5,7 @@ import { IconUser, IconMail } from '@tabler/icons-react';
 import LocalNavbar from '@writeme/wmc/lib/ui/local-navbar';
 import { getUser } from '../../../services/users';
 import { BentoGrid } from '@writeme/wmc/lib/ui/bento-grid';
-import { Card, CardDescription, CardHeader, CardTitle } from '@writeme/wmc/lib/ui/card';
+import { Card, CardDescription, CardHeader, CardTitle, CardContent, CardFooter } from '@writeme/wmc/lib/ui/card';
 import Link from 'next/link';
 import { BookOpenText } from 'lucide-react';
 import { cn } from '@writeme/wmc/utils';
@@ -15,9 +15,12 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { auth } from 'apps/writeme/auth';
 import { getMyDrafts, getUserBookmarkedStories, getUserStories } from 'apps/writeme/services/stories';
 import FollowButton from 'apps/writeme/components/follow-button';
+import AwardsDisplay from 'apps/writeme/components/AwardsDisplay';
 import { isFollowing } from '../../../services/users';
 import { getUserWriteathons } from 'apps/writeme/services/writeathons';
+import { Separator} from "@writeme/wmc/lib/ui/separator"
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
+import React from 'react';
 
 export interface UserProps {
   params: {
@@ -50,8 +53,8 @@ export default async function User(props: UserProps) {
           </div>
           <h1 className="text-3xl font-bold mx-12">{user?.name}</h1>
           <p className="text-lg text-gray-500 mx-12 mb-4">{user?.bio}</p>
-          {session?.user?.id == props.params.username ? <Button className='mx-12 mb-3'><Link href={`/user/${user?.id}/edit-profile`}>Edit profile</Link></Button> 
-          : 
+          {session?.user?.id == props.params.username ? <Button className='mx-12 mb-3'><Link href={`/user/${user?.id}/edit-profile`}>Edit profile</Link></Button>
+          :
           <FollowButton userId={props.params.username} following={following} />}
           <div className='flex mx-12 mb-3'>
             <IconUser />
@@ -60,13 +63,19 @@ export default async function User(props: UserProps) {
             <a className='font-bold mx-2'>{user?.following.length}</a>
             <a className='text-gray-500'>following</a>
           </div>
-          <div className="border-t border-gray-300 my-5 mx-6 w-full"></div>
+          <Separator className="my-5"/>
           <div className='flex items-center mx-10'>
             <IconMail className='mx-2' />
             <Button asChild variant={"link"}>
               <a href={`mailto:${user?.email}`}>{user?.email}</a>
             </Button>
           </div>
+          <Separator className="my-5"/>
+          <div>
+            <h3 className="text-3xl font-bold mx-12">Awards</h3>
+            <AwardsDisplay awards={user?.awards}/>
+          </div>
+
         </div>
 
         <div className="flex flex-col p-10 w-2/3">
@@ -145,8 +154,7 @@ export default async function User(props: UserProps) {
                       <img
                         alt='Book Cover'
                         src={bookmarkedStory.story.cover || BookCover} // Use story cover if available
-                        layout='fill'
-                        objectFit='cover'
+                        className="object-contain"
                       />
                     </div>
                     <div className='pl-3 flex flex-col gap-2 justify-between'>
@@ -172,16 +180,21 @@ export default async function User(props: UserProps) {
               >
                 <CardHeader>
                   <div className='flex gap-2 justify-evenly'>
-                    <div className='pl-3 flex flex-col gap-2 justify-between'>
+                    <div className="pl-3 flex flex-col gap-2 justify-between">
+                      <div className="aspect-[3/4] h-32">
+                        <img
+                          alt="Writeathon Cover"
+                          src={writeathon.cover || BookCover}
+                        />
+                      </div>
                       <CardTitle>{writeathon.title}</CardTitle>
-                      {/* <CardDescription>{dayjs(writeathon.startDate)}</CardDescription>
-                      <CardDescription>{dayjs(writeathon.endDate)}</CardDescription> */}
-                      <Button asChild variant="default">
-                        {/* <Link href={`/stories/${writeathon.id}`}> */}
-                          <div className="flex gap-1 items-center"><BookOpenText size="1rem"/> View</div>
-                        {/* </Link> */}
+                      {/*/!* <CardDescription>{dayjs(writeathon.startDate)}</CardDescription>*/}
+                      {/*<CardDescription>{dayjs(writeathon.endDate)}</CardDescription> *!/*/}
+                      <Button variant="default" asChild>
+                        <Link href={`/writeathons/${writeathon.id}`}>View</Link>
                       </Button>
                     </div>
+
                   </div>
                 </CardHeader>
               </Card>
