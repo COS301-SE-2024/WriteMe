@@ -147,6 +147,25 @@ Once you have been logged in, you will be taken to the **"My Stories"** page. Th
 3. Enter an optional **"Description"**.
 4. Once you are satisfied with everything, you can click on the **"Submit"** button. 
 
+### Writathons
+
+You can navigate to this page by clicking on the **"Writathons"** tab in the navigation bar on the top.
+
+![Writathon](./images/Writathons.png)
+
+1. Click on the **Create a Writathon** button which will allow to start your very own writathon.
+2. To view ongoing writathons you may choose one that catches your eye and click on the **View** button.
+
+![Writathon2](./images/Writathons2.png)
+
+1. Click on the **Enter a story** button to submit your very own story in the writathon.
+2. You may click on the **Read** button on any of the currently submitted stories that other users have submitted.
+3. This button allows you to vote on individual stories that have been submitted as shown below.
+
+![Vote](./images/Vote.png)
+
+1. Click on the **Submite Vote** button once you have made your decision!
+
 ### A New Story
 
 You can navigate to this page by clicking on the **"New Story"** tab in the navigation bar on the top.
