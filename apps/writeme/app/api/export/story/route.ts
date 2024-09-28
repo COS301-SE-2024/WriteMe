@@ -16,9 +16,9 @@ export async function POST(req: Request) {
     const input = exportChapterSchema.parse(await req.json());
     const story = await getPublishedStory(input.id);
 
-    if (!story) {
+    if (!story || !story.exportable) {
       return new NextResponse(
-        JSON.stringify({ status: 'fail', message: 'Story not found' }),
+        JSON.stringify({ status: 'fail', message: 'Story not found or not exportable' }),
         { status: 404 }
       );
     }

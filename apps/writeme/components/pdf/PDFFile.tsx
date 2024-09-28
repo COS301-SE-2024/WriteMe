@@ -102,7 +102,7 @@ const renderContent = (blocks) => blocks.map(block => renderContentBlock(block))
 
 const PDFFile = ({ story }: PDFFileProps) => {
   return (
-    <Document>
+    <Document author={story?.story?.author.name || story?.author.name || ""} creationDate={new Date()} creator={story?.story?.author.name || story?.author.name || ""}>
       <Page style={{ padding: 30, fontSize: 12 }}>
         <Image src={story.cover}/>
         {story.chapters ? (story.chapters.map(chapter => renderContent(chapter.blocks))) : (renderContent(story.blocks))}

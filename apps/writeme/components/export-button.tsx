@@ -53,7 +53,6 @@ export default function ExportButton({ storyId, chapterId, exportable }: ExportB
     return <Button variant="ghost" size="icon" disabled></Button>;
   }
 
-  console.log(storyData)
   return (
 
     <PDFDownloadLink
