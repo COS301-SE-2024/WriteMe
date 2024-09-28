@@ -17,6 +17,7 @@ import { getMyDrafts, getUserBookmarkedStories, getUserStories } from 'apps/writ
 import FollowButton from 'apps/writeme/components/follow-button';
 import { isFollowing } from '../../../services/users';
 import { getUserWriteathons } from 'apps/writeme/services/writeathons';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
 
 export interface UserProps {
   params: {

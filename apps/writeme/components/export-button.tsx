@@ -5,7 +5,7 @@ import { Download } from 'lucide-react';
 import { toast } from '@writeme/wmc/lib/ui/use-toast';
 import { useState, useEffect } from 'react';
 import { PDFDownloadLink } from '@react-pdf/renderer';
-import PDFFile from '../components/pdf/PDFFile'; 
+import PDFFile from '../components/pdf/PDFFile';
 
 interface ExportButtonProps {
   storyId: string;
@@ -54,7 +54,7 @@ export default function ExportButton({ storyId, chapterId }: ExportButtonProps) 
       document={<PDFFile story={storyData} />}
       fileName={storyData.title + ".pdf"}
     >
-      {/* {({ loading }) => 
+      {/* {({ loading }) =>
         loading ? (
           <Button variant="ghost" size="icon" disabled>
             Generating PDF...

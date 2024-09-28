@@ -15,6 +15,10 @@ export const createStorySchema = object({
   ),
 });
 
+export const deleteStorySchema = object({
+  id : string({required_error: "a story id is required"})
+})
+
 export const updateStorySchema = object({
   id: string({ required_error: 'a story id is required' }),
   title: string({ required_error: 'Title is Required' })
@@ -106,3 +110,10 @@ export const writeathonCheckSchema = object({
       'a untility token is required in order to access this functionality',
   }),
 });
+
+
+export const filterStorySchema = object({
+  filterby: string({required_error: "needs to have a filter"}),
+  orderby: string({required_error: "needs to have an order by"}).default("asc"),
+  genres: z.string().array().optional()
+})

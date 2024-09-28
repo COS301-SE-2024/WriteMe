@@ -21,6 +21,8 @@ import { Textarea } from '@writeme/wmc/lib/ui/textarea';
 import { Button , buttonVariants} from '@writeme/wmc';
 import {UtilContext} from "./editor-utilities";
 import { useToast } from '@writeme/wmc/lib/ui/use-toast';
+import { Gamepad } from 'lucide-react';
+import { Separator } from '@writeme/wmc/lib/ui/separator';
 
 const QUESTIONS = [
 "What is a challenge your character faces, and how do they overcome it?",
@@ -65,10 +67,11 @@ const ImprovAnswerField = ({q, api}: ImprovAnswerFieldProps) => {
     <div className={"flex flex-col justify-between"}>
     <p>{q}</p>
     <Textarea onChange={(v) => setInput(v.target.value)} value={input}></Textarea>
-    <div className='flex justify-between gap-2 max-w-full'>
+    <Separator className='my-2'></Separator>
+    <div className='flex justify-between gap-2 max-w-full '>
         {canScroll ? <Button onClick={() => {
           api.scrollNext()
-        }}>Skip</Button> : <DialogClose >End Improv</DialogClose>}
+        }}>Skip</Button> : <DialogClose className={buttonVariants({variant: 'destructive'})} >End Improv</DialogClose>}
         
         <Button onClick={() => {
           console.log(suggestionCards)
@@ -124,13 +127,13 @@ export const ImprovGameDialog = () => {
   return (
     <Dialog>
         <Button asChild>
-            <DialogTrigger onClick={chooseQuestions}>Start Improv</DialogTrigger>
+            <DialogTrigger onClick={chooseQuestions}><Gamepad></Gamepad>  Start Improv</DialogTrigger>
         </Button>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Improv Game</DialogTitle>
-          <Carousel className="p-4" setApi={setApi}>
-            <CarouselContent>
+          <Carousel setApi={setApi} className='flex gap-2'>
+            <CarouselContent className="sm:max-w-md p-2">
               {chosenQuestions.map(q=>
 
               <CarouselItem className='flex flex-col gap-4'>

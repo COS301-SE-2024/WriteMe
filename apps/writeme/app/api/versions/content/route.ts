@@ -1,12 +1,13 @@
 import { auth } from "apps/writeme/auth";
 import { getVersionContent, getVersions } from "apps/writeme/services/chapters";
 import { NextRequest, NextResponse } from "next/server";
+import { ZodError } from "zod";
 
 export const GET = async (req: NextRequest) => {
     try {
 
         const session = await auth();
-    
+
         if (!session?.user){
           return new NextResponse(JSON.stringify({
             status: 'fail', message: "You are not logged in",
@@ -23,7 +24,7 @@ export const GET = async (req: NextRequest) => {
                 { status: 400 }
               )
         }
-    
+
         let time = req.nextUrl.searchParams.get("time")
         if (!time){
           return NextResponse.json(
@@ -34,10 +35,11 @@ export const GET = async (req: NextRequest) => {
             { status: 400 }
           )
         }
-        
+
         let version = await getVersionContent(chapter_id, new Date(time));
-    
-    
+        console.log(version)
+
+
         return NextResponse.json({
           version: version
         });
@@ -53,7 +55,7 @@ export const GET = async (req: NextRequest) => {
             { status: 400 }
           );
         }
-    
+
         return NextResponse.json(
           {
             status: 'error',

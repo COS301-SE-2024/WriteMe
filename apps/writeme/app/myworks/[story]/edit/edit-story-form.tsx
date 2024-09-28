@@ -35,7 +35,6 @@ export interface EditStoryFormProps{
 }
 
 const EditStoryForm = ({id, title, brief, description, genreItems, selectedGenres, published}: EditStoryFormProps) => {
-  console.log(selectedGenres);
   const form = useForm<z.infer<typeof updateStorySchema>>({
     resolver: zodResolver(updateStorySchema),
     defaultValues: {

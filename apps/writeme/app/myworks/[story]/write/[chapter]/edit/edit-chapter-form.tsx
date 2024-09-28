@@ -22,7 +22,7 @@ export default function EditChapterForm(props: EditChapterFormProps) {
 
     try {
       // console.log(data)
-      const res = await fetch('/api/chapter', {
+      const res = await fetch('/api/chapter/meta', {
         method: 'PUT',
         body: JSON.stringify(data),
         headers: {
@@ -77,14 +77,28 @@ export default function EditChapterForm(props: EditChapterFormProps) {
         title: props.chapter.title,
         description: props.chapter.description || "",
         published: props.chapter.published || false,
-        brief: props.chapter.brief || ""
+        brief: props.chapter.brief || "",
+        id: props.chapter.id || "",
       }}
       fieldConfig={{
+        id: {
+          inputProps: {
+            hidden: true,
+            type: "hidden"
+          },
+          renderParent: ({}) => (<></>),
+        },
         brief: {
           fieldType: "textarea"
         },
         description: {
           fieldType: "textarea"
+        },
+        published: {
+          fieldType: "switch",
+          inputProps: {
+            required: false
+          }
         }
       }}
     >

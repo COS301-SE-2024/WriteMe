@@ -2,12 +2,20 @@ import { and } from "drizzle-orm";
 import { db } from "../db/db";
 import { storyWriteathonVotes, voteCategories } from "../db/schema";
 
+
+export async function getAllUpCommingWriteathons(currDate: Date) {
+  const result = await db.query.writeathons.findMany({
+    where: (writeathons, { gte }) => gte(writeathons.startDate, currDate),
+  });
+  return result;
+}
+
 export async function getAllWriteathons(currDate: Date) {
   const result = await db.query.writeathons.findMany({
-    where: (writeathons, { and, lt, gt }) => 
+    where: (writeathons, { and, lte, gte }) => 
       and(
-        lt(writeathons.startDate, currDate),
-        gt(writeathons.endDate, currDate),
+        lte(writeathons.startDate, currDate),
+        gte(writeathons.endDate, currDate),
     ),
   });
   return result;

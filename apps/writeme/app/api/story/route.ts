@@ -2,12 +2,12 @@
 import { NextResponse } from 'next/server';
 import { createUserSchema } from '../../../db/user-schema';
 import { object, string, ZodError } from 'zod';
-import { users , stories, storyGenres } from '../../../db/schema';
+import { users , stories, storyGenres, chapters } from '../../../db/schema';
 import { db } from '../../../db/db';
-import { createStorySchema, updateStorySchema } from '../../../db/story-schema';
-import { title } from '@storybook/core-server/dist/presets/common-preset';
+import { createStorySchema, deleteStorySchema, updateStorySchema } from '../../../db/story-schema';
 import { auth } from '../../../auth';
 import { eq } from 'drizzle-orm';
+import { getStory } from 'apps/writeme/services/stories';
 
 type NewStory = typeof stories.$inferInsert;
 const insertStory = async (story: NewStory) => {
@@ -90,9 +90,11 @@ export async function PUT(req: Request){
       }), { status : 401})
     }
 
-    // console.log(await req.json());
+    const raw_json = await req.json();
 
-    const input = updateStorySchema.parse(await req.json());
+    // console.log(raw_json);
+
+    const input = updateStorySchema.parse(raw_json);
 
     // todo: check user owns story
 
@@ -162,20 +164,34 @@ export async function DELETE(req: Request){
       }), { status : 401})
     }
 
-    const deleteStorySchema = object({
-      id : string({required_error: "a story id is required"})})
-
     const input = deleteStorySchema.parse(await req.json());
+    const story = await getStory(input.id);
+    
+    if (!story) {
+      return new NextResponse(
+        JSON.stringify({
+          status: 'fail',
+          message: 'Story not found',
+        }),
+        { status: 404 }
+      );
+    }
 
-    // todo: check user owns story
+    if (story.userId !== session.user.id) {
+      return new NextResponse(
+        JSON.stringify({
+          status: 'fail',
+          message: 'You do not have permission to delete this story',
+        }),
+        { status: 403 }
+      );
+    }
 
-    // deletes story
     await db.delete(stories).where(eq(stories.id, input.id));
 
-
-
     return NextResponse.json({
-      
+      status: 'success',
+      message: 'Story deleted successfully',
     });
   } catch (error: any) {
     console.log(error);
@@ -198,6 +214,4 @@ export async function DELETE(req: Request){
       { status: 500 }
     );
   }
-
-
 }

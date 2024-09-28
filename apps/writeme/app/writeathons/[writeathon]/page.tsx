@@ -24,6 +24,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from '@writeme/wmc/lib/u
 import { cn } from '@writeme/wmc/utils';
 import { ArrowBigUp, BookOpenText } from 'lucide-react';
 import VoteButton from 'apps/writeme/components/vote-button';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
 
 export interface WriteathonProps {
   params: {

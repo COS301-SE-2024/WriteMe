@@ -15,6 +15,7 @@ import { CreateUserInput, createUserSchema} from '../../../../apps/writeme/db/us
 import { signIn } from 'next-auth/react';
 import { useToast } from '@writeme/wmc/lib/ui/use-toast';
 import { Button } from '@writeme/wmc';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from '@writeme/wmc/lib/ui/tooltip';
 
 
 export function SignupFormDemo() {
@@ -102,7 +103,23 @@ export function SignupFormDemo() {
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" {...register("password")} />
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Input 
+                  id="password" 
+                  placeholder="••••••••" 
+                  type="password" 
+                  {...register("password")} 
+                />
+              </TooltipTrigger>
+              <TooltipContent side='right' sideOffset={40}>
+                <p>Should contain: </p>
+                <p>• More than 8 characters</p>
+                <p>• Less than 32 characters</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </LabelInputContainer>
         <LabelInputContainer className="mb-8">
           <Label htmlFor="confirm-password">Confirm Password</Label>

@@ -16,7 +16,7 @@ interface NewChapterFormProps {
   story: string;
 }
 
-export default async function NewChapterFrom(props: NewChapterFormProps) {
+export default function NewChapterFrom(props: NewChapterFormProps) {
   const router = useRouter();
 
   // useEffect(() => {
