@@ -18,11 +18,11 @@ import { genres } from './schema';
 export const connection = postgres(
   'postgres://username:password@localhost:5432/database',
   {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    port: parseInt(process.env.DB_PORT || '5432'),
+    host: process.env.DB_HOST?.trimEnd(),
+    user: process.env.DB_USER?.trimEnd(),
+    password: process.env.DB_PASSWORD?.trimEnd(),
+    database: process.env.DB_NAME?.trimEnd(),
+    port: parseInt(process.env.DB_PORT?.trimEnd() || '5432'),
     max: 1,
   }
 );

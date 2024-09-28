@@ -7,6 +7,9 @@ export const createStorySchema = object({
   description: string().max(10000, "Description is too long, maximum of 10000 characters")
 })
 
+export const deleteStorySchema = object({
+  id : string({required_error: "a story id is required"})
+})
 
 export const updateStorySchema = object({
   id : string({required_error: "a story id is required"}),
@@ -39,4 +42,11 @@ export const storyWriteathonSchema = object({
 export const updateStoryCoverSchema = object({
   id : string({required_error: "a story id is required"}),
   cover: string({required_error: "a new cover is required"}).url("cover should be a url to an image resource")
+})
+
+
+export const filterStorySchema = object({
+  filterby: string({required_error: "needs to have a filter"}),
+  orderby: string({required_error: "needs to have an order by"}).default("asc"),
+  genres: z.string().array().optional()
 })

@@ -8,6 +8,7 @@ import Link from 'next/link'
 import BookCover from '../../assets/temp-cover2.jpg';
 import React from 'react'
 import { format } from "date-fns";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
 
 export const dynamic = 'force-dynamic';
 
