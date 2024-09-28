@@ -1,27 +1,17 @@
 /* eslint-disable-next-line */
-import { Separator } from '@writeme/wmc/lib/ui/separator';
 import dynamic from "next/dynamic";
-import { Button, Card, CardHeader, CardContent, CardFooter, CardTitle } from '@writeme/wmc';
-import { ArrowLeft } from 'lucide-react';
-import { CardStack } from '@writeme/wmc/lib/ui/card-stack';
-import { cn } from '@writeme/wmc/utils';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@writeme/wmc/lib/ui/resizable';
 import { ScrollArea} from "@writeme/wmc/lib/ui/scroll-area"
 import { db } from '../../../../../db/db';
-import { stories } from '../../../../../db/schema';
-import { eq } from 'drizzle-orm';
-import Link from 'next/link';
-import EditorController from './editor-controller';
 import LocalNavbar from './local-navbar';
-import { EditorContext } from './editor-context';
-import EditorLoader from './editor-loader';
-import { Textarea } from '@writeme/wmc/lib/ui/textarea';
-import { ImprovGameDialog } from 'apps/writeme/components/improv-game';
-import PromptPad from './prompt-pad';
+
+// import EditorLoader from ;
+// import EditorController from './editor-controller';
 import EditorUtils from './editor-utilities';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
 
-const Editor = dynamic(() => import("@writeme/wmc/lib/ui/editor"), { ssr: false });
+const EditorController = dynamic(() => import("./editor-controller"), {ssr: false});
+const EditorLoader = dynamic(() => import("./editor-loader"), { ssr: false });
 
 
 export interface WriteProps {

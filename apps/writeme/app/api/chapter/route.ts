@@ -75,10 +75,13 @@ type UpdadtedChapter = any;
 
 const updateChapter = async (chapter: UpdadtedChapter) => {
 
+  console.log(chapter)
+
   let updated_chapter = await db.insert(versions).values({
     chapterId: chapter.id,
     blocks: chapter.blocks
   })
+  console.log(updated_chapter);
 
 
   const result = await db.update(chapters).set({
@@ -95,7 +98,7 @@ const updateChapter = async (chapter: UpdadtedChapter) => {
 
 // const updateChapterMeta = async (chapter: any)=> {
 //   const result = await db.update(chapters).set({
-    
+
 //   })
 // }
 
@@ -111,7 +114,7 @@ export async function PUT(req: Request){
 
     // console.log(await req.json());
 
-    const input = editChapterSchema.parse(await req.json());
+    const input = updateChapterSchema.parse(await req.json());
 
     // : ensure user owns story
     // console.log(input);

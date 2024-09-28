@@ -1,10 +1,10 @@
 import { isChapterOwner } from "apps/writeme/services/chapters";
-import { auth } from "../../../auth";
+import { auth } from "../../../../auth";
 import { NextResponse, NextRequest } from "next/server";
-import { createLiveEditorSession, isLiveSessionOwner } from "apps/writeme/services/sessions";
+import { createLiveEditorSession, createViewableSession, isViewableSessionOwner } from "apps/writeme/services/sessions";
 import { z } from "zod";
 import { db } from "apps/writeme/db/db";
-import { liveEditorSessions } from "apps/writeme/db/schema";
+import { viewableSessions } from "apps/writeme/db/schema";
 import { eq } from "drizzle-orm";
 
 
@@ -35,7 +35,9 @@ export async function POST(req: NextRequest){
       })
     }
 
-    const newSession = await createLiveEditorSession(chapterId, userId);
+    const newSession = await createViewableSession(chapterId, userId);
+    console.log(newSession)
+
     return NextResponse.json({
       status: 'success',
       session: newSession.sessionId
@@ -45,8 +47,11 @@ export async function POST(req: NextRequest){
 
 
   } catch (error: any){
+    console.log(error);
     return NextResponse.json({
 
+    }, {
+        status: 500
     })
   }
 }
@@ -75,10 +80,10 @@ export async function DELETE(req:NextRequest) {
   }
 
 
-  const owner = await isLiveSessionOwner(sessionId);
+  const owner = await isViewableSessionOwner(sessionId);
 
   if (owner){
-    await db.delete(liveEditorSessions).where(eq(liveEditorSessions.id, sessionId));
+    await db.delete(viewableSessions).where(eq(viewableSessions.id, sessionId));
     return NextResponse.json({
       status: "success",
       message: "Session has been deleted."
@@ -90,15 +95,4 @@ export async function DELETE(req:NextRequest) {
     }, {status: 401})
   }
 
-}
-
-export async function GET(_request: Request) {
-  const session = await auth();
-
-
-
-  return NextResponse.json({
-    authenticated: !!session,
-    session,
-  });
 }

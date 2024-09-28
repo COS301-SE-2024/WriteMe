@@ -21,7 +21,7 @@ export default function UserImageUpload({user}: any) {
                 <div className="h-48">
                   <Avatar className="w-full h-full object-contain min-h-0">
                     <AvatarImage src={currentFile}></AvatarImage>
-                    <AvatarFallback>{user.name}</AvatarFallback>
+                    <AvatarFallback>{user.name[0]}</AvatarFallback>
                   </Avatar>
                 </div>
                 <FileUpload></FileUpload>
