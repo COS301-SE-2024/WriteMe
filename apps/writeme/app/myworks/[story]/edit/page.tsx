@@ -26,7 +26,7 @@ export default async function NewStory(props: NewStoryProps) {
         </CardHeader>
         <CardContent className='pt-2'>
           <StoryImageUpload story={story}></StoryImageUpload>
-           <EditStoryForm id={story?.id || ""} title={story?.title || ""} brief={story?.brief || ""} description={story?.description || ""} genreItems={genres} selectedGenres={story?.genres} published={story?.published || false} />
+           <EditStoryForm id={story?.id || ""} title={story?.title || ""} brief={story?.brief || ""} description={story?.description || ""} genreItems={genres} selectedGenres={story?.genres} exportable={story?.exportable || false} published={story?.published || false} />
 
         </CardContent>
       </Card>

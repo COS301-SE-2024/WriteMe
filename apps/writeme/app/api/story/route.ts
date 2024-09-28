@@ -85,6 +85,7 @@ const updateStory = async (story: UpdadtedStory) => {
       brief: story.brief,
       content: story.content,
       published: story.published,
+      exportable: story.exportable
     })
     .where(eq(stories.id, story.id))
     .returning({ updatedId: stories.id });
