@@ -22,7 +22,7 @@ export default function EditChapterForm(props: EditChapterFormProps) {
 
     try {
       // console.log(data)
-      const res = await fetch('/api/chapter', {
+      const res = await fetch('/api/chapter/meta', {
         method: 'PUT',
         body: JSON.stringify(data),
         headers: {

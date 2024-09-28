@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import EmojiPicker from 'emoji-picker-react';
+// import EmojiPicker from 'emoji-picker-react';
 
 import {
   Card,
@@ -32,6 +32,15 @@ import { toast } from '@writeme/wmc/lib/ui/use-toast';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
+import dynamic from 'next/dynamic';
+
+const EmojiPicker = dynamic(
+  () => {
+    return import('emoji-picker-react');
+  },
+  { ssr: false }
+);
+
 export interface CommentSectionProps {
   comments: any;
   storyId: string;
@@ -47,7 +56,11 @@ export default function CommentSection({
 }: CommentSectionProps) {
   dayjs.extend(relativeTime);
   const [input, setInput] = useState('');
-  const [parent, setParent] = useState('');
+  const [parent, setParent] = useState(undefined);
+  const [replyName, setReplyName] = useState("")
+  const [emoji, setEmoji] = useState("")
+  const [emojiPicker, setEmojiPicker] = useState(false)
+
   const router = useRouter();
   const { data: session, status } = useSession();
 
@@ -59,6 +72,7 @@ export default function CommentSection({
           content: input,
           storyId: storyId,
           chapterId: chapterId,
+          parentId: parent,
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -116,7 +130,7 @@ export default function CommentSection({
               <div className="flex gap-2 items-start justify-start">
                 <Avatar className="mt-3">
                   <AvatarImage src={c.author.image} />
-                  <AvatarFallback>{c.author.name}</AvatarFallback>
+                  <AvatarFallback>{c.author.name[0]}</AvatarFallback>
                 </Avatar>
                 <div>
                   <div className="flex items-center gap-1">
@@ -132,6 +146,7 @@ export default function CommentSection({
                     </span>
                     <Button onClick={() => {
                       setParent(c.id);
+                      setReplyName(c.author.name)
                     }} variant={'ghost'} size={'icon'}><Reply className='size-1'/></Button>
                   </div>
                   <p className="rounded-tr-xl rounded-br-xl rounded-bl-2xl py-2 px-4 bg-accent w-fit">
@@ -140,10 +155,10 @@ export default function CommentSection({
                 </div>
               </div>
               {/* Replies */}
-              <div className="pl-4">
+              <div className="pl-8">
                 <ol>
-                  {/* {c.replies.map((r) => {
-                    <div className="flex gap-2 items-start justify-start">
+                  {c.replies.map((r) => (
+                    <div className="flex gap-2 items-end justify-start">
                       <Avatar className="mt-3">
                         <AvatarImage src={r.author.image} />
                         <AvatarFallback>{r.author.name}</AvatarFallback>
@@ -168,8 +183,8 @@ export default function CommentSection({
                           {r.content}
                         </p>
                       </div>
-                    </div>;
-                  })} */}
+                    </div>
+                    ))}
                 </ol>
               </div>
             </div>
@@ -180,24 +195,27 @@ export default function CommentSection({
       {/* TODO: wrap in session check */}
       <CardFooter className="flex justify-center items-center pt-6">
         {status == 'authenticated' ? (
-          <div className="flex items-center gap-2 w-full justify-between">
-            <Button variant="outline" size="icon">
-              {/* <EmojiPicker></EmojiPicker> */}
-              <Smile> </Smile>
-            </Button>
-            <Input
-              fill={true}
-              onChange={(value) => setInput(value.target.value)}
-              value={input}
-              className="grow w-full"
-              type="text"
-              placeholder="let us know your thoughts..."
-            />
-            <Button variant="outline" size="icon" onClick={handleComment}>
-              <Send />
-            </Button>
-            {parent !== "" && (<Button size={'icon'} onClick={() => setParent("")} variant={"destructive"}><X className='size-2'/></Button>)}
-          </div>
+          <>
+            <EmojiPicker onEmojiClick={(e) => { setInput(input + e.emoji) }} previewConfig={{ showPreview: true }} height={300} open={emojiPicker} ></EmojiPicker>
+            <div className="flex items-center gap-2 w-full justify-between">
+              <Button onClick={() => setEmojiPicker(!emojiPicker)} variant="outline" size="icon">
+                <Smile></Smile>
+              </Button>
+              {replyName == "" ? "" : <p className='text-primary'>{"@" + replyName}</p>}
+              <Input
+                fill={true}
+                onChange={(value) => setInput(value.target.value)}
+                value={input}
+                className="grow w-full"
+                type="text"
+                placeholder="let us know your thoughts..."
+              />
+              <Button variant="outline" size="icon" onClick={handleComment}>
+                <Send />
+              </Button>
+              {parent !== undefined && (<Button size={'icon'} onClick={() => { setParent(undefined); setReplyName("") }} variant={"destructive"}><X className='size-2'/></Button>)}
+            </div>
+          </>
         ) : (
           <span className="grow text-center">Log In to Comment</span>
         )}

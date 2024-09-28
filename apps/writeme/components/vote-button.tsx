@@ -13,10 +13,14 @@ import {
 } from '@writeme/wmc/lib/ui/dropdown-menu';
 import { ToggleGroup, ToggleGroupItem} from '@writeme/wmc/lib/ui/toggle-group'
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@writeme/wmc/lib/ui/popover'
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@writeme/wmc/lib/ui/dialog'
 
 interface Category{
   id: string,
@@ -83,14 +87,14 @@ const VoteButton = (props: VoteButtonProps) => {
 
   return (
     <div className='grid grid-cols-2'>
-      <Popover>
-        <PopoverTrigger>
+      <Dialog>
+        <DialogTrigger>
             <Button variant='default'>
               <Vote />
               Vote
             </Button>
-        </PopoverTrigger>
-        <PopoverContent>
+        </DialogTrigger>
+        <DialogContent>
           <ToggleGroup className='grid grid-cols-2' type="multiple">
             {props.categories.map((category) => (
               <ToggleGroupItem
@@ -102,14 +106,16 @@ const VoteButton = (props: VoteButtonProps) => {
               </ToggleGroupItem>
             ))}
           </ToggleGroup>
-          <Button
-            variant='default'
-            onClick={() => handleVote(props.writeathonId, props.storyId, selectedCategories)}
-          >
-            Submit Vote
-          </Button>
-        </PopoverContent>
-      </Popover>
+          <div className='grid grid-cols-2'>
+            <Button
+              variant='default'
+              onClick={() => handleVote(props.writeathonId, props.storyId, selectedCategories)}
+            >
+              Submit Vote
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

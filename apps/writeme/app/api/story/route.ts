@@ -2,11 +2,12 @@
 import { NextResponse } from "next/server";
 import { createUserSchema } from "../../../db/user-schema";
 import { object, string, ZodError } from "zod";
-import { users, stories, storyGenres } from "../../../db/schema";
+import { users, stories, storyGenres, chapters } from "../../../db/schema";
 import { db } from "../../../db/db";
-import { createStorySchema, updateStorySchema } from "../../../db/story-schema";
+import { createStorySchema, deleteStorySchema, updateStorySchema } from "../../../db/story-schema";
 import { auth } from "../../../auth";
 import { eq, and } from "drizzle-orm";
+import { getStory } from 'apps/writeme/services/stories';
 
 type NewStory = typeof stories.$inferInsert;
 const insertStory = async (story: NewStory) => {
@@ -204,17 +205,34 @@ export async function DELETE(req: Request) {
     });
 
     const input = deleteStorySchema.parse(await req.json());
-
-    // check user owns story
-
-    // deletes story
-    await db
-      .delete(stories)
-      .where(
-        and(eq(stories.id, input.id), eq(stories.id, session.user.id || "")),
+    const story = await getStory(input.id);
+    
+    if (!story) {
+      return new NextResponse(
+        JSON.stringify({
+          status: 'fail',
+          message: 'Story not found',
+        }),
+        { status: 404 }
       );
+    }
 
-    return NextResponse.json({});
+    if (story.userId !== session.user.id) {
+      return new NextResponse(
+        JSON.stringify({
+          status: 'fail',
+          message: 'You do not have permission to delete this story',
+        }),
+        { status: 403 }
+      );
+    }
+
+    await db.delete(stories).where(eq(stories.id, input.id));
+
+    return NextResponse.json({
+      status: 'success',
+      message: 'Story deleted successfully',
+    });
   } catch (error: any) {
     console.log(error);
     if (error instanceof ZodError) {
