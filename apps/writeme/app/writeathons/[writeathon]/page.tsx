@@ -26,6 +26,8 @@ import { cn } from '@writeme/wmc/utils';
 import { ArrowBigUp, BookOpenText } from 'lucide-react';
 import VoteButton from 'apps/writeme/components/vote-button';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
+import WriteathonImageUpload from "./edit/image-upload"
+import { redirect } from 'next/navigation'
 
 export interface WriteathonProps {
   params: {
@@ -37,6 +39,10 @@ dayjs.extend(relativeTime);
 
 export const Writeathon = async (props: WriteathonProps) => {
   const session = await auth()
+
+  if (!session?.user){
+    redirect("/auth/login");
+  }
 
   const currWriteathon = await getWriteathon(props.params.writeathon)
 
@@ -50,7 +56,7 @@ export const Writeathon = async (props: WriteathonProps) => {
   const categories = await getVoteCategories()
 
   const current_date = new Date();
-  console.log(current_date, new Date(currWriteathon.startDate))
+  // console.log(current_date, new Date(currWriteathon.startDate))
   const started = current_date > new  Date(currWriteathon.startDate);
 
   return (
@@ -59,20 +65,23 @@ export const Writeathon = async (props: WriteathonProps) => {
       <div className="flex flex-row w-full relative">
         <div className="flex flex-col items-start p-10 w-1/3 gap-4 border-b-[1px] border-r-[1px]">
           <h1 className='text-3xl font-bold'>{currWriteathon?.title}</h1>
-          <div className='relative aspect-[3/4] h-60'>
-            <img
-              alt='Writeathon Cover'
-              src={currWriteathon?.cover || BookCover}
-            />
-          </div>
+          {creator?.id === session?.user?.id! ? <WriteathonImageUpload writeathon={currWriteathon} /> :
+            <div className="relative aspect-[3/4] h-60">
+              <img
+                alt="Writeathon Cover"
+                src={currWriteathon?.cover || BookCover}
+              />
+            </div>}
+
           <p className="italic text-sm">{currWriteathon?.description}</p>
-          <div className='pt-4 grid grid-cols-1'>
+          <div className="pt-4 grid grid-cols-1">
             <h1>Start Date:&nbsp; <span className='font-bold'>{format(currWriteathon?.startDate as Date, "PPP")}</span></h1>
             <h1>End Date:&nbsp; <span className='font-bold'>{format(currWriteathon?.endDate as Date, "PPP")}</span></h1>
           </div>
           <Button className='p-0' asChild variant="link">
             <Link href={`/user/${creator?.id}`}>{creator?.name}</Link>
           </Button>
+
         </div>
         {started ?
         <div className="flex flex-col p-10 w-2/3">

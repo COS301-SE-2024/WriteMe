@@ -39,7 +39,13 @@ const LocalNavbar = ({children} : LocalNavbarProps) => {
 
   const { data: session } = useSession();
 
-  const { startOnborda } = useOnborda();
+  const { startOnborda, currentStep, closeOnborda } = useOnborda();
+
+  useEffect(() => {
+    if (currentStep === 10){
+      closeOnborda();
+    }
+  }, [currentStep]);
 
   return (
     <div className="bg-background sticky top-0 z-50 border-b h-16 flex p-3 items-center justify-between">
@@ -87,7 +93,9 @@ const LocalNavbar = ({children} : LocalNavbarProps) => {
                   <Button
                     variant={'outline'}
                     size={'icon'}
-                    onClick={() => startOnborda()}
+                    onClick={() => {
+                      startOnborda("beginner");
+                    }}
                   >
                     <CircleHelp className="size-4" />
                   </Button>

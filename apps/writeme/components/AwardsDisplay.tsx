@@ -12,6 +12,8 @@ import Link from "next/link"
 import { Avatar, AvatarImage } from '@writeme/wmc/lib/ui/avatar';
 import { Badge } from '@writeme/wmc/lib/ui/badge';
 import dayjs from "dayjs";
+import { motion } from "framer-motion";
+
 export interface AwardsDisplayProps{
   awards : {
     story : {
@@ -107,9 +109,16 @@ const AwardElement = ({awards} : AwardsDisplayProps) => {
           <DialogDescription>
             {descriptions[awards[0].award].description}
           </DialogDescription>
-          <div className="flex justify-center items-center">
+          <motion.div className="flex justify-center items-center" animate={{
+            scale: [1,2,2,1,1],
+            rotate: [0,0,180,180,0],
+          }} transition={{
+            duration: 2,
+            ease: "easeInOut",
+            times: [0,0.2,0.5,0.8,1]
+          }}>
             <Image src={getImage(awards[0].award).src} alt={descriptions[awards[0].award].category} width={200} height={200} />
-          </div>
+          </motion.div>
           {awards.map(a => (
             <div className="flex items-center gap-4">
               <p className="text-sm text-muted-foreground">

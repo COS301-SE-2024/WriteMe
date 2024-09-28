@@ -69,7 +69,7 @@
 		"next-themes": "^0.3.0",
 		"next-upload": "^0.0.30",
 		"next-view-transitions": "^0.2.0",
-		"onborda": "^1.2.2",
+		"onborda": "1.2.2",
 		"partysocket": "1.0.2",
 		"pg": "^8.12.0",
 		"postgres": "^3.4.4",

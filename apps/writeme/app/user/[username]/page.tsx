@@ -20,6 +20,7 @@ import { isFollowing } from '../../../services/users';
 import { getUserWriteathons } from 'apps/writeme/services/writeathons';
 import { Separator} from "@writeme/wmc/lib/ui/separator"
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
+import {Avatar, AvatarImage} from "@writeme/wmc/lib/ui/avatar";
 import React from 'react';
 
 export interface UserProps {
@@ -179,14 +180,12 @@ export default async function User(props: UserProps) {
                 key={writeathon.id}
               >
                 <CardHeader>
-                  <div className='flex gap-2 justify-evenly'>
+                  <div className='flex gap-2 justify-evenly w-full'>
                     <div className="pl-3 flex flex-col gap-2 justify-between">
-                      <div className="aspect-[3/4] h-32">
-                        <img
-                          alt="Writeathon Cover"
-                          src={writeathon.cover || BookCover}
-                        />
-                      </div>
+                        <Avatar className="w-10 h-10">
+                          <AvatarImage src={writeathon.cover || BookCover} />
+                        </Avatar>
+
                       <CardTitle>{writeathon.title}</CardTitle>
                       {/*/!* <CardDescription>{dayjs(writeathon.startDate)}</CardDescription>*/}
                       {/*<CardDescription>{dayjs(writeathon.endDate)}</CardDescription> *!/*/}

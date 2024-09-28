@@ -138,7 +138,20 @@ export default function RootLayout({
       showControls: true,
       side: 'left',
     },
+    {
+      icon: <>✅</>,
+      title: "All Done!",
+      content: '',
+      selector: undefined,
+      nextRoute: undefined,
+      pointerPadding: 10,
+      pointerRadius: 10,
+      prevRoute: undefined,
+      showControls: true,
+      side: 'left',
+    }
   ] satisfies Step[];
+
   return (
     // <ViewTransitions>
     <html lang="en">
