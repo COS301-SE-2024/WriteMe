@@ -11,7 +11,7 @@
     - **[Automation and CI Pipeline](#automation-and-ci-pipeline)**
 - **[Quality Assurance Metrics and Testing](#quality-assurance-metrics-and-testing)**
 - **[Usability](#usability)**
-
+- **[Compatibility](#compatibility)**
 
 
 ## Introduction
@@ -71,21 +71,21 @@ Usability is vital for fostering user adoption and engagement. The application m
 
 **How We Achieve This**
 
-**Onboarding Experience:** New users undergo an onboarding process that introduces them to the app's features. This is implemented using shadcn and Framer Motion, allowing users to activate or deactivate the guide at their discretion.
+- Onboarding Experience: New users undergo an onboarding process that introduces them to the app's features. This is implemented using shadcn and Framer Motion, allowing users to activate or deactivate the guide at their discretion.
 
 ![Onboarding](./images/Onboarding.png)
 
-**Feedback Mechanisms:** Users receive immediate feedback upon completing an action or encountering an error. This is facilitated through various toast notifications that provide contextual messages as shown below. In case of errors, detailed messages will inform users about potential issues. To ensure a smooth experience, these notifications are implemented asynchronously to avoid any freezing or lag in the interface. 
+- Feedback Mechanisms: Users receive immediate feedback upon completing an action or encountering an error. This is facilitated through various toast notifications that provide contextual messages as shown below. In case of errors, detailed messages will inform users about potential issues. To ensure a smooth experience, these notifications are implemented asynchronously to avoid any freezing or lag in the interface. 
 
 ![Toast](./images/toast.png)
 
 **Mesurement of Usability**
 
-**Efficiency Metrics:** We evaluated the time and steps required to complete typical tasks, aiming for a significant reduction in both to enhance user efficiency.
+- Efficiency Metrics: We evaluated the time and steps required to complete typical tasks, aiming for a significant reduction in both to enhance user efficiency.
 
-**Error Reduction:** We tracked user errors and recovery times to measure the effectiveness of our design, striving for fewer mistakes and quicker resolutions.
+- Error Reduction: We tracked user errors and recovery times to measure the effectiveness of our design, striving for fewer mistakes and quicker resolutions.
 
-**User Satisfaction:** High levels of user satisfaction were gauged through usability testing sessions and feedback forms, ensuring continuous improvement based on user insights.
+- User Satisfaction: High levels of user satisfaction were gauged through usability testing sessions and feedback forms, ensuring continuous improvement based on user insights.
 
 You can see part of our **Usability Testing Report** below:
 
@@ -104,10 +104,20 @@ and the **Results**:
 ![Result2](./images/Result2.png)
 ![Result3](./images/Result3.png)
 
+### Compatibility
 
+Compatibility across different platforms and devices was essential for expanding the application's reach and usability. By supporting a wide range of operating systems, browsers, and device types, we ensured that users could access and interact with the application seamlessly, regardless of their preferred technology. This broad compatibility enhanced user convenience and accessibility, contributing to a positive user experience.
 
+**How We Achieve This**
 
+- Cross-Platform Availability: The application was developed as a Progressive Web App (PWA), allowing it to function across any operating system or device with a modern web browser. This ensured consistent performance on Windows, macOS, Linux, Android, and iOS devices.
 
+- Mobile and Browser Compatibility: We implemented well-supported CSS and JavaScript features to ensure compatibility with all major web browsers, including Chrome, Firefox, Safari, and Edge. Additionally, the app was tested to ensure responsiveness and usability across different screen sizes, from mobile phones to large desktop displays.
 
+**Measurement of Compatibility**
 
+We employed **Google Lighthouse** to test the application's performance as a Progressive **Web App (PWA)**. This tool provided insights into the app's load speed, mobile usability, and browser compatibility across different platforms.
 
+- Visual Testing: Extensive visual testing sessions were conducted across different platforms to ensure that the layout and design remained consistent and functional. Feedback was collected from users operating on a variety of devices and operating systems.
+
+- Error Reduction: By focusing on compatibility, we reduced platform-specific errors and ensured the app worked consistently across devices. When errors did occur, they were swiftly identified and resolved.
