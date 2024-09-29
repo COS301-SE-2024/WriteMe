@@ -9,6 +9,8 @@
     - **[Unit Testing](#unit-testing)**
     - **[Integration Testing](#integration-testing)**
     - **[Automation and CI Pipeline](#automation-and-ci-pipeline)**
+- **[Quality Assurance Metrics and Testing](#quality-assurance-metrics-and-testing)**
+- **[Usability](#usability)**
 
 
 
@@ -51,6 +53,61 @@ Playwright can also be used for both live tests, which access real external reso
 All tests, both unit and integration, are automatically run within the GitHub Actions pipeline. This ensures that any code changes are thoroughly tested before being merged into the release branch. The pipeline logs all test results, providing immediate feedback on failures or issues, helping us identify and resolve bugs quickly.
 
 In cases where live integration tests require resources that aren't available in the GitHub Actions environment, we rely on mocked tests to ensure consistent testing. This approach helps us maintain high test coverage and code quality while keeping the CI process efficient and reliable.
+
+
+## Quality Assurance Metrics and Testing
+
+In our effort to ensure a robust application, we have identified five key quality attributes that our Writeme app must meet:
+
+1. Usability
+2. Compatibility
+3. Security
+4. Performance
+5. Reliability
+
+### Usability
+
+Usability is vital for fostering user adoption and engagement. The application must present an intuitive interface, straightforward navigation, and a responsive design that allows users—regardless of their technical background—to access features seamlessly. By prioritizing usability, the app reduces user frustration and enhances overall productivity.
+
+**How We Achieve This**
+
+**Onboarding Experience:** New users undergo an onboarding process that introduces them to the app's features. This is implemented using shadcn and Framer Motion, allowing users to activate or deactivate the guide at their discretion.
+
+![Onboarding](./images/Onboarding.png)
+
+**Feedback Mechanisms:** Users receive immediate feedback upon completing an action or encountering an error. This is facilitated through various toast notifications that provide contextual messages as shown below. In case of errors, detailed messages will inform users about potential issues. To ensure a smooth experience, these notifications are implemented asynchronously to avoid any freezing or lag in the interface. 
+
+![Toast](./images/toast.png)
+
+**Mesurement of Usability**
+
+**Efficiency Metrics:** We evaluated the time and steps required to complete typical tasks, aiming for a significant reduction in both to enhance user efficiency.
+
+**Error Reduction:** We tracked user errors and recovery times to measure the effectiveness of our design, striving for fewer mistakes and quicker resolutions.
+
+**User Satisfaction:** High levels of user satisfaction were gauged through usability testing sessions and feedback forms, ensuring continuous improvement based on user insights.
+
+You can see part of our **Usability Testing Report** below:
+
+![Report](./images/UsabilityReport.png)
+
+You can also see the **Feedback Forms** we used 
+
+![Form](./images/Form.png)
+![Form1](./images/Form1.png)
+![Form2](./images/Form2.png)
+
+and the **Results**:
+
+![Result](./images/Result.png)
+![Result1](./images/Result1.png)
+![Result2](./images/Result2.png)
+![Result3](./images/Result3.png)
+
+
+
+
+
 
 
 
