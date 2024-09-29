@@ -12,6 +12,7 @@
 - **[Quality Assurance Metrics and Testing](#quality-assurance-metrics-and-testing)**
 - **[Usability](#usability)**
 - **[Compatibility](#compatibility)**
+- **[Security](#security)**
 
 
 ## Introduction
@@ -39,6 +40,8 @@ Our goal is to achieve at least 75% test coverage by the end of the project to e
 ### Unit Testing
 
 For unit testing, we utilize Vitest. This tool thoroughly examines each function, component, and service within the app, verifying that they behave as expected in isolation. Vitest automates this process, providing immediate feedback when any part of the code is altered or when dependencies change. Additionally, Storybook is used to visually test individual UI components, allowing us to catch design or interaction issues before they affect the user experience.
+
+![Storybook](./images/Storybook.png)
 
 By integrating both functional and visual unit tests, we ensure the correctness and stability of the app's core components, such as story creation, filtering options, and writathon interactions.
 
@@ -121,3 +124,45 @@ We employed **Google Lighthouse** to test the application's performance as a Pro
 - Visual Testing: Extensive visual testing sessions were conducted across different platforms to ensure that the layout and design remained consistent and functional. Feedback was collected from users operating on a variety of devices and operating systems.
 
 - Error Reduction: By focusing on compatibility, we reduced platform-specific errors and ensured the app worked consistently across devices. When errors did occur, they were swiftly identified and resolved.
+
+### Security
+
+Security is essential to protect user data, maintain trust, and ensure compliance with regulatory standards. Our application implements strong measures to prevent unauthorized access, data breaches, and other malicious activities. We have deployed a combination of authentication, encryption, and access control mechanisms to secure user information.
+
+**How We Achieve This**
+
+- User Authentication via Hashed Passwords:
+To ensure secure user authentication, we used bcrypt to hash user passwords with the Blowfish algorithm. Only the hashed passwords are stored in the database, preventing unauthorized access even in the event of a data breach.
+
+Justification:
+Hashing passwords using bcrypt ensures that user credentials are protected. Even if the database is compromised, the original passwords remain unrecoverable due to the hashing process. This adds a strong layer of security against brute-force attacks.
+
+Measurement:
+Password security was verified by conducting penetration tests to assess the strength of the hashing mechanism. 
+
+- JWT-Based Authentication for Access Control:
+We implemented JWT (JSON Web Token) authentication to manage user sessions. When a user logs in, a JWT is generated and signed with a private key, valid for 24 hours. Each request made to the API must include this JWT as a bearer token, ensuring only authenticated users can access sensitive functionalities.
+
+Justification:
+JWTs provide a stateless authentication method, ensuring that user sessions are secure without overloading the server. By signing JWTs with a private key, we ensure that the tokens cannot be tampered with or forged, protecting against session hijacking.
+
+Measurement:
+We tested the JWT system for vulnerabilities such as token expiration, replay attacks, and token tampering. Additionally, we monitored login logs to ensure no unauthorized users accessed protected pages.
+
+- Data Encryption for Sensitive Information:
+All sensitive user data transmitted between the client and the server is encrypted using TLS (Transport Layer Security), ensuring that data such as passwords, access tokens, and personal information are protected from interception by malicious entities.
+
+Justification:
+TLS encryption ensures secure communication between the user and the server, preventing man-in-the-middle attacks and eavesdropping. This is crucial for protecting sensitive information, especially during login or while transmitting private data.
+
+Measurement:
+We used network traffic monitoring tools to verify that all sensitive data was transmitted securely and no plaintext information could be intercepted. Security scanning tools were used to check for weaknesses in encryption protocols.
+
+- Access Control for Published Works:
+Authors can control who has access to their published works through a robust access control mechanism. They can restrict access to certain users, allow public access, or disable it entirely. Additionally, authors can toggle the ability to export their works as PDFs.
+
+Justification:
+This feature gives authors the flexibility to protect their content based on their preferences, ensuring that sensitive or unpublished works are not exposed to unauthorized users.
+
+Measurement:
+We conducted role-based access control tests to verify that only authorized users could access or export content. Security reviews were carried out to confirm that no bypasses or unauthorized access were possible.
