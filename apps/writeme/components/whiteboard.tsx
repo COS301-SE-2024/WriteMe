@@ -9,7 +9,7 @@ import 'tldraw/tldraw.css'
 import { Button } from '@writeme/wmc';
 import { Shrink } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@writeme/wmc/lib/ui/tooltip';
-
+import { useTheme } from 'next-themes';
 // import { randomUUID } from 'crypto';
 
 
@@ -22,6 +22,7 @@ export default function WhiteBoard() {
         name : data?.user?.name || "Guest User",
         id : data?.user?.id || window.crypto.randomUUID()
     }
+    const theme = useTheme();
 
     const store = useSyncDemo({ roomId: `writeme-${session}-whiteboard`, userInfo })
 
@@ -31,7 +32,7 @@ export default function WhiteBoard() {
 
 	return (
 		<div className='tldraw__editor w-full h-full' style={{position: whiteboardFullScreen ? "fixed" : "initial", inset: 0}} >
-			<Tldraw inferDarkMode store={store} />
+			<Tldraw theme={theme.them as any}  store={store} />
 		</div>
 	)
 }

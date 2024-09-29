@@ -176,7 +176,6 @@ export function BlockNoteCollab({ doc, provider, inputBlocks, chapterId, owner, 
     }
   };
 
-
   return (
 
     <div>

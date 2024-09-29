@@ -29,15 +29,13 @@ import { Toggle } from '@writeme/wmc/lib/ui/toggle';
 import { Tabs } from '@writeme/wmc/lib/ui/tabs';
 import { DropdownMenu } from '@writeme/wmc/lib/ui/dropdown-menu';
 import { Form } from '@writeme/wmc/lib/ui/form';
-import { useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { useTheme } from 'next-themes';
 import {
   BlockNoteEditor,
   filterSuggestionItems,
   PartialBlock,
 } from '@blocknote/core';
-import * as Y from 'yjs';
-import { WebrtcProvider } from 'y-webrtc';
 import { useSession } from 'next-auth/react';
 
 // import { useNextUpload } from 'next-upload/react';
@@ -48,12 +46,13 @@ import { ParaphraseButton } from '../../../../apps/writeme/components/editor-ext
 import { SuggestionButton } from '../../../../apps/writeme/components/editor-extensions/SuggestionButton';
 import { EntityButton } from '../../../../apps/writeme/components/editor-extensions/EntityButton';
 import  { GrammarButton} from '../../../../apps/writeme/components/editor-extensions/GrammarButton';
+import  { EditorContext} from '../../../../apps/writeme/app/myworks/[story]/write/[chapter]/editor-context';
 // Our <Editor> component we can reuse later
 
-export interface EditorProps {
-  initialBlocks: any;
-  setBlocks: any;
-}
+// export interface EditorProps {
+//   initialBlocks: any;
+//   setBlocks: any;
+// }
 
 
 const getCustomSlashMenuItems = (
@@ -62,7 +61,9 @@ const getCustomSlashMenuItems = (
   ...getDefaultReactSlashMenuItems(editor),
 ];
 
-export default function Editor({ initialBlocks, setBlocks }: EditorProps) {
+export default function Editor({ initialBlocks }: EditorProps) {
+  const { blocks, setBlocks } = useContext(EditorContext);
+
   const { data } = useSession();
 
   const theme = useTheme();
@@ -77,7 +78,6 @@ export default function Editor({ initialBlocks, setBlocks }: EditorProps) {
       formattingToolbar={false}
       onChange={() => {
         // Saves the document JSON to state.
-        console.log(editor.document);
         setBlocks(editor.document);
       }}
       shadCNComponents={{
@@ -130,11 +130,6 @@ export default function Editor({ initialBlocks, setBlocks }: EditorProps) {
             <SuggestionButton key={'suggest'} />
             <GrammarButton key={'grammar'}/>
             <EntityButton key={'entity'}/>
-            {/* Extra button to toggle code styles */}
-            {/* <BasicTextStyleButton
-              key={'codeStyleButton'}
-              basicTextStyle={'code'}
-            /> */}
 
             <TextAlignButton
               textAlignment={'left'}
