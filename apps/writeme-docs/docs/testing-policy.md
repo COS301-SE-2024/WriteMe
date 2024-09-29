@@ -14,6 +14,7 @@
 - **[Compatibility](#compatibility)**
 - **[Security](#security)**
 - **[Performance](#performance)**
+- **[Reliability](#reliability)**
 
 
 ## Introduction
@@ -185,3 +186,24 @@ We employed **Google Lighthouse** to measure the performance of our app.
 
 ![LightHouse](./images/GoogleLighthouse.png)
 
+### Reliability
+
+Reliability is essential for ensuring consistent availability and functionality of the application. Achieving high uptime and minimizing downtime through reliable hosting, proactive monitoring, and efficient error handling processes guarantees uninterrupted service for users. By prioritizing reliability, the application builds user confidence, supports continuous operations, and minimizes disruptions that could impact user productivity or experience.
+
+**How We Achieve This**
+
+-High Uptime Guarantee: The system is hosted on AWS, which provides a robust infrastructure with a service level agreement (SLA) that assures an uptime greater than 99%. By leveraging AWS's global network of data centers, we ensure that the application remains accessible to users at all times.
+
+- Continuous Integration and Deployment (CI/CD): We utilize GitHub Actions in conjunction with SST (Serverless Stack) for deploying new features and fixes, ensuring that the application can be updated without incurring downtime. This orchestration allows for seamless rollouts and quick recovery from any issues.
+
+- Proactive Error Handling: The application employs comprehensive error logging through AWS CloudWatch, which captures runtime errors and sends alerts to developers when error thresholds are exceeded. This enables timely identification and resolution of issues before they affect users.
+
+- Load Balancing and Redundancy: To ensure that the application can handle high traffic volumes and remain functional during server failures, we have implemented load balancing across multiple instances. This redundancy ensures that if one instance goes down, others can take over without impacting user access.
+
+**Measurement of Reliability**
+
+- Deployment frequency, lead time for changes, and the mean time to recover (MTTR) from failures are tracked to measure the effectiveness of our CI/CD processes.
+
+-  We analyze error rates, incident response times, and resolution times to gauge the effectiveness of our error handling processes. Regular reviews of error logs help us identify recurring issues and implement preventive measures.
+
+- We monitor the performance of load balancers and track metrics such as response time and traffic distribution to ensure optimal operation.
