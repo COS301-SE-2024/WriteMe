@@ -2429,6 +2429,276 @@ This endpoint generates vector embeddings for the input text. The input is split
 }
 ```
 
+### POST /live-session (create a live collaboration session)
+
+#### **Description**
+
+Create a live editor session for a chapter if the authenticated user is the owner of the chapter.
+
+#### **Request**
+
+- **Headers:**
+
+  - `Content-Type: application/json`
+
+- **Body:**
+
+```json
+{
+  "chapterId": "string"
+}
+```
+
+#### **Response:**
+
+- **200 OK**
+
+```json
+{
+  "status": "success",
+  "session": "string"
+}
+```
+
+- **Failure (401 - Unauthorized):**
+
+```json
+{
+  "status": "fail",
+  "message": "You are not logged in"
+}
+```
+
+- **Failure (403 - Forbidden):**
+
+```json
+{
+  "status": "fail",
+  "message": "Only the owner can create a session"
+}
+```
+
+### DELETE /live-session (deletes a live collaboration session)
+
+#### **Description:**
+
+Delete an existing live editor session if the authenticated user is the owner of the session.
+
+#### **Request:**
+
+- **Headers:**
+
+  - `Content-Type: application/json`
+
+- **Body:**
+
+```json
+{
+  "sessionId": "string"
+}
+```
+
+#### **Response:**
+
+- **200 (OK)**
+
+```json
+{
+  "status": "success",
+  "message": "Session has been deleted."
+}
+```
+
+- **Failure (401 - Unauthorized):**
+
+```json
+{
+  "status": "fail",
+  "message": "You are not logged in"
+}
+```
+
+- **Failure (400 - Bad Request):**
+
+```json
+{
+  "status": "failed",
+  "message": "No session specified"
+}
+```
+
+- **Failure (401 - Unauthorized):**
+
+```json
+{
+  "status": "failed",
+  "message": "This session is not owned by you."
+}
+```
+
+### GET /live-session (gets the current session)
+
+#### **Desciption**
+
+Retrieve the current authentication status and session details.
+
+- **200 (OK)**
+
+```json
+{
+  "authenticated": true | false,
+  "session": { ...sessionData }
+}
+```
+
+### **POST /viewable-session(Creates a live viewable only session)**
+
+#### **Description**
+
+Create a viewable session for a chapter if the authenticated user is the owner of the chapter.
+
+#### **Request:**
+
+- **Headers:**
+
+  - `Content-Type: application/json`
+
+- **Body:**
+
+```json
+{
+  "chapterId": "string"
+}
+```
+
+#### **Response:**
+
+- **200 (OK)**;
+
+```json
+{
+  "status": "success",
+  "session": "string"
+}
+```
+
+- **Failure (401 - Unauthorized):**
+
+```json
+{
+  "status": "fail",
+  "message": "You are not logged in"
+}
+```
+
+- **Failure (403 - Forbidden)**
+```json
+{
+  "status": "fail",
+  "message": "Only the owner can create a session"
+}
+```
+
+### DELETE /live-session (deletes a live collaboration session)
+
+#### **Description:**
+
+Delete an existing live viewer session if the authenticated user is the owner of the session.
+
+#### **Request:**
+
+- **Headers:**
+
+  - `Content-Type: application/json`
+
+- **Body:**
+
+```json
+{
+  "sessionId": "string"
+}
+```
+
+#### **Response:**
+
+- **200 (OK)**
+
+```json
+{
+  "status": "success",
+  "message": "Session has been deleted."
+}
+```
+
+- **Failure (401 - Unauthorized):**
+
+```json
+{
+  "status": "fail",
+  "message": "You are not logged in"
+}
+```
+
+- **Failure (400 - Bad Request):**
+
+```json
+{
+  "status": "failed",
+  "message": "No session specified"
+}
+```
+
+- **Failure (401 - Unauthorized):**
+
+```json
+{
+  "status": "failed",
+  "message": "This session is not owned by you."
+}
+```
+
+### **GET /livekit-token (Generates a LiveKit access token)**
+
+#### **Description**
+
+Generates a LiveKit access token for the specified room. The authenticated user's name or "Guest User" is used as the identity.
+
+#### **Request:**
+
+- **Headers:**
+
+  - `Content-Type: application/json`
+
+- **Query Parameters:**
+
+  - `room`: (Required) The name of the room to join.
+
+#### **Response:**
+
+- **200 (OK):**
+
+```json
+{
+  "token": "string"
+}
+```
+
+- **Failure (400 - Bad Request - Missing "room" parameter):**
+
+```json
+{
+  "error": "Missing 'room' query parameter"
+}
+```
+
+- **Failure (500 - Internal Server Error - Server Misconfigured):**
+
+```json
+{
+  "error": "Server misconfigured"
+}
+```
+
 ## Class Diagram
 
 ![Class Diagram](./images/ClassDiagram.jpg)
