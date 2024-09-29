@@ -215,6 +215,9 @@ By leveraging AWS's robust infrastructure and services, the app can achieve high
 
 ![Architectural Diagaram](./images/ArchDiagram.jpg)
 
+## 7 Deployment Diagram
+![Deployment Diagram](./images/DeploymentDiagram.png)
+
 ## Technology Requirements
 
 All our services will be hosted on the AWS suite using AWS Lambda. This allows us to have a lot of control over the infrastructure of the project, while being cost effective.
