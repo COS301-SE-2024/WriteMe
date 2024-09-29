@@ -13,6 +13,7 @@
 - **[Usability](#usability)**
 - **[Compatibility](#compatibility)**
 - **[Security](#security)**
+- **[Performance](#performance)**
 
 
 ## Introduction
@@ -137,7 +138,7 @@ To ensure secure user authentication, we used bcrypt to hash user passwords with
 Justification:
 Hashing passwords using bcrypt ensures that user credentials are protected. Even if the database is compromised, the original passwords remain unrecoverable due to the hashing process. This adds a strong layer of security against brute-force attacks.
 
-Measurement:
+**Measurement:**
 Password security was verified by conducting penetration tests to assess the strength of the hashing mechanism. 
 
 - JWT-Based Authentication for Access Control:
@@ -146,7 +147,7 @@ We implemented JWT (JSON Web Token) authentication to manage user sessions. When
 Justification:
 JWTs provide a stateless authentication method, ensuring that user sessions are secure without overloading the server. By signing JWTs with a private key, we ensure that the tokens cannot be tampered with or forged, protecting against session hijacking.
 
-Measurement:
+**Measurement:**
 We tested the JWT system for vulnerabilities such as token expiration, replay attacks, and token tampering. Additionally, we monitored login logs to ensure no unauthorized users accessed protected pages.
 
 - Data Encryption for Sensitive Information:
@@ -155,7 +156,7 @@ All sensitive user data transmitted between the client and the server is encrypt
 Justification:
 TLS encryption ensures secure communication between the user and the server, preventing man-in-the-middle attacks and eavesdropping. This is crucial for protecting sensitive information, especially during login or while transmitting private data.
 
-Measurement:
+**Measurement:**
 We used network traffic monitoring tools to verify that all sensitive data was transmitted securely and no plaintext information could be intercepted. Security scanning tools were used to check for weaknesses in encryption protocols.
 
 - Access Control for Published Works:
@@ -164,5 +165,23 @@ Authors can control who has access to their published works through a robust acc
 Justification:
 This feature gives authors the flexibility to protect their content based on their preferences, ensuring that sensitive or unpublished works are not exposed to unauthorized users.
 
-Measurement:
+**Measurement:**
 We conducted role-based access control tests to verify that only authorized users could access or export content. Security reviews were carried out to confirm that no bypasses or unauthorized access were possible.
+
+### Performance
+
+Performance is crucial to ensuring a smooth and responsive user experience. Our application is optimized to handle high traffic, perform tasks efficiently, and scale as usage increases. By focusing on performance, we minimize load times, reduce server strain, and ensure that users can complete tasks without unnecessary delays or interruptions.
+
+**How We Achieve This**
+
+- Asynchronous API Requests: We used asynchronous requests to ensure that API calls do not block the UI. By employing Next.js for server-side rendering and streaming responses back to the client, the webpage remains responsive while waiting for data.
+
+- Fast File Uploads: File uploads are managed using AWS S3 buckets, where files are streamed directly from the API to the bucket, bypassing the server to reduce processing time.
+
+- High Volume Database Transactions: The system is designed to handle high traffic with hundreds of users daily, making frequent read and write operations. We used optimized database queries, proper indexing, and connection pooling to ensure minimal response times for database interactions.
+
+**Measurement of Performance**
+We employed **Google Lighthouse** to measure the performance of our app.
+
+![LightHouse](./images/GoogleLighthouse.png)
+
