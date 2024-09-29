@@ -513,6 +513,9 @@ By leveraging AWS's robust infrastructure and services, the app can achieve high
 
 ![Architectural Diagaram](./images/ArchDiagram.jpg)
 
+## Deployment Diagram
+![Deployment Diagram](./images/DeploymentDiagram.png)
+
 ## Use Case Diagrams
 
 ### Authentication System
