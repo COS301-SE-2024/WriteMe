@@ -43,6 +43,8 @@ Our goal is to achieve at least 75% test coverage by the end of the project to e
 
 For unit testing, we utilize Vitest. This tool thoroughly examines each function, component, and service within the app, verifying that they behave as expected in isolation. Vitest automates this process, providing immediate feedback when any part of the code is altered or when dependencies change. Additionally, Storybook is used to visually test individual UI components, allowing us to catch design or interaction issues before they affect the user experience.
 
+![UnitTesting](./images/UnitTesting.png)
+![UnitTesting1](./images/UnitTesting1.png)
 ![Storybook](./images/Storybook.png)
 
 By integrating both functional and visual unit tests, we ensure the correctness and stability of the app's core components, such as story creation, filtering options, and writathon interactions.
@@ -52,6 +54,8 @@ By integrating both functional and visual unit tests, we ensure the correctness 
 Integration testing is conducted using Playwright, which facilitates end-to-end testing by simulating real-world user interactions across multiple browsers. Playwright allows us to evaluate how different parts of the app—such as story submission, filtering systems, and writathon participation—work together. This ensures that the app behaves correctly when users perform complex actions that involve multiple components interacting in sequence.
 
 Playwright can also be used for both live tests, which access real external resources, and mocked tests, where dependencies are simulated. Mocked tests are particularly useful when testing against external APIs or other services, allowing us to simulate various scenarios like network issues or service failures without the overhead of live resource usage.
+
+![Integration](./images/IntegrationTesting.png)
 
 ### Automation and CI Pipeline
 
@@ -204,6 +208,6 @@ Reliability is essential for ensuring consistent availability and functionality 
 
 - Deployment frequency, lead time for changes, and the mean time to recover (MTTR) from failures are tracked to measure the effectiveness of our CI/CD processes.
 
--  We analyze error rates, incident response times, and resolution times to gauge the effectiveness of our error handling processes. Regular reviews of error logs help us identify recurring issues and implement preventive measures.
+-  We analyze error rates, incident response times, and resolution times to gauge the effectiveness of our error handling processes. Regular reviews of error logs help us identify recurring issues and implement preventive measures using CloudWatch.
 
 - We monitor the performance of load balancers and track metrics such as response time and traffic distribution to ensure optimal operation.
