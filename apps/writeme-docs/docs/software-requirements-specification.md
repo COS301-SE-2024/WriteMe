@@ -717,6 +717,8 @@ A WriteMe reader would be someone who devours stories and enjoys getting lost in
   <li>The app to be a PWA that caches images and stories so I can read stories offline</li>
   <li>Click a button that shares a story to Pinterest so I can share a story to Pinterest easily</li>
   <li>Be able to comment on a chapter of a story so I can give an author feedback</li>
+  <li>Be able to filter the stories to see genres that I like</li>
+  <li>Be able to search for stories I want to read</li>
 </ul>
 
 #### A Writers Charachteristics
@@ -735,6 +737,10 @@ A WriteMe writer would likely be someone with a passion for language and a desir
   <li>Add a cover image for my story so I can identify my different stories and associate them with cover images</li>
   <li>Create a new chapter so I can have a multi-chapter story</li>
   <li>A form so I can update a already created story's metadata</li>
+  <li>Write Stories for Writeathons</li>
+  <li>Have a notepad to brainstorm ideas</li>
+  <li>Have a way of getting suggestions or help to write my story</li>
+  <li>Get assistance with grammar, spelling and paraphrasing</li>
   <li>Share my editor in realtime so I can get help and feedback from other authors in realtime</li>
 </ul>
 
