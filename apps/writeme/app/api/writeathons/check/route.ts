@@ -210,7 +210,7 @@ export async function POST(req: NextRequest) {
 
 
 
-        // await db.update(writeathons).set({ complete: true }).where(eq(writeathons.id, w.id));
+        await db.update(writeathons).set({ complete: true }).where(eq(writeathons.id, w.id));
 
       })
 

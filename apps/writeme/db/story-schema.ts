@@ -36,6 +36,7 @@ export const updateStorySchema = object({
   cover: string().url('cover should be a url to an image resource').optional(),
   blocks: array(z.any(), {}).optional(),
   published: boolean().optional(),
+  exportable: boolean().optional(),
   genre: array(z.any(), {}).optional(),
   tags: array(z.any(), {}).optional(),
 });

@@ -57,7 +57,7 @@ function LiveDiscussion({ room, children }: LiveDiscussionProps) {
         connect={true}
         serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
         className="rounded-md flex flex-col h-full"
-        data-lk-theme={theme.theme == "dark" ? "default" : "light"}
+        data-lk-theme={theme.theme == "dark" ? "default" : "huddle"}
       >
         {children}
       </LiveKitRoom>
@@ -88,11 +88,12 @@ export function VideoConference() {
 
 export function VideoConferenceWithControls() {
   const { conference } = useContext(LiveSessionContext);
+  const theme = useTheme();
 
   return (
     <div
       className="flex flex-col w-full h-full"
-      data-lk-theme="default"
+      data-lk-theme={theme.theme == "dark" ? "default" : "huddle"}
     >
       <div className="flex grow">
         <VideoConference />

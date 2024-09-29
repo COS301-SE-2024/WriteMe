@@ -43,7 +43,9 @@ export async function getParaphrase(input: string) {
       },
     });
 
-    return await res.json();
+    const j = await res.json();
+    console.log(j)
+    return j;
   } catch (e: any) {}
 }
 

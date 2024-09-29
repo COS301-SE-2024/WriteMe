@@ -30,11 +30,12 @@ export interface EditStoryFormProps{
   brief: string,
   description: string,
   published: boolean,
+  exportable: boolean,
   genreItems: Genre[],
   selectedGenres: any[],
 }
 
-const EditStoryForm = ({id, title, brief, description, genreItems, selectedGenres, published}: EditStoryFormProps) => {
+const EditStoryForm = ({id, title, brief, description, genreItems, selectedGenres, published, exportable}: EditStoryFormProps) => {
   const form = useForm<z.infer<typeof updateStorySchema>>({
     resolver: zodResolver(updateStorySchema),
     defaultValues: {
@@ -43,7 +44,8 @@ const EditStoryForm = ({id, title, brief, description, genreItems, selectedGenre
       title: title,
       description: description,
       genre: selectedGenres ? selectedGenres.map(g => g.genreId) : [],
-      published: published
+      published: published,
+      exportable: exportable,
     }
   });
 
@@ -145,6 +147,31 @@ const EditStoryForm = ({id, title, brief, description, genreItems, selectedGenre
                 </FormItem>
           )}
           name='published'
+        >
+
+        </FormField>
+
+        <FormField 
+          control={form.control}
+          render={({field}) => (
+            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                  <div className="space-y-0.5">
+                    <FormLabel className="text-base">
+                      Exportable
+                    </FormLabel>
+                    <FormDescription>
+                      Will allow published works to be downloaded as a PDF if enabled.
+                    </FormDescription>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
+          )}
+          name='exportable'
         >
 
         </FormField>

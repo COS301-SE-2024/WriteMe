@@ -116,7 +116,7 @@ export default async function Story(props: StoryProps) {
                 link={`https://writeme.co.za/stories/${story.id}`}
                 message={`Check out ${story.title}`}
               ></ShareStory>
-              <ExportButton storyId={story.id}></ExportButton>
+              <ExportButton exportable={story?.exportable} storyId={story.id}></ExportButton>
               <BookmarkButton
                 storyId={story.id}
                 bookmarked={bookmarked}

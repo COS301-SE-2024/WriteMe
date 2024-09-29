@@ -357,6 +357,7 @@ export const stories = pgTable(
     published: boolean('published').default(false).notNull(),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
+    exportable: boolean('exportable').notNull().default(true)
   },
   (t) => ({
     titleSearchIndex: index('title_search_index').using(

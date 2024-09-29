@@ -39,15 +39,21 @@ export async function getPublishedChapter(chapterId: string){
     where: (chapters, {eq, and}) => and(eq(chapters.published, true), eq(chapters.id, chapterId)),
     with: {
       likes: true,
-      story: true,
+      story: {
+        with: {
+          author: {
+            name: true
+          }
+        }
+      },
       comments: {
         with: {
           author: true,
-          // replies: {
-          //   with: {
-          //     author: true
-          //   }
-          // }
+          replies: {
+            with: {
+              author: true
+            }
+          }
         }
       }
     }

@@ -47,30 +47,12 @@ export default async function Write(props: WriteProps) {
       <EditorLoader inputChapter={chapter}>
 
       <LocalNavbar />
-
-      
-      {/* <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/myworks">Home</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink>{stories.title}</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink>{chapters.title}</BreadcrumbLink>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb> */}
-
       <div className='z-1 relative'>
         <ResizablePanelGroup direction='horizontal'>
           <ResizablePanel defaultSize={75}>
             <div className="grow p-8 flex justify-center" id="editor-main-panel">
               <div className="w-[90ch]">
-                <EditorController initialBlocks={chapter.blocks}></EditorController>
+                <EditorController></EditorController>
               </div>
             </div>
           </ResizablePanel>

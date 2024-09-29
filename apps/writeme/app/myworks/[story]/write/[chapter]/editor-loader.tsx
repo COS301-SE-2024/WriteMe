@@ -22,30 +22,6 @@ const EditorLoader = ({ inputChapter, children }: EditorLoaderProps) => {
   const [chapter, setChapter] = useState(inputChapter);
   const [blocks, setBlocks] = useState(inputChapter?.blocks || []);
   const value = { chapter, setChapter, blocks, setBlocks };
-  // const [editor, setEditor] = useState<null | BlockNoteEditor>(null);
-
-  // useEffect(() => {
-  //   // Initialize Yjs document
-  //   const ydoc = new Y.Doc();
-
-  //   // Set up IndexedDB persistence
-  //   const persistence = new IndexeddbPersistence(chapter.id, ydoc);
-
-  //   const editorInstance = BlockNoteEditor.create({
-  //     initialContent: inputChapter?.blocks || [],
-  //     uploadFile,
-  //     collaboration: {
-  //       provider: persistence,
-  //       fragment: ydoc.getXmlFragment('document-store'),
-  //       user: {
-  //         name: 'Me',
-  //         color: "#ff0000"
-  //       }
-  //     }
-  //   })
-
-  //   setEditor(editorInstance);
-  //   }, []);
 
   const ydoc = new Y.Doc();
 
@@ -69,26 +45,22 @@ const EditorLoader = ({ inputChapter, children }: EditorLoaderProps) => {
 
   useEffect(() => {
     function setDefault(){
-      console.log("set default called")
       if (!editor){
         console.log("no editor")
         return;
       }
       if (editor.document.length == 0){
-        console.log("updating", editor, editor.document.length, blocks);
         editor.insertBlocks(inputChapter?.blocks || [], editor.document[0])
       }else {
         setBlocks(editor.document);
       }
     }
-
     if (persistence.synced){
-      console.log("syned")
       setDefault();
     }
     persistence.on('synced', setDefault);
     return () => persistence.off('synced', setDefault)
-  }, [persistence, editor]);
+  }, []);
 
 
   return (

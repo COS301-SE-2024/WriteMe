@@ -10,11 +10,17 @@ import PDFFile from '../components/pdf/PDFFile';
 interface ExportButtonProps {
   storyId: string;
   chapterId?: string;
+  exportable: boolean;
 }
 
-export default function ExportButton({ storyId, chapterId }: ExportButtonProps) {
+export default function ExportButton({ storyId, chapterId, exportable }: ExportButtonProps) {
   const [loading, setLoading] = useState(false);
   const [storyData, setStoryData] = useState(null);
+
+
+  if (!exportable){
+    return <></>
+  }
 
   useEffect(() => {
     const fetchStoryData = async () => {
@@ -47,7 +53,6 @@ export default function ExportButton({ storyId, chapterId }: ExportButtonProps) 
     return <Button variant="ghost" size="icon" disabled></Button>;
   }
 
-  console.log(storyData)
   return (
 
     <PDFDownloadLink
