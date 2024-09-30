@@ -13,9 +13,14 @@
         - **[Edit existing story metadata](#edit-existing-story-metadata)**
         - **[Edit existing chapter metadata](#edit-existing-chapter-metadata)**
         - **[Create a New Chapter](#create-a-new-chapter)**
+        - **[Live Collaboration](#live-collaboration)**
+        - **[Live Collaboration Session](#live-collaboration-session)**
+    - **[Writathons](#writathons)**
     - **[A New Story](#a-new-story)**
     - **[Explore Page](#explore-page)**
     - **[Profile Page](#profile-page)**
+    - **[Awards](#awards)**
+
 
 
 ## Introduction
@@ -104,9 +109,33 @@ Once you have been logged in, you will be taken to the **"My Stories"** page. Th
 
 ![Chapter](./images/ChapterView.png)
 
-1. This panel will show you a variety of ideas for various charactors and also suggestion to aid you when you are writing a story.
-2. You can click on the **"Save"** button which will save your story and only you will be able to view it.
-3. Once you are confident, you can click on the **"Publish"** button to publish your story for others to view.
+1. This panel will show you a variety of ideas for various characters and also suggestion to aid you when you are writing a story.
+2. This is where you can use the **Prompt Pad**, this is used when you have a writers block and would like to get interesting questions to stir your creative juices. You can either click on **Start Improv**, to get random questions, or click on **Save Prompt** to save your answers to refer back to.
+3. You can click on the **"Save"** button which will save your story and only you will be able to view it.
+4. Once you are confident, you can click on the **"Publish"** button to publish your story for others to view.
+
+#### Live Collaboration
+
+![Chapter1](./images/ChapterView1.png)
+
+1. You can click on **Share** button to start a live collaboration which will open a popup.
+
+![Collaboration](./images/LiveCollaboration.png)
+
+1. You may either click on **Start Session** to start a live collaboration where users with the link can access the story and also contribute and communicate via live voice chat and messaging. 
+2. Or you may click on **Viewer link** which can be shared with other users that can view live updates to your story while you work on it.
+
+#### Live Collaboration Session
+
+![Collaboration2](./images/LiveCollaboration2.png)
+
+1. This button will allow you end the live collaborations session.
+2. This button will end the live voice chat if you wish to work in peace.
+3. These are all the available options for voice chat and if needed you may also send messages to other users via the chat box.
+4. You may also use this whiteboard to write, draw  and brainstorm ideas related to your story.
+5. If you would like more space regarding the whiteboard, you may click on **FullScreen WhiteBoard** button as shown below.
+
+![Whiteboard](./images/Whiteboard.png)
 
 #### Create a new chapter
 
@@ -120,6 +149,25 @@ Once you have been logged in, you will be taken to the **"My Stories"** page. Th
 2. Enter an optional **"Brief"**.
 3. Enter an optional **"Description"**.
 4. Once you are satisfied with everything, you can click on the **"Submit"** button. 
+
+### Writathons
+
+You can navigate to this page by clicking on the **"Writathons"** tab in the navigation bar on the top.
+
+![Writathon](./images/Writathons.png)
+
+1. Click on the **Create a Writathon** button which will allow to start your very own writathon.
+2. To view ongoing writathons you may choose one that catches your eye and click on the **View** button.
+
+![Writathon2](./images/Writathons2.png)
+
+1. Click on the **Enter a story** button to submit your very own story in the writathon.
+2. You may click on the **Read** button on any of the currently submitted stories that other users have submitted.
+3. This button allows you to vote on individual stories that have been submitted as shown below.
+
+![Vote](./images/Vote.png)
+
+1. Click on the **Submite Vote** button once you have made your decision!
 
 ### A New Story
 
@@ -163,7 +211,7 @@ You may interact with the story in various ways. Such as:
 
 ### Profile Page
 
-You can navigate to this page by clicking on your profile on the top right corner and clickingon **"My Profile"**.
+You can navigate to this page by clicking on your profile on the top right corner and clicking on **"My Profile"**.
 
 ![Profile_Page](./images/ProfilePage.png)
 
@@ -176,6 +224,17 @@ You can navigate to this page by clicking on your profile on the top right corne
 3. Add/update your **Bio**.
 4. Once you are done you may click on the **Update profile** button.
 5. If you wish to no longer have the account, you can click on the **Delete account** button.
+
+### Awards
+
+You can navigate to this page by clicking on your profile on the top right corner and clicking on **"My Profile"**
+
+![Awards](./images/Awards.png)
+
+1. The awards that you have achieved from participating in writathons and winning polls that other users have voted on will be displayed on your profile as colorful badges to show them off! Click on any **badge** you would like to view and you will be able to view more details about it as shown below.
+
+![Badge](./images/Badge.png)
+
 
 
 
