@@ -9,6 +9,7 @@ import { ShareStory } from '@writeme/wmc/lib/ui/share-story';
 import CommentSection from '../../../../components/comments-sections';
 import LikeButton from '../../../../components/like-button';
 import ExportButton from '../../../../components/export-button';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
 
 export interface ChapterProps {
   params: {
@@ -23,7 +24,7 @@ export default async function Chapter({params}: ChapterProps){
   return (
     <div>
       <LocalNavbar></LocalNavbar>
-      <div className="flex relative justify-between">
+        <div className="flex flex-col md:flex-row relative justify-between">
         <div>
           <Card className="sticky top-0">
             <CardHeader className="bg-muted/50">
@@ -56,7 +57,7 @@ export default async function Chapter({params}: ChapterProps){
             <CardFooter className="flex justify-around">
               <ShareStory link={`https://writeme.co.za/stories/${chapter.storyId}/${chapter.id}`} message={`Check out ${chapter.title}`}></ShareStory>
               <LikeButton storyId={chapter.storyId} chapterId={chapter.id}></LikeButton>
-              <ExportButton storyId={chapter.storyId} chapterId={chapter.id}></ExportButton>
+              <ExportButton exportable={true} storyId={chapter.storyId} chapterId={chapter.id}></ExportButton>
             </CardFooter>
           </Card>
         </div>

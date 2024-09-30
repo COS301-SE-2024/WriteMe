@@ -27,6 +27,6 @@
     "../../dist/apps/writeme/.next/types/**/*.ts",
     "next-env.d.ts",
     ".next/types/**/*.ts"
-  ],
+, "../../wmc/src/lib/ui/copy-button.tsx"  ],
   "exclude": ["node_modules", "jest.config.ts", "**/*.spec.ts", "**/*.test.ts"]
 }

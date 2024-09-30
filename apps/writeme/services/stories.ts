@@ -1,8 +1,14 @@
 /* v8 ignore start */
 import { auth } from '../auth';
 import { db } from '../db/db';
-import { stories, chapters, users } from '../db/schema';
-import { and, sql } from 'drizzle-orm';
+import { stories, chapters, users, userBookmarks } from '../db/schema';
+import { and, gt, not, or, sql } from 'drizzle-orm';
+
+export async function searchStories(q: string){
+  let result = await db.select({title: stories.title, id: stories.id, cover: stories.cover}).from(stories).where(sql`to_tsvector('english', ${stories.title}) @@ websearch_to_tsquery('english', ${q})`).limit(5);
+
+  return result;
+}
 
 export async function getMyStories() {
   const session = await auth();
@@ -10,7 +16,16 @@ export async function getMyStories() {
   const result = db.query.stories.findMany({
     where: (stories, { eq }) => eq(stories.userId, session.user.id),
     with: {
-      comments: true
+      comments: {
+        with: {
+          replies: {
+            with : {
+              author: true
+            }
+          },
+          author: true
+        }
+      }
     }
   });
   return result;
@@ -30,11 +45,24 @@ export async function getUserStories(userId: string) {
   const result = db.query.stories.findMany({
     where: (stories, { eq }) =>
       and(eq(stories.userId, userId), eq(stories.published, true)),
-  });
+  })
+  return result;
+}
+
+export async function getUserBookmarkedStories(userId: string) {
+  const result = db.query.userBookmarks.findMany({
+    where: (userBookmarks, { eq }) =>
+      eq(userBookmarks.userId, userId),
+      with: {
+        story: true
+      }
+  })
   return result;
 }
 
 export async function getStory(id: string) {
+  const session = await auth();
+
   const result = db.query.stories.findFirst({
     with: {
       author: true,
@@ -42,7 +70,7 @@ export async function getStory(id: string) {
         with: {
           comments : {
             with : {
-              author: true
+              author: true,
             }
           },
           likes: true
@@ -51,11 +79,20 @@ export async function getStory(id: string) {
       comments: {
         where: (comments, { isNull }) => isNull(comments.chapterId),
         with: {
-          author: true
+          author: true,
+          replies: {
+            with: {
+              author: true
+            }
+          }
         }
 
       },
-      likes: true
+      likes: true,
+      bookmarkedBy: {
+        where: (userBookmarks, { eq }) => eq(userBookmarks.userId, session?.user?.id || ""),
+        limit: 1
+      }
     },
     where: (stories, { eq }) => eq(stories.id, id),
   });
@@ -79,14 +116,28 @@ export async function getPublishedStory(id: string) {
       likes: true,
       comments: {
         with: {
-          author: true
+          author: true,
+          replies: {
+            with: {
+              author: true
+            }
+          }
         }
       },
       chapters: {
         where: (chapters, {eq}) => eq(chapters.published, true),
         with : {
           likes: true,
-          comments: true
+          comments: {
+            with: {
+              author: true,
+              replies: {
+                with: {
+                  author: true
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -98,7 +149,7 @@ export async function getStoryInfo(id: string){
   const result = db.query.stories.findFirst({
     where: (stories, {eq}) => eq(stories.id, id),
     with: {
-      //genres: true,
+      genres: true,
       // tags: true
     }
   })

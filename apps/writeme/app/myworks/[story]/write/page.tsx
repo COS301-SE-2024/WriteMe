@@ -23,6 +23,7 @@ import { IconFileLike } from '@tabler/icons-react';
 import { CommentsIcon } from '@storybook/icons';
 import ChaptersTableofContents from '../../../../components/chapters-toc';
 import Link from 'next/link';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
 // import { Link } from 'next-view-transitions';
 
 export interface WritePageProps {
@@ -88,7 +89,7 @@ export default async function Page(props: WritePageProps) {
             <p>{story.brief ? story.brief : 'No brief'}</p>
             <h3 className="font-bold">Description:</h3>
             <p>{story.description ? story.description : 'No description'}</p>
-            {}
+            {/* {} */}
 
             <Separator></Separator>
 

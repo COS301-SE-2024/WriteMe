@@ -1,7 +1,5 @@
 {
-  "id": "06d59275-bf2f-4bc7-9935-b09e534cb80e",
-  "prevId": "981164fa-42ee-47f6-ae57-0a4c7c455633",
-  "version": "6",
+  "version": "7",
   "dialect": "postgresql",
   "tables": {
     "public.account": {
@@ -80,15 +78,15 @@
         "account_userId_user_id_fk": {
           "name": "account_userId_user_id_fk",
           "tableFrom": "account",
-          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {
@@ -143,28 +141,28 @@
         "comments_story_id_story_id_fk": {
           "name": "comments_story_id_story_id_fk",
           "tableFrom": "comments",
-          "tableTo": "story",
           "columnsFrom": [
             "story_id"
           ],
+          "tableTo": "story",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "comments_user_id_user_id_fk": {
           "name": "comments_user_id_user_id_fk",
           "tableFrom": "comments",
-          "tableTo": "user",
           "columnsFrom": [
             "user_id"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -205,28 +203,28 @@
         "likes_essay_id_story_id_fk": {
           "name": "likes_essay_id_story_id_fk",
           "tableFrom": "likes",
-          "tableTo": "story",
           "columnsFrom": [
             "essay_id"
           ],
+          "tableTo": "story",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "likes_user_id_user_id_fk": {
           "name": "likes_user_id_user_id_fk",
           "tableFrom": "likes",
-          "tableTo": "user",
           "columnsFrom": [
             "user_id"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -260,15 +258,15 @@
         "session_userId_user_id_fk": {
           "name": "session_userId_user_id_fk",
           "tableFrom": "session",
-          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -322,15 +320,15 @@
         "story_user_id_user_id_fk": {
           "name": "story_user_id_user_id_fk",
           "tableFrom": "story",
-          "tableTo": "user",
           "columnsFrom": [
             "user_id"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -416,8 +414,10 @@
   "enums": {},
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "06d59275-bf2f-4bc7-9935-b09e534cb80e",
+  "prevId": "981164fa-42ee-47f6-ae57-0a4c7c455633"
 }
