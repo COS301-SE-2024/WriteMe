@@ -50,11 +50,7 @@ Demo 3: [Google Drive](https://drive.google.com/file/d/1v_udVqfBefF_wH6479UACoq-
 
 <div><a href="https://docs.writeme.co.za/docs/software-requirements-specification">🧾 SRS Document</a></div> 
 
-[pdf](/apps/writeme-docs/static/pdfs/SRSv3.pdf)
-
 <div><a href="https://docs.writeme.co.za/docs/User">🧾 User Manual</a></div>
-
-[pdf](/apps/writeme-docs/static/pdfs/User%20Manualv3.pdf)
 
 <div><a href="https://docs.writeme.co.za/docs/technical-installation-menu">🧾 Technical Installation Manual</a></div>
 
@@ -67,6 +63,8 @@ Demo 3: [Google Drive](https://drive.google.com/file/d/1v_udVqfBefF_wH6479UACoq-
 <div><a href="https://docs.writeme.co.za/docs/coding-standards">🧾 Coding Standards</a></div>
 
 [pdf](/apps/writeme-docs/static/pdfs/Coding%20Standards%20Documentv3.pdf)
+
+<div><a href="https://docs.writeme.co.za/docs/testing-policy">🧾 Testing Policy</a></div>
 
 <div><a href="https://docs.writeme.co.za/docs/guides/branching-strategy">🧾 Branching Strategy</a></div>
 <div><a href="https://docs.writeme.co.za/docs/guides/testing">🧾 Testing</a></div>
