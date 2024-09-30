@@ -323,6 +323,7 @@ This is our main architectural strategy, other strategies like decomposition and
 2. Model View Controller Architecture
 3. Client-Server Architecture
 4. REST Architecture
+5. Peer-to-peer
 
 ### Multi-tier Architecture
 
@@ -371,6 +372,10 @@ Within our system, the REST API governs operations on the media storage, managin
 The REST architectural style contributes significantly to the scalability of our system and enables the establishment of a tiered architecture. Additionally, it enhances security by requiring a `Bearer: <Token>` header for accessing protected routes with sensitive data, effectively preventing unauthorized access.
 
 Furthermore, the REST API plays a crucial role in implementing the user registration mechanism. It facilitates communication with cloud functions, streamlining the registration process and ensures data integrity.
+
+### 3.5 Peer-to-Peer
+
+Peer-to-peer (P2P) architecture offers a decentralized approach to real-time collaborative editing. Unlike traditional client-server models, where a central server manages document changes, a P2P system allows each user’s device to directly communicate with others in the session. This architecture reduces server dependency and enhances privacy, as no central entity holds all the data. Technologies like WebRTC and Yjs enable real-time synchronization of document state across peers by efficiently broadcasting updates to all participants. P2P also scales well in small to medium-sized groups, allowing seamless collaboration with minimal latency. However, implementing conflict resolution strategies, such as Operational Transformation (OT) or Conflict-free Replicated Data Types (CRDTs), is critical to ensure consistency across the distributed document, even when peers are temporarily offline or working in parallel.
 
 ## Architectural Quality Requirements
 
