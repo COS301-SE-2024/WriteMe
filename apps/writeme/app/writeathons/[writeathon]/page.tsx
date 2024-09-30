@@ -5,6 +5,7 @@ import React from 'react';
 import BookCover from '../../../assets/temp-cover2.jpg';
 import { Button } from '@writeme/wmc/lib/ui/button';
 import Link from 'next/link';
+import {notFound} from 'next/navigation'
 import { format } from "date-fns";
 import {
   DropdownMenu,
@@ -24,6 +25,9 @@ import { Card, CardDescription, CardHeader, CardTitle } from '@writeme/wmc/lib/u
 import { cn } from '@writeme/wmc/utils';
 import { ArrowBigUp, BookOpenText } from 'lucide-react';
 import VoteButton from 'apps/writeme/components/vote-button';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
+import WriteathonImageUpload from "./edit/image-upload"
+import { redirect } from 'next/navigation'
 
 export interface WriteathonProps {
   params: {
@@ -36,36 +40,50 @@ dayjs.extend(relativeTime);
 export const Writeathon = async (props: WriteathonProps) => {
   const session = await auth()
 
+  if (!session?.user){
+    redirect("/auth/login");
+  }
+
   const currWriteathon = await getWriteathon(props.params.writeathon)
+
+  if (!currWriteathon){
+    notFound();
+  }
+
   const creator = await getUser(currWriteathon?.userId!)
   const stories = await getUserStories(session?.user?.id!)
   const storyWriteathons = await getStoryWriteathons(currWriteathon?.id!)
   const categories = await getVoteCategories()
 
+  const current_date = new Date();
+  // console.log(current_date, new Date(currWriteathon.startDate))
+  const started = current_date > new  Date(currWriteathon.startDate);
+
   return (
     <div className="flex flex-col h-screen">
       <LocalNavbar />
       <div className="flex flex-row w-full relative">
-        <div className="flex flex-col items-start p-10 w-1/3 sticky top-0 border-b-[1px] border-r-[1px]">
+        <div className="flex flex-col items-start p-10 w-1/3 gap-4 border-b-[1px] border-r-[1px]">
           <h1 className='text-3xl font-bold'>{currWriteathon?.title}</h1>
-          <div className='relative aspect-[3/4] h-60'>
-            <img
-              alt='Writeathon Cover'
-              src={currWriteathon?.cover || BookCover} 
-              layout='fill'
-              objectFit='cover'
-            />
-          </div>
+          {creator?.id === session?.user?.id! ? <WriteathonImageUpload writeathon={currWriteathon} /> :
+            <div className="relative aspect-[3/4] h-60">
+              <img
+                alt="Writeathon Cover"
+                src={currWriteathon?.cover || BookCover}
+              />
+            </div>}
+
           <p className="italic text-sm">{currWriteathon?.description}</p>
-          <div className='pt-4 grid grid-cols-1'>
+          <div className="pt-4 grid grid-cols-1">
             <h1>Start Date:&nbsp; <span className='font-bold'>{format(currWriteathon?.startDate as Date, "PPP")}</span></h1>
             <h1>End Date:&nbsp; <span className='font-bold'>{format(currWriteathon?.endDate as Date, "PPP")}</span></h1>
           </div>
           <Button className='p-0' asChild variant="link">
             <Link href={`/user/${creator?.id}`}>{creator?.name}</Link>
           </Button>
-        </div>
 
+        </div>
+        {started ?
         <div className="flex flex-col p-10 w-2/3">
             <h1 className='text-2xl font-bold mb-6'>Entered Stories</h1>
             <DropdownMenu>
@@ -92,7 +110,7 @@ export const Writeathon = async (props: WriteathonProps) => {
                     <div className='relative aspect-[3/4] h-40'>
                       <img
                         alt='Book Cover'
-                        src={storyWriteathon.story.cover || BookCover} 
+                        src={storyWriteathon.story.cover || BookCover}
                         layout='fill'
                         objectFit='cover'
                       />
@@ -112,10 +130,10 @@ export const Writeathon = async (props: WriteathonProps) => {
               </Card>
             ))}
           </BentoGrid>
-        </div>
+        </div> : <Card><CardHeader><CardTitle>This Writeathon has not started yet.</CardTitle></CardHeader></Card>}
       </div>
     </div>
   )
-} 
+}
 
 export default Writeathon

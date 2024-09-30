@@ -39,7 +39,13 @@ export async function getPublishedChapter(chapterId: string){
     where: (chapters, {eq, and}) => and(eq(chapters.published, true), eq(chapters.id, chapterId)),
     with: {
       likes: true,
-      story: true,
+      story: {
+        with: {
+          author: {
+            name: true
+          }
+        }
+      },
       comments: {
         with: {
           author: true,
@@ -65,4 +71,21 @@ export async function getChapter(id: string){
     where: (chapters, {eq}) => eq(chapters.id, id)
   })
   return chapter;
+}
+
+export async function isChapterOwner(userId: string, chapterId: string): Promise<boolean> {
+  const chapter = await db.query.chapters.findFirst({
+    where: (chapters, { eq }) => eq(chapters.id, chapterId),
+    with: {
+      story : {
+        with: {
+          author: true
+        }
+        
+      }
+    }
+  });
+
+  // console.log(chapter)
+  return chapter?.story.author.id === userId;
 }

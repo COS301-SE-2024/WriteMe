@@ -1,26 +1,17 @@
 /* eslint-disable-next-line */
-import { Separator } from '@writeme/wmc/lib/ui/separator';
 import dynamic from "next/dynamic";
-import { Button, Card, CardHeader, CardContent, CardFooter, CardTitle } from '@writeme/wmc';
-import { ArrowLeft } from 'lucide-react';
-import { CardStack } from '@writeme/wmc/lib/ui/card-stack';
-import { cn } from '@writeme/wmc/utils';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@writeme/wmc/lib/ui/resizable';
 import { ScrollArea} from "@writeme/wmc/lib/ui/scroll-area"
 import { db } from '../../../../../db/db';
-import { stories } from '../../../../../db/schema';
-import { eq } from 'drizzle-orm';
-import Link from 'next/link';
-import EditorController from './editor-controller';
 import LocalNavbar from './local-navbar';
-import { EditorContext } from './editor-context';
-import EditorLoader from './editor-loader';
-import { Textarea } from '@writeme/wmc/lib/ui/textarea';
-import { ImprovGameDialog } from 'apps/writeme/components/improv-game';
-import PromptPad from './prompt-pad';
-import EditorUtils from './editor-utilities';
 
-const Editor = dynamic(() => import("@writeme/wmc/lib/ui/editor"), { ssr: false });
+// import EditorLoader from ;
+// import EditorController from './editor-controller';
+import EditorUtils from './editor-utilities';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
+
+const EditorController = dynamic(() => import("./editor-controller"), {ssr: false});
+const EditorLoader = dynamic(() => import("./editor-loader"), { ssr: false });
 
 
 export interface WriteProps {
@@ -56,13 +47,12 @@ export default async function Write(props: WriteProps) {
       <EditorLoader inputChapter={chapter}>
 
       <LocalNavbar />
-
       <div className='z-1 relative'>
         <ResizablePanelGroup direction='horizontal'>
           <ResizablePanel defaultSize={75}>
             <div className="grow p-8 flex justify-center" id="editor-main-panel">
               <div className="w-[90ch]">
-                <EditorController initialBlocks={chapter.blocks}></EditorController>
+                <EditorController></EditorController>
               </div>
             </div>
           </ResizablePanel>

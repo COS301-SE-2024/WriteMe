@@ -21,7 +21,7 @@ export default function CopyButton({ inputContent }: CopyButtonProps) {
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           <Button
             onClick={async () => {
               await navigator.clipboard.writeText(content);

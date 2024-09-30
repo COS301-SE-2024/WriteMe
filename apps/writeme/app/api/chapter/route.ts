@@ -75,10 +75,13 @@ type UpdadtedChapter = any;
 
 const updateChapter = async (chapter: UpdadtedChapter) => {
 
+  console.log(chapter)
+
   let updated_chapter = await db.insert(versions).values({
     chapterId: chapter.id,
     blocks: chapter.blocks
   })
+  console.log(updated_chapter);
 
 
   const result = await db.update(chapters).set({
@@ -93,6 +96,11 @@ const updateChapter = async (chapter: UpdadtedChapter) => {
   return result[0];
 };
 
+// const updateChapterMeta = async (chapter: any)=> {
+//   const result = await db.update(chapters).set({
+
+//   })
+// }
 
 export async function PUT(req: Request){
   try {
@@ -118,7 +126,7 @@ export async function PUT(req: Request){
 
 
     return NextResponse.json({
-      story: {
+      chapter: {
         id: chapter.updatedId,
       },
     });

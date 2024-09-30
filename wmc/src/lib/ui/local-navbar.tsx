@@ -17,7 +17,7 @@ import {
   PopoverTrigger,
 } from '@writeme/wmc/lib/ui/popover';
 import { useOnborda } from 'onborda';
-import { useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { CircleHelp, Home } from 'lucide-react';
 import { Search } from 'lucide-react';
 import { SearchModal } from '@writeme/wmc/lib/ui/search-modal';
@@ -30,12 +30,22 @@ import {
 } from './tooltip';
 import { Badge } from './badge';
 
-const LocalNavbar = () => {
+export interface LocalNavbarProps {
+  children?: ReactNode;
+}
+
+const LocalNavbar = ({children} : LocalNavbarProps) => {
   const pathname = usePathname();
 
   const { data: session } = useSession();
 
-  const { startOnborda } = useOnborda();
+  const { startOnborda, currentStep, closeOnborda } = useOnborda();
+
+  useEffect(() => {
+    if (currentStep === 10){
+      closeOnborda();
+    }
+  }, [currentStep]);
 
   return (
     <div className="bg-background sticky top-0 z-50 border-b h-16 flex p-3 items-center justify-between">
@@ -79,11 +89,13 @@ const LocalNavbar = () => {
           <div className="flex gap-2 items-center">
             {session ? (
               <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger asChild>
                   <Button
                     variant={'outline'}
                     size={'icon'}
-                    onClick={() => startOnborda()}
+                    onClick={() => {
+                      startOnborda("beginner");
+                    }}
                   >
                     <CircleHelp className="size-4" />
                   </Button>
@@ -132,7 +144,6 @@ const LocalNavbar = () => {
                 >
                   Writeathons
                 </Link>
-                <Badge className="absolute top-0 left-[80%]">Beta</Badge>
               </div>
             ) : (
               <></>
@@ -162,7 +173,7 @@ const LocalNavbar = () => {
           ) : (
             <></>
           )}
-
+          {children}
           <ModeToggle></ModeToggle>
           {session?.user ? (
             <>
@@ -198,6 +209,15 @@ const LocalNavbar = () => {
                       href="/myworks"
                     >
                       My Stories
+                    </Link>
+                    <Link
+                      className={cn(
+                        buttonVariants({ variant: 'ghost' }),
+                        'block fit-content'
+                      )}
+                      href="/s"
+                    >
+                      My Sessions
                     </Link>
                     <Link
                       className={cn(

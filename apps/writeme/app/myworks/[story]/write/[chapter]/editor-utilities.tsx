@@ -83,11 +83,6 @@ function getFlairLabelMeaning(label: string) {
   return labelMeanings[label] || label;
 }
 
-// Example usage
-console.log(getFlairLabelMeaning("PER"));     // Output: "Person's Name"
-console.log(getFlairLabelMeaning("NOUN"));    // Output: "Noun"
-console.log(getFlairLabelMeaning("UNKNOWN")); // Output: "UNKNOWN"
-
 
 export const UtilContext = React.createContext({
   promptPadContent: '',
@@ -119,7 +114,6 @@ export default function EditorUtils() {
   }, [paraphrases.loading]);
 
   useEffect(() => {
-    // console.log(paraphrases.paraphrases)
     setCurrentParaphrases(paraphrases.paraphrases);
   }, [paraphrases.paraphrases]);
 
@@ -172,7 +166,7 @@ export default function EditorUtils() {
   }, [grammars.loading]);
 
   useEffect(() => {
-    console.log(grammars.entities)
+    // console.log(grammars.entities)
     setCurrentGrammars(grammars.entities);
   }, [grammars.entities]);
 
@@ -219,10 +213,10 @@ export default function EditorUtils() {
             <h2 className="text-2xl font-bold mb-8">
               Current Paraphrase Options:
             </h2>
-            {currentParaphrases.map((p, idx1) => (
+            {currentParaphrases.map((p, idx1) => (p ?
               <CardStack
                 key={idx1}
-                items={p.map((o, idx2) => ({
+                items={p?.map((o, idx2) => ({
                   id: idx2,
                   name: `Sentence ${idx1 + 1}`,
                   designation: 'AI Paraphrase',
@@ -235,7 +229,7 @@ export default function EditorUtils() {
                     </div>
                   ),
                 }))}
-              ></CardStack>
+              ></CardStack> : <></>
             ))}
             
           </div>
@@ -329,7 +323,7 @@ export default function EditorUtils() {
 
                 {e.tokens.map((t) => (
                   <Tooltip>
-                  <TooltipTrigger>
+                  <TooltipTrigger asChild>
                     <span className='inline'>{t.text}</span>
                   </TooltipTrigger>
                   <TooltipContent>
