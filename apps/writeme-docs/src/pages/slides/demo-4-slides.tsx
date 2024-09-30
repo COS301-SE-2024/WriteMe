@@ -44,7 +44,7 @@ export default function DemoSlides(): JSX.Element {
         <section data-background-image="/img/BG4.png">
           <h2>Testing Policy</h2>
         </section>
-        <section data-background-iframe="https://docs.writeme.co.za/docs/tesing-policy-document"></section>
+        <section data-background-iframe="https://docs.writeme.co.za/docs/tesing-policy"></section>
 
         <section data-background-image="/img/BG2.png">
             <h2>Coding Standards</h2>
