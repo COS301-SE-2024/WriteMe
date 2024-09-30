@@ -6,7 +6,6 @@ import TOCInline from '@theme/TOCInline';
 
 <TOCInline toc={toc} />
 
-
 ## Introduction
 
 WriteMe is an innovative platform designed to revolutionize the way people create, share, and consume stories. Our vision is to become the leading platform for writers and readers, providing tools and features that enhance the storytelling experience and make it accessible to everyone. WriteMe aims to enhance user experience through an intuitive and seamless interface, foster creativity by offering helpful tools and suggestions, build a vibrant community for sharing and feedback, ensure security with robust measures to protect user data, and expand accessibility across various devices and operating systems.
@@ -14,8 +13,6 @@ WriteMe is an innovative platform designed to revolutionize the way people creat
 The rise of digital content consumption has created a demand for platforms that not only allow users to consume content but also to create and share their own. WriteMe addresses this need by offering a dedicated space for writers to craft stories and for readers to discover new and diverse content. The project scope includes developing a web-based platform with features such as user registration and authentication with multiple login options, a secure story creation and editing interface, simple publishing processes, community features for exploring and engaging with stories, and customization options like dark mode. Comprehensive testing and performance optimization ensure a fast and reliable user experience. WriteMe is poised to meet the growing demand for high-quality, user-generated content in a secure and accessible manner
 
 ## Functional Requirements
-
-<strong> All points in bold are requirements that have been implemented already and points that are not bolded are what we plan to do next</strong>
 
 ### Authentication
 
@@ -43,12 +40,6 @@ The rise of digital content consumption has created a demand for platforms that 
       <li>Using their email and password
         <ol className="srs-bullets">
           <li><strong>The user credentials must be validated</strong></li>
-          <li>Must allow user to recover their password using their email or username
-            <ol className="srs-bullets">
-              <li><strong>The account must be verified (i.e. ensure it exists)</strong></li>
-              <li><strong>If the account is found, the system must allow the user to send a recovery email to the email address associated with the account</strong></li>
-            </ol>
-          </li>
         </ol>
       </li>
       <li>Using existing platforms
@@ -57,14 +48,14 @@ The rise of digital content consumption has created a demand for platforms that 
           <li><strong>Using Github</strong></li>
         </ol>
       </li>
-      <li>The user must be able to select “forgot password’
+    </ol>
+  </li>
+  <li>The user must be able to select “forgot password’
         <ol className="srs-bullets">
           <li><strong>The system must identify their account using their email address or username.</strong></li>
           <li><strong>If an account is found, a button appears that lets the user send a password reset email to the email address linked to their account</strong></li>
         </ol>
       </li>
-    </ol>
-  </li>
 </ol>
 
 ### Authorization
@@ -73,10 +64,12 @@ The rise of digital content consumption has created a demand for platforms that 
   <li>The system must provide functionality that is specific to users that are singed up:
     <ol className="srs-bullets">
       <li><strong>Access to account management</strong></li>
-      <li><strong>Access to reading other stories</strong></li>
-      <li><strong>Access to writing stories</strong></li>
+      <li><strong>Access to the explore page(To read other stories)</strong></li>
+      <li><strong>Access to the editor(To write stories)</strong></li>
       <li><strong>Access to the recommendation system. The access is implicit (i.e. the user doesn't directly interact with the system)</strong></li>
       <li><strong>Access to the social interaction system</strong></li>
+      <li><strong>Access to Writeathons</strong></li>
+      <li><strong>Access to real time collaboration as a guest or host</strong></li>
     </ol>
   </li>
 </ol>
@@ -89,14 +82,13 @@ The rise of digital content consumption has created a demand for platforms that 
       <li><strong>Users must be able to publish their story</strong></li>
       <li><strong>Users must be able to save their story to a draft</strong></li>
       <li><strong>Users must be able to edit their stories</strong></li>
-      <li><strong>Genre selection</strong></li>
+      <li><strong>Users must be able to give their stories Genre Tags</strong></li>
     </ol>
   </li>
   <li>Metadata:
     <ol className='srs-bullets'>
       <li><strong>Users must be able to add a title to their story</strong></li>
-      <li><strong>Editor for users to write the main content of their story</strong></li>
-      <li><strong>Able to select a cover image</strong></li>
+      <li><strong>Users must be able to select a cover image</strong></li>
     </ol>
   </li>
 </ol>
@@ -107,21 +99,22 @@ The rise of digital content consumption has created a demand for platforms that 
   <li>Users must be able to view other stories:
     <ol className='srs-bullets'>
       <li><strong>Stories can be displayed as thumbnails with the cover image, title and author</strong></li>
-      <li>Stories can be displayed as lists with more detailed information such as a short description, genre or publication date</li>
+      <li><strong>Stories can be displayed as lists with more detailed information such as a short description, genre or publication date</strong></li>
     </ol>
   </li>
   <li>Story filters
     <ol className='srs-bullets'>
-      <li>Allow users to filter stories by genre</li>
-      <li>Allow users to filter stories by popularity</li>
-      <li>Allow users to filter stories by most recently published</li>
+      <li><strong>Allow users to filter stories by date published</strong></li>
+      <li><strong>Allow users to filter stories by genre</strong></li>
+      <li><strong>Allow users to filter stories by most recently published</strong></li>
+      <li><strong>Allow users to see filtered stories in ascending or descending order</strong></li>
     </ol>
   </li>
   <li>Search functionality
     <ol className='srs-bullets'>
       <li><strong>Allow users to search stories by title</strong></li>
-      <li>Allow users to search stories by author</li>
-      <li>>Allow users to search stories with keywords</li>
+      <li><strong>Allow users to search stories by author</strong></li>
+      <li><strong>Allow users to search stories with keywords</strong></li>
     </ol>
   </li>
 </ol>
@@ -135,6 +128,7 @@ The rise of digital content consumption has created a demand for platforms that 
         <ol className='srs-bullets'>
           <li><strong>Users can comment on Entire Stories</strong></li>
           <li><strong>Users can comment on Chapters</strong></li>
+          <li><strong>Users can reply to other users comments</strong></li>
         </ol>
       </li>
       <li>Users can like differnet sections
@@ -158,7 +152,7 @@ The rise of digital content consumption has created a demand for platforms that 
         <li><strong>Users can share on Facebook</strong></li>
      </ol>
     </li>
-    <li><strong>Users can export stories to PDF</strong></li>
+    <li>Users can export stories to PDF</li>
 </ol>
 
 ### Account Management
@@ -178,7 +172,7 @@ The rise of digital content consumption has created a demand for platforms that 
             <li><strong>Users should be able to update name</strong></li>
           </ol>
         </li>
-        <li><strong>Users should be able to delete their account</strong></li>
+        <li>Users should be able to delete their account</li>
       </ol>
     </li>
 
@@ -189,8 +183,8 @@ The rise of digital content consumption has created a demand for platforms that 
 <ol className="srs-bullets">
   <li>Users can edit content while offline:
       <ol className='srs-bullets'>
-        <li>Users can edit entire stories while offline</li>
-        <li>Users can edit specific chapters while offline</li>
+        <li><strong>Users can edit entire stories while offline</strong></li>
+        <li><strong>Users can edit specific chapters while offline</strong></li>
      </ol>
   </li>
   <li>Users can export content to a PDF:
@@ -211,7 +205,7 @@ The rise of digital content consumption has created a demand for platforms that 
         <li><strong>Users can join a writeathon</strong></li>
         <li><strong>Users can submit a story to the writeathon</strong></li>
         <li><strong>Users can vote on whos stroy should win the writeathon</strong></li>
-        <li><strong>Users can receive writeathon points for winning writeathons</strong></li>
+        <li><strong>Users can receive writeathon badges based on their placement in specific writeathons</strong></li>
      </ol>
     </li>
   <li>Users can host their own Writeathons
@@ -259,8 +253,8 @@ The rise of digital content consumption has created a demand for platforms that 
       <li><strong>Users can use the assistant to generate story progression ideas</strong></li>
     </ol>
   </li>
-  <li><strong>Users can use the AI assistant for parts of speech detection</strong></li>
-  <li><strong>Users can use the AI assistant for tone detection</strong></li>
+  <li>Users can use the AI assistant for parts of speech detection</li>
+  <li>Users can use the AI assistant for tone detection</li>
 </ol>
 
 ### Notepad
@@ -277,19 +271,49 @@ The rise of digital content consumption has created a demand for platforms that 
   </li>  
 </ol>
 
+### Real Time Collaboration
+
+<ol className="srs-bullets">
+
+  <li>Users can Collaborate with other WriteMe users in Real-Time
+      <ol className='srs-bullets'>
+        <li><strong>Users can host a collaboration session</strong></li>
+        <li><strong>Users can join another users collaboration session</strong></li>
+        <li><strong>Users can make collaboration sessions Read-Only</strong></li>
+        <li><strong>Users can make collaboration sessions Read and Write sessions to give guests full access to the story</strong></li>
+        <li><strong>Users can work on the same story at the same time with their collaboration guest</strong></li>
+     </ol>
+  </li>
+
+  <li>Users can use the Whiteboard while collaborating with others
+      <ol className='srs-bullets'>
+        <li><strong>Users can collaborate on the same whiteboard in Real-Time</strong></li>
+        <li><strong>Users can draw pictures or diagrams to brainstorm ideas</strong></li>
+        <li><strong>Users can type and add text to the whiteboard</strong></li>
+     </ol>
+  </li>
+
+  <li>Users can use the conferencing feature while collaborating with others
+      <ol className='srs-bullets'>
+        <li><strong>Users can see real time video of collaborators</strong></li>
+        <li><strong>Users can hear real time audio of collaborators</strong></li>
+     </ol>
+  </li> 
+
+</ol>
 
 ## Architectural Requirements
 
-###  Architectural Design Strategy
+### Architectural Design Strategy
 
 Our architectural design strategy focuses on creating a collaborative writing platform that is robust and user-friendly. We start by breaking down our system into clear functional and quality requirements made by the team and prioritised by the clients, using practical use cases to guide our development process. This helps us build modular subsystems and components that are flexible and easy to maintain. By carefully selecting architectural patterns that enhance storytelling and user engagement, we ensure our platform integrates seamlessly with Natural Language Processing (NLP) tools. This approach guarantees that WriteMe provides a cohesive and enjoyable writing experience, inspiring creativity and enabling writers to thrive.
 
 Apart from reliability, performance, usability,compatibility and security the architecture should also be based around:
 
 1. User-Centric Design:
-Designing based on quality requirements puts the users' needs and expectations at the forefront. Since WriteMe is used by Readers and Writers and aims to build communities, the needs of our users' are paramount.
+   Designing based on quality requirements puts the users' needs and expectations at the forefront. Since WriteMe is used by Readers and Writers and aims to build communities, the needs of our users' are paramount.
 2. Facilitates Long-term Maintenance and Rapid Development:
-A system designed based on quality requirements is generally more maintainable in the long run. When a system is created with a focus on aspects such as modularity, performance, reliability, and security, it is typically easier to identify and fix issues, add new features, and scale as needed all in a timely manner.
+   A system designed based on quality requirements is generally more maintainable in the long run. When a system is created with a focus on aspects such as modularity, performance, reliability, and security, it is typically easier to identify and fix issues, add new features, and scale as needed all in a timely manner.
 
 This is our main architectural strategy, other strategies like decomposition and generating test cases are still important and will be applied in the different phases of the project.
 
@@ -356,54 +380,56 @@ The following Quality Requirements have been identified by the team and the clie
   <li><strong>Usability</strong>
   <br></br>A key to user adoption and engagement. An intuitive interface, clear navigation, and responsive design facilitate easy access to features and functionalities, reducing user frustration and enhancing productivity. By focusing on usability, the application ensures that users can intuitively navigate and utilize its capabilities without extensive training or assistance.<br></br>
 
-  <strong>Measured by:</strong><br></br>
-  Less time and fewer steps are needed to perform typical tasks.<br></br>
-  Reduced user errors and quick recovery when errors do occur.<br></br>
-  High levels of user satisfaction are achieved through the usability of the tool. It is measurable through usability testing sessions and feedback.<br></br>
-    <ol className='srs-bullets'>
-      <li>Intuitive Interface
-        <ol className='srs-bullets'>
-          <li>Include a well-organized menu and clear navigation paths to help users find features and tools quickly.
-          <br></br><strong>Implementation: </strong>
-          Component libraries such as shadcn will be used together with consistent CSS styling to incorporate a smooth and responsive user interface.
-          </li>
-          <li>Provide tooltips, guides, and tutorials to assist users in understanding how to use various features effectively.
-          <br></br><strong>Implementation: </strong>New users will be introduced to the app via an onboarding process which will be implemented using shadcn and Framer Motion. The user will be able to turn the guide on / off at anytime they feel confused.
-          </li>
-          <li>Provide clear visual cues, such as buttons, icons, and labels, to guide users through the interface and indicate interactive elements.
-          <br></br><strong>Implementation: </strong>Lucide icons will be used to display high quality icons.
-          </li>
-          <li>Feedback will always be given to the user when an action has been completed or if an error has occured.</li><br></br><strong>Implementation: </strong>Various toasts with messages will be used to provide feedback to the user. If an error has occured, detailed error messages will be displayed showing the user what may have occured. These functions should be implemented asynchronously such that the view does not hang or freeze.
-        </ol>
-      </li>
-      <li>Collaboration Features
-        <ol className='srs-bullets'>
-          <li>Provide commenting / annotation tools that allow users to give feedback directly on the document.
-          <br></br><strong>Implementation: </strong>
-          A comment section will be implemented with polling, such that new comments will appear on viewers pages.
-          </li>
-        </ol>
-      </li>
-    </ol>
+<strong>Measured by:</strong><br></br>
+Less time and fewer steps are needed to perform typical tasks.<br></br>
+Reduced user errors and quick recovery when errors do occur.<br></br>
+High levels of user satisfaction are achieved through the usability of the tool. It is measurable through usability testing sessions and feedback.<br></br>
+<ol className='srs-bullets'>
+<li>Intuitive Interface
+<ol className='srs-bullets'>
+<li>Include a well-organized menu and clear navigation paths to help users find features and tools quickly.
+<br></br><strong>Implementation: </strong>
+Component libraries such as shadcn will be used together with consistent CSS styling to incorporate a smooth and responsive user interface.
+</li>
+<li>Provide tooltips, guides, and tutorials to assist users in understanding how to use various features effectively.
+<br></br><strong>Implementation: </strong>New users will be introduced to the app via an onboarding process which will be implemented using shadcn and Framer Motion. The user will be able to turn the guide on / off at anytime they feel confused.
+</li>
+<li>Provide clear visual cues, such as buttons, icons, and labels, to guide users through the interface and indicate interactive elements.
+<br></br><strong>Implementation: </strong>Lucide icons will be used to display high quality icons.
+</li>
+<li>Feedback will always be given to the user when an action has been completed or if an error has occured.</li><br></br><strong>Implementation: </strong>Various toasts with messages will be used to provide feedback to the user. If an error has occured, detailed error messages will be displayed showing the user what may have occured. These functions should be implemented asynchronously such that the view does not hang or freeze.
+</ol>
+</li>
+<li>Collaboration Features
+<ol className='srs-bullets'>
+<li>Provide commenting / annotation tools that allow users to give feedback directly on the document.
+<br></br><strong>Implementation: </strong>
+A comment section will be implemented with polling, such that new comments will appear on viewers pages.
+</li>
+</ol>
+</li>
+</ol>
+
   </li>
 
   <li><strong>Compatibility</strong>
   <br></br>Compatibility across different platforms and devices expands the application's reach and usability. Supporting a wide range of operating systems, browsers, and device types ensures that users can access and interact with the application seamlessly regardless of their preferred technology. This broad compatibility enhances user convenience and accessibility, contributing to a positive user experience.<br></br>
 
-  <strong>Measured by:</strong><br></br>
-  Visual testing sessions and feedback.<br></br>
-  Less time and fewer steps are needed to perform typical tasks.<br></br>
-  Reduced user errors and quick recovery when errors do occur.<br></br>
-     <ol className='srs-bullets'>
-      <li>The app should be able to work consistently across various operating systems and devices.
-      <br></br><strong>Implementation: </strong>
-      The application is distributed as a PWA, making it available to any operating system or device that is able to run a modern web browser.
-      </li>
-      <li>The app should be able to run on mobile devices, with modern browsers.
-      <br></br><strong>Implementation: </strong>
-      The application is implemented using well supported css and javascript features, such that it is compatible with all major web browsers and screen sizes.
-      </li>
-    </ol>
+<strong>Measured by:</strong><br></br>
+Visual testing sessions and feedback.<br></br>
+Less time and fewer steps are needed to perform typical tasks.<br></br>
+Reduced user errors and quick recovery when errors do occur.<br></br>
+<ol className='srs-bullets'>
+<li>The app should be able to work consistently across various operating systems and devices.
+<br></br><strong>Implementation: </strong>
+The application is distributed as a PWA, making it available to any operating system or device that is able to run a modern web browser.
+</li>
+<li>The app should be able to run on mobile devices, with modern browsers.
+<br></br><strong>Implementation: </strong>
+The application is implemented using well supported css and javascript features, such that it is compatible with all major web browsers and screen sizes.
+</li>
+</ol>
+
   </li>
 
   <li><strong>Security</strong>
@@ -483,9 +509,12 @@ The system requires the use of AWS, therefore implementing budget constraints wi
 
 By leveraging AWS's robust infrastructure and services, the app can achieve high reliability, ensuring consistent availability and performance even in the face of potential failures and disruptions. Amazon S3 will be used to automatically back up user data and application data, ensuring that critical information is protected and can be recovered in case of data loss.
 
-## 6 Architectural Diagram
+## Architectural Diagram
 
 ![Architectural Diagaram](./images/ArchDiagram.jpg)
+
+## Deployment Diagram
+![Deployment Diagram](./images/DeploymentDiagram.png)
 
 ## Use Case Diagrams
 
@@ -532,6 +561,10 @@ By leveraging AWS's robust infrastructure and services, the app can achieve high
 ### Improv Suggestions System
 
 ![Improv Game System](./images/ImprovUseCase.jpg)
+
+### Real-Time Collaboration System
+
+![Real-Time Collaboration System](./images/RealTimeUseCase.jpg)
 
 ## Technology Requirements
 
@@ -687,6 +720,8 @@ A WriteMe reader would be someone who devours stories and enjoys getting lost in
   <li>The app to be a PWA that caches images and stories so I can read stories offline</li>
   <li>Click a button that shares a story to Pinterest so I can share a story to Pinterest easily</li>
   <li>Be able to comment on a chapter of a story so I can give an author feedback</li>
+  <li>Be able to filter the stories to see genres that I like</li>
+  <li>Be able to search for stories I want to read</li>
 </ul>
 
 #### A Writers Charachteristics
@@ -705,6 +740,10 @@ A WriteMe writer would likely be someone with a passion for language and a desir
   <li>Add a cover image for my story so I can identify my different stories and associate them with cover images</li>
   <li>Create a new chapter so I can have a multi-chapter story</li>
   <li>A form so I can update a already created story's metadata</li>
+  <li>Write Stories for Writeathons</li>
+  <li>Have a notepad to brainstorm ideas</li>
+  <li>Have a way of getting suggestions or help to write my story</li>
+  <li>Get assistance with grammar, spelling and paraphrasing</li>
   <li>Share my editor in realtime so I can get help and feedback from other authors in realtime</li>
 </ul>
 
@@ -753,7 +792,7 @@ A WriteMe writer would likely be someone with a passion for language and a desir
 
 ## Service Contracts
 
-### **POST /register (Create User):**
+### POST /register (Create User):
 
 **Description:**
 
@@ -814,7 +853,7 @@ This endpoint allows the creation of a new user account.
 }
 ```
 
-### PUT **/register (Update User):**
+### PUT /register (Update User):
 
 **Description:**
 
@@ -876,7 +915,7 @@ This endpoint allows the user to update their profile.
 }
 ```
 
-### PUT **/story (Update Story):**
+### PUT /story (Update Story):
 
 **Description:**
 
@@ -920,7 +959,7 @@ This endpoint allows an authenticated user to update a story they own.
 }
 ```
 
-### **POST /story (Create Story):**
+### POST /story (Create Story):
 
 **Description:**
 
@@ -961,7 +1000,7 @@ This endpoint allows an authenticated user to create a new story.
 }
 ```
 
-### **POST /chapter (Create a chapter)**
+### POST /chapter (Create a chapter)
 
 **Description:**
 
@@ -1026,7 +1065,7 @@ This endpoint allows an authenticated user to create a new chapter for their sto
 }
 ```
 
-### **_PUT /chapter (Update a chapter)_**
+### PUT /chapter (Update a chapter)
 
 **Description:**
 
@@ -1093,7 +1132,7 @@ This endpoint allows an authenticated user to create a new chapter for their sto
 }
 ```
 
-### **POST /likes (like/unlike a chapter/story):**
+### POST /likes (like/unlike a chapter/story):
 
 **Description:**
 
@@ -1134,7 +1173,7 @@ This endpoint allows an authenticated user to like a chapter or story.
 }
 ```
 
-### **POST /follow (follow/unfollow a user):**
+### POST /follow (follow/unfollow a user):
 
 **Description:**
 
@@ -1184,7 +1223,7 @@ This endpoint allows an authenticated user to follow another user.
 }
 ```
 
-### **POST /comments (comment on a story or chapter):**
+### POST /comments (comment on a story or chapter):
 
 **Description:**
 
@@ -1237,7 +1276,7 @@ This endpoint allows an authenticated comment on a story or chapter.
 }
 ```
 
-### **POST /export/chapter (export chapter to pdf):**
+### POST /export/chapter (export chapter to pdf):
 
 **Description:**
 
@@ -1284,7 +1323,7 @@ This endpoint allows an authenticated user to export a chapter to pdf.
 }
 ```
 
-### **POST /export/story** (export story to pdf):
+### POST /export/story (export story to pdf):
 
 **Description:**
 
@@ -1330,7 +1369,7 @@ This endpoint allows an authenticated user to export a story to pdf.
 }
 ```
 
-### **POST /bookmark**
+### POST /bookmark (creates a bookmark in a story)
 
 **Description:**
 
@@ -1381,7 +1420,7 @@ This endpoint allows authenticated users to add or remove a bookmark on a story.
 }
 ```
 
-### **POST /notes**
+### POST /notes (for note taking)
 
 #### **Description:**
 
@@ -1441,18 +1480,17 @@ This endpoint allows authenticated users to create or update notes associated wi
 }
 ```
 
-### **GET /search**
+### GET /search (search for stories)
 
-### Description
-
+#### Description
 This endpoint allows users to search for stories based on a query string. The search results are returned as a list of stories that match the query.
 
-### Request
+#### Request
 
 - **Query Parameters:**
   - `q` (string, optional): The search query string. If not provided, the search will return all stories.
 
-### Example Request
+#### Example Request
 
 #### Request with Query
 
@@ -1461,7 +1499,7 @@ GET /api/stories/search?q=adventure HTTP/1.1
 Host: example.com
 ```
 
-### **POST /api/writeathon/story**
+### POST /api/writeathon/story (entre into a writeathon)
 
 #### **Description**
 
@@ -1532,7 +1570,7 @@ This endpoint allows authenticated users to associate a story with a writeathon 
 }
 ```
 
-### **PUT story/cover**
+### PUT story/cover (upload a cover image)
 
 #### **Description**
 
@@ -1603,7 +1641,7 @@ This endpoint allows authenticated users to update the cover image of a story. T
 }
 ```
 
-### **PUT /profile-image**
+### PUT /profile-image (upload a profile picture)
 
 #### **Description**
 
@@ -1669,7 +1707,7 @@ This endpoint allows authenticated users to update their profile image. The requ
 }
 ```
 
-### **GET chapters/versions**
+### GET chapters/versions (versioning)
 
 #### **Description**
 
@@ -1684,7 +1722,7 @@ This endpoint allows authenticated users to retrieve the versions of a specific 
 - **Query Parameters:**
   - `id` (string, required): The unique identifier of the chapter for which versions are being requested.
 
-### Example Request
+#### Example Request
 
 ```http
 GET /api/chapters/versions?id=chapter123 HTTP/1.1
@@ -1740,7 +1778,7 @@ Authorization: Bearer <token>
 }
 ```
 
-### **GET /api/chapters/version**
+### GET /api/chapters/version (versioning)
 
 #### **Description**
 
@@ -1756,7 +1794,7 @@ This endpoint allows authenticated users to retrieve the content of a specific v
   - `id` (string, required): The unique identifier of the chapter whose version content is being requested.
   - `time` (string, required): The timestamp representing the specific version of the chapter content to be retrieved. The time should be in ISO 8601 format.
 
-### Example Request
+#### Example Request
 
 ```http
 GET /api/chapters/version?id=chapter123&time=2024-08-07T12:34:56Z HTTP/1.1
@@ -1811,7 +1849,7 @@ Authorization: Bearer <token>
 }
 ```
 
-### **POST /api/writeathon/vote**
+### POST /api/writeathon/vote (vote in a writeathon)
 
 #### **Description**
 
@@ -1863,7 +1901,7 @@ This endpoint allows authenticated users to vote for a story in a writeathon. Th
 }
 ```
 
-### **POST /api/writeathons**
+### POST /api/writeathons (create a writeathon)
 
 #### **Description**
 
@@ -1945,7 +1983,7 @@ This endpoint allows authenticated users to create a new writeathon. The request
 }
 ```
 
-### **GET /**
+### GET / (API health check)
 
 #### **Description**
 
@@ -1966,7 +2004,7 @@ This endpoint is a simple health check for the API. It returns a basic "Ping" re
 }
 ```
 
-### **POST /analysis**
+### POST /analysis (NLP)
 
 #### **Description**
 
@@ -2021,7 +2059,7 @@ This endpoint performs a comprehensive Natural Language Processing (NLP) analysi
 }
 ```
 
-### **POST /sentiment**
+### POST /sentiment (sentiment analysis)
 
 #### **Description**
 
@@ -2075,7 +2113,7 @@ This endpoint performs sentiment analysis on the input text. It splits the input
 }
 ```
 
-### **POST /pos**
+### POST /pos (part-of-speech tagging)
 
 #### **Description**
 
@@ -2131,7 +2169,7 @@ This endpoint performs Part-of-Speech (POS) tagging on the input text. It splits
 }
 ```
 
-### **POST /ner**
+### POST /ner (Named Entity Recognition)
 
 #### **Description**
 
@@ -2187,7 +2225,7 @@ This endpoint performs Named Entity Recognition (NER) on the input text. It spli
 }
 ```
 
-### **POST /grammar**
+### POST /grammar (grammar checker)
 
 #### **Description**
 
@@ -2244,7 +2282,7 @@ This endpoint performs grammar checking on the input text. It identifies grammat
 }
 ```
 
-### **POST /suggest**
+### POST /suggest (AI suggestions)
 
 #### **Description**
 
@@ -2294,7 +2332,7 @@ This endpoint generates AI-powered suggestions to improve a given text, particul
 }
 ```
 
-### **POST /suggest/{tone}**
+### POST /suggest/{tone} (AI suggsetions)
 
 #### **Description**
 
@@ -2346,7 +2384,7 @@ This endpoint generates AI-powered suggestions based on the specified tone for t
 }
 ```
 
-### **POST /embed:**
+### POST /embed: (vector embeddings for text)
 
 #### **Description**
 
@@ -2394,6 +2432,276 @@ This endpoint generates vector embeddings for the input text. The input is split
 }
 ```
 
+### POST /live-session (create a live collaboration session)
+
+#### **Description**
+
+Create a live editor session for a chapter if the authenticated user is the owner of the chapter.
+
+#### **Request**
+
+- **Headers:**
+
+  - `Content-Type: application/json`
+
+- **Body:**
+
+```json
+{
+  "chapterId": "string"
+}
+```
+
+#### **Response:**
+
+- **200 OK**
+
+```json
+{
+  "status": "success",
+  "session": "string"
+}
+```
+
+- **Failure (401 - Unauthorized):**
+
+```json
+{
+  "status": "fail",
+  "message": "You are not logged in"
+}
+```
+
+- **Failure (403 - Forbidden):**
+
+```json
+{
+  "status": "fail",
+  "message": "Only the owner can create a session"
+}
+```
+
+### DELETE /live-session (deletes a live collaboration session)
+
+#### **Description:**
+
+Delete an existing live editor session if the authenticated user is the owner of the session.
+
+#### **Request:**
+
+- **Headers:**
+
+  - `Content-Type: application/json`
+
+- **Body:**
+
+```json
+{
+  "sessionId": "string"
+}
+```
+
+#### **Response:**
+
+- **200 (OK)**
+
+```json
+{
+  "status": "success",
+  "message": "Session has been deleted."
+}
+```
+
+- **Failure (401 - Unauthorized):**
+
+```json
+{
+  "status": "fail",
+  "message": "You are not logged in"
+}
+```
+
+- **Failure (400 - Bad Request):**
+
+```json
+{
+  "status": "failed",
+  "message": "No session specified"
+}
+```
+
+- **Failure (401 - Unauthorized):**
+
+```json
+{
+  "status": "failed",
+  "message": "This session is not owned by you."
+}
+```
+
+### GET /live-session (gets the current session)
+
+#### **Desciption**
+
+Retrieve the current authentication status and session details.
+
+- **200 (OK)**
+
+```json
+{
+  "authenticated": true | false,
+  "session": { ...sessionData }
+}
+```
+
+### **POST /viewable-session(Creates a live viewable only session)**
+
+#### **Description**
+
+Create a viewable session for a chapter if the authenticated user is the owner of the chapter.
+
+#### **Request:**
+
+- **Headers:**
+
+  - `Content-Type: application/json`
+
+- **Body:**
+
+```json
+{
+  "chapterId": "string"
+}
+```
+
+#### **Response:**
+
+- **200 (OK)**;
+
+```json
+{
+  "status": "success",
+  "session": "string"
+}
+```
+
+- **Failure (401 - Unauthorized):**
+
+```json
+{
+  "status": "fail",
+  "message": "You are not logged in"
+}
+```
+
+- **Failure (403 - Forbidden)**
+```json
+{
+  "status": "fail",
+  "message": "Only the owner can create a session"
+}
+```
+
+### DELETE /live-session (deletes a live collaboration session)
+
+#### **Description:**
+
+Delete an existing live viewer session if the authenticated user is the owner of the session.
+
+#### **Request:**
+
+- **Headers:**
+
+  - `Content-Type: application/json`
+
+- **Body:**
+
+```json
+{
+  "sessionId": "string"
+}
+```
+
+#### **Response:**
+
+- **200 (OK)**
+
+```json
+{
+  "status": "success",
+  "message": "Session has been deleted."
+}
+```
+
+- **Failure (401 - Unauthorized):**
+
+```json
+{
+  "status": "fail",
+  "message": "You are not logged in"
+}
+```
+
+- **Failure (400 - Bad Request):**
+
+```json
+{
+  "status": "failed",
+  "message": "No session specified"
+}
+```
+
+- **Failure (401 - Unauthorized):**
+
+```json
+{
+  "status": "failed",
+  "message": "This session is not owned by you."
+}
+```
+
+### **GET /livekit-token (Generates a LiveKit access token)**
+
+#### **Description**
+
+Generates a LiveKit access token for the specified room. The authenticated user's name or "Guest User" is used as the identity.
+
+#### **Request:**
+
+- **Headers:**
+
+  - `Content-Type: application/json`
+
+- **Query Parameters:**
+
+  - `room`: (Required) The name of the room to join.
+
+#### **Response:**
+
+- **200 (OK):**
+
+```json
+{
+  "token": "string"
+}
+```
+
+- **Failure (400 - Bad Request - Missing "room" parameter):**
+
+```json
+{
+  "error": "Missing 'room' query parameter"
+}
+```
+
+- **Failure (500 - Internal Server Error - Server Misconfigured):**
+
+```json
+{
+  "error": "Server misconfigured"
+}
+```
+
 ## Class Diagram
 
-![Class Diagram](/img/class-diagram.png)
+![Class Diagram](./images/ClassDiagram.jpg)
