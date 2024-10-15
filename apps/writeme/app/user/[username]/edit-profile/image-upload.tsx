@@ -18,8 +18,8 @@ export default function UserImageUpload({user}: any) {
                 currentFile,
                 setCurrentFile
             }}>
-                <div className="h-48">
-                  <Avatar className="w-full h-full object-contain min-h-0">
+                <div className="h-48 aspect-square">
+                  <Avatar className="w-full h-full object-contain min-h-0 ">
                     <AvatarImage src={currentFile}></AvatarImage>
                     <AvatarFallback>{user.name[0]}</AvatarFallback>
                   </Avatar>

@@ -52,6 +52,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'minio.khyalkara.com',
       },
+      {
+        protocol: 'https',
+        hostname: 's3.writeme.co.za',
+      },
     ],
   },
   transpilePackages: ["next-auth"],

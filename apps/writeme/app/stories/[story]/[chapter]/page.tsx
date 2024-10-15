@@ -10,6 +10,7 @@ import CommentSection from '../../../../components/comments-sections';
 import LikeButton from '../../../../components/like-button';
 import ExportButton from '../../../../components/export-button';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
+import { notFound } from 'next/navigation';
 
 export interface ChapterProps {
   params: {
@@ -20,6 +21,10 @@ export interface ChapterProps {
 
 export default async function Chapter({params}: ChapterProps){
   const chapter = await getPublishedChapter(params.chapter);
+
+  if (!chapter || !chapter.story.published) {
+    notFound();
+  }
 
   return (
     <div>
@@ -43,7 +48,7 @@ export default async function Chapter({params}: ChapterProps){
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="relative aspect-[3/4] h-60 m-10">
+              <div className="relative aspect-[3/4] h-60 m-10 overflow-hidden">
                 <img
                   style={{
                     objectFit: 'contain'
@@ -61,7 +66,7 @@ export default async function Chapter({params}: ChapterProps){
             </CardFooter>
           </Card>
         </div>
-        <div className="w-[70ch]"><ChapterViewer blocks={chapter.blocks}></ChapterViewer></div>
+        <div className="w-full md:w-[70ch]"><ChapterViewer blocks={chapter.blocks}></ChapterViewer></div>
         <CommentSection comments={chapter.comments} storyId={chapter.storyId} chapterId={chapter.id} fill={false}></CommentSection>
       </div>
 

@@ -4,12 +4,15 @@ import Link from 'next/link';
 import LocalNavbar from '@writeme/wmc/lib/ui/local-navbar';
 import BooksAnimation from '../components/books-animation';
 import { Button } from '@writeme/wmc';
+import { auth } from '../auth';
 
 export const metadata = {
   title: 'Home | WriteMe',
 };
 
-export default function Index() {
+export default async function Index() {
+  const session = await auth();
+
   return (
     <div className="h-screen">
       <LocalNavbar />
@@ -40,9 +43,8 @@ export default function Index() {
               {' '}
               {/* Added justify-end to move the button to the right */}
               <Button asChild variant="default" size="lg">
-                <Link data-testid="join_now_link" href="/auth/signup">
-                  Join Now
-                </Link>
+                {session?.user ? <Link href="/myworks">My Works</Link> : <Link data-testid="join_now_link" href="/auth/signup">Join Now</Link>}
+                
               </Button>
             </div>
           </div>

@@ -16,7 +16,7 @@ import {
 } from '@blocknote/react';
 import { useMemo, useState } from 'react';
 
-const allowedBlockTypes = (dict: Dictionary): BlockTypeSelectItem[] => [
+export const allowedBlockTypes = (dict: Dictionary): BlockTypeSelectItem[] => [
   {
     name: dict.slash_menu.paragraph.title,
     type: 'paragraph',

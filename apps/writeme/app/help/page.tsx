@@ -34,7 +34,7 @@ export default function Help() {
       <div className="flex flex-col items-center">
         <h1 className="text-3xl font-bold">FAQs</h1>
 
-        <Accordion type="multiple" className="w-1/2">
+        <Accordion type="multiple" className="p-2 w-full md:w-1/2">
           <AccordionItem value="item-1">
             <AccordionTrigger>
               When I create a chapter can everyone see it?
@@ -110,7 +110,7 @@ export default function Help() {
         <h1 className="text-3xl font-bold">Guides</h1>
 
         <br></br>
-        <div className="flex flex-col items-left pl-40 text-lg">
+        <div className="flex flex-col items-left md:pl-40 text-lg p-2">
           <h2 className="test-2xl font-bold">Creating and Editing Stories</h2>
           <br></br>
           <p>
@@ -134,12 +134,15 @@ export default function Help() {
 
           <h2 className="test-2xl font-bold">Edit/View existing chapter</h2>
           <br></br>
-          <Image
-            alt="edit_story_page"
-            src={EditStory}
-            width={1000}
-            height={500}
-          ></Image>
+
+          <div className='sm:max-w-screen-sm'>
+            <Image
+              alt="edit_story_page"
+              src={EditStory}
+              width={1000}
+              height={500}
+            ></Image>
+          </div>
 
           <p>
             1. Click on the three dots to select the 'Edit' option. You will

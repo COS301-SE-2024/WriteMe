@@ -8,7 +8,7 @@ import {
   IconBrandGoogle,
 } from "@tabler/icons-react";
 
-import {useRouter, useSearchParams} from 'next/navigation';
+import {redirect, useRouter, useSearchParams} from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CreateUserInput, createUserSchema} from '../../../../apps/writeme/db/user-schema';
@@ -69,8 +69,12 @@ export function SignupFormDemo() {
         })
         return;
       }
-
-      signIn(undefined, { callbackUrl: '/myworks' });
+      toast({
+        title: "Success",
+        description: "Please Sign In"
+      })
+      // signIn(, { callbackUrl: '/myworks' });
+      router.push("/auth/login");
     } catch (error: any) {
       toast({
         title: error.message,

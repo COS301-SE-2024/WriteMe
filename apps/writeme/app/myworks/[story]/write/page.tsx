@@ -74,7 +74,7 @@ export default async function Page(props: WritePageProps) {
           </CardHeader>
           <CardContent>
             {/*  IMage*/}
-            <div className="relative aspect-[3/4] h-60 m-10">
+            <div className="relative aspect-[3/4] h-60 m-10  overflow-hidden">
               <img
                 style={{
                   objectFit: 'contain'

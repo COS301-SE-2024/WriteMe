@@ -5,7 +5,7 @@ import { stories, chapters, users, userBookmarks } from '../db/schema';
 import { and, gt, not, or, sql } from 'drizzle-orm';
 
 export async function searchStories(q: string){
-  let result = await db.select({title: stories.title, id: stories.id, cover: stories.cover}).from(stories).where(sql`to_tsvector('english', ${stories.title}) @@ websearch_to_tsquery('english', ${q})`).limit(5);
+  let result = await db.select({title: stories.title, id: stories.id, cover: stories.cover}).from(stories).where(sql`to_tsvector('english', ${stories.title}) @@ websearch_to_tsquery('english', ${q}) and ${stories.published} = ${true}`).limit(5);
 
   return result;
 }
@@ -14,7 +14,7 @@ export async function getMyStories() {
   const session = await auth();
 
   const result = db.query.stories.findMany({
-    where: (stories, { eq }) => eq(stories.userId, session.user.id),
+    where: (stories, { eq}) => eq(stories.userId, session.user.id),
     with: {
       comments: {
         with: {
@@ -181,3 +181,16 @@ export const insertStory = async (story: NewStory) => {
   const result = await db.insert(stories).values(story).returning();
   return result[0];
 };
+
+
+export async function isStoryOwner(userId: string, storyId: string): Promise<boolean> {
+  const story = await db.query.stories.findFirst({
+    where: (stories, { eq }) => eq(stories.id, storyId),
+    with: {
+      author: true
+    }
+  });
+
+  // console.log(chapter)
+  return story?.author.id === userId;
+}

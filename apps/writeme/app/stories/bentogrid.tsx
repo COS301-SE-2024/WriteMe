@@ -106,9 +106,9 @@ const  BentoGridComponent = ({ stories, genres }: BentoGridProps) => {
                   </MultiSelectorList>
                 </MultiSelectorContent>
                </MultiSelector>
-            <Button onClick={async () => {
+            {/* <Button onClick={async () => {
               await getFilteredStories();
-            }}><Search/></Button>
+            }}><Search/></Button> */}
         </div>
 
         <BentoGrid className="max-w-6xl mx-auto md:grid-cols-2 lg:grid-cols-3 md:auto-rows-[20rem] gap-4">
@@ -121,9 +121,9 @@ const  BentoGridComponent = ({ stories, genres }: BentoGridProps) => {
               key={story.id}
             >
               <CardHeader>
-                <div className="flex gap-2 justify-evenly">
-                  <div className="relative aspect-[3/4] h-40">
-                    <img alt="Book Cover" src={story.cover} />
+                <div className="flex gap-2 justify-evenly ">
+                  <div className="relative aspect-[3/4] h-40  overflow-hidden">
+                    <img alt="Book Cover" className='object-cover' src={story.cover} />
                   </div>
                   <div className="pl-3 flex flex-col gap-2 justify-between">
                     <CardTitle>{story.title}</CardTitle>

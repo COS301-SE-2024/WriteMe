@@ -27,7 +27,6 @@ import { cn } from '@writeme/wmc/utils';
 import Link from 'next/link';
 import { Button, buttonVariants } from '@writeme/wmc';
 import { getMyStories } from '../../services/stories';
-import { Separator } from "@radix-ui/react-dropdown-menu";
 
 export const metadata = {
   title: 'My Works | WriteMe',
@@ -47,14 +46,15 @@ export default async function Myworks(props: MyworksProps) {
     <div>
       <LocalNavbar />
 
-      <BentoGrid className="max-w-6xl mx-auto md:auto-rows-[20rem]">
+      <BentoGrid className="max-w-6xl grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto md:auto-rows-[20rem]">
         {stories.length > 0 ? stories.map((story, i) =>
           <Card className={cn('row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-white border border-transparent justify-between flex flex-col space-y-4', i === 3 || i === 6 ? "md:col-span-2" : "")}
                 key={story.id}>
             <CardHeader>
               <div className='flex gap-2 justify-evenly'>
-                <div className='relative aspect-[3/4] h-40'>
+                <div className='relative aspect-[3/4] h-40 overflow-hidden'>
                   <img
+                    className='object-contain'
                     alt='Book Cover'
                     src={story.cover}
                   />

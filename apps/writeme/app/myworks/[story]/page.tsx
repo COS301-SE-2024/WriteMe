@@ -39,6 +39,7 @@ import {
   AlertDialogTrigger,
 } from '@writeme/wmc/lib/ui/alert-dialog';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
+import { notFound } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 
@@ -50,9 +51,10 @@ export interface WritePageProps {
 
 export default async function Page(props: WritePageProps) {
   const story = await getStory(props.params.story);
-  console.log(story)
-
-  story?.comments.forEach(c => console.log(c.replies))
+  
+  if (!story){
+    notFound();
+  }
 
   return (
     <div>
@@ -130,7 +132,7 @@ export default async function Page(props: WritePageProps) {
           </CardHeader>
           <CardContent>
             {/*  IMage*/}
-            <div className="relative aspect-[3/4] h-60 m-10 flex justify-center">
+            <div className="relative aspect-[3/4] h-60 m-10 flex justify-center  overflow-hidden">
               <img
                 style={{
                   objectFit: 'contain',
@@ -166,6 +168,11 @@ export default async function Page(props: WritePageProps) {
                 Create new Chapter
               </Link>
             </Button>
+            {story.published ? <Button asChild>
+              <Link href={`/stories/${story.id}`}>
+                View Published Story
+              </Link>
+            </Button> : <></>}
           </div>
           <ChaptersTableofContents story={story}></ChaptersTableofContents>
           <CommentSection

@@ -1,11 +1,13 @@
 "use client"
 import {
+  BlockTypeSelectItem,
   useBlockNoteEditor,
   useComponentsContext,
+  useDictionary,
   useEditorContentOrSelectionChange,
 } from '@blocknote/react';
 import '@blocknote/mantine/style.css';
-import { createContext, ReactNode, useContext, useState } from 'react';
+import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
 import { Sparkles } from 'lucide-react';
 import { getParaphrase } from 'apps/writeme/services/client-services';
 
@@ -38,8 +40,9 @@ export function ParaphraseProvider({children}: {
 
 
 // Custom Formatting Toolbar Button to toggle blue text & background color.
-export function ParaphraseButton() {
+export function ParaphraseButton(props: { items?: BlockTypeSelectItem }) {
   const editor = useBlockNoteEditor();
+  const dict = useDictionary();
 
   const {paraphrases, setParaphrases, loading, setLoading} = useContext(ParaphraseContext);
 
@@ -52,6 +55,26 @@ export function ParaphraseButton() {
   useEditorContentOrSelectionChange(() => {
     setSelectedText(editor.getSelectedText())
   }, editor);
+
+  const [block, setBlock] = useState(editor.getTextCursorPosition().block);
+
+  
+
+  const filteredItems: BlockTypeSelectItem[] = useMemo(() => {
+    //@ts-ignore
+    return (props.items || allowedBlockTypes(dict)).filter(
+      (item) => item.type in editor.schema.blockSchema
+    );
+  }, [editor, dict, props.items]);
+
+  const shouldShow: boolean = useMemo(
+    () => filteredItems.find((item) => item.type === block.type) !== undefined,
+    [block.type, filteredItems]
+  );
+
+  if (!shouldShow || !editor.isEditable) {
+    return null;
+  }
 
   return (
     <Components.FormattingToolbar.Button

@@ -58,11 +58,19 @@ export const writeathonSchema = object({
   ).optional(),
   startDate: date({ required_error: 'The start date is required' })
     .or(z.string())
-    .transform((arg) => (typeof arg == 'string' ? new Date(arg) : arg)),
+    .transform((arg) => (typeof arg == 'string' ? new Date(arg) : arg))
+    .refine((date) => {
+      return date > new Date(Date.now());
+    }, "The Start Date should be in the future."),
   endDate: date({ required_error: 'The end date is required' })
     .or(z.string())
-    .transform((arg) => (typeof arg == 'string' ? new Date(arg) : arg)),
-});
+    .transform((arg) => (typeof arg == 'string' ? new Date(arg) : arg))
+    .refine((date) => {
+      return date > new Date(Date.now());
+    }, "The End Date should be in the future."),
+}).refine(data => {
+  return data.endDate > data.startDate;
+}, "The End Date should be after the Start Date." );
 
 
 export const updateWriteathonSchema = object({

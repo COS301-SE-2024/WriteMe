@@ -37,8 +37,9 @@ const StorySelector = (props: StorySelectorProps) => {
           return;
         }
 
+
         toast({
-          title: errorData.message,
+          title: "Story Already Entered",
           variant: 'destructive'
         })
         return;
@@ -58,7 +59,7 @@ const StorySelector = (props: StorySelectorProps) => {
   return (
     <>
       <DropdownMenuItem onClick={() => handleStorySelection(props.story.id, props.writeathonId)} className='cursor-pointer'>
-        <div className='relative aspect-[3/4] h-16 p-2'>
+        <div className='relative aspect-[3/4] h-16 p-2 object-cover overflow-hidden'>
           <img
             alt='Book Cover'
             src={props.story.cover || BookCover} 

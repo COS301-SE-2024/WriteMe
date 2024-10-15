@@ -14,7 +14,7 @@ export interface WriteathonCountDownProps {
 const WriteathonCountDown = ({ date, withRefresh }: WriteathonCountDownProps) => {
   const router = useRouter();
 
-  const renderer = ({ hours, minutes, seconds, completed }) => {
+  const renderer = ({days, hours, minutes, seconds, completed }) => {
     if (completed) {
       // Render a completed state
       router.refresh();
@@ -22,6 +22,10 @@ const WriteathonCountDown = ({ date, withRefresh }: WriteathonCountDownProps) =>
     } else {
       // Render a countdown
       return <div className="flex items-baseline gap-1 text-4xl tabular-nums">
+        {days}
+        <span className="font-sans text-sm font-normal tracking-normal text-muted-foreground">
+            days
+          </span>
         {hours}
         <span className="font-sans text-sm font-normal tracking-normal text-muted-foreground">
             hr

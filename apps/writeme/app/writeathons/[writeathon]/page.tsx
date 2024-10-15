@@ -38,7 +38,7 @@ export interface WriteathonProps {
 dayjs.extend(relativeTime);
 
 export const Writeathon = async (props: WriteathonProps) => {
-  const session = await auth()
+  const session = await auth();
 
   if (!session?.user){
     redirect("/auth/login");
@@ -62,12 +62,13 @@ export const Writeathon = async (props: WriteathonProps) => {
   return (
     <div className="flex flex-col h-screen">
       <LocalNavbar />
-      <div className="flex flex-row w-full relative">
-        <div className="flex flex-col items-start p-10 w-1/3 gap-4 border-b-[1px] border-r-[1px]">
+      <div className="flex flex-col md:flex-row w-full relative">
+        <div className="flex flex-col items-center md:items-start p-10 w-full md:w-1/3 gap-4 border-b-[1px] border-r-[1px]">
           <h1 className='text-3xl font-bold'>{currWriteathon?.title}</h1>
           {creator?.id === session?.user?.id! ? <WriteathonImageUpload writeathon={currWriteathon} /> :
-            <div className="relative aspect-[3/4] h-60">
+            <div className="relative aspect-[3/4] h-60 overflow-hidden">
               <img
+              className='object-cover'
                 alt="Writeathon Cover"
                 src={currWriteathon?.cover || BookCover}
               />
@@ -84,7 +85,7 @@ export const Writeathon = async (props: WriteathonProps) => {
 
         </div>
         {started ?
-        <div className="flex flex-col p-10 w-2/3">
+        <div className="flex flex-col p-10 w-full md:w-2/3">
             <h1 className='text-2xl font-bold mb-6'>Entered Stories</h1>
             <DropdownMenu>
               <DropdownMenuTrigger>
@@ -99,7 +100,7 @@ export const Writeathon = async (props: WriteathonProps) => {
                   ))}
                 </DropdownMenuContent>
             </DropdownMenu>
-            <BentoGrid className="max-w-6xl mx-auto md:auto-rows-[20rem]">
+            <BentoGrid className="max-w-6xl grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto md:auto-rows-[20rem]">
             {storyWriteathons.map((storyWriteathon, i) => (
               <Card
                 className={cn('row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-white border border-transparent justify-between flex flex-col space-y-4', i === 3 || i === 6 ? "md:col-span-2" : "")}
@@ -107,8 +108,9 @@ export const Writeathon = async (props: WriteathonProps) => {
               >
                 <CardHeader>
                   <div className='flex gap-2 justify-evenly'>
-                    <div className='relative aspect-[3/4] h-40'>
+                    <div className='relative aspect-[3/4] h-40 overflow-hidden min-w-12'>
                       <img
+                        className='object-cover'
                         alt='Book Cover'
                         src={storyWriteathon.story.cover || BookCover}
                         layout='fill'
