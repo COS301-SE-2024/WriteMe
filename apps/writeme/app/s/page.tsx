@@ -23,8 +23,8 @@ const Page = async () => {
   return (
     <div>
       <LocalNavbar />
-      <div className="flex flex-col items-start justify-center lg:flex-row">
-        <Card key="viewable-sessions" className="max-w-5xl">
+      <div className="flex flex-col items-center lg:items-start justify-center lg:flex-row">
+        <Card key="viewable-sessions" className="w-80">
           <CardHeader>
             <CardTitle>Viewable Sessions</CardTitle>
           </CardHeader>
@@ -49,7 +49,7 @@ const Page = async () => {
         </Card>
 
 
-        <Card id="editable-sessions" className="max-w-5xl">
+        <Card id="editable-sessions" className="w-80">
           <CardHeader>
             <CardTitle>Editable Sessions</CardTitle>
           </CardHeader>

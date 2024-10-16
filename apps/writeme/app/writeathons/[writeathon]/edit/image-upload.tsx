@@ -19,7 +19,7 @@ export default function WriteathonImageUpload({ writeathon }: any) {
           setCurrentFile,
         }}
       >
-        <div className="h-48">
+        <div className="h-48 aspect-[3/4] overflow-hidden">
           <img
             className="w-full h-full object-contain min-h-0"
             alt={writeathon.title}
