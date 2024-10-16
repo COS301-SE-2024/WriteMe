@@ -16,8 +16,8 @@ export default function StoryImageUpload({story}: any) {
                 currentFile,
                 setCurrentFile
             }}>
-                <div className="h-48">
-                    <img className="w-full h-full object-contain min-h-0" alt={story.title} src={currentFile}></img>
+                <div className="h-48 aspect-sqaure  overflow-hidden">
+                    <img className="w-full h-full object-cover min-h-0" alt={story.title} src={currentFile}></img>
                 </div>
                 <FileUpload></FileUpload>
                 <Button onClick={async () => {

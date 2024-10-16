@@ -33,6 +33,7 @@ import BookmarkButton from 'apps/writeme/components/bookmark-button';
 import { isBookmarked } from 'apps/writeme/services/users';
 import { auth } from 'apps/writeme/auth';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
+import { notFound } from 'next/navigation';
 // import Link from 'next/link';
 
 export const metadata = {
@@ -51,6 +52,11 @@ export default async function Story(props: StoryProps) {
   const session = await auth();
 
   const story = await getPublishedStory(props.params.story);
+
+  if (!story){
+    notFound();
+  }
+
   const bookmarked = await isBookmarked(
     session?.user?.id as string,
     props.params.story
@@ -73,7 +79,7 @@ export default async function Story(props: StoryProps) {
       </div> */}
       <div className="flex flex-col items-center justify-center gap-10">
         <div className="flex flex-col md:flex-row justify-center mt-4 gap-x-8">
-          <div className="relative aspect-[3/4] h-60 m-8">
+          <div className="relative aspect-[3/4] h-60 m-8  overflow-hidden">
             <img
               style={{
                 objectFit: 'contain',
@@ -125,20 +131,22 @@ export default async function Story(props: StoryProps) {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-4 justify-center items-start h-full w-full">
+        <div className="flex flex-col lg:flex-row gap-4 justify-center items-start h-full w-full">
           {' '}
           {/* Centering container for the card */}
-          <div className='w-full md:w-1/2'>
+          <div className='w-full lg:w-2/3'>
             <ChaptersTableofContents
             viewer={true}
             story={story}
           ></ChaptersTableofContents>
           </div>
+          <div className='w-full lg:w-1/3'>  
           <CommentSection
             comments={story.comments}
             storyId={story.id}
-            fill={false}
-          ></CommentSection>
+            fill={true}
+            ></CommentSection>
+          </div>
         </div>
       </div>
     </div>

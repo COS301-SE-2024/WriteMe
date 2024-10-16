@@ -32,6 +32,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import { useBlockNoteEditor } from '@blocknote/react';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@writeme/wmc/lib/ui/dialog';
 import { createSession, createViewableSession } from 'apps/writeme/services/client-services';
+import { ToastAction } from '@writeme/wmc/lib/ui/toast';
 dayjs.extend(relativeTime)
 // interface LocalNavbarProps {
 //   title: string;
@@ -398,7 +399,13 @@ const LocalNavbar = () => {
         variant: "default"
       })
 
-      router.push(`/stories/${chapter.storyId}/${chapter.id}`);
+      toast({
+        title: "Chapter Published Successfully",
+        description: "Ensure that the story is pubished",
+          action: <ToastAction onClick={() => router.push(`/myworks/${chapter.storyId}/edit`)} altText={'Go To Story Edit Page'}>Publish Story</ToastAction>
+      })
+      
+      // router.push(`/stories/${chapter.storyId}/${chapter.id}`);
 
     } catch (error: any) {
       setError(true);
@@ -422,7 +429,7 @@ const LocalNavbar = () => {
         <div className="flex gap-2">
           {/*<Button variant='default'> Preview </Button>*/}
           <VersionsSheet chapterId={chapter.id}></VersionsSheet>
-          <Link href={`/myworks/${chapter.storyId}/write/${chapter.id}/edit`}>
+          <Link className='hidden md:flex' href={`/myworks/${chapter.storyId}/write/${chapter.id}/edit`}>
             <Button variant='default'> Edit </Button>
           </Link>
           <Dialog>
@@ -443,8 +450,8 @@ const LocalNavbar = () => {
               <DialogFooter></DialogFooter>
             </DialogContent>
           </Dialog>
-          <Button variant='default' onClick={(e) => onSave(e)}> Save </Button>
-          <Button variant='default' onClick={(e) => onPublish(e)}> Publish </Button>
+          <Button className='hidden md:flex' variant='default' onClick={(e) => onSave(e)}> Save </Button>
+          <Button className='hidden md:flex' variant='default' onClick={(e) => onPublish(e)}> Publish </Button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant='outline' size='icon'>
@@ -458,6 +465,21 @@ const LocalNavbar = () => {
                 <Download className="mr-2 h-4 w-4"></Download>
                 <span>Export PDF</span>
                 <DropdownMenuShortcut>⌘E</DropdownMenuShortcut>
+              </DropdownMenuItem>
+
+
+              {/* All Options for mobile devices */}
+
+              <DropdownMenuItem className='flex md:hidden'>
+                <Link href={`/myworks/${chapter.storyId}/write/${chapter.id}/edit`}>
+                  Edit
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem className='flex md:hidden' onClick={(e) => onSave(e)} >
+                <span>Save</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem className='flex md:hidden' onClick={(e) => onPublish(e)} >
+                <span>Publish</span>
               </DropdownMenuItem>
 
             </DropdownMenuContent>

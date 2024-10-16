@@ -43,7 +43,7 @@ const Writeathons = async (props: WriteathonProps) => {
             <CardTitle className="text-center">Live Writeathons</CardTitle>
           </CardHeader>
           <CardContent>
-            <BentoGrid className="max-w-6xl mx-auto md:auto-rows-[20rem]">
+            <BentoGrid className="max-w-6xl grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto lg:auto-rows-[20rem]">
               {writeathons.map((writeathon, i) => (
                 <Card
                   className={cn('row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-white border border-transparent justify-between flex flex-col space-y-4', i === 3 || i === 6 ? 'md:col-span-2' : '')}
@@ -51,8 +51,9 @@ const Writeathons = async (props: WriteathonProps) => {
                 >
                   <CardHeader>
                     <div className="flex gap-2 justify-evenly">
-                      <div className="relative aspect-[3/4] h-40">
+                      <div className="relative aspect-[3/4] h-40 overflow-hidden">
                         <img
+                          className='object-cover'
                           alt="Writeathon Cover"
                           src={writeathon.cover || BookCover}
                           layout="fill"
@@ -60,8 +61,8 @@ const Writeathons = async (props: WriteathonProps) => {
                         />
                       </div>
                       <div className="pl-3 flex flex-col gap-2 justify-between">
-                        <CardTitle>{writeathon.title}</CardTitle>
-                        <CardDescription>{writeathon.brief}</CardDescription>
+                        <CardTitle className='text-ellipsis	'>{writeathon.title}</CardTitle>
+                        <CardDescription className='text-ellipsis	'>{writeathon.brief}</CardDescription>
 
                         <Button asChild variant="default">
                           <Link href={`/writeathons/${writeathon.id}`}>
@@ -75,11 +76,12 @@ const Writeathons = async (props: WriteathonProps) => {
                           className="font-bold">{format(writeathon?.endDate as Date, 'PPP')}</span></CardDescription>
                       </div>
                     </div>
-                  </CardHeader>
-                  <CardContent className="flex justify-between">
+                  <div className="flex flex-col justify-between">
                     <span>Ending in...</span>
                     <WriteathonCountDown date={writeathon.endDate} withRefresh={false}/>
-                  </CardContent>
+                  </div>
+                  </CardHeader>
+                  
                 </Card>
               ))}
               {writeathons.length == 0 && (<h3 className="col-span-3">There are currently no live writeathons.</h3>)}
@@ -96,7 +98,7 @@ const Writeathons = async (props: WriteathonProps) => {
             <CardTitle className="text-center">Upcomming Writeathons</CardTitle>
           </CardHeader>
           <CardContent>
-            <BentoGrid className="max-w-6xl mx-auto md:auto-rows-[20rem]">
+            <BentoGrid className="max-w-6xl grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto md:auto-rows-[20rem]">
               {upcomming_writeathons.map((writeathon, i) => (
                 <Card
                   className={cn('row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-white border border-transparent justify-between flex flex-col space-y-4', i === 3 || i === 6 ? 'md:col-span-2' : '')}
@@ -104,8 +106,9 @@ const Writeathons = async (props: WriteathonProps) => {
                 >
                   <CardHeader>
                     <div className="flex gap-2 justify-evenly">
-                      <div className="relative aspect-[3/4] h-40">
+                      <div className="relative aspect-[3/4] h-40 overflow-hidden overflow-hidden">
                         <img
+                        className='object-contain'
                           alt="Writeathon Cover"
                           src={writeathon.cover || BookCover}
                           layout="fill"
@@ -113,8 +116,8 @@ const Writeathons = async (props: WriteathonProps) => {
                         />
                       </div>
                       <div className="pl-3 flex flex-col gap-2 justify-between">
-                        <CardTitle>{writeathon.title}</CardTitle>
-                        <CardDescription>{writeathon.brief}</CardDescription>
+                        <CardTitle className='text-ellipsis'>{writeathon.title}</CardTitle>
+                        <CardDescription className='text-ellipsis'>{writeathon.brief}</CardDescription>
 
                         <Button asChild variant="default">
                           <Link href={`/writeathons/${writeathon.id}`}>
@@ -126,13 +129,13 @@ const Writeathons = async (props: WriteathonProps) => {
                           className="font-bold">{format(writeathon?.startDate as Date, 'PPP')}</span></CardDescription>
                         <CardDescription>End Date: <span
                           className="font-bold">{format(writeathon?.endDate as Date, 'PPP')}</span></CardDescription>
-                      </div>
                     </div>
-                  </CardHeader>
-                  <CardContent className="flex justify-between">
+                    </div>
+                    <div className="flex flex-col justify-between">
                     <span>Starting in...</span>
                     <WriteathonCountDown date={writeathon.startDate} withRefresh={false}/>
-                  </CardContent>
+                  </div>
+                  </CardHeader>
                 </Card>
               ))}
               {upcomming_writeathons.length == 0 && (

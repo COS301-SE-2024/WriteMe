@@ -9,6 +9,7 @@ import LocalNavbar from './local-navbar';
 // import EditorController from './editor-controller';
 import EditorUtils from './editor-utilities';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator} from '@writeme/wmc/lib/ui/breadcrumb';
+import { notFound } from "next/navigation";
 
 const EditorController = dynamic(() => import("./editor-controller"), {ssr: false});
 const EditorLoader = dynamic(() => import("./editor-loader"), { ssr: false });
@@ -42,6 +43,10 @@ export default async function Write(props: WriteProps) {
   // const story = await getStory(props.params.story);
   const chapter = await getChapter(props.params.chapter)
 
+  if (!chapter) {
+    notFound();
+  }
+
   return (
     <div className="min-h-screen">
       <EditorLoader inputChapter={chapter}>
@@ -50,7 +55,7 @@ export default async function Write(props: WriteProps) {
       <div className='z-1 relative'>
         <ResizablePanelGroup direction='horizontal'>
           <ResizablePanel defaultSize={75}>
-            <div className="grow p-8 flex justify-center" id="editor-main-panel">
+            <div className="grow p-2 md:p-8 flex justify-center" id="editor-main-panel">
               <div className="w-[90ch]">
                 <EditorController></EditorController>
               </div>

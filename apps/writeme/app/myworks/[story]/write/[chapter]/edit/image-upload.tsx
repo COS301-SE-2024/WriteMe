@@ -16,7 +16,7 @@ export default function ChapterImageUpload({chapter}: any) {
                 currentFile,
                 setCurrentFile
             }}>
-                <div className="h-48">
+                <div className="h-48 aspect-sqaure  overflow-hidden">
                     <img className="w-full h-full object-contain min-h-0" alt={chapter.title} src={currentFile}></img>
                 </div>
                 <FileUpload></FileUpload>

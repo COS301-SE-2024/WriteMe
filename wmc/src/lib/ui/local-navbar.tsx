@@ -18,7 +18,7 @@ import {
 } from '@writeme/wmc/lib/ui/popover';
 import { useOnborda } from 'onborda';
 import { ReactNode, useEffect } from 'react';
-import { CircleHelp, Home } from 'lucide-react';
+import { CircleHelp, Home, Menu } from 'lucide-react';
 import { Search } from 'lucide-react';
 import { SearchModal } from '@writeme/wmc/lib/ui/search-modal';
 
@@ -29,12 +29,19 @@ import {
   TooltipTrigger,
 } from './tooltip';
 import { Badge } from './badge';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from './dropdown-menu';
 
 export interface LocalNavbarProps {
   children?: ReactNode;
 }
 
-const LocalNavbar = ({children} : LocalNavbarProps) => {
+const LocalNavbar = ({ children }: LocalNavbarProps) => {
   const pathname = usePathname();
 
   const { data: session } = useSession();
@@ -42,7 +49,7 @@ const LocalNavbar = ({children} : LocalNavbarProps) => {
   const { startOnborda, currentStep, closeOnborda } = useOnborda();
 
   useEffect(() => {
-    if (currentStep === 10){
+    if (currentStep === 10) {
       closeOnborda();
     }
   }, [currentStep]);
@@ -86,83 +93,129 @@ const LocalNavbar = ({children} : LocalNavbarProps) => {
         pathname.startsWith('/writeathons') ||
         pathname.startsWith('/stories') ||
         pathname == '/myworks/new' ? (
-          <div className="flex gap-2 items-center">
-            {session ? (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant={'outline'}
-                    size={'icon'}
-                    onClick={() => {
-                      startOnborda("beginner");
-                    }}
-                  >
-                    <CircleHelp className="size-4" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent side="bottom" sideOffset={8}>
-                  <p>Click to start Tutorial</p>
-                </TooltipContent>
-              </Tooltip>
-            ) : null}
-            {session ? (
-              <Link
-                href="/myworks"
-                className={cn(
-                  buttonVariants({ variant: 'link' }),
-                  pathname == '/myworks' ? 'underline' : ''
-                )}
-              >
-                My Stories
-              </Link>
-            ) : (
-              <></>
-            )}
-            {session ? (
-              <Link
-                id="new-my-works"
-                href="/myworks/new"
-                className={cn(
-                  buttonVariants({ variant: 'link' }),
-                  pathname == '/myworks/new' ? 'underline' : ''
-                )}
-              >
-                New Story
-              </Link>
-            ) : (
-              <></>
-            )}
-            {session ? (
-              <div className="relative">
+          <>
+            <div className="hidden md:flex gap-2 items-center">
+              {session ? (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant={'outline'}
+                      size={'icon'}
+                      onClick={() => {
+                        startOnborda('beginner');
+                      }}
+                    >
+                      <CircleHelp className="size-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom" sideOffset={8}>
+                    <p>Click to start Tutorial</p>
+                  </TooltipContent>
+                </Tooltip>
+              ) : null}
+              {session ? (
                 <Link
-                  id="writeathons"
-                  href="/writeathons"
+                  href="/myworks"
                   className={cn(
                     buttonVariants({ variant: 'link' }),
-                    pathname == '/writeathons' ? 'underline' : ''
+                    pathname == '/myworks' ? 'underline' : ''
                   )}
                 >
-                  Writeathons
+                  My Stories
                 </Link>
-              </div>
-            ) : (
-              <></>
-            )}
-
-            <Link
-              href="/stories"
-              className={cn(
-                buttonVariants({ variant: 'link' }),
-                pathname == '/stories' ? 'underline' : ''
+              ) : (
+                <></>
               )}
-            >
-              Explore
-            </Link>
-            {session ? <SearchModal /> : <></>}
-          </div>
-        ) : undefined}
+              {session ? (
+                <Link
+                  id="new-my-works"
+                  href="/myworks/new"
+                  className={cn(
+                    buttonVariants({ variant: 'link' }),
+                    pathname == '/myworks/new' ? 'underline' : ''
+                  )}
+                >
+                  New Story
+                </Link>
+              ) : (
+                <></>
+              )}
+              {session ? (
+                <div className="relative">
+                  <Link
+                    id="writeathons"
+                    href="/writeathons"
+                    className={cn(
+                      buttonVariants({ variant: 'link' }),
+                      pathname == '/writeathons' ? 'underline' : ''
+                    )}
+                  >
+                    Writeathons
+                  </Link>
+                </div>
+              ) : (
+                <></>
+              )}
 
-        <div className="flex items-center gap-4">
+              <Link
+                href="/stories"
+                className={cn(
+                  buttonVariants({ variant: 'link' }),
+                  pathname == '/stories' ? 'underline' : ''
+                )}
+              >
+                Explore
+              </Link>
+            </div>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button className="flex md:hidden" variant={'outline'} size={'icon'}>
+                  <Menu  />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>
+                  <Link
+                    href="/myworks"
+                    className={cn(pathname == '/myworks' ? 'underline' : '')}
+                  >
+                    My Stories
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link
+                    href="/myworks/new"
+                    className={cn(
+                      pathname == '/myworks/new' ? 'underline' : ''
+                    )}
+                  >
+                    New Story
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link
+                    href="/writeathons"
+                    className={cn(
+                      pathname == '/writeathons' ? 'underline' : ''
+                    )}
+                  >
+                    Writeathons
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => {
+                    startOnborda('beginner');
+                  }}
+                >
+                  <span>Start OnBoarding</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </>
+        ) : undefined}
+        <div className="flex items-center gap-1 md:gap-4">
+          {session ? <SearchModal /> : <></>}
           {pathname == '/' ? (
             <Link
               href="/stories"

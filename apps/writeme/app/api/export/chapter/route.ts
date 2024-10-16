@@ -14,7 +14,9 @@ export async function POST(req: Request) {
     }
 
     const input = exportChapterSchema.parse(await req.json());
+    console.log(input)
     const chapter = await getPublishedChapter(input.id);
+    console.log(chapter)
 
     if (!chapter) {
       return new NextResponse(

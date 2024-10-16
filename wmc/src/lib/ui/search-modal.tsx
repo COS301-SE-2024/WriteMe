@@ -4,6 +4,7 @@ import { Input } from "@writeme/wmc/lib/ui/input"
 import { Search } from "lucide-react"
 import { useEffect, useState } from 'react'
 import { Dialog, DialogContent, DialogTrigger } from "./dialog";
+import { toast } from "./use-toast";
 
 
 export function SearchModal() {
@@ -93,13 +94,14 @@ export function SearchModal() {
               {results.map((result) => (
                 <a key={result.id} href={`/stories/${result.id}`} className="search-result-item flex items-center space-x-4 p-2 rounded hover:bg-gray-100 transition duration-200">
                   {result.cover && (
-                    <img src={result.cover} alt={result.title} className="w-16 h-20 rounded" />
+                    <img src={result.cover} alt={result.title} className="w-16 h-20 rounded object-cover" />
                   )}
                   <span className="text-lg font-semibold">{result.title}</span>
                 </a>
               ))}
             </div>
           )}
+          {results.length ===0 && (<span className="text-lg font-semibold">There are currently no matching results.</span>)}
         </div>
       </DialogContent>
     </Dialog>

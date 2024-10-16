@@ -7,6 +7,7 @@ import { chapters, stories, versions } from '../../../db/schema';
 import { db } from '../../../db/db';
 import { eq } from 'drizzle-orm';
 import { updateStorySchema } from '../../../db/story-schema';
+import { isStoryOwner } from 'apps/writeme/services/stories';
 
 export type NewChapter = typeof chapters.$inferInsert;
 const insertChapter = async (chapter: NewChapter) => {
@@ -26,6 +27,12 @@ export async function POST(req: Request) {
     }
 
     const { brief, title, description, storyId } = createChapterSchema.parse(await req.json());
+
+    if (!isStoryOwner(session.user.id || "", storyId)){
+      return new NextResponse(JSON.stringify({
+        status: 'fail', message: "Not Authorised to Add chapters to this story",
+      }), { status : 401})
+    }
 
 
     // @ts-ignore

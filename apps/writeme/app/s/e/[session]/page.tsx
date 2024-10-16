@@ -32,6 +32,7 @@ import LoaderSpinner from 'apps/writeme/components/loader-spinner';
 import DeleteSessionButton from '../../DeleteSessionButton';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@writeme/wmc/lib/ui/resizable';
 import {ServerBlockNoteEditor} from "@blocknote/server-util"
+import { ScrollArea } from '@writeme/wmc/lib/ui/scroll-area';
 
 const LocalNavbar = dynamic(() => import("@writeme/wmc/lib/ui/local-navbar"), {ssr:false})
 const CollabEditorWrapper = dynamic(() => import('./CollabEditor'), {
@@ -106,13 +107,15 @@ export default async function Page({ params }: ChapterProps) {
           <ResizablePanel defaultSize={75}>
             <div className="w-full p-2">
               <Suspense fallback={<LoaderSpinner />}>
+              <ScrollArea className='h-screen'>
                 <CollabEditorWrapper
                   inputBlocks={v.chapter.blocks}
                   sessionId={v.id}
                   chapterId={v.chapter.id}
                   owner={owner}
                   chapter={v.chapter}
-                />
+                  />
+                  </ScrollArea>
               </Suspense>
             </div>
           </ResizablePanel>
